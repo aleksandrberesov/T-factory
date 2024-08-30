@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { createChart } from 'lightweight-charts';
-//import { tvChart } from "./src/tvchart.tsx"
+import SelectedTab from "./lib/button";
 
 export default function Home() {
 
@@ -28,7 +28,7 @@ export default function Home() {
             />
           </a>
           <div>
-            
+          <SelectedTab />  
           </div>
       </div>  
     </main>

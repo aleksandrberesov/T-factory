@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { createChart } from 'lightweight-charts';
 
+
 export default function Home() {
 
   //const firstChart = createChart(window.document.getElementById('chat-container'));
@@ -26,6 +27,7 @@ export default function Home() {
               priority
             />
           </a>
+        
       </div>  
     </main>
   );
