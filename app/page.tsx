@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { createChart } from 'lightweight-charts';
+//import { tvChart } from "./src/tvchart.tsx"
 
 export default function Home() {
 
@@ -20,12 +21,15 @@ export default function Home() {
             <Image
               src="/vercel.svg"
               alt="Vercel Logo"
-              className="dark:invert"
+              className="light:invert"
               width={100}
               height={24}
               priority
             />
           </a>
+          <div>
+            
+          </div>
       </div>  
     </main>
   );
