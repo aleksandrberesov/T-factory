@@ -16,12 +16,12 @@ export default function Home() {
   useEffect(() => {
     let ignore = false; 
     if (!ignore){
-        //FullScreen();
+        FullScreen();
 
         return ()=>{
           console.log(ignore);
           ignore = true;
-          FullScreen();
+          //FullScreen();
         };            
     }
   }, [t_id]);
