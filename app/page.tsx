@@ -1,7 +1,13 @@
-//import Image from "next/imag1e";
+"use client";
+
+import Image from "next/image";
 
 import SelectedTab from "./lib/button";
 import ChartView from "./lib/chart";
+
+const Doclick = () => {
+  alert("button clicked");
+}
 
 export default function Home() {
 
@@ -17,8 +23,8 @@ export default function Home() {
         <ChartView />
       </div>  
       <div className = "flex min-h-screen flex-col items-left">
-        <SelectedTab title="Sell"/> 
-        <SelectedTab title="Buy"/>  
+        <SelectedTab title="Sell" backgroundcolor="green" onclick={Doclick} /> 
+        <SelectedTab title="Buy" backgroundcolor="red"/>  
       </div>  
     </main>
   );
