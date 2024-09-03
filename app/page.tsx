@@ -31,7 +31,10 @@ export default function Home() {
   }, [t_id]);
 
   return (
-    <main  className="min-h-screen lg:flex text-lg flex-col">
+    <main  
+      className="h-dvh w-dvh bg-green-500"
+      //className="min-h-screen lg:flex text-lg flex-col"
+    >
 
       <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
           telegram page
