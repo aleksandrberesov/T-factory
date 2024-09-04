@@ -8,6 +8,8 @@ import ChartView from "./lib/chart";
 import InputTab from "./lib/input";
 import NavigationFrame from "./frames/frame_navigation";
 import TradingFrame from "./frames/frame_trading";
+import ProfileFrame from "./frames/frame_profile";
+import StatisticFrame from "./frames/frame_statistic";
 
 const DoSellclick = () => {
   alert("button Sell clicked");
@@ -35,7 +37,8 @@ export default function Home() {
     >
       <NavigationFrame/>
       <TradingFrame/>
-           
+      <ProfileFrame/>
+      <StatisticFrame/>     
     </main>
   );
 }
