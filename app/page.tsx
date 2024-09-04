@@ -40,13 +40,13 @@ export default function Home() {
       > 
         <ChartView />
       </div>  
-      <div className ="flex flex-row w-full justify-center">
-        <SelectedTab title="Sell" backgroundcolor="green" onclick={DoSellclick} /> 
+      <div className ="flex flex-row w-full justify-left">
+        <SelectedTab title="Sell" backgroundcolor="green" onclick={DoSellclick}/> 
         <InputTab title="1000"/>
         <SelectedTab title="Buy" backgroundcolor="red" onclick={DoBuyclick}/>  
         <SelectedTab title="Close" backgroundcolor="blue" onclick={DoBuyclick}/> 
       </div>  
-      <div className="flex flex-row w-full justify-center">
+      <div className="flex flex-row w-full justify-left">
         <SelectedTab icon_image="/icons/play.svg" backgroundcolor="gray" onclick={DoBuyclick}/> 
         <SelectedTab icon_image="/icons/pause.svg" backgroundcolor="gray" onclick={DoBuyclick}/> 
         <InputTab title="1x"/>
