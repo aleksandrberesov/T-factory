@@ -32,7 +32,7 @@ export default function Home() {
     <main  
       className="h-dvh w-dvh bg-gray-500 flex-col"
     >
-      <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
+      <p className="left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
           telegram page
       </p>      
       <div
@@ -40,13 +40,13 @@ export default function Home() {
       > 
         <ChartView />
       </div>  
-      <div className ="flex flex-row items-left w-full justify-center">
+      <div className ="flex flex-row w-full justify-center">
         <SelectedTab title="Sell" backgroundcolor="green" onclick={DoSellclick} /> 
         <InputTab title="1000"/>
         <SelectedTab title="Buy" backgroundcolor="red" onclick={DoBuyclick}/>  
         <SelectedTab title="Close" backgroundcolor="blue" onclick={DoBuyclick}/> 
       </div>  
-      <div className="flex flex-row items-left w-full justify-center">
+      <div className="flex flex-row w-full justify-center">
         <SelectedTab icon_image="/icons/play.svg" backgroundcolor="gray" onclick={DoBuyclick}/> 
         <SelectedTab icon_image="/icons/pause.svg" backgroundcolor="gray" onclick={DoBuyclick}/> 
         <InputTab title="1x"/>
