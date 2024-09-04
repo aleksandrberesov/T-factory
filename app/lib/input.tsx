@@ -9,8 +9,9 @@ function InputTab(buttonprops: TButtonProps) {
     };
     return (
         <input
-            //style={{ backgroundColor: buttonprops.backgroundcolor, color: 'white', padding: '10px 20px', border: 'none', borderRadius: '5px' }}
+            style={{ backgroundColor: buttonprops.backgroundcolor, color: 'black'}}
             //onClick={buttonprops.onclick}
+            className=""
             type = "text"       
             value = {value}
             onChange={handleChange}
