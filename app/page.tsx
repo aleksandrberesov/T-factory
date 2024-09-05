@@ -18,8 +18,19 @@ const DoBuyclick = () => {
   alert("button Buy clicked");
 }
 
+
 export default function Home() {
-  //const t_id = useId(); 
+  
+  const Frames = [
+    {id: 0 , element: <ProfileFrame/>},
+    {id: 1 , element: <TradingFrame/>} ,
+    {id: 2 , element: <StatisticFrame/>}   
+  ];
+  const [component, SetComponent] = useState(Frames[1].element); 
+
+  const ChangeFrame = (id: number) => {
+    SetComponent(Frames[id].element);
+  };
 
   useEffect(() => {
     let ignore = false; 
@@ -35,10 +46,11 @@ export default function Home() {
     <main  
       className="h-dvh w-dvh bg-gray-500 flex-col"
     >
-      <NavigationFrame/>
-      <TradingFrame/>
-      <ProfileFrame/>
-      <StatisticFrame/>     
+      <NavigationFrame
+        onselected = {ChangeFrame}
+      />
+      {component}
+           
     </main>
   );
 }
