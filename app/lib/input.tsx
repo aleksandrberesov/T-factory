@@ -1,5 +1,5 @@
 import React, {useState, ChangeEvent} from "react";
-import { TButtonProps } from "./lib_types"
+import { TButtonProps } from "./types"
 import { number } from "@telegram-apps/sdk";
 
 function InputTab(buttonprops: TButtonProps) {

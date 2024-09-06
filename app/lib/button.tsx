@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import { TButtonProps } from "./lib_types"
+import { TButtonProps } from "./types"
 
 function SelectedTab(buttonprops: TButtonProps) {
     function GetContent(isIcon: boolean){
