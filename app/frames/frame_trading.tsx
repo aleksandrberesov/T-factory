@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useId } from 'react';
-import SelectedTab from "../lib/button";
-import ChartView from "../lib/chart";
-import InputTab from "../lib/input";
+import SelectedTab from "../components/button";
+import ChartView from "../tradingview/chartview";
+import InputTab from "../components/edit";
 
 const DoSellclick = () => {
     alert("button Sell clicked");
