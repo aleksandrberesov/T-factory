@@ -22,7 +22,7 @@ function TradingFrame(){
                 <ChartView />
             </div>
             <div
-                className='grid grid-cols-4 gap-4'
+                className='grid grid-cols-4 gap-1'
             >
                 <SelectedTab title="Sell" backgroundcolor="green" onclick={DoSellclick}/> 
                 <InputTab title="1000"/>
@@ -30,7 +30,7 @@ function TradingFrame(){
                 <SelectedTab title="Close" backgroundcolor="blue" onclick={DoBuyclick}/>
             </div>
             <div
-                className='grid grid-cols-6 gap-4'
+                className='grid grid-cols-6 gap-1'
             >
                 <SelectedTab icon_image="/icons/play.svg" backgroundcolor="gray" onclick={DoBuyclick}/> 
                 <SelectedTab icon_image="/icons/pause.svg" backgroundcolor="gray" onclick={DoBuyclick}/> 
@@ -38,27 +38,7 @@ function TradingFrame(){
                 <SelectedTab icon_image="/icons/next.svg" backgroundcolor="gray" onclick={DoBuyclick}/> 
                 <SelectedTab icon_image="/icons/stop.svg" backgroundcolor="gray" onclick={DoBuyclick}/> 
                 <SelectedTab icon_image="/icons/settings.svg" backgroundcolor="gray" onclick={DoBuyclick}/>
-            </div>            
-            <nav className="bg-gray-800">
-                <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 justify-center">
-                    <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-center">
-                        <div >
-                            <div className="flex space-x-3 justify-center">    
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </nav>  
-            <nav className="bg-gray-800">
-                <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 justify-center">
-                    <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-center">
-                        <div >
-                            <div className="flex space-x-3 justify-center">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </nav>    
+            </div>                
         </div>
     );
 }
