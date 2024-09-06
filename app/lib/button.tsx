@@ -5,7 +5,7 @@ import { TButtonProps } from "./lib_types"
 function SelectedTab(buttonprops: TButtonProps) {
     function GetContent(isIcon: boolean){
         if (isIcon){
-            return(<img src={buttonprops.icon_image} alt="icon" width="50" height="50"></img>);   
+            return(<Image src={buttonprops.icon_image!} alt="icon" width="25" height="25"/>);   
         }else{
             return(buttonprops.title);
         }
@@ -20,11 +20,12 @@ function SelectedTab(buttonprops: TButtonProps) {
         } 
     };
 
+    const buttonstyle = [buttonprops.style, "flex", "items-center", "justify-center"].join(" ");
     return (
         <button
             style={{ backgroundColor: buttonprops.backgroundcolor, color: 'white', padding: '10px 20px', border: 'none', borderRadius: '5px' }}
             onClick={Doclick}
-            className={buttonprops.style}
+            className={buttonstyle}
         >
             {GetContent(buttonprops.icon_image !== undefined)}
         </button>
