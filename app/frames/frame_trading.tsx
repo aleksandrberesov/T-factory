@@ -15,7 +15,7 @@ function TradingFrame(){
     
     return (
         <div
-            className="h-dvh w-dvh bg-black flex-col gap-y-10"
+            className="h-dvh w-dvh bg-transparent flex-col gap-y-10"
         >
             <div
                 className="h-1/2 m-2"
@@ -23,7 +23,7 @@ function TradingFrame(){
                 <ChartView />
             </div>
             <div
-                className='grid grid-rows-3 grid-flow-col gap-4'    
+                className='grid grid-rows-3 grid-flow-col gap-2 m-2'    
             >
                 <div
                     className='bg-gray-500 flex-col gap-y-1 row-span-3'

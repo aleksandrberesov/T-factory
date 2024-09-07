@@ -33,7 +33,7 @@ export default function Home() {
 
   return (
     <main  
-      className="h-dvh w-dvh bg-gray-500 flex-col"
+      className="h-dvh w-dvh bg-black flex-col"
     >
       <NavigationFrame
         onselected = {ChangeFrame}
