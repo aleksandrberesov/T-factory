@@ -1,8 +1,6 @@
 type TOnClickFunction = () => void;
 type TOnSelectedFunction = (id: number) => void;
 
-type TTitle = string | number;
-
 type TButtonProps = {
     id  ?: number;
     title ?: string | number;
@@ -17,4 +15,10 @@ type TNavigationProps = {
     onselected ?: TOnSelectedFunction;
 };
 
-export type { TButtonProps, TNavigationProps } ;
+type TLabelProps ={
+    title : string;
+    value ?: string | number;
+    unit ?: string;    
+};
+
+export type { TButtonProps, TLabelProps, TNavigationProps } ;
