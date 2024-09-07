@@ -6,7 +6,7 @@ function LabelItem(labelprops: TLabelProps) {
         <p
             className="text-black"
         >
-            {labelprops.title} {labelprops.value} {labelprops.unit}
+            {labelprops.title} {labelprops.value} {labelprops.symbol}
         </p>
     );
 }

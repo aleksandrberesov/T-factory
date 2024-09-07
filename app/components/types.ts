@@ -18,7 +18,7 @@ type TNavigationProps = {
 type TLabelProps ={
     title : string;
     value ?: string | number;
-    unit ?: string;    
+    symbol ?: string;    
 };
 
 export type { TButtonProps, TLabelProps, TNavigationProps } ;

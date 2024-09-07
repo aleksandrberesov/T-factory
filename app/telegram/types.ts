@@ -1,7 +1,8 @@
+import { TUser } from "../models/types"
+
 export interface ITelegramUser {
     id: number;
-    first_name: string;
-    last_name: string;
+    user: TUser;
     username: string;
     language_code: string;
   }
