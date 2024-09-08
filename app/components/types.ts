@@ -3,7 +3,7 @@ type TOnSelectedFunction = (id: number) => void;
 
 type TButtonProps = {
     id  ?: number;
-    title ?: string | number;
+    title ?: string;
     icon_image ?: string;
     backgroundcolor ?: string;
     onclick ?: TOnClickFunction;
@@ -13,6 +13,7 @@ type TButtonProps = {
 
 type TNavigationProps = {
     onselected ?: TOnSelectedFunction;
+    lang : string;
 };
 
 type TLabelProps ={

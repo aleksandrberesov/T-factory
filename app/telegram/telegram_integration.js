@@ -1,12 +1,16 @@
 import { initViewport, retrieveLaunchParams } from '@telegram-apps/sdk';
 
+export function IsTelegramAvailable(){
+  return true;
+};
+
 export async function FullScreen(){
     const [viewport] = initViewport();
 
     const vp = await viewport;
   
-    if (!vp.isExpanded) {
-        vp.expand(); // will expand the Mini App, if it's not
+    if (!vp.isExpanded) { 
+        vp.expand();
     }
 }
 
@@ -15,29 +19,23 @@ export function GetUserData(){
         first_name : "no name",
         last_name :  "no lastname"
     };
+    let ID = 0;
+    let LangCode = "en";
 
     try {
-        // Code that may throw an exception
         const { initDataRaw, initData } = retrieveLaunchParams();
         User.first_name = initData.user.firstName;
         User.last_name = initData.user.lastName;
+        ID = initData.user.id;
+        LangCode = initData.user.languageCode;
       } catch (error) {
-        // Code to handle the exception
         console.error('An error occurred:', error.message);
       } finally {
-        // Code that will always run, regardless of an error
-        return User;
-        //console.log('This will always execute');
+          return {
+            id: ID,
+            lang: LangCode,
+            user: User
+          }
       }
-    
-    //const user = initData.user;
-    //const username = user.username;
-    //return 
-    //{
-        //       initData.user.id;
-        //first_name : initData.user.firstName,
-        //last_name : initData.user.lastName
-        //+' '+user.languageCode;
-    //}
 }
  

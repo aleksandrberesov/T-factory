@@ -10,19 +10,11 @@ import ProfileFrame from "./frames/frame_profile";
 import StatisticFrame from "./frames/frame_statistic";
 
 export default function Home() {
-  let User: TUser; 
-  User = GetUserData();
-
-  //const User : TUser;
-  //User = GetUserData();
-
-  //const User = {
-  //  first_name: "first_name",
-  //  last_name: "last_name"
-  //};
+  
+  const { id, lang , user } = GetUserData();
 
   const Frames = [
-    {id: 0 , element: <ProfileFrame user = {User}/>},
+    {id: 0 , element: <ProfileFrame user = {user}/>},
     {id: 1 , element: <TradingFrame/>} ,
     {id: 2 , element: <StatisticFrame/>}   
   ];
@@ -47,9 +39,11 @@ export default function Home() {
       className="h-dvh w-dvh bg-black"
     >
       <NavigationFrame
-        onselected = {ChangeFrame}
+        onselected = {ChangeFrame} 
+        lang = {lang}
       />
       {component}
+      <p className="bg-green-300"> {id} </p>
     </main>
   );
 }
