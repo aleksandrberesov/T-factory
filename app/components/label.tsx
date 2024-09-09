@@ -1,7 +1,7 @@
 import React from "react";
 import { TLabelProps } from "./types";
 
-function LabelItem(labelprops: TLabelProps) {
+function LabelBox(labelprops: TLabelProps) {
     return (
         <p
             className="text-black"
@@ -11,4 +11,4 @@ function LabelItem(labelprops: TLabelProps) {
     );
 }
 
-export default LabelItem;
+export default LabelBox;

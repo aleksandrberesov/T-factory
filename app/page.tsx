@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { FullScreen, GetUserData } from "./telegram/telegram_integration";
 import React, { useEffect, useState, useId } from 'react';
-import { TUser } from "./models/types"
+import { TUser,  } from "./models/types"
 import NavigationFrame from "./frames/frame_navigation";
 import TradingFrame from "./frames/frame_trading";
 import ProfileFrame from "./frames/frame_profile";
@@ -13,10 +13,16 @@ export default function Home() {
   
   const { id, lang , user } = GetUserData();
 
+  const StatData = [{title: "1111111111111", isDone: true }, {title: "1122222222222222", isDone: true}, {title: "33333333333", isDone: false}];
+
   const Frames = [
     {id: 0 , element: <ProfileFrame user = {user}/>},
     {id: 1 , element: <TradingFrame/>} ,
-    {id: 2 , element: <StatisticFrame/>}   
+    {id: 2 , element: <StatisticFrame 
+                        id = {id}
+                        data={StatData}
+                      />
+    }   
   ];
   const [component, SetComponent] = useState(Frames[1].element); 
 
@@ -43,7 +49,7 @@ export default function Home() {
         lang = {lang}
       />
       {component}
-      <p className="bg-green-300"> {id} </p>
+
     </main>
   );
 }

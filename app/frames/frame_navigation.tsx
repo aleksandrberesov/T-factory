@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useId, MouseEvent, MouseEventHandler } from 'react';
-import { TNavigationProps } from "../components/types"
+import { TNavigationProps } from "./types"
 import SelectedTab from '../components/button';
 
 function NavigationFrame(navigationProps: TNavigationProps){

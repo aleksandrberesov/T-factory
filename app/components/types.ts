@@ -1,5 +1,5 @@
-type TOnClickFunction = () => void;
-type TOnSelectedFunction = (id: number) => void;
+import React from "react";
+import { TOnClickFunction, TOnSelectedFunction } from "../models/types"
 
 type TButtonProps = {
     id  ?: number;
@@ -11,15 +11,21 @@ type TButtonProps = {
     style ?: string;
 };
 
-type TNavigationProps = {
-    onselected ?: TOnSelectedFunction;
-    lang : string;
-};
-
-type TLabelProps ={
+type TLabelProps = {
     title : string;
     value ?: string | number;
     symbol ?: string;    
 };
 
-export type { TButtonProps, TLabelProps, TNavigationProps } ;
+type TCheckBoxProps = {
+   title : string;
+   description ?: string;
+   is_checked ?: boolean;
+};
+
+type TListBoxProps = {
+    title : string;
+    elements : {id: number; element: React.JSX.Element}[]
+};
+
+export type { TButtonProps, TLabelProps, TCheckBoxProps, TListBoxProps } ;
