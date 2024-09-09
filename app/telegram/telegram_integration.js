@@ -5,13 +5,18 @@ export function IsTelegramAvailable(){
 };
 
 export async function FullScreen(){
+  try {
     const [viewport] = initViewport();
-
     const vp = await viewport;
   
     if (!vp.isExpanded) { 
         vp.expand();
-    }
+    }  
+  } catch(error) {
+    console.error('An error occurred:', error.message);
+  } finally{
+    console.log('window is full screen:');
+  }   
 }
 
 export function GetUserData(){
@@ -23,19 +28,19 @@ export function GetUserData(){
     let LangCode = "en";
 
     try {
-        const { initDataRaw, initData } = retrieveLaunchParams();
-        User.first_name = initData.user.firstName;
-        User.last_name = initData.user.lastName;
-        ID = initData.user.id;
-        LangCode = initData.user.languageCode;
-      } catch (error) {
-        console.error('An error occurred:', error.message);
-      } finally {
-          return {
-            id: ID,
-            lang: LangCode,
-            user: User
-          }
+      const { initDataRaw, initData } = retrieveLaunchParams();
+      User.first_name = initData.user.firstName;
+      User.last_name = initData.user.lastName;
+      ID = initData.user.id;
+      LangCode = initData.user.languageCode;
+    } catch (error) {
+      console.error('An error occurred:', error.message);
+    } finally {
+      return {
+        id: ID,
+        lang: LangCode,
+        user: User
       }
+    }
 }
  
