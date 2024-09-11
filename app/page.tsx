@@ -13,9 +13,10 @@ import StatisticFrame from "./frames/frame_statistic";
 export default function Home() {
   let currentUser :  TProfile;
   
-  currentUser = defaultUser;
+  currentUser = Object.assign({}, defaultUser, GetUserData());
 
-  let { id, lang , user } = GetUserData();
+
+  //let { id, lang , user } = GetUserData();
 
   const Frames = [
     {id: 0 , 
@@ -58,7 +59,7 @@ export default function Home() {
     >
       <NavigationFrame
         onselected = {ChangeFrame} 
-        lang = {lang}
+        lang = {currentUser.lang}
       />
       {component}
 

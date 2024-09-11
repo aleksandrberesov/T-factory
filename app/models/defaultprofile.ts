@@ -6,6 +6,7 @@ let defaultUser : TProfile = {
         first_name: "default",
         last_name: "user"
     },
+    lang : "en",
     status: "unknown",
     position: "hamster",
     level: 80,

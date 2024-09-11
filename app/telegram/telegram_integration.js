@@ -33,14 +33,18 @@ export function GetUserData(){
       User.last_name = initData.user.lastName;
       ID = initData.user.id;
       LangCode = initData.user.languageCode;
-    } catch (error) {
-      console.error('An error occurred:', error.message);
-    } finally {
       return {
         id: ID,
         lang: LangCode,
         user: User
       }
+    } catch (error) {
+      console.error('An error occurred:', error.message);
+      return {
+        
+      };
+    } finally {
+      
     }
 }
  

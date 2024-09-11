@@ -19,6 +19,7 @@ type TStar = {
 
 type TProfile = {
     id: number;
+    lang: string;
     user: TUser;
     status: string;
     position: string;
