@@ -18,9 +18,9 @@ function StatisticFrame(statprops: TStatisticProps){
             className="h-dvh w-dvh bg-transparent flex-col gap-y-10"
         >
             <div
-                className='grid grid-rows-2 grid-flow-col gap-2 m-2 bg-gray-500'    
+                className='grid grid-rows-1 grid-flow-col gap-2 m-2 bg-gray-500'    
             >   
-                <ListBox title='' elements={statElemets}/>  
+                <ListBox elements={statElemets}/>  
             </div>
         </div>
     );

@@ -3,26 +3,26 @@
 import Image from "next/image";
 import { FullScreen, GetUserData } from "./telegram/telegram_integration";
 import React, { useEffect, useState, useId } from 'react';
-import { TUser,  } from "./models/types"
+import defaultUser from "./models/defaultprofile";
+import { TProfile } from "./models/types";
 import NavigationFrame from "./frames/frame_navigation";
 import TradingFrame from "./frames/frame_trading";
 import ProfileFrame from "./frames/frame_profile";
 import StatisticFrame from "./frames/frame_statistic";
 
 export default function Home() {
+  let currentUser :  TProfile;
   
-  const { id, lang , user } = GetUserData();
+  currentUser = defaultUser;
 
-  const StatData = [{title: "1111111111111", isDone: true }, 
-                    {title: "222222222222", isDone: true}, 
-                    {title: "33333333333", isDone: false}];
+  let { id, lang , user } = GetUserData();
 
   const Frames = [
-    {id: 0 , element: <ProfileFrame user = {user}/>},
+    {id: 0 , element: <ProfileFrame user = {currentUser.user} cards={currentUser.cards} stars={currentUser.stars}/>},
     {id: 1 , element: <TradingFrame/>} ,
     {id: 2 , element: <StatisticFrame 
-                        id = {id}
-                        data={StatData}
+                        id = {currentUser.id}
+                        data={currentUser.statistics}
                       />
     }   
   ];

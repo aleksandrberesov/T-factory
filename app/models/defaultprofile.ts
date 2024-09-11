@@ -3,9 +3,12 @@ import { TProfile } from "./types";
 let defaultUser : TProfile = {
     id : 0,
     user : {
-        first_name: "",
-        last_name: ""
+        first_name: "default",
+        last_name: "user"
     },
+    status: "unknown",
+    position: "hamster",
+    level: 80,
     statistics : [
         {title: "first stat item", isDone: true }, 
         {title: "second stat item", isDone: true}, 

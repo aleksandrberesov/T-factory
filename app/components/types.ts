@@ -1,5 +1,5 @@
 import React from "react";
-import { TOnClickFunction, TOnSelectedFunction } from "../models/types"
+import { TOnClickFunction, TOnSelectedFunction } from "../models/function.types"
 
 type TButtonProps = {
     id  ?: number;
@@ -11,10 +11,20 @@ type TButtonProps = {
     style ?: string;
 };
 
+type TIconTabProps = TButtonProps & {
+
+};
+
 type TLabelProps = {
     title : string;
     value ?: string | number;
     symbol ?: string;    
+};
+
+type TCardTabProps = {
+    title : string;
+    description ?: string;
+    iconURL ?: string;
 };
 
 type TCheckBoxProps = {
@@ -24,7 +34,9 @@ type TCheckBoxProps = {
 };
 
 type TListBoxProps = {
-    title : string;
+    title ?: string;
+    columns ?: number;
+    rows ?: number; 
     elements : {id: number; element: React.JSX.Element}[]
 };
 
@@ -47,4 +59,4 @@ type TRectangleProps = {
     iconURL: string;
 };
 
-export type { TButtonProps, TLabelProps, TCheckBoxProps, TListBoxProps, TCircleProps, TRectangleProps } ;
+export type { TButtonProps, TLabelProps, TCheckBoxProps, TListBoxProps, TCircleProps, TRectangleProps, TIconTabProps, TCardTabProps } ;

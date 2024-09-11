@@ -1,6 +1,3 @@
-type TOnClickFunction = () => void;
-type TOnSelectedFunction = (id: number) => void;
-
 type TUser = {
     first_name: string;
     last_name: string;    
@@ -11,9 +8,26 @@ type TStatisticItem = {
     isDone: boolean;    
 };
 
-type TProfile = {
-    id: number;
-    statistics: TStatisticItem[];
+type TCard = {
+    title : string;
+    description : string;
 };
 
-export type { TUser, TProfile, TOnClickFunction, TOnSelectedFunction, TStatisticItem };
+type TStar = {
+    title : string;
+};
+
+type TProfile = {
+    id: number;
+    user: TUser;
+    status: string;
+    position: string;
+    level: number;
+    statistics: TStatisticItem[];
+    cards : TCard[];
+    stars : TStar[]
+};
+
+
+
+export type { TUser, TProfile, TStatisticItem, TCard, TStar };
