@@ -7,7 +7,6 @@ function NavigationFrame(navigationProps: TNavigationProps){
         <nav className="bg-gray-800">
             <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
                 <div className="flex flex-1 sm:items-stretch sm:justify-center">
-                    
                         <div className="flex space-x-3 ">
                             <SelectedTab
                                 id={0}
@@ -28,7 +27,7 @@ function NavigationFrame(navigationProps: TNavigationProps){
                                 onselected={navigationProps.onselected}
                             />
                         </div>
-                        <div>
+                        <div className='sm:items-stretch'> 
                             <SelectedTab
                                 id={3}
                                 title={navigationProps.lang}

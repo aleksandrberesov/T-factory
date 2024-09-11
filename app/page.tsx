@@ -13,7 +13,9 @@ export default function Home() {
   
   const { id, lang , user } = GetUserData();
 
-  const StatData = [{title: "1111111111111", isDone: true }, {title: "1122222222222222", isDone: true}, {title: "33333333333", isDone: false}];
+  const StatData = [{title: "1111111111111", isDone: true }, 
+                    {title: "222222222222", isDone: true}, 
+                    {title: "33333333333", isDone: false}];
 
   const Frames = [
     {id: 0 , element: <ProfileFrame user = {user}/>},

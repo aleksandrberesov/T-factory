@@ -12,24 +12,15 @@ function StatisticFrame(statprops: TStatisticProps){
             element: <CheckBox title={item.title} is_checked={item.isDone}/>
         }
     });
-    
-    //statprops.data.map<{title: string; isDone: boolean}[]>((item) => 
-    //    {id: 1, element:  <CheckBox title={item.title} is_checked={item.isDone} />}
-    //);
-    
-    /*[
-        {id: 1, element: <CheckBox title='first' />}, 
-        {id: 2, element: <CheckBox title='second' />}
-    ];*/
+
     return(
         <div
             className="h-dvh w-dvh bg-transparent flex-col gap-y-10"
         >
             <div
                 className='grid grid-rows-2 grid-flow-col gap-2 m-2 bg-gray-500'    
-            >
-                <p className="bg-green-300"> {statprops.id} </p>   
-                <ListBox title='current statistic' elements={statElemets}/>  
+            >   
+                <ListBox title='' elements={statElemets}/>  
             </div>
         </div>
     );
