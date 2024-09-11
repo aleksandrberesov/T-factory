@@ -18,12 +18,22 @@ export default function Home() {
   let { id, lang , user } = GetUserData();
 
   const Frames = [
-    {id: 0 , element: <ProfileFrame user = {currentUser.user} cards={currentUser.cards} stars={currentUser.stars}/>},
-    {id: 1 , element: <TradingFrame/>} ,
-    {id: 2 , element: <StatisticFrame 
-                        id = {currentUser.id}
-                        data={currentUser.statistics}
-                      />
+    {id: 0 , 
+     element: <ProfileFrame 
+                user = {currentUser.user} 
+                cards = {currentUser.cards} 
+                stars = {currentUser.stars}
+              />
+    },
+    {id: 1 , 
+     element: <TradingFrame/>
+
+    },
+    {id: 2 , 
+     element: <StatisticFrame 
+                id = {currentUser.id}
+                data = {currentUser.statistics}
+              />
     }   
   ];
   const [component, SetComponent] = useState(Frames[1].element); 
