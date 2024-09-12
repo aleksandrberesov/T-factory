@@ -1,6 +1,7 @@
 import { TProfile } from "./types";
 
-let defaultUser : TProfile = {
+const startFrame = 1;
+const defaultUser : TProfile = {
     id : 0,
     user : {
         first_name: "default",
@@ -28,4 +29,4 @@ let defaultUser : TProfile = {
     ]
 };
 
-export default defaultUser ;
+export { startFrame, defaultUser };

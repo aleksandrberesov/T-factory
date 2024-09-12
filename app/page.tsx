@@ -1,8 +1,8 @@
 "use client";
 
 import { FullScreen, GetUserData } from "./telegram/integration";
-import React, { useEffect, useState, useId } from 'react';
-import defaultUser from "./models/defaultprofile";
+import React, { useEffect, useState } from 'react';
+import { startFrame, defaultUser } from "./models/consts";
 import { TProfile } from "./models/types";
 import NavigationFrame from "./frames/frame.navigation";
 import TradingFrame from "./frames/frame.trading";
@@ -10,7 +10,6 @@ import ProfileFrame from "./frames/frame.profile";
 import StatisticFrame from "./frames/frame.statistic";
 
 export default function Home() {
-  const startFrame = 1;
   let currentUser :  TProfile;
   currentUser = Object.assign({}, defaultUser, GetUserData());
 
