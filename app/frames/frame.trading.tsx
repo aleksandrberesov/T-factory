@@ -3,6 +3,7 @@ import SelectedTab from "../components/button";
 import ChartView from "../tradingview/chartview";
 import InputTab from "../components/edit";
 import LabelBox from '../components/label';
+import {} from "../models/trading"
 
 const DoSellclick = () => {
     alert("button Sell clicked");
