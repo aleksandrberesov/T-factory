@@ -15,10 +15,10 @@ function TradingFrame(){
     
     return (
         <div
-            className="h-dvh w-dvh bg-transparent flex-col gap-y-10"
+            className="h-screen w-screen bg-transparent flex-col gap-y-10"
         >
             <div
-                className="h-1/2 m-2"
+                className="h-3/6 m-2"
             > 
                 <ChartView />
             </div>

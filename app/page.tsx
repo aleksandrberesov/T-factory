@@ -54,15 +54,14 @@ export default function Home() {
   }, []);
 
   return (
-    <main  
-      className="h-dvh w-dvh bg-black"
+    <main 
+      className="h-screen w-screen overflow-hidden bg-black"
     >
       <NavigationFrame
         onselected = {ChangeFrame} 
         lang = {currentUser.lang}
       />
       {component}
-
     </main>
   );
 }
