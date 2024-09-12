@@ -1,22 +1,18 @@
 "use client";
 
-import Image from "next/image";
-import { FullScreen, GetUserData } from "./telegram/telegram_integration";
+import { FullScreen, GetUserData } from "./telegram/integration";
 import React, { useEffect, useState, useId } from 'react';
 import defaultUser from "./models/defaultprofile";
 import { TProfile } from "./models/types";
-import NavigationFrame from "./frames/frame_navigation";
-import TradingFrame from "./frames/frame_trading";
-import ProfileFrame from "./frames/frame_profile";
-import StatisticFrame from "./frames/frame_statistic";
+import NavigationFrame from "./frames/frame.navigation";
+import TradingFrame from "./frames/frame.trading";
+import ProfileFrame from "./frames/frame.profile";
+import StatisticFrame from "./frames/frame.statistic";
 
 export default function Home() {
   let currentUser :  TProfile;
   
   currentUser = Object.assign({}, defaultUser, GetUserData());
-
-
-  //let { id, lang , user } = GetUserData();
 
   const Frames = [
     {id: 0 , 
