@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useId } from 'react';
 import SelectedTab from "../components/button";
-import ChartView from "../tradingview/chartview";
+import ChartView from "../tradingview/chart.view";
 import InputTab from "../components/edit";
 import LabelBox from '../components/label';
 import {} from "../models/trading"
