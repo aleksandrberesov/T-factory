@@ -10,8 +10,8 @@ import ProfileFrame from "./frames/frame.profile";
 import StatisticFrame from "./frames/frame.statistic";
 
 export default function Home() {
+  const startFrame = 1;
   let currentUser :  TProfile;
-  
   currentUser = Object.assign({}, defaultUser, GetUserData());
 
   const Frames = [
@@ -33,7 +33,7 @@ export default function Home() {
               />
     }   
   ];
-  const [component, SetComponent] = useState(Frames[1].element); 
+  const [component, SetComponent] = useState(Frames[startFrame].element); 
 
   const ChangeFrame = (id: number) => {
     SetComponent(Frames[id].element);

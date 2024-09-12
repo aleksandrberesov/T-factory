@@ -4,10 +4,11 @@ import LabelBox from "../components/label"
 import IconTab from '../components/icontab';
 import CardTab from '../components/cardtab';
 import ListBox from '../components/listbox';
+import GridBox from '../components/gridbox';
 
 function ProfileFrame(profileprops: TProfileProps){
     let idCounter = 1;
-
+ 
     const cardElemets = profileprops.cards.map((item) => {
         return {
             id: idCounter++,
@@ -17,19 +18,15 @@ function ProfileFrame(profileprops: TProfileProps){
 
     return(
         <div
-            className="h-dvh w-dvh bg-transparent flex-col gap-y-10"
+            className="h-screen w-screen bg-transparent gap-y-10"
         >
             <div
-                className='grid grid-rows-3 grid-flow-col gap-2 m-2 bg-gray-500'    
+                className='grid-flow-row gap-2 m-2 bg-gray-500'    
             >
-                <LabelBox title={profileprops.user.first_name+" "+profileprops.user.last_name} />
-                <div className='grid grid-rows-2 grid-flow-col gap-1 m-1'>
-                    <IconTab />
-                    <IconTab />
+                <div>
+                    <LabelBox title={profileprops.user.first_name+" "+profileprops.user.last_name} />
                 </div>
-                <div className='grid grid-flow-row grid-cols-2 gap-1 m-1'>
-                    <ListBox elements={cardElemets}/> 
-                </div>
+                <GridBox rows={3} columns={2} elements={cardElemets}/> 
             </div>
         </div>
     );
