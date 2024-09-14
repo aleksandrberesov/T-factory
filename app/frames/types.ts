@@ -1,5 +1,5 @@
-import { TUser, TStatisticItem, TCard, TStar } from "../models/types"
-import { TOnSelectedFunction } from "../models/function.types"
+import { TUser, TStatisticItem, TCard, TStar } from "../models/types";
+import { TOnSelectedFunction } from "../models/function.types";
 
 type TNavigationProps = {
     onselected ?: TOnSelectedFunction;
@@ -16,6 +16,5 @@ type TStatisticProps = {
     id : number;
     data : TStatisticItem[];
 };
-
 
 export type { TProfileProps, TNavigationProps, TStatisticProps } ;

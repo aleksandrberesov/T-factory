@@ -13,16 +13,15 @@ function ChartView( chartviewprops: TChartViewProps) {
 
     useEffect(() => {
         if (isChartLoaded){ return () => { setIsChartLoaded(true); }; }
-
+        
         const chart = createChart(chart_id, chartStyle);
         const lineSeries = chart.addLineSeries(lineStyle);
-        chartviewprops.trade.SetSeries(lineSeries);
-        //chartviewprops.trade = {...chartviewprops.trade, "series": lineSeries};
-        //        const lineRef = useRef(lineSeries);
+
         chart.timeScale().fitContent();
-        //candlestickSeries.setData(data);
+
         lineSeries.setData(Initialdata);
-    }, [chart_id, isChartLoaded, chartviewprops.trade]);
+        chartviewprops.ondataupdate(lineSeries);
+    }, [chart_id, isChartLoaded]);
 
     return (
         <div
