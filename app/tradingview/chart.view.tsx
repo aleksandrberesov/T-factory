@@ -1,24 +1,28 @@
 //'use client';
 
-import React, { useEffect, useState, useId } from 'react';
+import React, { useEffect, useState, useId, useRef } from 'react';
 import { createChart } from 'lightweight-charts';
-import { data, values } from "../models/trading"
+import { Initialdata, Trade } from "../models/trading"
 import { lineStyle, candleStickStyle, chartStyle } from "./chart.styles"
+import { TChartViewProps } from './types';
 
-function ChartView() {
+function ChartView( chartviewprops: TChartViewProps) {
     const [isChartLoaded, setIsChartLoaded] = useState(false);
+    
     const chart_id = useId(); 
 
     useEffect(() => {
-        if (isChartLoaded){ return ()=>{ setIsChartLoaded(true); }; }
+        if (isChartLoaded){ return () => { setIsChartLoaded(true); }; }
 
         const chart = createChart(chart_id, chartStyle);
-        const candlestickSeries = chart.addCandlestickSeries(candleStickStyle);
         const lineSeries = chart.addLineSeries(lineStyle);
-        candlestickSeries.setData(data);
-        lineSeries.setData(values);
+        chartviewprops.trade.SetSeries(lineSeries);
+        //chartviewprops.trade = {...chartviewprops.trade, "series": lineSeries};
+        //        const lineRef = useRef(lineSeries);
         chart.timeScale().fitContent();
-    }, [chart_id]);
+        //candlestickSeries.setData(data);
+        lineSeries.setData(Initialdata);
+    }, [chart_id, isChartLoaded, chartviewprops.trade]);
 
     return (
         <div

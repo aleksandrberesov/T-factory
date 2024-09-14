@@ -1,3 +1,5 @@
+import { ISeriesApi, Time } from 'lightweight-charts';
+
 type TUser = {
     first_name: string;
     last_name: string;    
@@ -29,6 +31,19 @@ type TProfile = {
     stars : TStar[]
 };
 
+interface ITrade {
+    state : string | undefined;
+    series ?: ISeriesApi<"Line", Time> | undefined;
+    Sell() : void;
+    Buy() : void;
+    Close() : void;
+    Play() : void;
+    Pause() : void;
+    Next() : void;
+    Stop() : void;
+    SetSeries(seriesRef: ISeriesApi<"Line", Time>) : void;
+};
 
 
 export type { TUser, TProfile, TStatisticItem, TCard, TStar };
+export type { ITrade };
