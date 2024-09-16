@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState, useId, useRef } from 'react';
 import { createChart } from 'lightweight-charts';
-import { Initialdata, Trade } from "../models/trading"
+import { Initialdata } from "../models/trading"
 import { lineStyle, candleStickStyle, chartStyle } from "./chart.styles"
 import { TChartViewProps } from './types';
 
@@ -20,7 +20,7 @@ function ChartView( chartviewprops: TChartViewProps) {
         chart.timeScale().fitContent();
 
         lineSeries.setData(Initialdata);
-        chartviewprops.ondataupdate(lineSeries);
+        chartviewprops.setUpdateSeries(lineSeries);
     }, [chart_id, isChartLoaded]);
 
     return (

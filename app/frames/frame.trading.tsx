@@ -3,15 +3,13 @@ import SelectedTab from "../components/button";
 import ChartView from "../tradingview/chart.view";
 import InputTab from "../components/edit";
 import LabelBox from '../components/label';
-import { Trade, NextValue } from "../models/trading";
-import { ISeriesApi, Time, UTCTimestamp } from 'lightweight-charts';
-
-function UpdateData(id: ISeriesApi<"Line", Time>){
-    //ID=id;
-    Trade.series=id;
-};
+import { Trade, SetUpdateSeries, Step, Play, Pause, Stop } from "../models/trading";
+import {useTimer} from "../libs/lib.simple-timer";
 
 function TradingFrame(){
+    
+    const { seconds, isActive, toggle, reset } = useTimer( () => { Step(); } );
+
     return (
         <div
             className="h-screen w-screen bg-transparent flex-col gap-y-10"
@@ -19,7 +17,7 @@ function TradingFrame(){
             <div
                 className="h-3/5 m-2"
             > 
-                <ChartView trade={Trade} ondataupdate={UpdateData}/>
+                <ChartView setUpdateSeries={Trade.SetSeries}/>
             </div>
             <div
                 className=' grid grid-rows-2 grid-flow-col gap-2 m-2'    
@@ -56,11 +54,10 @@ function TradingFrame(){
             <div
                 className=' grid grid-cols-6 gap-2'
             >
-                <SelectedTab icon_image="/icons/play.svg" onclick={Trade.Play}/> 
-                <SelectedTab icon_image="/icons/pause.svg" onclick={Trade.Pause}/> 
+                {!isActive ? <SelectedTab icon_image="/icons/play.svg" onclick={toggle}/> : <SelectedTab icon_image="/icons/pause.svg" onclick={toggle}/>}
                 <InputTab title="1x"/>
-                <SelectedTab icon_image="/icons/next.svg" onclick={NextValue}/> 
-                <SelectedTab icon_image="/icons/stop.svg" onclick={Trade.Stop}/> 
+                {isActive ? <SelectedTab/> : <SelectedTab icon_image="/icons/next.svg" onclick={Step}/>}
+                <SelectedTab icon_image="/icons/stop.svg" onclick={reset}/> 
                 <SelectedTab icon_image="/icons/settings.svg" />
             </div>                
         </div>

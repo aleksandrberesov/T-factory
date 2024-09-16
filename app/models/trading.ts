@@ -1,6 +1,5 @@
 import { ISeriesApi, Time, UTCTimestamp } from 'lightweight-charts';
 import { ITrade } from './types';
-import { randomInt } from 'crypto';
 
 const Initialdata = [  
     { value: 10, open: 10, high: 10.63, low: 9.49, close: 9.55, time: 1642427876 as UTCTimestamp}, 
@@ -11,14 +10,12 @@ const Initialdata = [
 ];
 
 let NextTime = 1645205476;
-let RandomValue = 10;
 
-let Trade : ITrade = {
+const Trade : ITrade = {
     state : undefined,
     series : undefined,
     SetSeries(seriesRef: ISeriesApi<"Line", Time>){
-        
-        this.series = seriesRef;
+        Trade.series = seriesRef;
     },
     Sell (){
         this.state = "Sell";
@@ -30,16 +27,15 @@ let Trade : ITrade = {
 
     },
     Play(){
-
+        
     },
     Pause(){
 
     },
-    Next(){
-        if (this.series !== undefined){
-            this.series.setData([{value: 2, time: 1645505476 as UTCTimestamp}]);
-            
-        }
+    Step(){
+        NextTime = NextTime + 1000;
+        const RV = randomNumberInRange(-20, 20);
+        Trade.series?.update({value: RV, time: NextTime as UTCTimestamp});   
     },
     Stop(){
         this.Close();
@@ -51,11 +47,29 @@ const randomNumberInRange = (min: number, max: number) => {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   };
 
-function NextValue(){
+function Step(){
     NextTime = NextTime + 1000;
     const RV = randomNumberInRange(-20, 20);
     Trade.series?.update({value: RV, time: NextTime as UTCTimestamp});    
 };
 
+function Play(){
+    
+     
+};
 
-export { Initialdata, Trade, NextValue };
+function Stop(){
+    
+};
+
+function Pause(){
+
+};
+
+function SetUpdateSeries(seriesRef: ISeriesApi<"Line", Time>){
+    Trade.series=seriesRef;
+};
+
+export { Initialdata, Trade}; 
+export { SetUpdateSeries };
+export { Step, Play, Pause, Stop};

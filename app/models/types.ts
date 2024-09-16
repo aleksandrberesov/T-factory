@@ -39,7 +39,7 @@ interface ITrade {
     Close() : void;
     Play() : void;
     Pause() : void;
-    Next() : void;
+    Step() : void;
     Stop() : void;
     SetSeries(seriesRef: ISeriesApi<"Line", Time>) : void;
 };

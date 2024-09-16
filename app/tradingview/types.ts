@@ -1,11 +1,11 @@
 import { ITrade } from "../models/types";
-import { ISeriesApi, Time } from "lightweight-charts";
+import { ISeriesApi, Time, SeriesDataItemTypeMap } from "lightweight-charts";
 
-type TOnUpdatedData = (id: ISeriesApi<"Line", Time>) => void;
+type TSetUpdateSeries = (seriesRef: ISeriesApi<"Line", Time>) => void;
 
-type TChartViewProps = {
-    trade: ITrade;   
-    ondataupdate: TOnUpdatedData; 
+type TChartViewProps = {   
+    setUpdateSeries: TSetUpdateSeries; 
+    initData?:  SeriesDataItemTypeMap;
 };
 
 export type {TChartViewProps};
