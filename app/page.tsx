@@ -22,8 +22,8 @@ export default function Home() {
               />
     },
     {id: 1 , 
-     element: <TradingFrame/>
-
+     element: <TradingFrame
+              />
     },
     {id: 2 , 
      element: <StatisticFrame 

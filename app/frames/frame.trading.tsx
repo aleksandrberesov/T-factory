@@ -4,11 +4,20 @@ import ChartView from "../tradingview/chart.view";
 import InputTab from "../components/edit";
 import LabelBox from '../components/label';
 import { Trade, SetUpdateSeries, Step, Play, Pause, Stop } from "../models/trading";
-import {useTimer} from "../libs/lib.simple-timer";
+import {useTimer} from "../libs/lib.timer";
+import SettingsFrame from './frame.settings';
 
 function TradingFrame(){
     
     const { seconds, isActive, toggle, reset } = useTimer( () => { Step(); } );
+    const [ isSettingsShow, SetIsSettingsShow] = useState(false);
+    function ShowSettings(){
+        SetIsSettingsShow(true);
+    };
+
+    function HideSettings(){
+        SetIsSettingsShow(false);
+    };
 
     return (
         <div
@@ -17,7 +26,7 @@ function TradingFrame(){
             <div
                 className="h-3/5 m-2"
             > 
-                <ChartView setUpdateSeries={Trade.SetSeries}/>
+                {isSettingsShow ? <SettingsFrame callBack={HideSettings}/> : <ChartView setUpdateSeries={Trade.SetSeries}/>}
             </div>
             <div
                 className=' grid grid-rows-2 grid-flow-col gap-2 m-2'    
@@ -58,7 +67,7 @@ function TradingFrame(){
                 <InputTab title="1x"/>
                 {isActive ? <SelectedTab/> : <SelectedTab icon_image="/icons/next.svg" onclick={Step}/>}
                 <SelectedTab icon_image="/icons/stop.svg" onclick={reset}/> 
-                <SelectedTab icon_image="/icons/settings.svg" />
+                <SelectedTab icon_image="/icons/settings.svg" onclick={ShowSettings}/>
             </div>                
         </div>
     );

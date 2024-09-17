@@ -1,5 +1,5 @@
 import React from "react";
-import { TOnClickFunction, TOnSelectedFunction } from "../models/function.types"
+import { TOnClickFunction, TOnSelectedFunction } from "../libs/lib.types"
 
 type TButtonProps = {
     id  ?: number;
