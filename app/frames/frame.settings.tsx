@@ -1,10 +1,7 @@
 import SelectedTab from "../components/button";
+import {TSettingsProps} from "./types"
 
-type TSettingsFrameProps = {
-    callBack() : void;
-};
-
-function SettingsFrame(settingsprops: TSettingsFrameProps){
+function SettingsFrame(settingsprops: TSettingsProps){
 
     return(
         <div
