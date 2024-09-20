@@ -1,4 +1,4 @@
-import { ISeriesApi, Time } from 'lightweight-charts';
+import { ISeriesApi, Time, UTCTimestamp } from 'lightweight-charts';
 
 type TUser = {
     first_name: string;
@@ -32,18 +32,23 @@ type TProfile = {
 };
 
 interface ITrade {
-    state : string | undefined;
+    state : 'started' | 'paused' | 'stopped' | undefined;
     series ?: ISeriesApi<"Line", Time> | undefined;
-    Sell() : void;
-    Buy() : void;
-    Close() : void;
-    Play() : void;
-    Pause() : void;
-    Step() : void;
-    Stop() : void;
-    SetSeries(seriesRef: ISeriesApi<"Line", Time>) : void;
+};
+
+type TMarketPoint = {
+    value: number;
+    open: number;
+    high: number;
+    low: number;
+    close: number;
+    time: UTCTimestamp;
+};
+
+type TMarket = {
+    data : TMarketPoint[];
 };
 
 
 export type { TUser, TProfile, TStatisticItem, TCard, TStar };
-export type { ITrade };
+export type { ITrade, TMarketPoint, TMarket };

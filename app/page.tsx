@@ -40,12 +40,12 @@ export default function Home() {
 
   useEffect(() => {
     let ignore = false; 
-    if (!ignore){
-        FullScreen();
+    if (ignore){
         return ()=>{
           ignore = true;
         };            
     }
+    FullScreen();
   }, []);
 
   return (

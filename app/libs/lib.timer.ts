@@ -1,15 +1,20 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 type TVoidFunc = () => void;
 
-interface TimerProps {
+interface ITimer {
     seconds: number;
     isActive: boolean;
     toggle: () => void;
     reset: () => void;
 }
 
-const useTimer = (callback: TVoidFunc): TimerProps => {
+type TTimerProps = {
+    callback: TVoidFunc;
+    initstate: boolean;
+};
+
+const useTimer = (callback: TVoidFunc): ITimer => {
     const [seconds, setSeconds] = useState(0);
     const [isActive, setIsActive] = useState(false);
     const memoizedCallback = useCallback(callback, [callback]);

@@ -1,27 +1,27 @@
-//'use client';
-
-import React, { useEffect, useState, useId, useRef } from 'react';
-import { createChart } from 'lightweight-charts';
-import { Initialdata } from "../models/trading"
-import { lineStyle, candleStickStyle, chartStyle } from "./chart.styles"
-import { TChartViewProps } from './types';
+import React, { useEffect, useState, useId } from 'react';
+import { createChart, UTCTimestamp } from 'lightweight-charts';
+import { lineStyle  , chartStyle } from "./chart.styles"
+import { TChartViewProps, TPoints } from './types';
 
 function ChartView( chartviewprops: TChartViewProps) {
     const [isChartLoaded, setIsChartLoaded] = useState(false);
-    
     const chart_id = useId(); 
 
     useEffect(() => {
         if (isChartLoaded){ return () => { setIsChartLoaded(true); }; }
-        
+        const initdata : TPoints = (chartviewprops.initData??[]).map((item)=>({value: item.value, time: item.time as UTCTimestamp}));
         const chart = createChart(chart_id, chartStyle);
-        const lineSeries = chart.addLineSeries(lineStyle);
-
-        chart.timeScale().fitContent();
-
-        lineSeries.setData(Initialdata);
-        chartviewprops.setUpdateSeries(lineSeries);
-    }, [chart_id, isChartLoaded]);
+        const line = chart.addLineSeries(lineStyle);
+        line.setData(initdata);
+        chartviewprops.setUpdateSeries(line);
+        if (initdata.length > 10) {
+            const from = initdata[initdata.length - 10].time;
+            const to = initdata[initdata.length - 1].time;
+            chart.timeScale().setVisibleRange({ from, to });
+        }else{
+            chart.timeScale().fitContent();    
+        }
+    }, []);
 
     return (
         <div

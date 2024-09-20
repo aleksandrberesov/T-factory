@@ -1,22 +1,29 @@
-import React, { useEffect, useState, useId } from 'react';
+import React, { useState, useMemo } from 'react';
 import SelectedTab from "../components/button";
 import ChartView from "../tradingview/chart.view";
 import InputTab from "../components/edit";
 import LabelBox from '../components/label';
-import { Trade, SetUpdateSeries, Step, Play, Pause, Stop } from "../models/trading";
-import {useTimer} from "../libs/lib.timer";
+import { Trade, Market, SetUpdateSeries,  Step, Play, Pause } from "../models/trading";
+import { useTimer } from "../libs/lib.timer";
 import SettingsFrame from './frame.settings';
 
 function TradingFrame(){
     
-    const { seconds, isActive, toggle, reset } = useTimer( () => { Step(); } );
+    const { isActive, toggle, reset } = useTimer( () => { Step(); } );
     const [ isSettingsShow, SetIsSettingsShow] = useState(false);
-    function ShowSettings(){
-        SetIsSettingsShow(true);
-    };
 
-    function HideSettings(){
-        SetIsSettingsShow(false);
+    const content = useMemo(() => (
+        <ChartView setUpdateSeries={SetUpdateSeries} initData={Market.data}/>
+      ), []);
+
+    const HideShowSettings = ()=>{
+        SetIsSettingsShow(!isSettingsShow)
+    }; 
+    
+    const Toggle = ()=>{
+        toggle;
+        //isActive ? Play : Pause;
+        //alert("Toggle");
     };
 
     return (
@@ -26,7 +33,8 @@ function TradingFrame(){
             <div
                 className="h-3/5 m-2"
             > 
-                {isSettingsShow ? <SettingsFrame callBack={HideSettings}/> : <ChartView setUpdateSeries={Trade.SetSeries}/>}
+                {isSettingsShow && <SettingsFrame callBack={HideShowSettings}/>} 
+                {!isSettingsShow && content}
             </div>
             <div
                 className=' grid grid-rows-2 grid-flow-col gap-2 m-2'    
@@ -67,7 +75,7 @@ function TradingFrame(){
                 <InputTab title="1x"/>
                 {isActive ? <SelectedTab/> : <SelectedTab icon_image="/icons/next.svg" onclick={Step}/>}
                 <SelectedTab icon_image="/icons/stop.svg" onclick={reset}/> 
-                <SelectedTab icon_image="/icons/settings.svg" onclick={ShowSettings}/>
+                <SelectedTab icon_image="/icons/settings.svg" onclick={HideShowSettings}/>
             </div>                
         </div>
     );

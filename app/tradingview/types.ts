@@ -1,11 +1,13 @@
-import { ITrade } from "../models/types";
-import { ISeriesApi, Time, SeriesDataItemTypeMap } from "lightweight-charts";
+import { ITrade, TMarketPoint } from "../models/types";
+import { ISeriesApi, Time, UTCTimestamp } from "lightweight-charts";
 
 type TSetUpdateSeries = (seriesRef: ISeriesApi<"Line", Time>) => void;
 
+type TPoints = {value: number; time: UTCTimestamp}[];
+
 type TChartViewProps = {   
     setUpdateSeries: TSetUpdateSeries; 
-    initData?:  SeriesDataItemTypeMap;
+    initData?: TMarketPoint[],
 };
 
-export type {TChartViewProps};
+export type {TChartViewProps, TPoints};
