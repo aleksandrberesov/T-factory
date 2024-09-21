@@ -3,13 +3,16 @@ import SelectedTab from "../components/button";
 import ChartView from "../tradingview/chart.view";
 import InputTab from "../components/edit";
 import LabelBox from '../components/label';
-import { Trade, Market, SetUpdateSeries,  Step, Play, Pause } from "../models/trading";
+import { Market, SetUpdateSeries,  Step, Play, Pause, Trade } from "../models/trading";
 import { useTimer } from "../libs/lib.timer";
 import SettingsFrame from './frame.settings';
 
 function TradingFrame(){
-    
-    const { isActive, toggle, reset } = useTimer( () => { Step(); } );
+    const timerinitprops = {
+        callback :  () => { Step(); }, 
+        initstate : Trade.state=="started" 
+    };
+    const { isActive, toggle, reset } = useTimer( timerinitprops );
     const [ isSettingsShow, SetIsSettingsShow] = useState(false);
 
     const content = useMemo(() => (
@@ -21,9 +24,12 @@ function TradingFrame(){
     }; 
     
     const Toggle = ()=>{
-        toggle;
-        //isActive ? Play : Pause;
-        //alert("Toggle");
+        toggle();
+        if (!isActive) {
+            Play();
+        } else {
+            Pause();
+        }
     };
 
     return (
@@ -71,7 +77,7 @@ function TradingFrame(){
             <div
                 className=' grid grid-cols-6 gap-2'
             >
-                {!isActive ? <SelectedTab icon_image="/icons/play.svg" onclick={toggle}/> : <SelectedTab icon_image="/icons/pause.svg" onclick={toggle}/>}
+                {!isActive ? <SelectedTab icon_image="/icons/play.svg" onclick={Toggle}/> : <SelectedTab icon_image="/icons/pause.svg" onclick={Toggle}/>}
                 <InputTab title="1x"/>
                 {isActive ? <SelectedTab/> : <SelectedTab icon_image="/icons/next.svg" onclick={Step}/>}
                 <SelectedTab icon_image="/icons/stop.svg" onclick={reset}/> 

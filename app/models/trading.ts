@@ -49,7 +49,7 @@ function Step(){
 };
 
 function Play(){
-    Trade.state = 'started';           
+    Trade.state = 'started';      
 };
 
 function Stop(){
@@ -57,7 +57,7 @@ function Stop(){
 };
 
 function Pause(){
-    Trade.state = 'paused';    
+    Trade.state = 'paused';  
 };
 
 function SetUpdateSeries(seriesRef: ISeriesApi<"Line", Time>){

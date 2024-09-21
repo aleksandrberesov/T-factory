@@ -14,6 +14,7 @@ function ChartView( chartviewprops: TChartViewProps) {
         const line = chart.addLineSeries(lineStyle);
         line.setData(initdata);
         chartviewprops.setUpdateSeries(line);
+        chart.timeScale().fitContent();    
         if (initdata.length > 10) {
             const from = initdata[initdata.length - 10].time;
             const to = initdata[initdata.length - 1].time;

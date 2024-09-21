@@ -11,13 +11,13 @@ interface ITimer {
 
 type TTimerProps = {
     callback: TVoidFunc;
-    initstate: boolean;
+    initstate : boolean;
 };
 
-const useTimer = (callback: TVoidFunc): ITimer => {
+const useTimer = (timerprops: TTimerProps): ITimer => {
     const [seconds, setSeconds] = useState(0);
-    const [isActive, setIsActive] = useState(false);
-    const memoizedCallback = useCallback(callback, [callback]);
+    const [isActive, setIsActive] = useState(timerprops.initstate);
+    const memoizedCallback = useCallback(timerprops.callback, [timerprops.callback]);
     useEffect(() => {
         let interval: NodeJS.Timeout | null = null;
         if (isActive) {
