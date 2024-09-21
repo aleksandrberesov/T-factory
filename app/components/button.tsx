@@ -23,7 +23,7 @@ function SelectedTab(buttonprops: TButtonProps) {
     const buttonstyle = [buttonprops.style, "flex", "items-center", "justify-center" ].join(" ");
     return (
         <button
-            style={{ backgroundColor: buttonprops.backgroundcolor, color: 'white', padding: '10px 20px', border: 'none', borderRadius: '5px' }}
+            style={{ backgroundColor: buttonprops.backgroundcolor, color: buttonprops.textcolor, padding: '10px 20px', border: 'none', borderRadius: '5px' }}
             onClick={Doclick}
             className={buttonstyle}
         >

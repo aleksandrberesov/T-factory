@@ -4,11 +4,16 @@ import { TOnClickFunction, TOnSelectedFunction } from "../libs/lib.types"
 type TButtonProps = {
     id  ?: number;
     title ?: string;
-    icon_image ?: string;
+    
     backgroundcolor ?: string;
+    textcolor ?: string;
+    style ?: string;
+
     onclick ?: TOnClickFunction;
     onselected ?: TOnSelectedFunction;
-    style ?: string;
+    
+    icon_image ?: string;
+    content ?: React.JSX.Element;
 };
 
 type TIconTabProps = TButtonProps & {
@@ -65,7 +70,11 @@ type TRectangleProps = {
     iconURL: string;
 };
 
+type TDropMenuProps = TButtonProps & {
+
+};
+
 export type { TButtonProps, TLabelProps, TCheckBoxProps, TIconTabProps } ;
 export type { TCircleProps, TRectangleProps };
-export type { TListBoxProps, TGridBoxProps };
+export type { TListBoxProps, TGridBoxProps, TDropMenuProps };
 export type { TCardTabProps };

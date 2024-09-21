@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useId } from 'react';
 import { createChart, UTCTimestamp } from 'lightweight-charts';
-import { lineStyle  , chartStyle } from "./chart.styles"
+import { lineStyle  , chartStyle } from "./styles"
 import { TChartViewProps, TPoints } from './types';
 
 function ChartView( chartviewprops: TChartViewProps) {

@@ -53,7 +53,8 @@ function Play(){
 };
 
 function Stop(){
-    Trade.state = 'stopped';       
+    Trade.state = 'stopped';   
+    alert("stop");    
 };
 
 function Pause(){
@@ -64,6 +65,14 @@ function SetUpdateSeries(seriesRef: ISeriesApi<"Line", Time>){
     Trade.series=seriesRef;
 };
 
+function Buy(){
+
+};
+function Sell(){
+
+};
+
 export { Initialdata, Trade, Market}; 
 export { SetUpdateSeries };
-export { Step, Play, Pause };
+export { Step, Play, Pause, Stop };
+export { Sell, Buy};

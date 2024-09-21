@@ -1,9 +1,9 @@
 import React, { useState, useMemo } from 'react';
 import SelectedTab from "../components/button";
 import ChartView from "../tradingview/chart.view";
-import InputTab from "../components/edit";
 import LabelBox from '../components/label';
-import { Market, SetUpdateSeries,  Step, Play, Pause, Trade } from "../models/trading";
+import DropMenu from '../components/drop-menu';
+import { Trade, Market, SetUpdateSeries,  Step, Play, Pause, Stop, Buy, Sell } from "../models/trading";
 import { useTimer } from "../libs/lib.timer";
 import SettingsFrame from './frame.settings';
 
@@ -30,6 +30,11 @@ function TradingFrame(){
         } else {
             Pause();
         }
+    };
+    
+    const CloseSession = ()=>{
+        reset();
+        Stop;
     };
 
     return (
@@ -69,18 +74,18 @@ function TradingFrame(){
             <div
                 className=' grid grid-cols-4 gap-2 m-2'
             >
-                <SelectedTab title="Sell" backgroundcolor="green" /> 
-                <InputTab title="1000"/>
-                <SelectedTab title="Buy" backgroundcolor="red" />  
-                <SelectedTab title="Close" backgroundcolor="blue" />
+                <SelectedTab title="Sell" backgroundcolor="green" textcolor='white' onclick={Sell}/> 
+                <DropMenu title='1000' backgroundcolor='white' textcolor='black'/>
+                <SelectedTab title="Buy" backgroundcolor="red" textcolor='white' onclick={Buy}/>  
+                <SelectedTab title="Close" backgroundcolor="blue" textcolor='white' onclick={CloseSession}/>
             </div>
             <div
                 className=' grid grid-cols-6 gap-2'
             >
                 {!isActive ? <SelectedTab icon_image="/icons/play.svg" onclick={Toggle}/> : <SelectedTab icon_image="/icons/pause.svg" onclick={Toggle}/>}
-                <InputTab title="1x"/>
+                <DropMenu title='1x' backgroundcolor='white'/>
                 {isActive ? <SelectedTab/> : <SelectedTab icon_image="/icons/next.svg" onclick={Step}/>}
-                <SelectedTab icon_image="/icons/stop.svg" onclick={reset}/> 
+                <SelectedTab icon_image="/icons/stop.svg" onclick={CloseSession}/> 
                 <SelectedTab icon_image="/icons/settings.svg" onclick={HideShowSettings}/>
             </div>                
         </div>
