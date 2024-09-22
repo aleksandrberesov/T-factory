@@ -45,10 +45,17 @@ type TMarketPoint = {
     time: UTCTimestamp;
 };
 
+type TPatternParameter = {
+    expectation: number; 
+    volatility: number;
+    count: number;
+};
+
 type TMarket = {
+    pattern: TPatternParameter[];
     data : TMarketPoint[];
 };
 
 
 export type { TUser, TProfile, TStatisticItem, TCard, TStar };
-export type { ITrade, TMarketPoint, TMarket };
+export type { ITrade, TMarketPoint, TPatternParameter, TMarket };
