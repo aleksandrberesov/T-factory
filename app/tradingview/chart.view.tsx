@@ -22,7 +22,7 @@ function ChartView( chartviewprops: TChartViewProps) {
         }else{
             chart.timeScale().fitContent();    
         }
-    }, []);
+    });
 
     return (
         <div

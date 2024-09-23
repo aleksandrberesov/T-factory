@@ -16,7 +16,7 @@ function DropMenu( menuprops: TDropMenuProps) {
   };
 
   const listItems = menuprops.elements.map((item) =>
-    <SelectedTab id={item.id} title={item.element} onselected={SelecItem}/>
+    <SelectedTab key={item.id} id={item.id} title={item.element} onselected={SelecItem}/>
     //<a key={item.id} href="#item1" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" >{item.element}</a>
   );
 

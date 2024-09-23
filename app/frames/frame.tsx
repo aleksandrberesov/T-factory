@@ -18,7 +18,7 @@ function  Frame(frameprops: TFrameProps) : IFrame {
         <div>
             {frameprops.content}
         </div>
-      ), []);
+      ), [frameprops.content]);
 
     return {
         controller: {},

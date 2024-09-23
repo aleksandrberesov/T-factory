@@ -17,7 +17,7 @@ type TTimerProps = {
 const useTimer = (timerprops: TTimerProps): ITimer => {
     const [seconds, setSeconds] = useState(0);
     const [isActive, setIsActive] = useState(timerprops.initstate);
-    const memoizedCallback = useCallback(timerprops.callback, [timerprops.callback]);
+    const memoizedCallback = useCallback(()=>{timerprops.callback()}, [timerprops]);
     useEffect(() => {
         let interval: NodeJS.Timeout | null = null;
         if (isActive) {
