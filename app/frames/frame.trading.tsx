@@ -75,7 +75,7 @@ function TradingFrame(){
                 className=' grid grid-cols-4 gap-2 m-2'
             >
                 <SelectedTab title="Sell" backgroundcolor="green" textcolor='white' onclick={Sell}/> 
-                <DropMenu title='1000' backgroundcolor='white' textcolor='black'/>
+                <DropMenu elements={[{id:0, element:"first"},{id:1, element:"second"}]} selected={0} title='1000' backgroundcolor='white' textcolor='black'/>
                 <SelectedTab title="Buy" backgroundcolor="red" textcolor='white' onclick={Buy}/>  
                 <SelectedTab title="Close" backgroundcolor="blue" textcolor='white' onclick={CloseSession}/>
             </div>
@@ -83,7 +83,7 @@ function TradingFrame(){
                 className=' grid grid-cols-6 gap-2'
             >
                 {!isActive ? <SelectedTab icon_image="/icons/play.svg" onclick={Toggle}/> : <SelectedTab icon_image="/icons/pause.svg" onclick={Toggle}/>}
-                <DropMenu title='1x' backgroundcolor='white'/>
+                <DropMenu elements={[{id:0, element:"first"},{id:1, element:"second"}]} selected={0} title='1x' backgroundcolor='white'/>
                 {isActive ? <SelectedTab/> : <SelectedTab icon_image="/icons/next.svg" onclick={Step}/>}
                 <SelectedTab icon_image="/icons/stop.svg" onclick={CloseSession}/> 
                 <SelectedTab icon_image="/icons/settings.svg" onclick={HideShowSettings}/>

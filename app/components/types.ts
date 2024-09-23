@@ -51,6 +51,11 @@ type TGridBoxProps = {
     elements : {id: number; element: React.JSX.Element}[]
 };
 
+type TDropMenuProps = TButtonProps & {
+    elements : {id: number; element: string}[]
+    selected : number;
+};
+
 type TCircleProps = {
     cx: number;
     cy: number;
@@ -68,10 +73,6 @@ type TRectangleProps = {
     stroke: string;
     fill: string;
     iconURL: string;
-};
-
-type TDropMenuProps = TButtonProps & {
-
 };
 
 export type { TButtonProps, TLabelProps, TCheckBoxProps, TIconTabProps } ;
