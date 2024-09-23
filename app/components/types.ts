@@ -2,7 +2,7 @@ import React from "react";
 import { TOnClickFunction, TOnSelectedFunction } from "../libs/lib.types"
 
 type TButtonProps = {
-    id  ?: number;
+    id  ?: number | string;
     title ?: string;
     
     backgroundcolor ?: string;

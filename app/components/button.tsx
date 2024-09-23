@@ -16,7 +16,9 @@ function SelectedTab(buttonprops: TButtonProps) {
             buttonprops.onclick();
         }   
         if ((buttonprops.onselected !== undefined) && (buttonprops.id !== undefined)){
-            buttonprops.onselected(buttonprops.id);
+            if (typeof buttonprops.id !== "string"){
+                buttonprops.onselected(Number(buttonprops.id));
+            }
         } 
     };
 

@@ -22,15 +22,29 @@ function DropMenu( menuprops: TDropMenuProps) {
     );
   };
 
+  function GetListA(): React.JSX.Element {
+    return(
+      <div className="origin-top-right absolute -translate-y-full z-50 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+        <p className=' text-gray-700 '>{menuprops.title}</p>
+        <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+            <a href="#item1" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Элемент 1</a>
+            <a href="#item2" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Элемент 2</a>
+            <a href="#item3" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Элемент 3</a>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div  className="relative inline-block text-left">
         <SelectedTab 
+            id="options-menu"
             title={menuprops.title} 
             textcolor={menuprops.textcolor} 
             backgroundcolor={menuprops.backgroundcolor}
             onclick={toggleDropdown}
         />
-        {isOpen && (GetList())}
+        {isOpen && (GetListA())}
     </div>
   );
 }
