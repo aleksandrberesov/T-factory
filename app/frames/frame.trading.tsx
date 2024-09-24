@@ -81,7 +81,7 @@ function TradingFrame(){
                 <SelectedTab title="Close" backgroundcolor="blue" textcolor='white' onclick={CloseSession}/>
             </div>
             <div
-                className=' grid grid-cols-6 gap-2'
+                className=' grid grid-cols-5 gap-2'
             >
                 {!isActive ? <SelectedTab icon_image="/icons/play.svg" onclick={Toggle}/> : <SelectedTab icon_image="/icons/pause.svg" onclick={Toggle}/>}
                 <DropMenu elements={defaultSpeeds} selected={0} title='Simulation speed' backgroundcolor='white'/>
