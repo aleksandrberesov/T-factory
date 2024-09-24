@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { TDropMenuProps } from './types';
 import SelectedTab from './button';
 
 function DropMenu( menuprops: TDropMenuProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(menuprops.selected);
-
+  const [width, setWidth] = useState(0);
+  const parentRef = useRef<HTMLDivElement>(null);
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
@@ -17,12 +18,19 @@ function DropMenu( menuprops: TDropMenuProps) {
 
   const listItems = menuprops.elements.map((item) =>
     <SelectedTab key={item.id} id={item.id} title={item.element} onselected={SelecItem}/>
-    //<a key={item.id} href="#item1" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" >{item.element}</a>
   );
+
+  useEffect(() => {
+    if (parentRef.current) {
+      setWidth(parentRef.current.offsetWidth);
+    }
+  }, []);
 
   function GetList(): React.JSX.Element {
     return(
-      <div className="origin-top-right absolute -translate-y-full z-50 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+      <div className="flex origin-top-right absolute justify-self-auto -translate-y-full z-50 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5"
+           style = {{ width: `${width}px` }}
+      >
         <p className=' text-gray-700 '>{menuprops.title}</p>
         <div className="py-1">
           {listItems} 
@@ -32,13 +40,13 @@ function DropMenu( menuprops: TDropMenuProps) {
   };
 
   return (
-    <div  className="relative inline-block text-left">
+    <div  ref={parentRef} className="bg-purple-600 ">
         <SelectedTab 
-            id="options-menu"
             title={menuprops.elements[selectedItem].element} 
             textcolor={menuprops.textcolor} 
             backgroundcolor={menuprops.backgroundcolor}
             onclick={toggleDropdown}
+            style = "w-full h-full"
         />
         {isOpen && (GetList())}
     </div>
