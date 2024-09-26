@@ -84,7 +84,7 @@ function TradingFrame(){
                 className=' grid grid-cols-5 gap-2'
             >
                 {!isActive ? <SelectedTab icon_image="/icons/play.svg" onclick={Toggle}/> : <SelectedTab icon_image="/icons/pause.svg" onclick={Toggle}/>}
-                <DropMenu elements={defaultSpeeds} selected={0} title='Simulation speed' backgroundcolor='white'/>
+                <DropMenu elements={defaultSpeeds} selected={0} title='' backgroundcolor='white'/>
                 {isActive ? <SelectedTab/> : <SelectedTab icon_image="/icons/next.svg" onclick={Step}/>}
                 <SelectedTab icon_image="/icons/stop.svg" onclick={CloseSession}/> 
                 <SelectedTab icon_image="/icons/settings.svg" onclick={HideShowSettings}/>
