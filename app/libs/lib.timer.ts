@@ -5,18 +5,21 @@ type TVoidFunc = () => void;
 interface ITimer {
     seconds: number;
     isActive: boolean;
+    setDuration: (duration: number) => void;
     toggle: () => void;
     reset: () => void;
 }
 
 type TTimerProps = {
     callback: TVoidFunc;
-    initstate : boolean;
+    state : boolean;
+    duration: number;
 };
 
 const useTimer = (timerprops: TTimerProps): ITimer => {
     const [seconds, setSeconds] = useState(0);
-    const [isActive, setIsActive] = useState(timerprops.initstate);
+    const [isActive, setIsActive] = useState(timerprops.state);
+    const [duration, setDuration] = useState(timerprops.duration);
     const memoizedCallback = useCallback(()=>{timerprops.callback()}, [timerprops]);
     useEffect(() => {
         let interval: NodeJS.Timeout | null = null;
@@ -24,7 +27,7 @@ const useTimer = (timerprops: TTimerProps): ITimer => {
             interval = setInterval(() => {
                 setSeconds(seconds => seconds + 1);
                 memoizedCallback();
-            }, 1000);
+            }, duration);
         } else if (!isActive && seconds !== 0) {
             clearInterval(interval!);
         }
@@ -43,6 +46,7 @@ const useTimer = (timerprops: TTimerProps): ITimer => {
     return {
         seconds,
         isActive,
+        setDuration,
         toggle,
         reset
     };

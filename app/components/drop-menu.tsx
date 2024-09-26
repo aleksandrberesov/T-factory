@@ -14,6 +14,9 @@ function DropMenu( menuprops: TDropMenuProps) {
   const SelecItem = (id: number) =>{
     setIsOpen(false);
     setSelectedItem(id);
+    if (menuprops.onselected !==undefined){
+      menuprops.onselected(id);
+    }
   };
 
   const listItems = menuprops.elements.map((item) =>

@@ -60,8 +60,7 @@ function Play(){
 };
 
 function Stop(){
-    Trade.state = 'stopped';   
-    alert("stop");    
+    Trade.state = 'stopped';       
 };
 
 function Pause(){

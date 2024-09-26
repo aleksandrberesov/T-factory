@@ -8,12 +8,17 @@ import { useTimer } from "../libs/lib.timer";
 import { defaultAmounts, defaultSpeeds } from '../models/consts';
 import SettingsFrame from './frame.settings';
 
+function SpeedTitleToNumber(str: string){
+    return (Number(str.replace("x", '')));
+};
+
 function TradingFrame(){
     const timerinitprops = {
         callback :  () => { Step(); }, 
-        initstate : Trade.state=="started" 
+        state : Trade.state=="started",
+        duration : 1000/SpeedTitleToNumber(defaultSpeeds[0].element),
     };
-    const { isActive, toggle, reset } = useTimer( timerinitprops );
+    const { setDuration, isActive, toggle, reset } = useTimer( timerinitprops );
     const [ isSettingsShow, SetIsSettingsShow] = useState(false);
 
     const content = useMemo(() => (
@@ -35,7 +40,11 @@ function TradingFrame(){
     
     const CloseSession = ()=>{
         reset();
-        Stop;
+        Stop();
+    };
+
+    const ChangeSpeed = (speedID: number)=>{
+        setDuration(1000/SpeedTitleToNumber(defaultSpeeds[speedID].element));
     };
 
     return (
@@ -84,11 +93,12 @@ function TradingFrame(){
                 className=' grid grid-cols-5 gap-2'
             >
                 {!isActive ? <SelectedTab icon_image="/icons/play.svg" onclick={Toggle}/> : <SelectedTab icon_image="/icons/pause.svg" onclick={Toggle}/>}
-                <DropMenu elements={defaultSpeeds} selected={0} title='' backgroundcolor='white'/>
+                <DropMenu elements={defaultSpeeds} selected={0} title='' backgroundcolor='white' onselected={ChangeSpeed}/>
                 {isActive ? <SelectedTab/> : <SelectedTab icon_image="/icons/next.svg" onclick={Step}/>}
                 <SelectedTab icon_image="/icons/stop.svg" onclick={CloseSession}/> 
                 <SelectedTab icon_image="/icons/settings.svg" onclick={HideShowSettings}/>
-            </div>                
+            </div>          
+            <p className="bg-slate-500 text-white m-2 text-center" >{Trade.state}</p>      
         </div>
     );
 }
