@@ -5,7 +5,7 @@ import { TButtonProps } from "./types"
 function SelectedTab(buttonprops: TButtonProps) {
     function GetContent(isIcon: boolean){
         if (isIcon){
-            return(<Image src={buttonprops.icon_image!} alt="icon" width="50" height="50"/>);   
+            return(<Image src={buttonprops.icon_image!} alt="icon" width="50" height="50" priority/>);   
         }else{
             return(buttonprops.title);
         }

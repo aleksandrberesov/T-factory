@@ -57,8 +57,26 @@ function TradingFrame(){
                 {isSettingsShow && <SettingsFrame callBack={HideShowSettings}/>} 
                 {!isSettingsShow && content}
             </div>
+            
             <div
-                className=' grid grid-rows-2 grid-flow-col gap-2 m-2'    
+                className='h-1/10 grid grid-cols-4 gap-2 m-2'
+            >
+                <SelectedTab title="Sell" backgroundcolor="green" textcolor='white' onclick={Sell}/> 
+                <DropMenu elements={defaultAmounts} selected={0} title='' backgroundcolor='white' textcolor='black'/>
+                <SelectedTab title="Buy" backgroundcolor="red" textcolor='white' onclick={Buy}/>  
+                <SelectedTab title="Close" backgroundcolor="blue" textcolor='white' onclick={CloseSession}/>
+            </div>
+            <div
+                className='h-1/10 grid grid-cols-5 gap-2'
+            >
+                {!isActive ? <SelectedTab icon_image="/icons/play.svg" onclick={Toggle}/> : <SelectedTab icon_image="/icons/pause.svg" onclick={Toggle}/>}
+                <DropMenu elements={defaultSpeeds} selected={0} title='' backgroundcolor='white' onselected={ChangeSpeed}/>
+                {<SelectedTab icon_image="/icons/next.svg" onclick={Step}/>}
+                <SelectedTab icon_image="/icons/stop.svg" onclick={CloseSession}/> 
+                <SelectedTab icon_image="/icons/settings.svg" onclick={HideShowSettings}/>
+            </div>   
+            <div
+                className='h-1/10 grid grid-rows-2 grid-flow-col gap-2 m-2'    
             >
                 <div
                     className='bg-gray-500 flex-col gap-y-2 row-span-3'
@@ -81,25 +99,7 @@ function TradingFrame(){
                     <LabelBox title='Center' value={1}/>
                     <LabelBox title='Max/Min' value={1}/>
                 </div>
-            </div>
-            <div
-                className=' grid grid-cols-4 gap-2 m-2'
-            >
-                <SelectedTab title="Sell" backgroundcolor="green" textcolor='white' onclick={Sell}/> 
-                <DropMenu elements={defaultAmounts} selected={0} title='' backgroundcolor='white' textcolor='black'/>
-                <SelectedTab title="Buy" backgroundcolor="red" textcolor='white' onclick={Buy}/>  
-                <SelectedTab title="Close" backgroundcolor="blue" textcolor='white' onclick={CloseSession}/>
-            </div>
-            <div
-                className=' grid grid-cols-5 gap-2'
-            >
-                {!isActive ? <SelectedTab icon_image="/icons/play.svg" onclick={Toggle}/> : <SelectedTab icon_image="/icons/pause.svg" onclick={Toggle}/>}
-                <DropMenu elements={defaultSpeeds} selected={0} title='' backgroundcolor='white' onselected={ChangeSpeed}/>
-                {<SelectedTab icon_image="/icons/next.svg" onclick={Step}/>}
-                <SelectedTab icon_image="/icons/stop.svg" onclick={CloseSession}/> 
-                <SelectedTab icon_image="/icons/settings.svg" onclick={HideShowSettings}/>
             </div>          
-            <p className="bg-slate-500 text-white m-2 text-center" >{Trade.state}</p>      
         </div>
     );
 }
