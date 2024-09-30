@@ -2,7 +2,7 @@ import React, { useEffect, useState, useId, MouseEvent, MouseEventHandler } from
 import { TNavigationProps } from "./types"
 import SelectedTab from '../components/button';
 import DropMenu from '../components/drop-menu';
-import { AvailableLanguages, LanguageIDs } from '../libs/lib.localization';
+import { LanguageIDs } from '../libs/lib.localization';
 
 function NavigationFrame(navigationProps: TNavigationProps){
     const ChangeLanguage = (id: number)=>{
@@ -11,29 +11,31 @@ function NavigationFrame(navigationProps: TNavigationProps){
 
     return(
         <nav className="bg-gray-800">
-            <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
-                <div className="flex flex-2 sm:items-stretch sm:justify-center">
-                        <div className="flex space-x-3 ">
+            <div className="mx-auto max-w-7xl px-1 sm:px-1 lg:px-1">
+                <div className="flex flex-1 sm:items-stretch sm:justify-left">
+                        <div className="flex space-x-1 ">
                             <SelectedTab
                                 id={0}
                                 title={navigationProps.getWord(0)} //"Profile"
-                                style="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+                                //style="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
                                 onselected={navigationProps.onselected}
                             />
                             <SelectedTab
                                 id={1}
                                 title={navigationProps.getWord(1)} //"Trade"
-                                style="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+                                //style="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
                                 onselected={navigationProps.onselected}
                             />
                             <SelectedTab
                                 id={2}
                                 title={navigationProps.getWord(2)} //"Statistic"
-                                style="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+                                //style="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
                                 onselected={navigationProps.onselected}
                             />
                         </div>
-                        <div className='sm:items-stretch'> 
+                                          
+                </div>
+                <div className='sm:items-stretch sm:justify-right'> 
                             <DropMenu
                                 elements={LanguageIDs}
                                 selected={LanguageIDs.findIndex(element => element.element === navigationProps.lang)}
@@ -41,8 +43,7 @@ function NavigationFrame(navigationProps: TNavigationProps){
                                 dropDirection='down'
                                 onselected={ChangeLanguage}
                             />    
-                        </div>                   
-                </div>
+                        </div> 
             </div>
         </nav>
     );
