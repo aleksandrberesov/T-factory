@@ -26,11 +26,11 @@ const AvailableLanguages: TLanguage[] = ["en", 'ru'];
 const LanguageIDs : TStringElement[] = [
     {
         id: 0,  
-        element: "en"
+        element: AvailableLanguages[0]
     },
     {
         id: 1,
-        element: "ru"
+        element: AvailableLanguages[1]
     }
 ];
 
@@ -76,4 +76,4 @@ function useLocalizaion(lang: string): ILocalizator {
 
 export default useLocalizaion;
 export type { TLanguage };
-export { AvailableLanguages, LanguageIDs };
+export { LanguageIDs };
