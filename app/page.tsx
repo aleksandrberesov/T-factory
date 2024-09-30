@@ -8,10 +8,12 @@ import NavigationFrame from "./frames/frame.navigation";
 import TradingFrame from "./frames/frame.trading";
 import ProfileFrame from "./frames/frame.profile";
 import StatisticFrame from "./frames/frame.statistic";
+import useLocalizaion from "./libs/lib.localization";
 
 export default function Home() {
   let currentUser :  TProfile;
   currentUser = Object.assign({}, defaultUser, GetUserData());
+  const {getWord, setLanguage} = useLocalizaion(currentUser.lang);
 
   const Frames = [
     {id: 0 , 
@@ -55,6 +57,8 @@ export default function Home() {
       <NavigationFrame
         onselected = {ChangeFrame} 
         lang = {currentUser.lang}
+        getWord={getWord}
+        setLanguage={setLanguage}
       />
       {component}
     </main>

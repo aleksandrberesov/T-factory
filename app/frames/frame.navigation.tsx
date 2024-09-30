@@ -1,8 +1,14 @@
 import React, { useEffect, useState, useId, MouseEvent, MouseEventHandler } from 'react';
 import { TNavigationProps } from "./types"
 import SelectedTab from '../components/button';
+import DropMenu from '../components/drop-menu';
+import { AvailableLanguages, LanguageIDs } from '../libs/lib.localization';
 
 function NavigationFrame(navigationProps: TNavigationProps){
+    const ChangeLanguage = (id: number)=>{
+        navigationProps.setLanguage(LanguageIDs[LanguageIDs.findIndex(element => element.id === id)].element);        
+    };
+
     return(
         <nav className="bg-gray-800">
             <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -10,31 +16,32 @@ function NavigationFrame(navigationProps: TNavigationProps){
                         <div className="flex space-x-3 ">
                             <SelectedTab
                                 id={0}
-                                title="Profile"
+                                title={navigationProps.getWord(0)} //"Profile"
                                 style="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
                                 onselected={navigationProps.onselected}
                             />
                             <SelectedTab
                                 id={1}
-                                title="Trade"
+                                title={navigationProps.getWord(1)} //"Trade"
                                 style="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
                                 onselected={navigationProps.onselected}
                             />
                             <SelectedTab
                                 id={2}
-                                title="Statistic"
+                                title={navigationProps.getWord(2)} //"Statistic"
                                 style="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
                                 onselected={navigationProps.onselected}
                             />
                         </div>
                         <div className='sm:items-stretch'> 
-                            <SelectedTab
-                                id={3}
-                                title={navigationProps.lang}
+                            <DropMenu
+                                elements={LanguageIDs}
+                                selected={LanguageIDs.findIndex(element => element.element === navigationProps.lang)}
                                 style="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+                                dropDirection='down'
+                                onselected={ChangeLanguage}
                             />    
-                        </div>
-                    
+                        </div>                   
                 </div>
             </div>
         </nav>

@@ -1,7 +1,12 @@
 import { TUser, TStatisticItem, TCard, TStar } from "../models/types";
-import { TOnSelectedFunction } from "../libs/lib.types";
+import { TOnSelectedFunction, TNumberToStringFunc, TStringProc } from "../libs/lib.types";
 
-type TNavigationProps = {
+type TLocalizedFrameProps = {
+    getWord : TNumberToStringFunc;
+    setLanguage: TStringProc;
+};
+
+type TNavigationProps = TLocalizedFrameProps & {
     onselected ?: TOnSelectedFunction;
     lang : string;
 };

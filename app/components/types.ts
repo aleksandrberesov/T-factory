@@ -54,6 +54,7 @@ type TGridBoxProps = {
 type TDropMenuProps = TButtonProps & {
     elements : {id: number; element: string}[]
     selected : number;
+    dropDirection ?: "down" | "up" | undefined; 
 };
 
 type TCircleProps = {

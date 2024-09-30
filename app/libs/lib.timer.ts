@@ -1,6 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-
-type TVoidFunc = () => void;
+import { TVoidFunc } from './lib.types';
 
 interface ITimer {
     seconds: number;
@@ -8,7 +7,7 @@ interface ITimer {
     setDuration: (duration: number) => void;
     toggle: () => void;
     reset: () => void;
-}
+};
 
 type TTimerProps = {
     callback: TVoidFunc;
@@ -32,7 +31,7 @@ const useTimer = (timerprops: TTimerProps): ITimer => {
             clearInterval(interval!);
         }
         return () => clearInterval(interval!);
-    }, [isActive, seconds, memoizedCallback]);
+    }, [isActive, seconds, duration, memoizedCallback]);
 
     const toggle = () => {
         setIsActive(!isActive);

@@ -1,6 +1,6 @@
 {
-  "name": "1t",
-  "version": "0.1.0",
+  "name": "tfactory_app",
+  "version": "1.1.1",
   "private": true,
   "scripts": {
     "dev": "next dev",

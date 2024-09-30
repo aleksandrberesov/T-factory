@@ -86,7 +86,7 @@ const VerticalTrackbar: React.FC<TrackBarProps> = ({ min, max, step, value, onCh
         window.removeEventListener('mousemove', handleMouseMove);
         window.removeEventListener('mouseup', handleMouseUp);
       };
-    }, [dragging]);
+    }, [dragging, handleMouseMove]);
   
     const handleMouseDown = () => {
       setDragging(true);

@@ -11,6 +11,9 @@ function DropMenu( menuprops: TDropMenuProps) {
     setIsOpen(!isOpen);
   };
 
+  const buttonstyle = [menuprops.style, "flex", "items-center", "justify-center" ].join(" ");
+  const liststyle = [menuprops.dropDirection==="down" ? "": "-translate-y-full",  "flex origin-top-right absolute justify-self-auto z-50 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5"].join(" ");
+
   const SelecItem = (id: number) =>{
     setIsOpen(false);
     setSelectedItem(id);
@@ -31,7 +34,7 @@ function DropMenu( menuprops: TDropMenuProps) {
 
   function GetList(): React.JSX.Element {
     return(
-      <div className="flex origin-top-right absolute justify-self-auto -translate-y-full z-50 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5"
+      <div className={liststyle}
            style = {{ width: `${width}px` }}
       >
         <p className=' text-gray-700 '>{menuprops.title}</p>

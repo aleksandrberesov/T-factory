@@ -1,0 +1,20 @@
+[
+	{
+		"id": 0,
+		"en": "Profile",
+		"ru": "Профиль",
+		"annotation": "Navigation panel"
+	},
+	{
+		"id": 1,
+		"en": "Trading",
+		"ru": "Торговля",
+		"annotation": "Navigation panel"
+	},
+	{
+		"id": 2,
+		"en": "Statistic",
+		"ru": "Статистика",
+		"annotation": "Navigation panel"
+	}
+]

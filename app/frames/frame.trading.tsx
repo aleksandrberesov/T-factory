@@ -19,7 +19,7 @@ function TradingFrame(){
         duration : 1000/SpeedTitleToNumber(defaultSpeeds[0].element),
     };
     const { setDuration, isActive, toggle, reset } = useTimer( timerinitprops );
-    const [ isSettingsShow, SetIsSettingsShow] = useState(false);
+    const [ isSettingsShow, SetIsSettingsShow ] = useState(false);
 
     const content = useMemo(() => (
         <ChartView setUpdateSeries={SetUpdateSeries} initData={Market.data}/>
@@ -77,6 +77,7 @@ function TradingFrame(){
                 <div
                     className='bg-gray-500 flex-col gap-y-2 row-span-2 col-span-2'
                 >
+                    <LabelBox title='Transactions' value={1}/>
                     <LabelBox title='Center' value={1}/>
                     <LabelBox title='Max/Min' value={1}/>
                 </div>
@@ -94,7 +95,7 @@ function TradingFrame(){
             >
                 {!isActive ? <SelectedTab icon_image="/icons/play.svg" onclick={Toggle}/> : <SelectedTab icon_image="/icons/pause.svg" onclick={Toggle}/>}
                 <DropMenu elements={defaultSpeeds} selected={0} title='' backgroundcolor='white' onselected={ChangeSpeed}/>
-                {isActive ? <SelectedTab/> : <SelectedTab icon_image="/icons/next.svg" onclick={Step}/>}
+                {<SelectedTab icon_image="/icons/next.svg" onclick={Step}/>}
                 <SelectedTab icon_image="/icons/stop.svg" onclick={CloseSession}/> 
                 <SelectedTab icon_image="/icons/settings.svg" onclick={HideShowSettings}/>
             </div>          
