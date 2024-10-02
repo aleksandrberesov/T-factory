@@ -3,12 +3,16 @@ import { TOnSelectedFunction, TNumberToStringFunc, TStringProc } from "../libs/l
 
 type TLocalizedFrameProps = {
     getWord : TNumberToStringFunc;
-    setLanguage: TStringProc;
+    setLanguage?: TStringProc;
 };
 
 type TNavigationProps = TLocalizedFrameProps & {
     onselected ?: TOnSelectedFunction;
     lang : string;
+};
+
+type TTradingFrameProps = TLocalizedFrameProps & {
+    
 };
 
 type TProfileProps = {
@@ -26,4 +30,4 @@ type TSettingsProps = {
     callBack() : void;
 };
 
-export type { TProfileProps, TNavigationProps, TStatisticProps, TSettingsProps } ;
+export type { TProfileProps, TNavigationProps, TTradingFrameProps, TStatisticProps, TSettingsProps } ;

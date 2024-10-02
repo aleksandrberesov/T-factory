@@ -13,7 +13,8 @@ import useLocalizaion from "./libs/lib.localization";
 export default function Home() {
   let currentUser :  TProfile;
   currentUser = Object.assign({}, defaultUser, GetUserData());
-  const {getWord, setLanguage} = useLocalizaion(currentUser.lang);
+  const [component, SetComponent] = useState<React.JSX.Element>();
+  const {words, getWord, setLanguage} = useLocalizaion(currentUser.lang);
 
   const Frames = [
     {id: 0 , 
@@ -25,6 +26,7 @@ export default function Home() {
     },
     {id: 1 , 
      element: <TradingFrame
+                getWord={getWord}
               />
     },
     {id: 2 , 
@@ -34,21 +36,20 @@ export default function Home() {
               />
     }   
   ];
-  const [component, SetComponent] = useState(Frames[startFrame].element); 
-
+  
   const ChangeFrame = (id: number) => {
     SetComponent(Frames[id].element);
   };
 
+  const ChangeLanguage = (lang: string) => {
+    setLanguage(lang);
+  };
+
   useEffect(() => {
-    let ignore = false; 
-    if (ignore){
-        return ()=>{
-          ignore = true;
-        };            
-    }
     FullScreen();
-  }, []);
+    ChangeFrame(startFrame);
+  }, [words]);
+
 
   return (
     <main 
@@ -58,7 +59,7 @@ export default function Home() {
         onselected = {ChangeFrame} 
         lang = {currentUser.lang}
         getWord={getWord}
-        setLanguage={setLanguage}
+        setLanguage={ChangeLanguage}
       />
       {component}
     </main>

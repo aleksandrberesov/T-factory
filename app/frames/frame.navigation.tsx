@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useId, MouseEvent, MouseEventHandler } from 'react';
+import React, { useEffect, useState, useId } from 'react';
 import { TNavigationProps } from "./types"
 import SelectedTab from '../components/button';
 import DropMenu from '../components/drop-menu';
@@ -6,7 +6,9 @@ import { LanguageIDs } from '../libs/lib.localization';
 
 function NavigationFrame(navigationProps: TNavigationProps){
     const ChangeLanguage = (id: number)=>{
-        navigationProps.setLanguage(LanguageIDs[LanguageIDs.findIndex(element => element.id === id)].element);        
+        if (navigationProps.setLanguage!==undefined) {
+            navigationProps.setLanguage(LanguageIDs[LanguageIDs.findIndex(element => element.id === id)].element);        
+        }
     };
 
     function CreateButton(id: number): React.JSX.Element{

@@ -18,6 +18,7 @@ type TDictionaryWord = {
 };
 
 interface ILocalizator {
+    words: TWord[]; 
     getWord: TNumberToStringFunc;
     setLanguage: TStringProc;
 };
@@ -69,6 +70,7 @@ function useLocalizaion(lang: string): ILocalizator {
     };
     
     return {
+        words,
         getWord,
         setLanguage
     };
