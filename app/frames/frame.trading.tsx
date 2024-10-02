@@ -59,23 +59,25 @@ function TradingFrame(tradeprops: TTradingFrameProps){
                 <div
                     className='bg-gray-500 flex-col gap-y-2 row-span-3'
                 >
-                    <LabelBox title='Position' value={1}/>
-                    <LabelBox title='Avarage cost' value={1}/>
-                    <LabelBox title='Money' value={1}/>
-                    <LabelBox title='Capital' value={1}/>
+                    <LabelBox title={tradeprops.getWord(6)}/*'Position'*/ value={1}/>
+                    <LabelBox title={tradeprops.getWord(7)}/*'Avarage cost'*/ value={1}/>
+                    <LabelBox title={tradeprops.getWord(8)}/*'Money'*/ value={1}/>
+                    <LabelBox title={tradeprops.getWord(9)}/*'Capital'*/ value={1}/>
                 </div>
                 <div
                     className='bg-gray-500 flex-col gap-y-2 col-span-2'
                 >
-                    <LabelBox title='Current' value={1}/>
-                    <LabelBox title='All' value={1}/>
+                    <LabelBox title={tradeprops.getWord(10)}/*'Result'*//>
+                    <LabelBox title={tradeprops.getWord(11)}/*'Current'*/ value={1}/>
+                    <LabelBox title={tradeprops.getWord(12)}/*'All'*/ value={1}/>
                 </div>
                 <div
                     className='bg-gray-500 flex-col gap-y-2 row-span-2 col-span-2'
                 >
-                    <LabelBox title='Transactions' value={1}/>
-                    <LabelBox title='Center' value={1}/>
-                    <LabelBox title='Max/Min' value={1}/>
+                    <LabelBox title={tradeprops.getWord(13)+tradeprops.getWord(14)}/*'Profite'*//>
+                    <LabelBox title={tradeprops.getWord(15)}/*'Transactions'*/ value={1}/>
+                    <LabelBox title={tradeprops.getWord(16)}/*'Center'*/ value={1}/>
+                    <LabelBox title={tradeprops.getWord(17)+"/"+tradeprops.getWord(18)}/*'Max/Min'*/ value={1}/>
                 </div>
             </div>
             <div
