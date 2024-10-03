@@ -51,6 +51,10 @@ type TGridBoxProps = {
     elements : {id: number; element: React.JSX.Element}[]
 };
 
+type TTableBoxProps ={
+    
+};
+
 type TDropMenuProps = TButtonProps & {
     elements : {id: number; element: string}[]
     selected : number;

@@ -61,7 +61,11 @@ export default function Home() {
         getWord={getWord}
         setLanguage={ChangeLanguage}
       />
-      {component}
+      <div 
+        className="h-5/6"
+      >
+        {component}
+      </div>
     </main>
   );
 }

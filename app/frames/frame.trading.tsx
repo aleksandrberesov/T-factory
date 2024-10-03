@@ -45,16 +45,16 @@ function TradingFrame(tradeprops: TTradingFrameProps){
 
     return (
         <div
-            className="h-screen w-screen bg-transparent flex-col gap-y-10"
+            className="h-full w-screen bg-transparent gap-y-2 grid grid-rows-12 grid-cols-2"
         >
             <div
-                className="h-3/5 m-2"
+                className="row-span-7 col-span-2"
             > 
                 {isSettingsShow && <SettingsFrame callBack={HideShowSettings}/>} 
                 {!isSettingsShow && content}
             </div>
             <div
-                className='h-1/10 grid grid-rows-2 grid-flow-col gap-2 m-2'    
+                className='gap-2 grid grid-rows-2 grid-flow-col col-span-2 row-span-3'    
             >
                 <div
                     className='bg-gray-500 flex-col gap-y-2 row-span-3'
@@ -81,7 +81,7 @@ function TradingFrame(tradeprops: TTradingFrameProps){
                 </div>
             </div>
             <div
-                className='h-1/10 grid grid-cols-4 gap-2 m-2'
+                className=' grid grid-cols-4 gap-x-2 col-span-2 '
             >
                 <SelectedTab title={tradeprops.getWord(4)}/*"Sell"*/ backgroundcolor="green" textcolor='white' onclick={Sell}/> 
                 <DropMenu elements={defaultAmounts} selected={0} title='' backgroundcolor='white' textcolor='black'/>
@@ -89,7 +89,7 @@ function TradingFrame(tradeprops: TTradingFrameProps){
                 <SelectedTab title={tradeprops.getWord(5)}/*"Close"*/ backgroundcolor="blue" textcolor='white' onclick={CloseSession}/>
             </div>
             <div
-                className='h-1/10 grid grid-cols-5 gap-2'
+                className=' grid grid-cols-5 gap-2 col-span-2'
             >
                 {!isActive ? <SelectedTab icon_image="/icons/play.svg" onclick={Toggle}/> : <SelectedTab icon_image="/icons/pause.svg" onclick={Toggle}/>}
                 <DropMenu elements={defaultSpeeds} selected={0} title='' backgroundcolor='white' onselected={ChangeSpeed}/>
