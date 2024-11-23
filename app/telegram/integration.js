@@ -19,7 +19,7 @@ export async function FullScreen(){
   }   
 }
 
-export function GetUserData(){
+export async function GetUserData(){
     let User = {
         first_name : "no name",
         last_name :  "no lastname"
@@ -36,12 +36,12 @@ export function GetUserData(){
       return {
         id: ID,
         lang: LangCode,
-        user: User
+        user: User,
       }
     } catch (error) {
       console.error('An error occurred:', error.message);
       return {
-        
+        id: -1,
       };
     } finally {
       
