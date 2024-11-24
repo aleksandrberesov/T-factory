@@ -36,7 +36,7 @@ function ProfileFrame(profileprops: TProfileProps){
                 <div
                     className='bg-red-400 text-cyan-700'    
                 >
-                    <LabelBox title={profileprops.profile.user.first_name+" "+profileprops.profile.user.last_name} />
+                    <LabelBox title={profileprops.profile.id+" "+profileprops.profile.user.first_name+" "+profileprops.profile.user.last_name} />
                 </div>
                 <GridBox rows={1} elements={StarElements}/>
                 <GridBox rows={3} columns={2} elements={cardElemets}/> 

@@ -2,6 +2,7 @@ import AWS from 'aws-sdk';
 import { awsConfig } from '../aws-exports';
 
 async function GetProfile(user_id){
+    console.log(JSON.stringify(awsConfig, null, 2)); 
     AWS.config.update(awsConfig); 
     const dynamoDB = new AWS.DynamoDB.DocumentClient(); 
     const params = { 

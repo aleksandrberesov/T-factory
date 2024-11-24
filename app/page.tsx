@@ -17,8 +17,6 @@ export default function Home() {
   const [error, setError] = useState<string | null>(null);
   const [component, SetComponent] = useState<React.JSX.Element>();
   const {words, getWord, setLanguage} = useLocalizaion(profileData.lang);
-  
-  //let currentUser = {...defaultUser, ...GetUserData(), ...GetUser(0)}; 
 
   const fetchProfile = async ()=>{
     try { 
