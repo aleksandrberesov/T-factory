@@ -1,5 +1,7 @@
 export const awsConfig = {
-  region: process.env.REACT_APP_AWS_REGION, 
-  accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY_ID, 
-  secretAccessKey: process.env.REACT_APP_AWS_SECRET_ACCESS_KEY,
+  region: "us-east-1",
+  accessKeyId: "AKIAQEIP3UUXCJILZJAO",
+  secretAccessKey: "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"
 };
+
+//console.log('awsConfig:', awsConfig);
