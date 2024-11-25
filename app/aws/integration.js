@@ -1,5 +1,6 @@
 import AWS from 'aws-sdk'; 
 import { awsConfig } from '../aws-exports';
+import { isEmptyObject } from './libs/lib.utils';
 
 async function GetProfile(user_id){
     console.log(JSON.stringify(awsConfig, null, 2)); 
@@ -14,7 +15,16 @@ async function GetProfile(user_id){
     try { 
         const data = await dynamoDB.get(params).promise(); 
         console.log(JSON.stringify(data.Item, null, 2)); 
-        return data.Item; 
+        if (isEmptyObject(data.Item)) {
+            return {
+                user: {
+                    first_name:"new",
+                    last_name: "person"
+                } 
+            }
+        }else{
+            return data.Item; 
+        }
     } catch (err) { 
         console.error('Error fetching data from DynamoDB', err); 
         return {
