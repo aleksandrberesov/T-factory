@@ -1,7 +1,5 @@
 export const awsConfig = {
-  region: "us-east-1",
-  accessKeyId: "AKIAQEIP3UUXCJILZJAO",
-  secretAccessKey: "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"
+  region: process.env.NEXT_PUBLIC_AWS_REGION,
+  accessKeyId: process.env.NEXT_PUBLIC_AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY,
 };
-
-//console.log('awsConfig:', awsConfig);
