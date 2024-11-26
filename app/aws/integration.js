@@ -1,32 +1,50 @@
-import AWS from 'aws-sdk'; 
-import { awsConfig } from '../aws-exports';
-import { isEmptyObject } from './libs/lib.utils';
+import { PutItemCommand, GetItemCommand } from "@aws-sdk/client-dynamodb";
+import dynamoDBClient from './aws-exports';
 
 async function GetProfile(user_id){
-    console.log(JSON.stringify(awsConfig, null, 2)); 
-    AWS.config.update(awsConfig); 
-    const dynamoDB = new AWS.DynamoDB.DocumentClient(); 
+    //console.log(JSON.stringify(dynamoDBClient.config, null, 2)); 
+    //AWS.config.update(awsConfig); 
     const params = { 
         TableName: 'users', 
         Key: { 
-            id: user_id,
+            id: { N: user_id.toString() },
         }, 
     };
+    console.log('params: ',JSON.stringify(params, null, 2)); 
     try { 
-        const data = await dynamoDB.get(params).promise(); 
-        console.log(JSON.stringify(data.Item, null, 2)); 
-        if (isEmptyObject(data.Item)) {
-            return {
-                user: {
-                    first_name:"new",
-                    last_name: "person"
-                } 
-            }
-        }else{
+        const command = new GetItemCommand(params); 
+        const data = await dynamoDBClient.send(command);
+        if (data && data.Item){
+            console.log('data.Item: ',JSON.stringify(data.Item, null, 2)); 
             return data.Item; 
+        }else{
+            const newItem = { 
+                TableName: 'users', 
+                Item: {
+                    id: { N: user_id.toString() },
+                    user: {
+                        M: {
+                            first_name: { S: "new" },
+                            last_name: { S: "person" },
+                        }
+                    } ,
+                    balance: { N: "99999" },
+                }, 
+            };
+            console.log('new item: ',JSON.stringify(newItem, null, 2)); 
+    
+            try { 
+                const putCommand = new PutItemCommand(newItem); 
+                const putData = await dynamoDBClient.send(putCommand); 
+                console.log("Item added:", putData); 
+                return putData; 
+            }catch (error) { 
+                console.error("[Error adding item]", error); 
+                throw error; 
+            }
         }
     } catch (err) { 
-        console.error('Error fetching data from DynamoDB', err); 
+        console.error('[Error fetching data from DynamoDB]', err); 
         return {
             user: {
                 first_name:"unknown",
