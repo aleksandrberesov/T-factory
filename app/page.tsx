@@ -1,7 +1,7 @@
 "use client";
 
 import { FullScreen, GetUserData } from "./telegram/integration";
-import { GetProfile, GetPatterns } from "./aws/integration"
+import { GetProfile, UpdateProfile, GetPatterns } from "./aws/dataService"
 import React, { useEffect, useState } from 'react';
 import { startFrame, defaultUser } from "./models/consts";
 import { TProfile } from "./models/types";
@@ -20,13 +20,13 @@ export default function Home() {
 
   const fetchProfile = async ()=>{
     try { 
-      const tgProfile = await GetUserData(); 
-      const dbProfile = await GetProfile(tgProfile.id);
-      setPrtofileData({...defaultUser, ...tgProfile, ...dbProfile});
+        const tgProfile = await GetUserData(); 
+        const dbProfile = await GetProfile(tgProfile.id);
+        setPrtofileData({...defaultUser, ...tgProfile, ...dbProfile});
     } catch (error) { 
-      setError((error as Error).message); 
+        setError((error as Error).message); 
     } finally { 
-      setLoading(false)
+        setLoading(false)
     };
   };
   
@@ -56,10 +56,27 @@ export default function Home() {
     setLanguage(lang);
   };
 
+  const HandleBeforeUnload = (event: BeforeUnloadEvent)=>{
+    const upd = UpdateProfile(profileData);
+    
+    console.log('data.Item: ',JSON.stringify(upd, null, 2)); 
+    const message = JSON.stringify(upd, null, 2);
+    event.returnValue = message; 
+    return message;
+  };
+
   useEffect(() => {
     FullScreen();
     fetchProfile();
     ChangeFrame(startFrame);
+    const upd = UpdateProfile(profileData);
+    
+    console.log('data.Item: ',JSON.stringify(upd, null, 2)); 
+    
+    window.addEventListener('beforeunload', HandleBeforeUnload);
+    return () => { 
+      window.removeEventListener('beforeunload', HandleBeforeUnload);
+    };
   }, [words]);
 
 

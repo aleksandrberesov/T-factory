@@ -1,10 +1,6 @@
-interface AttributeValue { 
-    S?: string; 
-    N?: string; 
-    BOOL?: boolean; 
-    M?: { [key: string]: AttributeValue }; 
-    L?: AttributeValue[];}
-type DynamoDBItem = { [key: string]: AttributeValue }; 
+import { AttributeValue } from "@aws-sdk/client-dynamodb";
+
+type DynamoItem = Record<string, AttributeValue>;
 type JSONItem = { [key: string]: any };
 
-export type {AttributeValue, DynamoDBItem, JSONItem};
+export type {DynamoItem, JSONItem};

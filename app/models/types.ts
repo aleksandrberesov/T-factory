@@ -23,6 +23,7 @@ type TProfile = {
     id: number;
     lang: string;
     user: TUser;
+    balance: number;
     status: string;
     position: string;
     level: number;

@@ -9,6 +9,7 @@ const defaultUser : TProfile = {
     },
     lang : "en",
     status: "unknown",
+    balance: 100000,
     position: "hamster",
     level: 80,
     statistics : [

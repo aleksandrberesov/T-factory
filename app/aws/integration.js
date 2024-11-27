@@ -1,9 +1,12 @@
 import { PutItemCommand, GetItemCommand } from "@aws-sdk/client-dynamodb";
 import dynamoDBClient from './aws-exports';
+import { GetItem } from './dynamoDB'
+
+async function GetPatterns() {
+        
+}
 
 async function GetProfile(user_id){
-    //console.log(JSON.stringify(dynamoDBClient.config, null, 2)); 
-    //AWS.config.update(awsConfig); 
     const params = { 
         TableName: 'users', 
         Key: { 
@@ -52,10 +55,6 @@ async function GetProfile(user_id){
             }    
         }; 
     }
-};
-
-function GetPatterns(){
-
 };
 
 export {GetProfile, GetPatterns};
