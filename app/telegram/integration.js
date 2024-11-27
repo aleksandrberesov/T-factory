@@ -20,31 +20,23 @@ export async function FullScreen(){
 }
 
 export async function GetUserData(){
-    let User = {
-        first_name : "no name",
-        last_name :  "no lastname"
-    };
-    let ID = 0;
-    let LangCode = "en";
-
-    try {
-      const { initDataRaw, initData } = retrieveLaunchParams();
-      User.first_name = initData.user.firstName;
-      User.last_name = initData.user.lastName;
-      ID = initData.user.id;
-      LangCode = initData.user.languageCode;
-      return {
-        id: ID,
-        lang: LangCode,
-        user: User,
-      }
-    } catch (error) {
-      console.error('An error occurred:', error.message);
-      return {
-        id: -1,
-      };
-    } finally {
-      
+  try {
+    const { initDataRaw, initData } = retrieveLaunchParams();
+    return {
+      id: initData.user.id,
+      lang: initData.user.languageCode,
+      user: {
+        first_name : initData.user.firstName,
+        last_name :  initData.user.lastName,
+      },
     }
+  } catch (error) {
+    console.error('An error occurred:', error.message);
+    return {
+      id: -1,
+    };
+  } finally {
+    
+  }
 }
  

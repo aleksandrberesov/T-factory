@@ -8,7 +8,7 @@ type TLocalizedFrameProps = {
 
 type TNavigationProps = TLocalizedFrameProps & {
     onselected ?: TOnSelectedFunction;
-    lang : string;
+    lang ?: string;
 };
 
 type TTradingFrameProps = TLocalizedFrameProps & {

@@ -1,10 +1,5 @@
 import { ISeriesApi, Time, UTCTimestamp } from 'lightweight-charts';
 
-type TUser = {
-    first_name: string;
-    last_name: string;    
-};
-
 type TStatisticItem = {
     title: string;
     isDone: boolean;    
@@ -19,9 +14,14 @@ type TStar = {
     title : string;
 };
 
+type TUser = {
+    first_name: string;
+    last_name?: string;    
+};
+
 type TProfile = {
     id: number;
-    lang: string;
+    lang?: string;
     user: TUser;
     balance: number;
     status: string;

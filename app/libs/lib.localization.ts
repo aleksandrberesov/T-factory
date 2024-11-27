@@ -35,18 +35,19 @@ const LanguageIDs : TStringElement[] = [
     }
 ];
 
-function useLocalizaion(lang: string): ILocalizator {
+function useLocalizaion(initlang: string | undefined): ILocalizator {
     const dictionaryRef = useRef<TDictionaryWord[]>([]);
     const [words, setWords] = useState<TWord[]>([]);
-  
+    const Lang = initlang || AvailableLanguages[0];
+
     useEffect(() => {
       fetch('/words.json')
         .then((response) => response.json())
         .then((data) => {
             dictionaryRef.current = data;
-            setLanguage(lang);
+            setLanguage(Lang);
         });
-    }, [lang]);
+    }, [Lang]);
 
     function PushWords(lang: keyof TDictionaryWord = "en"): TWord[]{
         let w: TWord[] = [];

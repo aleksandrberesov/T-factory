@@ -1,7 +1,9 @@
 import { GetItem, PutItem, GetItemList } from './dynamoDB'
 
 async function GetPatterns() {
-        
+    const tableName = "patterns"; 
+    const userProfile = await GetItemList(tableName); 
+    return userProfile;        
 };
 
 async function GetProfile(user_id: number){

@@ -4,9 +4,10 @@ import Rectangle from "./rectangle";
 import { TCheckBoxProps } from "./types";
 
 function CheckBox(checkprops: TCheckBoxProps) {
+    const Letter = (checkprops.title || '').charAt(0);
     return (
         <div className="grid grid-cols-3 gap-1 text-3xl">
-            <Circle cx={50} cy={50} r={40} stroke="black" fill="#EADDFF" text={checkprops.title.charAt(0)}/>
+            <Circle cx={50} cy={50} r={40} stroke="black" fill="#EADDFF" text={Letter}/>
             <p
                 className="text-black flex justify-center items-center"
             >

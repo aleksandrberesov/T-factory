@@ -9,6 +9,7 @@ import NavigationFrame from "./frames/frame.navigation";
 import TradingFrame from "./frames/frame.trading";
 import ProfileFrame from "./frames/frame.profile";
 import StatisticFrame from "./frames/frame.statistic";
+import LoadingFrame from "./frames/frame.loading";
 import useLocalizaion from "./libs/lib.localization";
 
 export default function Home() {
@@ -58,20 +59,15 @@ export default function Home() {
 
   const HandleBeforeUnload = (event: BeforeUnloadEvent)=>{
     const upd = UpdateProfile(profileData);
-    
-    console.log('data.Item: ',JSON.stringify(upd, null, 2)); 
-    const message = JSON.stringify(upd, null, 2);
-    event.returnValue = message; 
-    return message;
   };
 
   useEffect(() => {
     FullScreen();
     fetchProfile();
     ChangeFrame(startFrame);
-    const upd = UpdateProfile(profileData);
+    //const upd = UpdateProfile(profileData);
     
-    console.log('data.Item: ',JSON.stringify(upd, null, 2)); 
+    //console.log('data.Item: ',JSON.stringify(upd, null, 2)); 
     
     window.addEventListener('beforeunload', HandleBeforeUnload);
     return () => { 
@@ -79,22 +75,31 @@ export default function Home() {
     };
   }, [words]);
 
-
-  return (
-    <main 
-      className="h-screen w-screen overflow-hidden bg-black"
-    >
-      <NavigationFrame
-        onselected = {ChangeFrame} 
-        lang = {profileData.lang}
-        getWord={getWord}
-        setLanguage={ChangeLanguage}
-      />
-      <div 
-        className="h-5/6"
+  if (loading){
+    return(
+      <LoadingFrame/>
+    )
+  }else if (error){
+    return (
+      <h1>ERROR</h1>
+    )  
+  }else{
+    return (
+      <main 
+        className="h-screen w-screen overflow-hidden bg-black"
       >
-        {component}
-      </div>
-    </main>
-  );
+        <NavigationFrame
+          onselected = {ChangeFrame} 
+          lang = {profileData.lang}
+          getWord={getWord}
+          setLanguage={ChangeLanguage}
+        />
+        <div 
+          className="h-5/6"
+        >
+          {component}
+        </div>
+      </main>
+    );
+  }
 }
