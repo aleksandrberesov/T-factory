@@ -57,18 +57,15 @@ export default function Home() {
     setLanguage(lang);
   };
 
-  const HandleBeforeUnload = (event: BeforeUnloadEvent)=>{
-    const upd = UpdateProfile(profileData);
-  };
-
+  
   useEffect(() => {
+    const HandleBeforeUnload = (event: BeforeUnloadEvent)=>{
+      UpdateProfile(profileData);
+      event.preventDefault();
+    };
     FullScreen();
     fetchProfile();
     ChangeFrame(startFrame);
-    //const upd = UpdateProfile(profileData);
-    
-    //console.log('data.Item: ',JSON.stringify(upd, null, 2)); 
-    
     window.addEventListener('beforeunload', HandleBeforeUnload);
     return () => { 
       window.removeEventListener('beforeunload', HandleBeforeUnload);
