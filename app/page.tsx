@@ -53,14 +53,13 @@ export default function Home() {
     SetComponent(Frames[id].element);
   };
 
-  const ChangeLanguage = (lang: string) => {
-    setLanguage(lang);
+  const ChangeLanguage = (lang_tag: string) => {
+    setPrtofileData({...profileData, ...{lang: lang_tag}});
+    setLanguage(lang_tag);
   };
 
-  
   useEffect(() => {
     const HandleBeforeUnload = (event: BeforeUnloadEvent)=>{
-      UpdateProfile(profileData);
       event.preventDefault();
     };
     FullScreen();
@@ -68,9 +67,10 @@ export default function Home() {
     ChangeFrame(startFrame);
     window.addEventListener('beforeunload', HandleBeforeUnload);
     return () => { 
+      UpdateProfile(profileData);
       window.removeEventListener('beforeunload', HandleBeforeUnload);
     };
-  }, [words]);
+  }, []);
 
   if (loading){
     return(

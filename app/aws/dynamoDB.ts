@@ -11,7 +11,6 @@ async function GetItem(name: string, item_id: number) {
         }, 
     }; 
     try{
-        //const command = new GetItemCommand(params);
         const data = await dynamoDBClient.send(new GetItemCommand(params));
         if (data && data.Item){
             console.log('data.Item: ',JSON.stringify(data.Item, null, 2)); 
