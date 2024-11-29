@@ -14,6 +14,8 @@ import useLocalizaion from "./libs/lib.localization";
 
 export default function Home() {
   const [profileData, setProfileData] = useState<TProfile>(defaultUser); 
+  const [currentFrame, setCurrentFrame] = useState<number>(startFrame); 
+  
   const profileDataRef = useRef(profileData);
   const [loading, setLoading] = useState<boolean>(true); 
   const [error, setError] = useState<string | null>(null);
@@ -52,6 +54,7 @@ export default function Home() {
   ];
   
   const ChangeFrame = (id: number) => {
+    setCurrentFrame(id);
     SetComponent(Frames[id].element);
   };
 
@@ -62,7 +65,7 @@ export default function Home() {
 
   useEffect(()=>{
     FullScreen();
-    ChangeFrame(startFrame);
+    ChangeFrame(currentFrame);
   },[words]);
 
   useEffect(() => { 

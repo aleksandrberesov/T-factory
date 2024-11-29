@@ -46,7 +46,7 @@ const convertToCommonJSON = (attributeValueObj: DynamoItem): JSONItem => {
         } else if (value.M !== undefined) { 
             commonJSONObj[key] = convertToCommonJSON(value.M); 
         } else if (value.L !== undefined) { 
-            commonJSONObj[key] = value.L.map(item => convertToCommonJSON({ item })); 
+            commonJSONObj[key] = value.L.map(v => convertToCommonJSON(v.M!)); 
         } 
     }
     return commonJSONObj;
