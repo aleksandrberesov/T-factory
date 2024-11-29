@@ -11,8 +11,8 @@ function DropMenu( menuprops: TDropMenuProps) {
     setIsOpen(!isOpen);
   };
 
-  const buttonstyle = [menuprops.style, "flex", "items-center", "justify-center" ].join(" ");
-  const liststyle = [menuprops.dropDirection==="down" ? "": "-translate-y-full",  
+  const buttonstyle = [menuprops.style, "w-full" ].join(" ");
+  const liststyle = [menuprops.dropDirection==="down" ? "translate-y-0": "-translate-y-full",  
                      "flex origin-top-right absolute justify-self-auto z-50 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5"
                     ].join(" ");
 
@@ -25,7 +25,7 @@ function DropMenu( menuprops: TDropMenuProps) {
   };
 
   const listItems = menuprops.elements.map((item) =>
-    <SelectedTab key={item.id} id={item.id} title={item.element} onselected={SelecItem}/>
+    <SelectedTab key={item.id} id={item.id} title={item.element} onselected={SelecItem} style={buttonstyle}/>
   );
 
   useEffect(() => {
@@ -41,7 +41,7 @@ function DropMenu( menuprops: TDropMenuProps) {
         style = {{ width: `${width}px` }}
       >
         <p className=' text-gray-700 '>{menuprops.title}</p>
-        <div className="py-1">
+        <div className="py-1 flex flex-wrap">
           {listItems} 
         </div>
       </div>
