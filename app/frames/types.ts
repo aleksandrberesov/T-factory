@@ -12,7 +12,7 @@ type TNavigationProps = TLocalizedFrameProps & {
 };
 
 type TTradingFrameProps = TLocalizedFrameProps & {
-    
+    profile: TProfile;   
 };
 
 type TProfileProps = {

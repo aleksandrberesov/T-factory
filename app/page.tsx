@@ -24,17 +24,11 @@ export default function Home() {
     try { 
         const tgProfile = await GetUserData(); 
         const dbProfile = await GetProfile(tgProfile.id);
-        //console.log("tgProfile", JSON.stringify(tgProfile, null, 2));
-        //console.log("dbProfile", JSON.stringify(dbProfile, null, 2));
         setProfileData({...defaultUser, ...tgProfile, ...dbProfile});
-        //console.log("Profile", JSON.stringify(profileData, null, 2));
-        //return {...tgProfile, ...dbProfile}
     } catch (error) { 
         setError((error as Error).message);
-        //return {}; 
     } finally { 
         setLoading(false)
-        //return {};
     };
   };
   
@@ -47,6 +41,7 @@ export default function Home() {
     {id: 1 , 
      element: <TradingFrame
                 getWord={getWord}
+                profile={profileData}
               />
     },
     {id: 2 , 
@@ -71,16 +66,11 @@ export default function Home() {
   },[words]);
 
   useEffect(() => { 
-    //profileDataRef.current = profileData;
     UpdateProfile(profileData); 
-    //console.log("ref", JSON.stringify(profileDataRef.current,null,2));
   }, [profileData]);
   
   useEffect(() => {
     fetchProfile();
-    return () => { 
-      //UpdateProfile(profileDataRef.current);
-    };
   }, []);
 
   if (loading){
