@@ -2,9 +2,8 @@
 
 import { FullScreen, GetUserData } from "./telegram/integration";
 import { GetProfile, UpdateProfile, GetPatterns } from "./aws/dataService"
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { startFrame } from "./models/consts";
-import { IProfile, TProfile, defaultUser } from "./models/profile";
 import NavigationFrame from "./frames/frame.navigation";
 import TradingFrame from "./frames/frame.trading";
 import ProfileFrame from "./frames/frame.profile";
@@ -14,25 +13,19 @@ import useLocalizaion from "./libs/lib.localization";
 import useProfile from "./models/profile";
 
 export default function Home() {
-  //const [profileData, setProfileData] = useState<TProfile>(defaultUser); 
-  
-  
-  //const profileDataRef = useRef(profileData);
   const [loading, setLoading] = useState<boolean>(true); 
   const [error, setError] = useState<string | null>(null);
   const [component, SetComponent] = useState<React.JSX.Element>();
   const [currentFrame, setCurrentFrame] = useState<number>(startFrame); 
   
-  const profile = useProfile();
+  const profile = useProfile(UpdateProfile);
   const {words, getWord, setLanguage} = useLocalizaion(profile.data.lang);
 
   const fetchProfile = async () =>{
     try { 
         const tgProfile = await GetUserData(); 
         const dbProfile = await GetProfile(tgProfile.id);
-        profile.setData({...defaultUser, ...tgProfile, ...dbProfile});
-
-        //setProfileData({...defaultUser, ...tgProfile, ...dbProfile});
+        profile.setData({...tgProfile, ...dbProfile});
     } catch (error) { 
         setError((error as Error).message);
     } finally { 
@@ -69,15 +62,14 @@ export default function Home() {
     setLanguage(lang_tag);
   };
 
+  
   useEffect(()=>{
     FullScreen();
+  },[]);
+  
+  useEffect(()=>{
     ChangeFrame(currentFrame);
-  },[words]);
-
-  useEffect(() => { 
-    UpdateProfile(profile.data); 
-    //profileDataRef.current = profileData;
-  }, [profile.data]);
+  },[words, profile.data]);
   
   useEffect(() => {
     fetchProfile();

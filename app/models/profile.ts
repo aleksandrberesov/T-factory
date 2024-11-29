@@ -1,5 +1,7 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { TStatisticItem, TUser, TCard, TStar } from "./types"; 
+
+type TProfileUpdateFunc = (upd: object) => void;
 
 type TProfile = {
     id: number;
@@ -48,13 +50,20 @@ const defaultUser : TProfile = {
     ]
 };
 
-const useProfile = (): IProfile => {
+const useProfile = (updFunc: TProfileUpdateFunc | undefined): IProfile => {
     const [data, acceptData] = useState<TProfile>(defaultUser); 
     const profileDataRef = useRef(data);
     
     const setData = (newData: object) => {
         acceptData({...data, ...newData});
     };
+
+    useEffect(() => { 
+        if (updFunc !== undefined){
+            updFunc(data);    
+        } 
+        profileDataRef.current = data;
+      }, [data]);
 
     return {
         data,
