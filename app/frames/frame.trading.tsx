@@ -5,7 +5,7 @@ import LabelBox from '../components/label';
 import DropMenu from '../components/drop-menu';
 import { Trade, Market, SetUpdateSeries,  Step, Play, Pause, Stop, Buy, Sell } from "../models/trading";
 import { useTimer } from "../libs/lib.timer";
-import { defaultAmounts, defaultSpeeds } from '../models/consts';
+import { defaultSpeeds } from '../models/consts';
 import SettingsFrame from './frame.settings';
 import { TTradingFrameProps } from './types';
 
@@ -14,12 +14,11 @@ function SpeedTitleToNumber(str: string){
 };
 
 function TradingFrame(tradeprops: TTradingFrameProps){
-    const timerinitprops = {
+    const { setDuration, isActive, toggle, reset } = useTimer({
         callback :  () => { Step(); }, 
         state : Trade.state=="started",
-        duration : 1000/SpeedTitleToNumber(defaultSpeeds[0].element),
-    };
-    const { setDuration, isActive, toggle, reset } = useTimer( timerinitprops );
+        duration : 1000/SpeedTitleToNumber(defaultSpeeds[0].element),    
+    });
     const [ isSettingsShow, SetIsSettingsShow ] = useState(false);
     const content = useMemo(() => (
         <ChartView setUpdateSeries={SetUpdateSeries} initData={Market.data}/>

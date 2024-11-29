@@ -12,7 +12,9 @@ function DropMenu( menuprops: TDropMenuProps) {
   };
 
   const buttonstyle = [menuprops.style, "flex", "items-center", "justify-center" ].join(" ");
-  const liststyle = [menuprops.dropDirection==="down" ? "": "-translate-y-full",  "flex origin-top-right absolute justify-self-auto z-50 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5"].join(" ");
+  const liststyle = [menuprops.dropDirection==="down" ? "": "-translate-y-full",  
+                     "flex origin-top-right absolute justify-self-auto z-50 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5"
+                    ].join(" ");
 
   const SelecItem = (id: number) =>{
     setIsOpen(false);
@@ -34,8 +36,9 @@ function DropMenu( menuprops: TDropMenuProps) {
 
   function GetList(): React.JSX.Element {
     return(
-      <div className={liststyle}
-           style = {{ width: `${width}px` }}
+      <div 
+        className={liststyle}
+        style = {{ width: `${width}px` }}
       >
         <p className=' text-gray-700 '>{menuprops.title}</p>
         <div className="py-1">
@@ -46,7 +49,7 @@ function DropMenu( menuprops: TDropMenuProps) {
   };
 
   return (
-    <div  ref={parentRef} className="bg-purple-600 ">
+    <div  ref={parentRef} className="bg-purple-600">
         <SelectedTab 
             title={menuprops.elements[selectedItem].element} 
             textcolor={menuprops.textcolor} 
