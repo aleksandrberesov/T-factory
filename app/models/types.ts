@@ -19,19 +19,6 @@ type TUser = {
     last_name?: string;    
 };
 
-type TProfile = {
-    id: number;
-    lang?: string;
-    user: TUser;
-    balance: number;
-    status: string;
-    position: string;
-    level: number;
-    statistics: TStatisticItem[];
-    cards : TCard[];
-    stars : TStar[]
-};
-
 interface ITrade {
     state : 'started' | 'paused' | 'stopped' | undefined;
     series ?: ISeriesApi<"Line", Time> | undefined;
@@ -58,5 +45,5 @@ type TMarket = {
 };
 
 
-export type { TUser, TProfile, TStatisticItem, TCard, TStar };
+export type { TUser, TStatisticItem, TCard, TStar };
 export type { ITrade, TMarketPoint, TPatternParameter, TMarket };

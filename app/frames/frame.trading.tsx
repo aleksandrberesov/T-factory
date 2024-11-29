@@ -84,7 +84,7 @@ function TradingFrame(tradeprops: TTradingFrameProps){
                 className=' grid grid-cols-4 gap-x-2 col-span-2 '
             >
                 <SelectedTab title={tradeprops.getWord(4)}/*"Sell"*/ backgroundcolor="green" textcolor='white' onclick={Sell}/> 
-                <DropMenu elements={defaultAmounts} selected={0} title='' backgroundcolor='white' textcolor='black'/>
+                <SelectedTab title={String(tradeprops.profile.data.balance)} backgroundcolor='white' textcolor='black'/>
                 <SelectedTab title={tradeprops.getWord(3)}/*"Buy"*/ backgroundcolor="red" textcolor='white' onclick={Buy}/>  
                 <SelectedTab title={tradeprops.getWord(5)}/*"Close"*/ backgroundcolor="blue" textcolor='white' onclick={CloseSession}/>
             </div>

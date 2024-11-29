@@ -6,7 +6,7 @@ import CheckBox from '../components/checkbox';
 function StatisticFrame(statprops: TStatisticProps){
     let idCounter = 1;
 
-    const statElemets = statprops.profile.statistics.map((item) => {
+    const statElemets = statprops.profile.data.statistics.map((item) => {
         return {
             id: idCounter++,
             element: <CheckBox title={item.title} is_checked={item.isDone}/>

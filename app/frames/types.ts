@@ -1,5 +1,6 @@
-import { TUser, TProfile, TStatisticItem, TCard, TStar } from "../models/types";
+import { TUser, TStatisticItem, TCard, TStar } from "../models/types";
 import { TOnSelectedFunction, TNumberToStringFunc, TStringProc } from "../libs/lib.types";
+import { IProfile } from "../models/profile";
 
 type TLocalizedFrameProps = {
     getWord : TNumberToStringFunc;
@@ -12,18 +13,18 @@ type TNavigationProps = TLocalizedFrameProps & {
 };
 
 type TTradingFrameProps = TLocalizedFrameProps & {
-    profile: TProfile;   
+    profile: IProfile;   
 };
 
 type TProfileProps = {
-    profile: TProfile;
+    profile: IProfile;
 //    user : TUser;
 //    cards : TCard[];
 //    stars : TStar[];
 };
 
 type TStatisticProps = {
-    profile: TProfile;
+    profile: IProfile;
 //    id : number;
 //    data : TStatisticItem[];
 };

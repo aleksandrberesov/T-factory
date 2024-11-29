@@ -13,13 +13,13 @@ function ProfileFrame(profileprops: TProfileProps){
 
     };
  
-    const StarElements = profileprops.profile.stars.map((item) => {
+    const StarElements = profileprops.profile.data.stars.map((item) => {
         return {
             id: idStar++,
             element: <SelectedTab icon_image="/icons/star.svg" onclick={onStarClick}/>
         };
     });
-    const cardElemets = profileprops.profile.cards.map((item) => {
+    const cardElemets = profileprops.profile.data.cards.map((item) => {
         return {
             id: idCard++,
             element: <CardTab title={item.title} description={item.description}/>
@@ -36,7 +36,10 @@ function ProfileFrame(profileprops: TProfileProps){
                 <div
                     className='bg-red-400 text-cyan-700'    
                 >
-                    <LabelBox title={profileprops.profile.id+" "+profileprops.profile.user.first_name+" "+profileprops.profile.user.last_name+" "+profileprops.profile.balance} />
+                    <LabelBox title={String(profileprops.profile.data.id)} />
+                    <LabelBox title={profileprops.profile.data.user.first_name} />
+                    <LabelBox title={profileprops.profile.data.user.last_name || ''} />
+                    <LabelBox title={String(profileprops.profile.data.balance)} />
                 </div>
                 <GridBox rows={1} elements={StarElements}/>
                 <GridBox rows={3} columns={2} elements={cardElemets}/> 

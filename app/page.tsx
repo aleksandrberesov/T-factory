@@ -3,30 +3,36 @@
 import { FullScreen, GetUserData } from "./telegram/integration";
 import { GetProfile, UpdateProfile, GetPatterns } from "./aws/dataService"
 import React, { useEffect, useRef, useState } from 'react';
-import { startFrame, defaultUser } from "./models/consts";
-import { TProfile } from "./models/types";
+import { startFrame } from "./models/consts";
+import { IProfile, TProfile, defaultUser } from "./models/profile";
 import NavigationFrame from "./frames/frame.navigation";
 import TradingFrame from "./frames/frame.trading";
 import ProfileFrame from "./frames/frame.profile";
 import StatisticFrame from "./frames/frame.statistic";
 import LoadingFrame from "./frames/frame.loading";
 import useLocalizaion from "./libs/lib.localization";
+import useProfile from "./models/profile";
 
 export default function Home() {
-  const [profileData, setProfileData] = useState<TProfile>(defaultUser); 
-  const [currentFrame, setCurrentFrame] = useState<number>(startFrame); 
+  //const [profileData, setProfileData] = useState<TProfile>(defaultUser); 
   
-  const profileDataRef = useRef(profileData);
+  
+  //const profileDataRef = useRef(profileData);
   const [loading, setLoading] = useState<boolean>(true); 
   const [error, setError] = useState<string | null>(null);
   const [component, SetComponent] = useState<React.JSX.Element>();
-  const {words, getWord, setLanguage} = useLocalizaion(profileData.lang);
+  const [currentFrame, setCurrentFrame] = useState<number>(startFrame); 
+  
+  const profile = useProfile();
+  const {words, getWord, setLanguage} = useLocalizaion(profile.data.lang);
 
   const fetchProfile = async () =>{
     try { 
         const tgProfile = await GetUserData(); 
         const dbProfile = await GetProfile(tgProfile.id);
-        setProfileData({...defaultUser, ...tgProfile, ...dbProfile});
+        profile.setData({...defaultUser, ...tgProfile, ...dbProfile});
+
+        //setProfileData({...defaultUser, ...tgProfile, ...dbProfile});
     } catch (error) { 
         setError((error as Error).message);
     } finally { 
@@ -37,18 +43,18 @@ export default function Home() {
   const Frames = [
     {id: 0 , 
      element: <ProfileFrame 
-                profile={profileData}  
+                profile={profile}  
               />
     },
     {id: 1 , 
      element: <TradingFrame
                 getWord={getWord}
-                profile={profileData}
+                profile={profile}
               />
     },
     {id: 2 , 
      element: <StatisticFrame 
-                profile={profileData}
+                profile={profile}
               />
     }   
   ];
@@ -59,7 +65,7 @@ export default function Home() {
   };
 
   const ChangeLanguage = (lang_tag: string) => {
-    setProfileData(prevData => ({ ...prevData, lang: lang_tag }));
+    profile.setData({lang: lang_tag });
     setLanguage(lang_tag);
   };
 
@@ -69,8 +75,9 @@ export default function Home() {
   },[words]);
 
   useEffect(() => { 
-    UpdateProfile(profileData); 
-  }, [profileData]);
+    UpdateProfile(profile.data); 
+    //profileDataRef.current = profileData;
+  }, [profile.data]);
   
   useEffect(() => {
     fetchProfile();
@@ -91,7 +98,7 @@ export default function Home() {
       >
         <NavigationFrame
           onselected = {ChangeFrame} 
-          lang = {profileData.lang}
+          lang = {profile.data.lang}
           getWord={getWord}
           setLanguage={ChangeLanguage}
         />
