@@ -49,7 +49,10 @@ function TradingFrame(tradeprops: TTradingFrameProps){
             <div
                 className="row-span-7 col-span-2"
             > 
-                {isSettingsShow && <SettingsFrame callBack={HideShowSettings}/>} 
+                {isSettingsShow && <SettingsFrame 
+                                        callBack={HideShowSettings}
+                                        data={tradeprops.pattern}
+                                    />} 
                 {!isSettingsShow && content}
             </div>
             <div

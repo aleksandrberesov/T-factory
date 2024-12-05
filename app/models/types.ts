@@ -1,5 +1,10 @@
 import { ISeriesApi, Time, UTCTimestamp } from 'lightweight-charts';
 
+type TUser = {
+    first_name: string;
+    last_name?: string;    
+};
+
 type TStatisticItem = {
     title: string;
     isDone: boolean;    
@@ -12,11 +17,6 @@ type TCard = {
 
 type TStar = {
     title : string;
-};
-
-type TUser = {
-    first_name: string;
-    last_name?: string;    
 };
 
 interface ITrade {
@@ -39,11 +39,16 @@ type TPatternParameter = {
     count: number;
 };
 
+type TMarketPattern = {
+    pre_points : TPatternParameter[];
+    points : TPatternParameter[];
+};
+
 type TMarket = {
     pattern: TPatternParameter[];
     data : TMarketPoint[];
 };
 
-
 export type { TUser, TStatisticItem, TCard, TStar };
 export type { ITrade, TMarketPoint, TPatternParameter, TMarket };
+export type { TMarketPattern };

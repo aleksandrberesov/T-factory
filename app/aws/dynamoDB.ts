@@ -1,21 +1,20 @@
-import { PutItemCommand, PutItemCommandInput, GetItemCommand } from "@aws-sdk/client-dynamodb";
+import { PutItemCommand, PutItemCommandInput, GetItemCommand, ScanCommand, ScanCommandInput } from "@aws-sdk/client-dynamodb";
 import dynamoDBClient from './aws-exports';
 import { convertToAttributeValue, convertToCommonJSON} from './utils'
+import { JSONItem, DynamoItem } from "./types";
 
-async function GetItem(name: string, item_id: number) {
+async function GetItem(name: string, item_id: number | string) {
     const params = { 
         TableName: name, 
         Key: { 
-            id: { N: item_id.toString() },
+            id: typeof item_id === "number" ? { N: item_id.toString() } : { S: item_id},
         }, 
     }; 
     try{
         const data = await dynamoDBClient.send(new GetItemCommand(params));
         if (data && data.Item){
-            //console.log('data.Item: ',JSON.stringify(data.Item, null, 2)); 
             return convertToCommonJSON(data.Item); 
         }else{
-            //console.log('getItem', name, item_id , 'item not exist');
             return {};
         }
     }catch(error){
@@ -32,10 +31,8 @@ async function PutItem(name:string, item: object) {
     try{
         const data = await dynamoDBClient.send(new PutItemCommand(Item));
         if (data){
-            //console.log("Item added:", JSON.stringify(Item, null, 2)); 
             return data;  
         }else{
-            //console.log('Item not added');
             return {};
         }
     }catch(error){
@@ -44,8 +41,27 @@ async function PutItem(name:string, item: object) {
     };        
 };
 
-async function GetItemList(name: string) {
-    
-}
+async function GetItemList(table_name: string, key_name: string ): Promise<(string | number)[]>{
+    const expressionAttributeName = `#${key_name}`; 
+    const params = { 
+        TableName: table_name, 
+        ProjectionExpression: expressionAttributeName, 
+        ExpressionAttributeNames: { [expressionAttributeName]: key_name } 
+    }; 
+    try{
+        const data = await dynamoDBClient.send(new ScanCommand(params));
+        if (data) { 
+            console.log('[GetItemList]', JSON.stringify(data, null, 2));    
+            return data.Items?.map((item: DynamoItem): JSONItem => convertToCommonJSON(item)) 
+                              .map((item: JSONItem) => item[key_name]) 
+                              .filter(value => typeof value === 'string' || typeof value === 'number') as (string | number)[];
+        }else{
+            return [];
+        }
+    }catch(error){
+        console.error('[GetItemList ERROR]', JSON.stringify(params, null, 2), error);
+        return [];
+    };        
+};
 
 export { GetItem, PutItem, GetItemList};

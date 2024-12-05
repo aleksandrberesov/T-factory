@@ -34,7 +34,7 @@ const convertArrayItemToAttributeValue = (value: any): AttributeValue => {
     throw new Error("Unsupported attribute value type"); 
 };
 
-const convertToCommonJSON = (attributeValueObj: DynamoItem): JSONItem => { 
+const convertToCommonJSON = (attributeValueObj: Record<string, AttributeValue>): object => { 
     const commonJSONObj: JSONItem = {}; 
     for (const [key, value] of Object.entries(attributeValueObj)) { 
         if (value.S !== undefined) { 

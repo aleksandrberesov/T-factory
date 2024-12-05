@@ -1,7 +1,7 @@
 "use client";
 
 import { FullScreen, GetUserData } from "./telegram/integration";
-import { GetProfile, UpdateProfile, GetPatterns } from "./aws/dataService"
+import { GetProfile, UpdateProfile, GetPatterns, GetPoints } from "./aws/dataService"
 import React, { useEffect, useState } from 'react';
 import { startFrame } from "./models/consts";
 import NavigationFrame from "./frames/frame.navigation";
@@ -11,6 +11,7 @@ import StatisticFrame from "./frames/frame.statistic";
 import LoadingFrame from "./frames/frame.loading";
 import useLocalizaion from "./libs/lib.localization";
 import useProfile from "./models/profile";
+import usePatterns from "./models/pattern";
 
 export default function Home() {
   const [loading, setLoading] = useState<boolean>(true); 
@@ -18,14 +19,16 @@ export default function Home() {
   const [component, SetComponent] = useState<React.JSX.Element>();
   const [currentFrame, setCurrentFrame] = useState<number>(startFrame); 
   
+  const pattern = usePatterns(GetPoints, GetPatterns);
   const profile = useProfile(UpdateProfile);
   const {words, getWord, setLanguage} = useLocalizaion(profile.data.lang);
 
-  const fetchProfile = async () =>{
+  const fetchAppData = async () =>{
     try { 
         const tgProfile = await GetUserData(); 
         const dbProfile = await GetProfile(tgProfile.id);
         profile.setData({...tgProfile, ...dbProfile});
+        pattern.init();
     } catch (error) { 
         setError((error as Error).message);
     } finally { 
@@ -43,6 +46,7 @@ export default function Home() {
      element: <TradingFrame
                 getWord={getWord}
                 profile={profile}
+                pattern={pattern}
               />
     },
     {id: 2 , 
@@ -62,7 +66,6 @@ export default function Home() {
     setLanguage(lang_tag);
   };
 
-  
   useEffect(()=>{
     FullScreen();
   },[]);
@@ -72,18 +75,21 @@ export default function Home() {
   },[words, profile.data]);
   
   useEffect(() => {
-    fetchProfile();
+    fetchAppData();
   }, []);
 
   if (loading){
+    console.log("page Loading");
     return(
       <LoadingFrame/>
     )
   }else if (error){
+    console.log("page Error");
     return (
       <h1>ERROR</h1>
     )  
   }else{
+    console.log("page Frame");
     return (
       <main 
         className="h-screen w-screen overflow-hidden bg-black"

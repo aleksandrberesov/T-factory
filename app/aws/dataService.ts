@@ -1,22 +1,35 @@
 import { GetItem, PutItem, GetItemList } from './dynamoDB'
 
-async function GetPatterns() {
-    const tableName = "patterns"; 
-    const userProfile = await GetItemList(tableName); 
-    return userProfile;        
+async function GetPatterns(): Promise<string[]> {
+    const data = await GetItemList("patterns", "name");   
+    console.log("[GetPatterns]", data, JSON.stringify(data, null,2));
+    if (Array.isArray(data) && data.every(item => typeof item === 'string')) {
+        return data;
+    } else{
+        return [];
+    }
 };
 
+async function GetPoints(name: string): Promise<object> {
+    let result = {
+        pre_points : [],
+        points : [],
+    };
+
+    const pointsData = await GetItem("patterns", name);
+
+    if (pointsData){
+        return {...result, ...pointsData}
+    }else
+        return result;
+}
+
 async function GetProfile(user_id: number){
-    const tableName = "users"; 
-    const userProfile = await GetItem(tableName, user_id); 
-    return userProfile;
+    return await GetItem("users", user_id); 
 };
 
 async function UpdateProfile(profile: Object){
-    const tableName = "users"; 
-    const userProfile = await PutItem(tableName, profile); 
-    return userProfile;
+    return await PutItem("users", profile); 
 };
 
-
-export {GetProfile, UpdateProfile, GetPatterns};
+export {GetProfile, UpdateProfile, GetPatterns, GetPoints};

@@ -1,6 +1,7 @@
 import { TUser, TStatisticItem, TCard, TStar } from "../models/types";
 import { TOnSelectedFunction, TNumberToStringFunc, TStringProc } from "../libs/lib.types";
 import { IProfile } from "../models/profile";
+import { IPattern } from "../models/pattern";
 
 type TLocalizedFrameProps = {
     getWord : TNumberToStringFunc;
@@ -14,6 +15,7 @@ type TNavigationProps = TLocalizedFrameProps & {
 
 type TTradingFrameProps = TLocalizedFrameProps & {
     profile: IProfile;   
+    pattern: IPattern,
 };
 
 type TProfileProps = {
@@ -31,6 +33,7 @@ type TStatisticProps = {
 
 type TSettingsProps = {
     callBack() : void;
+    data: IPattern;
 };
 
 export type { TProfileProps, TNavigationProps, TTradingFrameProps, TStatisticProps, TSettingsProps } ;

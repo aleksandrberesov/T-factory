@@ -51,6 +51,7 @@ const defaultUser : TProfile = {
 };
 
 const useProfile = (updFunc: TProfileUpdateFunc | undefined): IProfile => {
+    console.log('use Profile');
     const [data, acceptData] = useState<TProfile>(defaultUser); 
     const profileDataRef = useRef(data);
     
@@ -63,7 +64,7 @@ const useProfile = (updFunc: TProfileUpdateFunc | undefined): IProfile => {
             updFunc(data);    
         } 
         profileDataRef.current = data;
-      }, [data]);
+    }, [data]);
 
     return {
         data,

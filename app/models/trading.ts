@@ -1,23 +1,12 @@
 import { ISeriesApi, Time, UTCTimestamp } from 'lightweight-charts';
 import { ITrade, TMarket, TMarketPoint, TPatternParameter } from './types';
+import { randomNumberInRange, generateNormalRandom } from './utils';
 
 let NextTime = 1645205476;
 
 const Trade : ITrade = {
     state : undefined,
     series : undefined,
-};
-
-function generateNormalRandom(mean: number, stdDev: number) {
-    let u1 = Math.random();
-    let u2 = Math.random();
-    let randStdNormal = Math.sqrt(-2.0 * Math.log(u1)) * Math.sin(2.0 * Math.PI * u2);
-    let randNormal = mean + stdDev * randStdNormal;
-    return randNormal;
-}
-
-const randomNumberInRange = (min: number, max: number) => {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
 function InitialMarket(){
