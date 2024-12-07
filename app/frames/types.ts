@@ -1,4 +1,4 @@
-import { IPattern, IProfile } from "../models/types";
+import { IPattern, IProfile, IMarket } from "../models/types";
 import { TOnSelectedFunction, TNumberToStringFunc, TStringProc } from "../libs/lib.types";
 
 type TLocalizedFrameProps = {
@@ -14,6 +14,7 @@ type TNavigationFrameProps = TLocalizedFrameProps & {
 type TTradingFrameProps = TLocalizedFrameProps & {
     profile: IProfile;   
     pattern: IPattern,
+    market: IMarket;
 };
 
 type TProfileFrameProps = TLocalizedFrameProps & {

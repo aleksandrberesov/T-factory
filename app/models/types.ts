@@ -34,26 +34,30 @@ type TMarketPoint = {
     time: UTCTimestamp;
 };
 
-type TPatternParameter = {
+type TPatternPoint = {
     expectation: number; 
     volatility: number;
     count: number;
 };
 
-type TMarketPattern = {
-    pre_points : TPatternParameter[];
-    points : TPatternParameter[];
+type TMarket = {
+    pattern: TPatternPoint[];
+    data : TMarketPoint[];
 };
 
-type TMarket = {
-    pattern: TPatternParameter[];
-    data : TMarketPoint[];
+interface IMarket {
+    init: (pattern: TPattern) => void;
+    initialPoints: () => TMarketPoint[];
+};
+
+type TPattern = {
+    pre_points : TPatternPoint[];
+    points : TPatternPoint[];
 };
 
 interface IPattern {
     patterns : string[];
-    pre_points : TPatternParameter[];
-    points : TPatternParameter[];
+    pattern: TPattern;
     select : (name: string) => void;
     init : () => void;    
 };
@@ -71,13 +75,12 @@ type TProfile = {
     stars : TStar[]
 };
 
-interface IProfile{
+interface IProfile {
     data: TProfile;
     setData: TUpdateObjectProc;
 };
 
 export type { TUser, TStatisticItem, TCard, TStar };
-export type { ITrade, TMarketPoint, TPatternParameter, TMarket };
-export type { TMarketPattern };
-export type { TProfile };
-export type { IPattern, IProfile };
+export type { TMarketPoint, TPatternPoint };
+export type { TProfile, TMarket, TPattern };
+export type { IPattern, IProfile, IMarket, ITrade };

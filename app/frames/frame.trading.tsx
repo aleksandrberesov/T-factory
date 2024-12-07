@@ -21,7 +21,7 @@ function TradingFrame(tradeprops: TTradingFrameProps){
     });
     const [ isSettingsShow, SetIsSettingsShow ] = useState(false);
     const content = useMemo(() => (
-        <ChartView setUpdateSeries={SetUpdateSeries} initData={Market.data}/>
+        <ChartView setUpdateSeries={SetUpdateSeries} initData={tradeprops.market.initialPoints()}/>
     ), []);
     const HideShowSettings = ()=>{
         SetIsSettingsShow(!isSettingsShow)

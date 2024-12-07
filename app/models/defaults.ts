@@ -1,6 +1,6 @@
-import { TProfile } from './types'
+import { TProfile, TMarket, TPattern } from './types'
 
-const defaultUser : TProfile = {
+const defaultProfile : TProfile = {
     id : 0,
     user : {
         first_name: "default",
@@ -29,4 +29,36 @@ const defaultUser : TProfile = {
     ]
 };
 
-export { defaultUser };
+const defaultPattern: TPattern = {
+    points: [
+        {
+            count: 10,
+            expectation: 0,
+            volatility: 20
+        },
+        {
+            count: 20,
+            expectation: 0,
+            volatility: 30
+        },
+        {
+            count: 0,
+            expectation: 0,
+            volatility: 30
+        }
+    ],
+    pre_points: [
+        {
+            count: 10,
+            expectation: 0,
+            volatility: 20
+        }
+    ]
+};
+
+const defaultMarket: TMarket = {
+    pattern: [],
+    data: [],
+}; 
+
+export { defaultProfile, defaultPattern, defaultMarket };

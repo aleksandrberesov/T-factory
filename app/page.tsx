@@ -12,6 +12,7 @@ import LoadingFrame from "./frames/frame.loading";
 import useLocalizaion from "./libs/lib.localization";
 import useProfile from "./models/profile";
 import usePattern from "./models/pattern";
+import useMarket from "./models/market";
 
 export default function Home() {
   const [loading, setLoading] = useState<boolean>(true); 
@@ -21,6 +22,7 @@ export default function Home() {
   
   const pattern = usePattern(GetPoints, GetPatterns);
   const profile = useProfile(UpdateProfile);
+  const market = useMarket();
   const {words, getWord, setLanguage} = useLocalizaion(profile.data.lang);
 
   const fetchAppData = useCallback(async () => { 
@@ -49,6 +51,7 @@ export default function Home() {
                 getWord={getWord}
                 profile={profile}
                 pattern={pattern}
+                market={market}
               />
     },
     {id: 2 , 
@@ -76,6 +79,11 @@ export default function Home() {
   useEffect(()=>{
     ChangeFrame(currentFrame);
   },[words, profile.data, pattern.patterns]);
+
+  useEffect(()=>{
+    market.init(pattern.pattern);
+  },[pattern.pattern]);
+  
   
   useEffect(() => {
     fetchAppData();

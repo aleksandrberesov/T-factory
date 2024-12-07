@@ -17,4 +17,6 @@ const defaultAmounts = [
     {id: 2, element: "10"},
 ];
 
-export { startFrame, defaultSpeeds, defaultAmounts };
+const startTime = 1645205476;
+
+export { startTime, startFrame, defaultSpeeds, defaultAmounts };

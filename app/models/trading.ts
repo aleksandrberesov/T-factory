@@ -1,5 +1,5 @@
 import { ISeriesApi, Time, UTCTimestamp } from 'lightweight-charts';
-import { ITrade, TMarket, TMarketPoint, TPatternParameter } from './types';
+import { ITrade, TMarket, TMarketPoint, TPatternPoint } from './types';
 import { randomNumberInRange, generateNormalRandom } from './utils';
 
 let NextTime = 1645205476;
@@ -26,7 +26,7 @@ function InitialMarket(){
     return result;
 };
 
-let InitialPattern : TPatternParameter[] = [
+let InitialPattern : TPatternPoint[] = [
     {expectation: 0, volatility: 30, count: 10},
     {expectation: 0, volatility: 30, count: 10}
 ];

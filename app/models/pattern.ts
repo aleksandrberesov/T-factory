@@ -1,26 +1,21 @@
 import { useState, useCallback, useEffect } from "react";
-import { TPatternParameter, IPattern } from "./types";
+import { TPattern, IPattern } from "./types";
+import { defaultPattern } from "./defaults";
 
 const usePattern = (fetch: (name: string)=> Promise<object>, init_fetch: ()=> Promise<object>): IPattern => {
     console.log("use patterns");
     
     const [patterns, setPatterns] = useState<string[]>([]);
     const [selectedPattern, setSelectedPattern] = useState<string>('');
-    const [pre_points, setPre_points] = useState<TPatternParameter[]>([]);
-    const [points, setPoints] = useState<TPatternParameter[]>([]);
-
-    const setDefaultPattern = ()=> {
-        console.log("set default Pattern data");
-
-    };
-
+    const [pattern, setPattern] = useState<TPattern>(defaultPattern);
+    
     const select = useCallback(async (name: string) => { 
         console.log("select pattern ", name);
         try { 
             const data = await fetch(name); 
             console.log("fetch pattern", JSON.stringify(data, null, 2)); 
             setSelectedPattern(name);
-
+            setPattern({...pattern, ...data});
         } catch (error) { 
             console.error("Error during fetch", error); 
         } 
@@ -37,9 +32,7 @@ const usePattern = (fetch: (name: string)=> Promise<object>, init_fetch: ()=> Pr
             console.log("patterns array length", patterns.length);
             if (patterns.length !== 0) { 
                 select(patterns[0]); 
-            } else { 
-                setDefaultPattern();  
-            } 
+            }
         } catch (error) { 
             console.error("Error during init fetch:", error); 
         }     
@@ -51,8 +44,7 @@ const usePattern = (fetch: (name: string)=> Promise<object>, init_fetch: ()=> Pr
 
     return {
         patterns,
-        pre_points,
-        points,
+        pattern,
         select,
         init
     };
