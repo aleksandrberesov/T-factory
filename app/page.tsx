@@ -23,19 +23,19 @@ export default function Home() {
   const profile = useProfile(UpdateProfile);
   const {words, getWord, setLanguage} = useLocalizaion(profile.data.lang);
 
-  const fetchAppData = async () =>{
+  const fetchAppData = useCallback(async () => { 
     try { 
-        const tgProfile = await GetUserData(); 
-        const dbProfile = await GetProfile(tgProfile.id);
-        console.log("db profile", JSON.stringify(dbProfile, null, 2));
-        profile.setData({...tgProfile, ...dbProfile});
-        pattern.init();
-    } catch (error) { 
-        setError((error as Error).message);
+      setLoading(true); 
+      const tgProfile = await GetUserData();
+      const dbProfile = await GetProfile(tgProfile.id); 
+      profile.setData({ ...tgProfile, ...dbProfile }); 
+      pattern.init(); 
+    } catch ( error ) { 
+      setError((error as Error).message); 
     } finally { 
-        setLoading(false)
-    };
-  };
+      setLoading(false); 
+    } 
+  }, [profile, pattern]);
   
   const Frames = useMemo(() => [
     {id: 0 , 
