@@ -1,10 +1,10 @@
-import React, { useEffect, useState, useId } from 'react';
-import { TNavigationProps } from "./types"
+import React from 'react';
+import { TNavigationFrameProps } from "./types"
 import SelectedTab from '../components/button';
 import DropMenu from '../components/drop-menu';
 import { LanguageIDs } from '../libs/lib.localization';
 
-function NavigationFrame(navigationProps: TNavigationProps){
+function NavigationFrame(navigationProps: TNavigationFrameProps){
     const ChangeLanguage = (id: number)=>{
         if (navigationProps.setLanguage!==undefined) {
             navigationProps.setLanguage(LanguageIDs[LanguageIDs.findIndex(element => element.id === id)].element);        

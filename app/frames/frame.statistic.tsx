@@ -1,9 +1,9 @@
 import React, { useEffect, useState, useId } from 'react';
-import { TStatisticProps } from './types';
+import { TStatisticFrameProps } from './types';
 import ListBox from '../components/listbox';
 import CheckBox from '../components/checkbox'; 
 
-function StatisticFrame(statprops: TStatisticProps){
+function StatisticFrame(statprops: TStatisticFrameProps){
     let idCounter = 1;
 
     const statElemets = statprops.profile.data.statistics.map((item) => {

@@ -1,10 +1,10 @@
 import SelectedTab from "../components/button";
 import ListBox from '../components/listbox';
-import {TSettingsProps} from "./types"
+import {TSettingsFrameProps} from "./types"
 
-function SettingsFrame(settingsprops: TSettingsProps){
+function SettingsFrame(settingsprops: TSettingsFrameProps){
     let idCounter = 1;
-
+    console.log('settings frame', settingsprops.data.patterns);
     const Elemets = settingsprops.data.patterns.map((item) => {
         return {
             id: idCounter++,

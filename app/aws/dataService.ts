@@ -16,8 +16,8 @@ async function GetPoints(name: string): Promise<object> {
         points : [],
     };
 
-    const pointsData = await GetItem("patterns", name);
-
+    const pointsData = await GetItem("patterns", "name",name);
+    console.log('[GetPoints]', JSON.stringify(pointsData, null, 2));
     if (pointsData){
         return {...result, ...pointsData}
     }else
@@ -25,7 +25,7 @@ async function GetPoints(name: string): Promise<object> {
 }
 
 async function GetProfile(user_id: number){
-    return await GetItem("users", user_id); 
+    return await GetItem("users", "id", user_id); 
 };
 
 async function UpdateProfile(profile: Object){

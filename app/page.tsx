@@ -11,7 +11,7 @@ import StatisticFrame from "./frames/frame.statistic";
 import LoadingFrame from "./frames/frame.loading";
 import useLocalizaion from "./libs/lib.localization";
 import useProfile from "./models/profile";
-import usePatterns from "./models/pattern";
+import usePattern from "./models/pattern";
 
 export default function Home() {
   const [loading, setLoading] = useState<boolean>(true); 
@@ -19,7 +19,7 @@ export default function Home() {
   const [component, SetComponent] = useState<React.JSX.Element>();
   const [currentFrame, setCurrentFrame] = useState<number>(startFrame); 
   
-  const pattern = usePatterns(GetPoints, GetPatterns);
+  const pattern = usePattern(GetPoints, GetPatterns);
   const profile = useProfile(UpdateProfile);
   const {words, getWord, setLanguage} = useLocalizaion(profile.data.lang);
 
@@ -27,6 +27,7 @@ export default function Home() {
     try { 
         const tgProfile = await GetUserData(); 
         const dbProfile = await GetProfile(tgProfile.id);
+        console.log("db profile", JSON.stringify(dbProfile, null, 2));
         profile.setData({...tgProfile, ...dbProfile});
         pattern.init();
     } catch (error) { 
@@ -68,15 +69,15 @@ export default function Home() {
 
   useEffect(()=>{
     FullScreen();
-  },[]);
+  });
   
   useEffect(()=>{
     ChangeFrame(currentFrame);
-  },[words, profile.data]);
+  },[words, profile.data, pattern.patterns]);
   
   useEffect(() => {
     fetchAppData();
-  }, []);
+  });
 
   if (loading){
     console.log("page Loading");

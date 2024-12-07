@@ -1,4 +1,5 @@
 import { ISeriesApi, Time, UTCTimestamp } from 'lightweight-charts';
+import { TUpdateObjectProc } from '../libs/lib.types';
 
 type TUser = {
     first_name: string;
@@ -49,6 +50,34 @@ type TMarket = {
     data : TMarketPoint[];
 };
 
+interface IPattern {
+    patterns : string[];
+    pre_points : TPatternParameter[];
+    points : TPatternParameter[];
+    select : (name: string) => void;
+    init : () => void;    
+};
+
+type TProfile = {
+    id: number;
+    lang?: string;
+    user: TUser;
+    balance: number;
+    status: string;
+    position: string;
+    level: number;
+    statistics: TStatisticItem[];
+    cards : TCard[];
+    stars : TStar[]
+};
+
+interface IProfile{
+    data: TProfile;
+    setData: TUpdateObjectProc;
+};
+
 export type { TUser, TStatisticItem, TCard, TStar };
 export type { ITrade, TMarketPoint, TPatternParameter, TMarket };
 export type { TMarketPattern };
+export type { TProfile };
+export type { IPattern, IProfile };

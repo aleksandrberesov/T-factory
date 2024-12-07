@@ -1,5 +1,4 @@
 import { TMarketPoint } from "./types"; 
-import { UTCTimestamp } from "lightweight-charts";
 
 function generateNormalRandom(mean: number, stdDev: number) {
     let u1 = Math.random();

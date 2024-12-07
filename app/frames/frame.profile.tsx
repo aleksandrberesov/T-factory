@@ -1,12 +1,12 @@
 import React, { useEffect, useState, useId } from 'react';
-import { TProfileProps} from "./types"
+import { TProfileFrameProps} from "./types"
 import LabelBox from "../components/label"
 import IconTab from '../components/icontab';
 import CardTab from '../components/cardtab';
 import GridBox from '../components/gridbox';
 import SelectedTab from '../components/button';
 
-function ProfileFrame(profileprops: TProfileProps){
+function ProfileFrame(profileprops: TProfileFrameProps){
     let idCard = 1; 
     let idStar = 1;
     const onStarClick = ()=>{

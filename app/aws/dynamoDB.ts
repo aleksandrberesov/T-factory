@@ -1,15 +1,18 @@
-import { PutItemCommand, PutItemCommandInput, GetItemCommand, ScanCommand, ScanCommandInput } from "@aws-sdk/client-dynamodb";
+import { PutItemCommand, PutItemCommandInput, GetItemCommand, ScanCommand, ScanCommandInput, GetItemCommandInput } from "@aws-sdk/client-dynamodb";
 import dynamoDBClient from './aws-exports';
 import { convertToAttributeValue, convertToCommonJSON} from './utils'
 import { JSONItem, DynamoItem } from "./types";
 
-async function GetItem(name: string, item_id: number | string) {
-    const params = { 
+async function GetItem(name: string, id_name: string, item_id: number | string) {
+    const id = `${id_name}`; 
+    const params: GetItemCommandInput = { 
         TableName: name, 
         Key: { 
-            id: typeof item_id === "number" ? { N: item_id.toString() } : { S: item_id},
+            [id]: typeof item_id === "number" ? { N: item_id.toString() } : { S: item_id},
         }, 
     }; 
+    console.log('[Gettting Item]', JSON.stringify(params, null, 2));
+    
     try{
         const data = await dynamoDBClient.send(new GetItemCommand(params));
         if (data && data.Item){
@@ -18,7 +21,7 @@ async function GetItem(name: string, item_id: number | string) {
             return {};
         }
     }catch(error){
-        console.error('[GetItem ERROR]', error);
+        console.error('[GetItem ERROR]', JSON.stringify(params, null, 2), error);
         return {};
     };
 };
@@ -43,11 +46,13 @@ async function PutItem(name:string, item: object) {
 
 async function GetItemList(table_name: string, key_name: string ): Promise<(string | number)[]>{
     const expressionAttributeName = `#${key_name}`; 
-    const params = { 
+    const params: ScanCommandInput = { 
         TableName: table_name, 
         ProjectionExpression: expressionAttributeName, 
         ExpressionAttributeNames: { [expressionAttributeName]: key_name } 
     }; 
+    console.log('[Gettting Points]', JSON.stringify(params, null, 2));
+ 
     try{
         const data = await dynamoDBClient.send(new ScanCommand(params));
         if (data) { 
