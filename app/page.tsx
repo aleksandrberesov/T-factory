@@ -2,7 +2,7 @@
 
 import { FullScreen, GetUserData } from "./telegram/integration";
 import { GetProfile, UpdateProfile, GetPatterns, GetPoints } from "./aws/dataService"
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import { startFrame } from "./models/consts";
 import NavigationFrame from "./frames/frame.navigation";
 import TradingFrame from "./frames/frame.trading";
@@ -16,7 +16,7 @@ import usePattern from "./models/pattern";
 export default function Home() {
   const [loading, setLoading] = useState<boolean>(true); 
   const [error, setError] = useState<string | null>(null);
-  const [component, SetComponent] = useState<React.JSX.Element>();
+  const [component, setComponent] = useState<React.JSX.Element>();
   const [currentFrame, setCurrentFrame] = useState<number>(startFrame); 
   
   const pattern = usePattern(GetPoints, GetPatterns);
@@ -37,7 +37,7 @@ export default function Home() {
     };
   };
   
-  const Frames = [
+  const Frames = useMemo(() => [
     {id: 0 , 
      element: <ProfileFrame 
                 profile={profile}  
@@ -57,21 +57,21 @@ export default function Home() {
                 getWord={getWord}
               />
     }   
-  ];
+  ], [profile, getWord, pattern]);
   
-  const ChangeFrame = (id: number) => {
-    setCurrentFrame(id);
-    SetComponent(Frames[id].element);
-  };
-
-  const ChangeLanguage = (lang_tag: string) => {
-    profile.setData({lang: lang_tag });
-    setLanguage(lang_tag);
-  };
+  const ChangeFrame = useCallback((id: number) => { 
+    setCurrentFrame(id); 
+    setComponent(Frames[id].element); 
+  }, [Frames]); 
+  
+  const ChangeLanguage = useCallback((lang_tag: string) => { 
+    profile.setData({ lang: lang_tag }); 
+    setLanguage(lang_tag); 
+  },[profile, setLanguage]);
 
   useEffect(()=>{
     FullScreen();
-  });
+  }, []);
   
   useEffect(()=>{
     ChangeFrame(currentFrame);
@@ -79,7 +79,7 @@ export default function Home() {
   
   useEffect(() => {
     fetchAppData();
-  });
+  }, []);
 
   if (loading){
     console.log("page Loading");

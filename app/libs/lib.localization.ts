@@ -42,12 +42,13 @@ function useLocalizaion(initlang: string | undefined): ILocalizator {
     const Lang = initlang || AvailableLanguages[0];
 
     useEffect(() => {
-      fetch('/words.json')
-        .then((response) => response.json())
-        .then((data) => {
-            dictionaryRef.current = data;
-            setLanguage(Lang);
-        });
+        console.log("load words from file");
+        fetch('/words.json')
+            .then((response) => response.json())
+            .then((data) => {
+                dictionaryRef.current = data;
+                setLanguage(Lang);
+            });
     }, [Lang]);
 
     function PushWords(lang: keyof TDictionaryWord = "en"): TWord[]{
