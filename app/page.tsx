@@ -41,6 +41,7 @@ export default function Home() {
     {id: 0 , 
      element: <ProfileFrame 
                 profile={profile}  
+                getWord={getWord}
               />
     },
     {id: 1 , 
@@ -53,6 +54,7 @@ export default function Home() {
     {id: 2 , 
      element: <StatisticFrame 
                 profile={profile}
+                getWord={getWord}
               />
     }   
   ];

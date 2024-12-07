@@ -20,7 +20,7 @@ function SettingsFrame(settingsprops: TSettingsFrameProps){
                 className='grid-flow-row gap-2 m-2 bg-gray-500'    
             >
                 <ListBox elements={Elemets}/>
-                <SelectedTab title="Back" onclick={settingsprops.callBack}/>
+                <SelectedTab title={settingsprops.getWord(19)} /*"Back" */ onclick={settingsprops.callBack}/>
             </div>
         </div>
     );

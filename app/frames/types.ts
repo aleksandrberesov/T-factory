@@ -16,15 +16,15 @@ type TTradingFrameProps = TLocalizedFrameProps & {
     pattern: IPattern,
 };
 
-type TProfileFrameProps = {
+type TProfileFrameProps = TLocalizedFrameProps & {
     profile: IProfile;
 };
 
-type TStatisticFrameProps = {
+type TStatisticFrameProps = TLocalizedFrameProps & {
     profile: IProfile;
 };
 
-type TSettingsFrameProps = {
+type TSettingsFrameProps = TLocalizedFrameProps & {
     callBack() : void;
     data: IPattern;
 };

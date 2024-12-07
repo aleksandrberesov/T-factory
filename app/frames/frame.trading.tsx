@@ -52,6 +52,7 @@ function TradingFrame(tradeprops: TTradingFrameProps){
                 {isSettingsShow && <SettingsFrame 
                                         callBack={HideShowSettings}
                                         data={tradeprops.pattern}
+                                        getWord={tradeprops.getWord}
                                     />} 
                 {!isSettingsShow && content}
             </div>
