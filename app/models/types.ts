@@ -42,12 +42,18 @@ type TPatternPoint = {
 
 type TMarket = {
     pattern: TPatternPoint[];
-    data : TMarketPoint[];
+    points : TMarketPoint[];
 };
 
 interface IMarket {
     init: (pattern: TPattern) => void;
-    initialPoints: () => TMarketPoint[];
+    points: TMarketPoint[];
+    step: ()=> void;
+    start: ()=> void;
+    stop: ()=> void;
+    pause: ()=> void;
+    isActive: boolean;
+    setDuration: (duration: number) => void;
 };
 
 type TPattern = {

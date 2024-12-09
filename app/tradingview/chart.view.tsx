@@ -4,24 +4,24 @@ import { lineStyle  , chartStyle } from "./styles"
 import { TChartViewProps, TPoints } from './types';
 
 function ChartView( chartviewprops: TChartViewProps) {
-    const [isChartLoaded, setIsChartLoaded] = useState(false);
+    //const [isChartLoaded, setIsChartLoaded] = useState(false);
     const chart_id = useId(); 
 
     useEffect(() => {
-        if (isChartLoaded){ return () => { setIsChartLoaded(true); }; }
-        const initdata : TPoints = (chartviewprops.initData??[]).map((item)=>({value: item.value, time: item.time as UTCTimestamp}));
+        //if (isChartLoaded){ return () => { setIsChartLoaded(true); }; }
+        //const initdata : TPoints = (chartviewprops.initData??[]).map((item)=>({value: item.value, time: item.time as UTCTimestamp}));
         const chart = createChart(chart_id, chartStyle);
         const line = chart.addLineSeries(lineStyle);
-        line.setData(initdata);
+        //line.setData(initdata);
         chartviewprops.setUpdateSeries(line);
         chart.timeScale().fitContent();    
-        if (initdata.length > 10) {
+        /*if (initdata.length > 10) {
             const from = initdata[initdata.length - 10].time;
             const to = initdata[initdata.length - 1].time;
             chart.timeScale().setVisibleRange({ from, to });
         }else{
             chart.timeScale().fitContent();    
-        }
+        }*/
     });
 
     return (

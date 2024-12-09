@@ -1,9 +1,9 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
 import SelectedTab from "../components/button";
 import ChartView from "../tradingview/chart.view";
 import LabelBox from '../components/label';
 import DropMenu from '../components/drop-menu';
-import { Trade, Market, SetUpdateSeries,  Step, Play, Pause, Stop, Buy, Sell } from "../models/trading";
+import { Trade, SetUpdateSeries,  Step, Play, Pause, Stop, Buy, Sell } from "../models/trading";
 import { useTimer } from "../libs/lib.timer";
 import { defaultSpeeds } from '../models/consts';
 import SettingsFrame from './frame.settings';
@@ -14,32 +14,32 @@ function SpeedTitleToNumber(str: string){
 };
 
 function TradingFrame(tradeprops: TTradingFrameProps){
-    const { setDuration, isActive, toggle, reset } = useTimer({
+    /*const { setDuration, isActive, toggle, reset } = useTimer({
         callback :  () => { Step(); }, 
         state : Trade.state=="started",
         duration : 1000/SpeedTitleToNumber(defaultSpeeds[0].element),    
-    });
+    });*/
     const [ isSettingsShow, SetIsSettingsShow ] = useState(false);
-    const content = useMemo(() => (
-        <ChartView setUpdateSeries={SetUpdateSeries} initData={tradeprops.market.initialPoints()}/>
+    const chart = useMemo(() => (
+        <ChartView setUpdateSeries={SetUpdateSeries} initData={tradeprops.market.points}/>
     ), []);
     const HideShowSettings = ()=>{
         SetIsSettingsShow(!isSettingsShow)
     }; 
-    const Toggle = ()=>{
+    /*const Toggle = ()=>{
         toggle();
         if (!isActive) {
             Play();
         } else {
             Pause();
         }
-    };
+    };*/
     const CloseSession = ()=>{
-        reset();
+        //reset();
         Stop();
     };
     const ChangeSpeed = (speedID: number)=>{
-        setDuration(1000/SpeedTitleToNumber(defaultSpeeds[speedID].element));
+        tradeprops.market.setDuration(1000/SpeedTitleToNumber(defaultSpeeds[speedID].element));
     };
 
     return (
@@ -54,7 +54,7 @@ function TradingFrame(tradeprops: TTradingFrameProps){
                                         data={tradeprops.pattern}
                                         getWord={tradeprops.getWord}
                                     />} 
-                {!isSettingsShow && content}
+                {!isSettingsShow && chart}
             </div>
             <div
                 className='gap-2 grid grid-rows-2 grid-flow-col col-span-2 row-span-3'    
@@ -94,7 +94,7 @@ function TradingFrame(tradeprops: TTradingFrameProps){
             <div
                 className=' grid grid-cols-5 gap-2 col-span-2'
             >
-                {!isActive ? <SelectedTab icon_image="/icons/play.svg" onclick={Toggle}/> : <SelectedTab icon_image="/icons/pause.svg" onclick={Toggle}/>}
+                {!tradeprops.market.isActive ? <SelectedTab icon_image="/icons/play.svg" onclick={tradeprops.market.start}/> : <SelectedTab icon_image="/icons/pause.svg" onclick={tradeprops.market.pause}/>}
                 <DropMenu 
                     elements={defaultSpeeds} 
                     selected={0} 
@@ -103,7 +103,7 @@ function TradingFrame(tradeprops: TTradingFrameProps){
                     onselected={ChangeSpeed}
                     style="rounded-md px-3 py-2 text-sm font-medium"
                 />
-                <SelectedTab icon_image="/icons/next.svg" onclick={Step}/>
+                <SelectedTab icon_image="/icons/next.svg" onclick={tradeprops.market.step}/>
                 <SelectedTab icon_image="/icons/stop.svg" onclick={CloseSession}/> 
                 <SelectedTab icon_image="/icons/settings.svg" onclick={HideShowSettings}/>
             </div>             

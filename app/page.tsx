@@ -35,7 +35,7 @@ export default function Home() {
     } catch ( error ) { 
       setError((error as Error).message); 
     } finally { 
-      setLoading(false); 
+      
     } 
   }, [profile, pattern]);
   
@@ -60,7 +60,7 @@ export default function Home() {
                 getWord={getWord}
               />
     }   
-  ], [profile, getWord, pattern]);
+  ], [profile, market, pattern]);
   
   const ChangeFrame = useCallback((id: number) => { 
     setCurrentFrame(id); 
@@ -78,10 +78,11 @@ export default function Home() {
   
   useEffect(()=>{
     ChangeFrame(currentFrame);
-  },[words, profile.data, pattern.patterns]);
+  },[words, profile.data, pattern.patterns, market.points]);
 
   useEffect(()=>{
     market.init(pattern.pattern);
+    setLoading(false); 
   },[pattern.pattern]);
   
   

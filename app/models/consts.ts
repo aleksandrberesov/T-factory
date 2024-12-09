@@ -18,5 +18,6 @@ const defaultAmounts = [
 ];
 
 const startTime = 1645205476;
+const stepTime = 1000;
 
-export { startTime, startFrame, defaultSpeeds, defaultAmounts };
+export { startTime, stepTime, startFrame, defaultSpeeds, defaultAmounts };

@@ -57,8 +57,14 @@ const defaultPattern: TPattern = {
 };
 
 const defaultMarket: TMarket = {
-    pattern: [],
-    data: [],
+    pattern: [
+        {
+            count: 10,
+            expectation: 0,
+            volatility: 20
+        }
+    ],
+    points: [],
 }; 
 
 export { defaultProfile, defaultPattern, defaultMarket };

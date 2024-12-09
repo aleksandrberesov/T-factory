@@ -33,14 +33,14 @@ let InitialPattern : TPatternPoint[] = [
 
 let Market: TMarket = {
     pattern: InitialPattern,
-    data: InitialMarket(),
+    points: InitialMarket(),
 };
 
 function Step(){
     NextTime = NextTime + 1000; 
     const RV = generateNormalRandom(Market.pattern[0].expectation, Market.pattern[0].volatility);
     const newPoint = {value: RV, open: 10, high: 10.63, low: 9.49, close: 9.55, time: NextTime as UTCTimestamp};
-    Market.data.push(newPoint);
+    Market.points.push(newPoint);
     Trade.series?.update(newPoint);    
 };
 
