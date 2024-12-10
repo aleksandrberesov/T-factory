@@ -14,6 +14,7 @@ import useProfile from "./models/profile";
 import usePattern from "./models/pattern";
 import useMarket from "./models/market";
 
+
 export default function Home() {
   const [loading, setLoading] = useState<boolean>(true); 
   const [error, setError] = useState<string | null>(null);
@@ -60,7 +61,7 @@ export default function Home() {
                 getWord={getWord}
               />
     }   
-  ], [profile, market, pattern]);
+  ], [profile, market, market.isActive, pattern]);
   
   const ChangeFrame = useCallback((id: number) => { 
     setCurrentFrame(id); 
@@ -78,7 +79,7 @@ export default function Home() {
   
   useEffect(()=>{
     ChangeFrame(currentFrame);
-  },[words, profile.data, pattern.patterns, market.points]);
+  },[words, profile.data, pattern.patterns, market.points, , market.isActive]);
 
   useEffect(()=>{
     market.init(pattern.pattern);

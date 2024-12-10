@@ -3,8 +3,7 @@ import SelectedTab from "../components/button";
 import ChartView from "../tradingview/chart.view";
 import LabelBox from '../components/label';
 import DropMenu from '../components/drop-menu';
-import { Trade, SetUpdateSeries,  Step, Play, Pause, Stop, Buy, Sell } from "../models/trading";
-import { useTimer } from "../libs/lib.timer";
+import { SetUpdateSeries, Buy, Sell } from "../models/trade";
 import { defaultSpeeds } from '../models/consts';
 import SettingsFrame from './frame.settings';
 import { TTradingFrameProps } from './types';
@@ -14,11 +13,6 @@ function SpeedTitleToNumber(str: string){
 };
 
 function TradingFrame(tradeprops: TTradingFrameProps){
-    /*const { setDuration, isActive, toggle, reset } = useTimer({
-        callback :  () => { Step(); }, 
-        state : Trade.state=="started",
-        duration : 1000/SpeedTitleToNumber(defaultSpeeds[0].element),    
-    });*/
     const [ isSettingsShow, SetIsSettingsShow ] = useState(false);
     const chart = useMemo(() => (
         <ChartView setUpdateSeries={SetUpdateSeries} initData={tradeprops.market.points}/>
@@ -26,18 +20,6 @@ function TradingFrame(tradeprops: TTradingFrameProps){
     const HideShowSettings = ()=>{
         SetIsSettingsShow(!isSettingsShow)
     }; 
-    /*const Toggle = ()=>{
-        toggle();
-        if (!isActive) {
-            Play();
-        } else {
-            Pause();
-        }
-    };*/
-    const CloseSession = ()=>{
-        //reset();
-        Stop();
-    };
     const ChangeSpeed = (speedID: number)=>{
         tradeprops.market.setDuration(1000/SpeedTitleToNumber(defaultSpeeds[speedID].element));
     };
@@ -89,7 +71,7 @@ function TradingFrame(tradeprops: TTradingFrameProps){
                 <SelectedTab title={tradeprops.getWord(4)}/*"Sell"*/ backgroundcolor="green" textcolor='white' onclick={Sell}/> 
                 <SelectedTab title={String(tradeprops.profile.data.balance)} backgroundcolor='white' textcolor='black'/>
                 <SelectedTab title={tradeprops.getWord(3)}/*"Buy"*/ backgroundcolor="red" textcolor='white' onclick={Buy}/>  
-                <SelectedTab title={tradeprops.getWord(5)}/*"Close"*/ backgroundcolor="blue" textcolor='white' onclick={CloseSession}/>
+                <SelectedTab title={tradeprops.getWord(5)}/*"Close"*/ backgroundcolor="blue" textcolor='white' onclick={tradeprops.market.stop}/>
             </div>
             <div
                 className=' grid grid-cols-5 gap-2 col-span-2'
@@ -104,7 +86,7 @@ function TradingFrame(tradeprops: TTradingFrameProps){
                     style="rounded-md px-3 py-2 text-sm font-medium"
                 />
                 <SelectedTab icon_image="/icons/next.svg" onclick={tradeprops.market.step}/>
-                <SelectedTab icon_image="/icons/stop.svg" onclick={CloseSession}/> 
+                <SelectedTab icon_image="/icons/stop.svg" onclick={tradeprops.market.stop}/> 
                 <SelectedTab icon_image="/icons/settings.svg" onclick={HideShowSettings}/>
             </div>             
         </div>

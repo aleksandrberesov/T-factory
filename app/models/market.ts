@@ -7,7 +7,7 @@ import { generateNormalRandom } from "./utils";
 import { defaultMarket } from "./defaults";
 import { startTime, stepTime } from './consts';
 import {UTCTimestamp} from 'lightweight-charts';
-import {Trade} from "./trading";
+import {Trade} from "./trade";
 
 const useMarket = (): IMarket=> {
     console.log('use Market');
@@ -84,7 +84,7 @@ const useMarket = (): IMarket=> {
         toggle();  
     };
     
-
+    
 
     function step(){
         console.log('step: ', count.get(), current.get(), JSON.stringify(dataRef.current, null, 2));
