@@ -1,4 +1,4 @@
-import { ISeriesApi, Time, UTCTimestamp } from 'lightweight-charts';
+//import { IChartApi, ISeriesApi, Time, UTCTimestamp } from 'lightweight-charts';
 import { TUpdateObjectProc } from '../libs/lib.types';
 
 type TUser = {
@@ -22,7 +22,7 @@ type TStar = {
 
 interface ITrade {
     state : 'started' | 'paused' | 'stopped' | undefined;
-    series ?: ISeriesApi<"Line", Time> | undefined;
+    //chart ?: IChartApi | undefined;
 };
 
 type TMarketPoint = {
@@ -31,7 +31,7 @@ type TMarketPoint = {
     high: number;
     low: number;
     close: number;
-    time: UTCTimestamp;
+    time: number;
 };
 
 type TPatternPoint = {
@@ -45,6 +45,11 @@ type TMarket = {
     points : TMarketPoint[];
 };
 
+interface IMarketDataManager {
+    setPoints : (points: TMarketPoint[]) => void;
+    appendPoint: (point: TMarketPoint) => void;
+};
+
 interface IMarket {
     init: (pattern: TPattern) => void;
     points: TMarketPoint[];
@@ -54,6 +59,7 @@ interface IMarket {
     pause: ()=> void;
     isActive: boolean;
     setDuration: (duration: number) => void;
+    addManager: (manager: IMarketDataManager) => void;
 };
 
 type TPattern = {
@@ -90,3 +96,4 @@ export type { TUser, TStatisticItem, TCard, TStar };
 export type { TMarketPoint, TPatternPoint };
 export type { TProfile, TMarket, TPattern };
 export type { IPattern, IProfile, IMarket, ITrade };
+export type { IMarketDataManager };

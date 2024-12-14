@@ -1,14 +1,14 @@
-import { ISeriesApi, Time, UTCTimestamp } from 'lightweight-charts';
+import { IChartApi, ISeriesApi, Time, UTCTimestamp } from 'lightweight-charts';
 import { ITrade, TMarket, TMarketPoint, TPatternPoint } from './types';
 import { randomNumberInRange, generateNormalRandom } from './utils';
 
-let NextTime = 1645205476;
+//let NextTime = 1645205476;
 
 const Trade : ITrade = {
     state : undefined,
-    series : undefined,
+    chart : undefined,
 };
-
+/*
 function InitialMarket(){
     let result : TMarketPoint[] = [];
     for (let i = 0; i < 50; i++) { 
@@ -56,9 +56,16 @@ function Pause(){
     Trade.state = 'paused';  
 };
 
-function SetUpdateSeries(seriesRef: ISeriesApi<"Line", Time>){
+function SetUpdateSeries(seriesRef: IChartApi){
     Trade.series=seriesRef;
 };
+
+
+export { Trade, Market}; 
+export { SetUpdateSeries };
+export { Step, Play, Pause, Stop };
+export { Sell, Buy};
+*/
 
 function Buy(){
 
@@ -67,7 +74,6 @@ function Sell(){
 
 };
 
-export { Trade, Market}; 
-export { SetUpdateSeries };
-export { Step, Play, Pause, Stop };
+export { Trade }; 
+
 export { Sell, Buy};

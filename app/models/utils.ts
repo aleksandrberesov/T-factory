@@ -1,4 +1,5 @@
-import { TMarketPoint } from "./types"; 
+import { TMarketPoint, TPatternPoint } from "./types"; 
+import { UTCTimestamp } from "lightweight-charts";
 
 function generateNormalRandom(mean: number, stdDev: number) {
     let u1 = Math.random();
@@ -12,9 +13,28 @@ const randomNumberInRange = (min: number, max: number) => {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
-function InitialMarket(){
+function CreateMarketPoint(time: number, pattern: TPatternPoint): TMarketPoint{
+    return {
+        value: generateNormalRandom(pattern.expectation, pattern.volatility),
+        open: 10,
+        high: 10.63,
+        low: 9.49,
+        close: 9.55,
+        time: time as UTCTimestamp
+    };
+};
+
+const CreateMarketPoints = (pattern: TPatternPoint[])=> {
     let result : TMarketPoint[] = [];
+    pattern.filter((item)=>item.count>0)
+           .forEach(element => {
+                for (let i = 0; i < element.count; i++){
+                    //result.push(CreateMarketPoint(currentTime.get(), element));
+                    //MoveTime();
+                }
+            });
     return result;
 };
 
-export { generateNormalRandom, randomNumberInRange, InitialMarket };
+
+export { generateNormalRandom, randomNumberInRange, CreateMarketPoints, CreateMarketPoint };

@@ -3,23 +3,31 @@ import SelectedTab from "../components/button";
 import ChartView from "../tradingview/chart.view";
 import LabelBox from '../components/label';
 import DropMenu from '../components/drop-menu';
-import { SetUpdateSeries, Buy, Sell } from "../models/trade";
+import { Buy, Sell } from "../models/trade";
 import { defaultSpeeds } from '../models/consts';
 import SettingsFrame from './frame.settings';
 import { TTradingFrameProps } from './types';
-
-function SpeedTitleToNumber(str: string){
-    return (Number(str.replace("x", '')));
-};
+import useChart from '../tradingview/chart.controller';
+import { SpeedTitleToNumber } from './utils';
 
 function TradingFrame(tradeprops: TTradingFrameProps){
     const [ isSettingsShow, SetIsSettingsShow ] = useState(false);
-    const chart = useMemo(() => (
-        <ChartView setUpdateSeries={SetUpdateSeries} initData={tradeprops.market.points}/>
-    ), []);
     const HideShowSettings = ()=>{
         SetIsSettingsShow(!isSettingsShow)
     }; 
+    const chartManager = useChart(tradeprops.market.addManager);
+    const chart = useMemo(() => (
+        <ChartView 
+            setChartApi={chartManager.assignChart} 
+        />
+    ), []);
+    const settings = useMemo(()=>(
+        <SettingsFrame 
+            callBack={HideShowSettings}
+            data={tradeprops.pattern}
+            getWord={tradeprops.getWord}
+        />
+    ), []);
     const ChangeSpeed = (speedID: number)=>{
         tradeprops.market.setDuration(1000/SpeedTitleToNumber(defaultSpeeds[speedID].element));
     };
@@ -31,12 +39,7 @@ function TradingFrame(tradeprops: TTradingFrameProps){
             <div
                 className="row-span-7 col-span-2"
             > 
-                {isSettingsShow && <SettingsFrame 
-                                        callBack={HideShowSettings}
-                                        data={tradeprops.pattern}
-                                        getWord={tradeprops.getWord}
-                                    />} 
-                {!isSettingsShow && chart}
+                {isSettingsShow ? settings : chart}
             </div>
             <div
                 className='gap-2 grid grid-rows-2 grid-flow-col col-span-2 row-span-3'    

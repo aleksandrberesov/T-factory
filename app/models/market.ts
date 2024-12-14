@@ -2,15 +2,14 @@ import { useState, useEffect, useRef } from "react";
 import { IValue } from '../libs/interfaces';
 import  useRefValue from '../libs/value';
 import { useTimer } from "../libs/lib.timer";
-import { IMarket, TMarket, TPattern, TMarketPoint, TPatternPoint } from "./types"; 
-import { generateNormalRandom } from "./utils";
+import { IMarket, TMarket, TPattern, TMarketPoint, TPatternPoint, IMarketDataManager } from "./types"; 
+import { CreateMarketPoint, CreateMarketPoints } from "./utils";
 import { defaultMarket } from "./defaults";
 import { startTime, stepTime } from './consts';
-import {UTCTimestamp} from 'lightweight-charts';
-import {Trade} from "./trade";
 
 const useMarket = (): IMarket=> {
     console.log('use Market');
+    const [managers, setManagers] = useState<IMarketDataManager[]>([]);
     const { setDuration, isActive, toggle, reset } = useTimer({
         callback :  () => { step(); }, 
         state : false,
@@ -27,22 +26,16 @@ const useMarket = (): IMarket=> {
         currentTime.set(currentTime.get() + stepTime);     
     };
 
-    function getMarketPoint(time: number, pattern: TPatternPoint): TMarketPoint{
-        return {
-            value: generateNormalRandom(pattern.expectation, pattern.volatility),
-            open: 10,
-            high: 10.63,
-            low: 9.49,
-            close: 9.55,
-            time: time as UTCTimestamp
-        };
+    function addManager(manager: IMarketDataManager){
+        setManagers(prevItems => [...prevItems, manager]);
     };
+
     const initialPoints = (init_pattern: TPatternPoint[])=> {
         let result : TMarketPoint[] = [];
         init_pattern.filter((item)=>item.count>0)
                     .forEach(element => {
                         for (let i = 0; i < element.count; i++){
-                            result.push(getMarketPoint(currentTime.get(), element));
+                            result.push(CreateMarketPoint(currentTime.get(), element));
                             MoveTime();
                         }
                     });
@@ -57,8 +50,9 @@ const useMarket = (): IMarket=> {
         current.set(0);
         //currentPatternPoint.set(data.pattern[0]);
         setData({...data, ...{pattern: init_pattern.points, data: initialPoints(init_pattern.pre_points)}}); 
-        Trade.series?.setData(initialPoints(init_pattern.pre_points).map((item)=>({value: item.value, time: item.time as UTCTimestamp})));
-        
+        managers.forEach(element => {
+            element.setPoints(initialPoints(init_pattern.pre_points));    
+        });       
     };
 
     useEffect(() => { 
@@ -67,30 +61,28 @@ const useMarket = (): IMarket=> {
         console.log('data pattern: ', JSON.stringify(data, null, 2));
     }, [data]);
 
-    
-    
     function start(){
-        Trade.state = 'started';  
+        //Trade.state = 'started';  
         toggle();    
     };
     
     function stop(){
-        Trade.state = 'stopped';
+        //Trade.state = 'stopped';
         reset();       
     };
     
     function pause(){
-        Trade.state = 'paused';
+        //Trade.state = 'paused';
         toggle();  
     };
     
-    
-
     function step(){
         console.log('step: ', count.get(), current.get(), JSON.stringify(dataRef.current, null, 2));
         console.log('step patternPoint: ', count.get(), current.get(), JSON.stringify(currentPatternPoint.get(), null, 2));
-        const newPoint: TMarketPoint = getMarketPoint(currentTime.get(), currentPatternPoint.get());
-        Trade.series?.update(newPoint); 
+        const newPoint: TMarketPoint = CreateMarketPoint(currentTime.get(), currentPatternPoint.get());
+        managers.forEach(element => {
+            element.appendPoint(newPoint);
+        });
         if (currentPatternPoint.get().count!==0){
             if(count.get() < currentPatternPoint.get().count){
                 count.set(count.get()+1);
@@ -114,6 +106,7 @@ const useMarket = (): IMarket=> {
 
         isActive,
         setDuration,
+        addManager,
     };
 };
 
