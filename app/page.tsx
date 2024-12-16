@@ -13,7 +13,7 @@ import useLocalizaion from "./libs/lib.localization";
 import useProfile from "./models/profile";
 import usePattern from "./models/pattern";
 import useMarket from "./models/market";
-
+import useTrade from "./models/trade";
 
 export default function Home() {
   const [loading, setLoading] = useState<boolean>(true); 
@@ -24,6 +24,7 @@ export default function Home() {
   const pattern = usePattern(GetPoints, GetPatterns);
   const profile = useProfile(UpdateProfile);
   const market = useMarket();
+  const trader = useTrade();
   const {words, getWord, setLanguage} = useLocalizaion(profile.data.lang);
 
   const fetchAppData = useCallback(async () => { 
@@ -50,9 +51,9 @@ export default function Home() {
     {id: 1 , 
      element: <TradingFrame
                 getWord={getWord}
-                profile={profile}
                 pattern={pattern}
                 market={market}
+                trader={trader}
               />
     },
     {id: 2 , 
@@ -83,6 +84,7 @@ export default function Home() {
 
   useEffect(()=>{
     market.init(pattern.pattern);
+    trader.init(profile, market);
     setLoading(false); 
   },[pattern.pattern]);
   

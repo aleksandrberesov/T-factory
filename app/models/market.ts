@@ -44,11 +44,9 @@ const useMarket = (): IMarket=> {
     };
 
     const init = (init_pattern: TPattern) =>{
-        //console.log('market: ', JSON.stringify(init_pattern, null, 2));
         currentTime.set(startTime);
         count.set(0);
         current.set(0);
-        //currentPatternPoint.set(data.pattern[0]);
         setData({...data, ...{pattern: init_pattern.points, data: initialPoints(init_pattern.pre_points)}}); 
         managers.forEach(element => {
             element.setPoints(initialPoints(init_pattern.pre_points));    

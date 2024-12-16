@@ -1,4 +1,3 @@
-//import { IChartApi, ISeriesApi, Time, UTCTimestamp } from 'lightweight-charts';
 import { TUpdateObjectProc } from '../libs/lib.types';
 
 type TUser = {
@@ -21,8 +20,12 @@ type TStar = {
 };
 
 interface ITrade {
-    state : 'started' | 'paused' | 'stopped' | undefined;
-    //chart ?: IChartApi | undefined;
+    //state : 'started' | 'paused' | 'stopped' | 'closed' | undefined;
+    init: (profile: IProfile, market: IMarket)=> void;
+    buy: ()=> void;
+    sell: ()=> void;
+    close: ()=> void;
+    balance: number,
 };
 
 type TMarketPoint = {

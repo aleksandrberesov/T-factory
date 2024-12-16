@@ -3,7 +3,6 @@ import SelectedTab from "../components/button";
 import ChartView from "../tradingview/chart.view";
 import LabelBox from '../components/label';
 import DropMenu from '../components/drop-menu';
-import { Buy, Sell } from "../models/trade";
 import { defaultSpeeds } from '../models/consts';
 import SettingsFrame from './frame.settings';
 import { TTradingFrameProps } from './types';
@@ -72,10 +71,10 @@ function TradingFrame(tradeprops: TTradingFrameProps){
             <div
                 className=' grid grid-cols-4 gap-x-2 col-span-2 '
             >
-                <SelectedTab title={tradeprops.getWord(4)}/*"Sell"*/ backgroundcolor="green" textcolor='white' onclick={Sell}/> 
-                <SelectedTab title={String(tradeprops.profile.data.balance)} backgroundcolor='white' textcolor='black'/>
-                <SelectedTab title={tradeprops.getWord(3)}/*"Buy"*/ backgroundcolor="red" textcolor='white' onclick={Buy}/>  
-                <SelectedTab title={tradeprops.getWord(5)}/*"Close"*/ backgroundcolor="blue" textcolor='white' onclick={tradeprops.market.stop}/>
+                <SelectedTab title={tradeprops.getWord(4)}/*"Sell"*/ backgroundcolor="green" textcolor='white' onclick={tradeprops.trader.sell}/> 
+                <SelectedTab title={String(tradeprops.trader.balance)} backgroundcolor='white' textcolor='black'/>
+                <SelectedTab title={tradeprops.getWord(3)}/*"Buy"*/ backgroundcolor="red" textcolor='white' onclick={tradeprops.trader.buy}/>  
+                <SelectedTab title={tradeprops.getWord(5)}/*"Close"*/ backgroundcolor="blue" textcolor='white' onclick={tradeprops.trader.close}/>
             </div>
             <div
                 className=' grid grid-cols-5 gap-2 col-span-2'
