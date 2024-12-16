@@ -80,7 +80,7 @@ export default function Home() {
   
   useEffect(()=>{
     ChangeFrame(currentFrame);
-  },[words, profile.data, pattern.patterns, market.points, , market.isActive]);
+  },[words, profile.data, pattern.patterns, market.points, , market.isActive, trader.balance]);
 
   useEffect(()=>{
     market.init(pattern.pattern);

@@ -56,27 +56,21 @@ const useMarket = (): IMarket=> {
     useEffect(() => { 
         currentPatternPoint.set(data.pattern[0]);
         dataRef.current=data;
-        console.log('data pattern: ', JSON.stringify(data, null, 2));
     }, [data]);
 
     function start(){
-        //Trade.state = 'started';  
         toggle();    
     };
     
     function stop(){
-        //Trade.state = 'stopped';
         reset();       
     };
     
     function pause(){
-        //Trade.state = 'paused';
         toggle();  
     };
     
     function step(){
-        console.log('step: ', count.get(), current.get(), JSON.stringify(dataRef.current, null, 2));
-        console.log('step patternPoint: ', count.get(), current.get(), JSON.stringify(currentPatternPoint.get(), null, 2));
         const newPoint: TMarketPoint = CreateMarketPoint(currentTime.get(), currentPatternPoint.get());
         managers.forEach(element => {
             element.appendPoint(newPoint);
