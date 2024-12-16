@@ -1,19 +1,18 @@
-import React, { useEffect, useId } from 'react';
+import React, { useEffect, useId, useRef } from 'react';
 import { createChart } from 'lightweight-charts';
 import { chartStyle } from "./styles"
 import { TChartViewProps } from './types';
 
 function ChartView( chartviewprops: TChartViewProps) {
-    const chart_id = useId(); 
+    const chart_id = useRef(useId()); 
 
     useEffect(() => {
-        const chart = createChart(chart_id, chartStyle);
-        chartviewprops.setChartApi(chart);
-    });
+        chartviewprops.setChartApi(createChart(chart_id.current, chartStyle));
+    }, [chartviewprops]);
 
     return (
         <div
-            id = {chart_id}
+            id = {chart_id.current}
             className="left-0 top-0 flex h-full w-full justify-center"
         >
         </div>

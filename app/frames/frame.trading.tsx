@@ -11,10 +11,14 @@ import useChart from '../tradingview/chart.controller';
 import { SpeedTitleToNumber } from './utils';
 
 function TradingFrame(tradeprops: TTradingFrameProps){
-    const [ isSettingsShow, SetIsSettingsShow ] = useState(false);
     const HideShowSettings = ()=>{
-        SetIsSettingsShow(!isSettingsShow)
+        SetIsSettingsShow(!isSettingsShow);
     }; 
+    const ChangeSpeed = (speedID: number)=>{
+        tradeprops.market.setDuration(1000/SpeedTitleToNumber(defaultSpeeds[speedID].element));
+    };
+
+    const [ isSettingsShow, SetIsSettingsShow ] = useState(false);
     const chartManager = useChart(tradeprops.market.addManager);
     const chart = useMemo(() => (
         <ChartView 
@@ -27,10 +31,7 @@ function TradingFrame(tradeprops: TTradingFrameProps){
             data={tradeprops.pattern}
             getWord={tradeprops.getWord}
         />
-    ), []);
-    const ChangeSpeed = (speedID: number)=>{
-        tradeprops.market.setDuration(1000/SpeedTitleToNumber(defaultSpeeds[speedID].element));
-    };
+    ), [tradeprops.getWord, isSettingsShow]);
 
     return (
         <div
