@@ -15,7 +15,7 @@ const randomNumberInRange = (min: number, max: number) => {
 
 function CreateMarketPoint(time: number, pattern: TPatternPoint): TMarketPoint{
     return {
-        value: generateNormalRandom(pattern.expectation, pattern.volatility),
+        value: Math.abs(generateNormalRandom(pattern.expectation, pattern.volatility)),
         open: 10,
         high: 10.63,
         low: 9.49,

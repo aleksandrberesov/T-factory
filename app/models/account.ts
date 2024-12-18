@@ -19,7 +19,8 @@ const useAccount = ():IAccount =>{
         currency.set(currency.get()-value);
     };
     const getBalance = (currencyRate: number): number =>{
-        return fiat.get()+currency.get()*currencyRate;    
+        console.log("get Balance", fiat.get(), currency.get(), currencyRate);
+        return Math.round(fiat.get()+currency.get()*currencyRate);    
     };
     const getMoney = () =>{
         return {
