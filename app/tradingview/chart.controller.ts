@@ -1,10 +1,10 @@
-import React, { useEffect, useState, useMemo, useCallback, useRef } from 'react';
+import { useEffect, useState, useCallback, useRef } from 'react';
 import IChartController  from './types';
-import { IMarket, TMarketPoint, IMarketDataManager } from '../models/types';
+import { TMarketPoint, IMarketDataManager } from '../models/types';
 import { IChartApi, ISeriesApi, Time, UTCTimestamp } from 'lightweight-charts';
 import { lineStyle } from './styles';
 
-const useChart = (addModelProc: (manager: IMarketDataManager) => void): IChartController=>{
+const useChart = (addModelProc: (manager: IMarketDataManager) => void): IChartController & IMarketDataManager =>{
     const [chart, setChart] = useState<IChartApi | undefined>(undefined);
     const [line, setLine] = useState<ISeriesApi<"Line", Time> | undefined>(undefined);
     const lineRef =useRef(line);
@@ -29,7 +29,9 @@ const useChart = (addModelProc: (manager: IMarketDataManager) => void): IChartCo
     }, [line]);
 
     return {
-        assignChart: setChart,    
+        assignChart: setChart,  
+        setPoints,
+        appendPoint, 
     };
 
 };

@@ -24,17 +24,4 @@ function CreateMarketPoint(time: number, pattern: TPatternPoint): TMarketPoint{
     };
 };
 
-const CreateMarketPoints = (pattern: TPatternPoint[])=> {
-    let result : TMarketPoint[] = [];
-    pattern.filter((item)=>item.count>0)
-           .forEach(element => {
-                for (let i = 0; i < element.count; i++){
-                    //result.push(CreateMarketPoint(currentTime.get(), element));
-                    //MoveTime();
-                }
-            });
-    return result;
-};
-
-
-export { generateNormalRandom, randomNumberInRange, CreateMarketPoints, CreateMarketPoint };
+export { CreateMarketPoint };

@@ -19,6 +19,19 @@ type TStar = {
     title : string;
 };
 
+type TAccount = {
+    fiat: number;
+    currency: number;
+};
+
+interface IAccount {
+    depositFiat: (value: number)=> void;
+    withdrawFiat: (value: number)=> void;
+    depositCurrency: (value: number)=> void;
+    withdrawCurrency: (value: number)=> void;
+    getBalance: (currencyRate: number) =>number;
+};
+
 interface ITrade {
     //state : 'started' | 'paused' | 'stopped' | 'closed' | undefined;
     init: (profile: IProfile, market: IMarket)=> void;
@@ -26,6 +39,8 @@ interface ITrade {
     sell: ()=> void;
     close: ()=> void;
     balance: number,
+
+    changed: boolean,
 };
 
 type TMarketPoint = {
@@ -55,7 +70,7 @@ interface IMarketDataManager {
 
 interface IMarket {
     init: (pattern: TPattern) => void;
-    points: TMarketPoint[];
+    //points: TMarketPoint[];
     step: ()=> void;
     start: ()=> void;
     stop: ()=> void;
@@ -63,6 +78,7 @@ interface IMarket {
     isActive: boolean;
     setDuration: (duration: number) => void;
     addManager: (manager: IMarketDataManager) => void;
+    changed: boolean;
 };
 
 type TPattern = {
@@ -100,3 +116,4 @@ export type { TMarketPoint, TPatternPoint };
 export type { TProfile, TMarket, TPattern };
 export type { IPattern, IProfile, IMarket, ITrade };
 export type { IMarketDataManager };
+export type { TAccount, IAccount };

@@ -1,33 +1,34 @@
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import { IValue } from '../libs/interfaces';
 import  useRefValue from '../libs/value';
 import { useTimer } from "../libs/lib.timer";
-import { IMarket, TMarket, TPattern, TMarketPoint, TPatternPoint, IMarketDataManager } from "./types"; 
-import { CreateMarketPoint, CreateMarketPoints } from "./utils";
+import { IMarket, TPattern, TMarketPoint, TPatternPoint, IMarketDataManager } from "./types"; 
+import { CreateMarketPoint } from "./utils";
 import { defaultMarket } from "./defaults";
 import { startTime, stepTime } from './consts';
 
 const useMarket = (): IMarket=> {
-    console.log('use Market');
+    const [changed, setChanged] = useState(false);
     const [managers, setManagers] = useState<IMarketDataManager[]>([]);
     const { setDuration, isActive, toggle, reset } = useTimer({
         callback :  () => { step(); }, 
         state : false,
         duration : 1000,    
     });
-    const [data, setData] = useState<TMarket>(defaultMarket); 
-    const dataRef = useRef<TMarket>(data);
+    const pattern = useRefValue<TPatternPoint[]>(defaultMarket.pattern);
+    const points = useRefValue<TMarketPoint[]>(defaultMarket.points); 
     const currentTime: IValue<number> = useRefValue(0);
     const count: IValue<number> = useRefValue(0);
     const current: IValue<number> = useRefValue(0);
-    const currentPatternPoint: IValue<TPatternPoint> = useRefValue(data.pattern[0]);
+    const currentPatternPoint: IValue<TPatternPoint> = useRefValue(pattern.get()[0]);
 
+ /*   useEffect(() => { 
+        currentPatternPoint.set(pattern[0]);
+        patternRef.current=pattern;
+    }, [pattern]);
+*/
     const MoveTime = ()=> {
         currentTime.set(currentTime.get() + stepTime);     
-    };
-
-    function addManager(manager: IMarketDataManager){
-        setManagers(prevItems => [...prevItems, manager]);
     };
 
     const initialPoints = (init_pattern: TPatternPoint[])=> {
@@ -39,7 +40,6 @@ const useMarket = (): IMarket=> {
                             MoveTime();
                         }
                     });
-                    console.log('init market: ', JSON.stringify(result, null, 2));
         return result;
     };
 
@@ -47,16 +47,18 @@ const useMarket = (): IMarket=> {
         currentTime.set(startTime);
         count.set(0);
         current.set(0);
-        setData({...data, ...{pattern: init_pattern.points, data: initialPoints(init_pattern.pre_points)}}); 
+        pattern.set([...pattern.get(), ... init_pattern.points]);
+        currentPatternPoint.set(pattern.get()[0]);
+        points.set([...points.get(), ...initialPoints(init_pattern.pre_points)]); 
         managers.forEach(element => {
             element.setPoints(initialPoints(init_pattern.pre_points));    
-        });       
+        });  
+        setChanged(!changed);     
     };
 
-    useEffect(() => { 
-        currentPatternPoint.set(data.pattern[0]);
-        dataRef.current=data;
-    }, [data]);
+    function addManager(manager: IMarketDataManager){
+        setManagers(prevItems => [...prevItems, manager]);
+    };
 
     function start(){
         toggle();    
@@ -72,6 +74,7 @@ const useMarket = (): IMarket=> {
     
     function step(){
         const newPoint: TMarketPoint = CreateMarketPoint(currentTime.get(), currentPatternPoint.get());
+        points.set([...points.get(), ...[newPoint]]); 
         managers.forEach(element => {
             element.appendPoint(newPoint);
         });
@@ -80,17 +83,18 @@ const useMarket = (): IMarket=> {
                 count.set(count.get()+1);
             }else{
                 count.set(0);
-                if (current.get()<dataRef.current.pattern.length){
+                if (current.get()<pattern.get().length){
                     current.set(current.get()+1);
                 }
-                currentPatternPoint.set(dataRef.current.pattern[current.get()])
+                currentPatternPoint.set(pattern.get()[current.get()])
             }            
         } 
         MoveTime();
     };
+
     return {
         init,
-        points: data.points,
+        //points: points.get(),
         step,
         stop,
         pause,
@@ -99,6 +103,7 @@ const useMarket = (): IMarket=> {
         isActive,
         setDuration,
         addManager,
+        changed,
     };
 };
 
