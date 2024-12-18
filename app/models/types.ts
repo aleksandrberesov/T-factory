@@ -19,9 +19,13 @@ type TStar = {
     title : string;
 };
 
-type TAccount = {
+type TMoney = {
     fiat: number;
     currency: number;
+};
+
+type TDeal = {
+    
 };
 
 interface IAccount {
@@ -30,6 +34,7 @@ interface IAccount {
     depositCurrency: (value: number)=> void;
     withdrawCurrency: (value: number)=> void;
     getBalance: (currencyRate: number) =>number;
+    money: TMoney;
 };
 
 interface ITrade {
@@ -116,4 +121,5 @@ export type { TMarketPoint, TPatternPoint };
 export type { TProfile, TMarket, TPattern };
 export type { IPattern, IProfile, IMarket, ITrade };
 export type { IMarketDataManager };
-export type { TAccount, IAccount };
+export type { TMoney, IAccount,  };
+export type { TDeal };

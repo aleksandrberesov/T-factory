@@ -88,6 +88,10 @@ export default function Home() {
     setLoading(false); 
   },[pattern.pattern]);
   
+  useEffect(()=>{
+    trader.init(profile, market);
+    market.addManager(trader);
+  },[profile.data.id]); 
   
   useEffect(() => {
     fetchAppData();

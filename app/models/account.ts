@@ -1,4 +1,3 @@
-//import { useRef, useState } from "react";
 import useRefValue from "../libs/value";
 import { IValue } from "../libs/interfaces";
 import { IAccount } from "./types";
@@ -22,13 +21,20 @@ const useAccount = ():IAccount =>{
     const getBalance = (currencyRate: number): number =>{
         return fiat.get()+currency.get()*currencyRate;    
     };
+    const getMoney = () =>{
+        return {
+            fiat: fiat.get(),
+            currency: currency.get(),
+        }
+    };
 
     return { 
         depositFiat,
         withdrawFiat,
         depositCurrency,
         withdrawCurrency,
-        getBalance
+        getBalance,
+        money: getMoney(),
     }
 };
 

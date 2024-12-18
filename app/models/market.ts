@@ -21,12 +21,7 @@ const useMarket = (): IMarket=> {
     const count: IValue<number> = useRefValue(0);
     const current: IValue<number> = useRefValue(0);
     const currentPatternPoint: IValue<TPatternPoint> = useRefValue(pattern.get()[0]);
-
- /*   useEffect(() => { 
-        currentPatternPoint.set(pattern[0]);
-        patternRef.current=pattern;
-    }, [pattern]);
-*/
+    
     const MoveTime = ()=> {
         currentTime.set(currentTime.get() + stepTime);     
     };
@@ -90,11 +85,11 @@ const useMarket = (): IMarket=> {
             }            
         } 
         MoveTime();
+        setChanged(!changed); 
     };
 
     return {
         init,
-        //points: points.get(),
         step,
         stop,
         pause,

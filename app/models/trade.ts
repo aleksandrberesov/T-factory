@@ -1,28 +1,35 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useCallback } from "react";
 import useRefValue from "../libs/value";
 import { IValue } from "../libs/interfaces";
-import { IMarket, ITrade, IProfile, IAccount, TMarketPoint } from "./types";
+import { IMarket, ITrade, IProfile, IAccount, TMarketPoint,  IMarketDataManager, TDeal } from "./types";
 import useAccount from "./account";
 import { defaultMarketPoint } from "./defaults";
+import { exit } from "process";
 
-const useTrade = ():ITrade =>{
+const useTrade = ():ITrade  & IMarketDataManager =>{
     const account: IAccount = useAccount();
     const marketPoint: IValue<TMarketPoint> = useRefValue(defaultMarketPoint);
-    const currentBalance: IValue<number> = useRefValue(0);
+    const position: IValue<TDeal> = useRefValue({});
     const [changed, setChanged] = useState(false);
     const marketPlace = useRef<IMarket | undefined>(undefined);
 
     const init = (profile: IProfile, market: IMarket)=>{
-        currentBalance.set(profile.data.balance);
+        //currentBalance.set(profile.data.balance);
         marketPlace.current=market;
         account.depositFiat(profile.data.balance);
     };
     const buy = ()=>{
-        currentBalance.set(-30);
+        const amount = account.money.fiat;
+        if (amount<=0){ exit; }
+        account.withdrawFiat(amount);
+        account.depositCurrency(amount/marketPoint.get().value);
         setChanged(!changed);
     };
     const sell = ()=>{
-        currentBalance.set(54387450);
+        const amount = account.money.currency;
+        if (amount<=0){ exit; }
+        account.withdrawCurrency(amount);
+        account.depositFiat(amount*marketPoint.get().value);
         setChanged(!changed);
     };
     const close = ()=>{
@@ -34,9 +41,12 @@ const useTrade = ():ITrade =>{
         return account.getBalance(marketPoint.get().value);
     };
 
-    const setBalance = ()=>{
-
-    };
+    const setPoints = useCallback((points: TMarketPoint[]) => {
+        //marketPoint.set(points[points.length-1]);
+    }, []);
+    const appendPoint =useCallback((point: TMarketPoint) => {
+        marketPoint.set(point);
+    },[]);
 
     return {
         init,
@@ -46,6 +56,9 @@ const useTrade = ():ITrade =>{
         balance: getBalance(),
 
         changed,
+
+        setPoints,
+        appendPoint, 
     }
 };
 

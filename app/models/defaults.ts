@@ -68,7 +68,7 @@ const defaultMarket: TMarket = {
 }; 
 
 const defaultMarketPoint: TMarketPoint = {
-    value: 0,
+    value: 10,
     open: 0,
     high: 0,
     low: 0,
