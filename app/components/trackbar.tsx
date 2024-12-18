@@ -63,14 +63,14 @@ const VerticalTrackbar: React.FC<TrackBarProps> = ({ min, max, step, value, onCh
       if (dragging && trackRef.current) {
         const rect = trackRef.current.getBoundingClientRect();
         const newValue = Math.min(Math.max(min, ((rect.bottom - event.clientY) / rect.height) * (max - min) + min), max);
-        console.log('New Value:', newValue); // Debugging line
+        
         onChange(Math.round(newValue / step) * step);
       }
     };
   
     const handleMouseUp = () => {
       setDragging(false);
-      console.log('Mouse Up'); // Debugging line
+      
     };
   
     useEffect(() => {
@@ -90,7 +90,7 @@ const VerticalTrackbar: React.FC<TrackBarProps> = ({ min, max, step, value, onCh
   
     const handleMouseDown = () => {
       setDragging(true);
-      console.log('Mouse Down'); // Debugging line
+      
     };
   
     const percentage = ((value - min) / (max - min)) * 100;

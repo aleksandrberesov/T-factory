@@ -4,7 +4,7 @@ import { TUpdateObjectProc } from "../libs/lib.types";
 import { defaultProfile } from "./defaults" 
 
 const useProfile = (updFunc: TUpdateObjectProc | undefined): IProfile => {
-    console.log('use Profile');
+    
     const [data, acceptData] = useState<TProfile>(defaultProfile); 
     
     const setData = (newData: object) => {

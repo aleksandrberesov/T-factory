@@ -36,13 +36,13 @@ const LanguageIDs : TStringElement[] = [
 ];
 
 function useLocalizaion(initlang: string | undefined): ILocalizator {
-    console.log('use Localization');
+    
     const dictionaryRef = useRef<TDictionaryWord[]>([]);
     const [words, setWords] = useState<TWord[]>([]);
     const Lang = initlang || AvailableLanguages[0];
 
     useEffect(() => {
-        console.log("load words from file");
+        
         fetch('/words.json')
             .then((response) => response.json())
             .then((data) => {

@@ -11,7 +11,7 @@ async function GetItem(name: string, id_name: string, item_id: number | string) 
             [id]: typeof item_id === "number" ? { N: item_id.toString() } : { S: item_id},
         }, 
     }; 
-    console.log('[Gettting Item]', JSON.stringify(params, null, 2));
+    
     
     try{
         const data = await dynamoDBClient.send(new GetItemCommand(params));
@@ -51,12 +51,12 @@ async function GetItemList(table_name: string, key_name: string ): Promise<(stri
         ProjectionExpression: expressionAttributeName, 
         ExpressionAttributeNames: { [expressionAttributeName]: key_name } 
     }; 
-    console.log('[Gettting Points]', JSON.stringify(params, null, 2));
+    
  
     try{
         const data = await dynamoDBClient.send(new ScanCommand(params));
         if (data) { 
-            console.log('[GetItemList]', JSON.stringify(data, null, 2));    
+            
             return data.Items?.map((item: DynamoItem): JSONItem => convertToCommonJSON(item)) 
                               .map((item: JSONItem) => item[key_name]) 
                               .filter(value => typeof value === 'string' || typeof value === 'number') as (string | number)[];

@@ -98,17 +98,17 @@ export default function Home() {
   }, []);
 
   if (loading){
-    console.log("page Loading");
+    
     return(
       <LoadingFrame/>
     )
   }else if (error){
-    console.log("page Error");
+    
     return (
       <h1>ERROR</h1>
     )  
   }else{
-    console.log("page Frame");
+    
     return (
       <main 
         className="h-screen w-screen overflow-hidden bg-black"

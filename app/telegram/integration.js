@@ -15,7 +15,7 @@ export async function FullScreen(){
   } catch(error) {
     console.error('An error occurred:', error.message);
   } finally{
-    console.log('window is full screen:');
+    
   }   
 }
 

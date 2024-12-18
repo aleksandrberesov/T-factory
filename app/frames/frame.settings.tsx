@@ -4,7 +4,7 @@ import {TSettingsFrameProps} from "./types"
 
 function SettingsFrame(settingsprops: TSettingsFrameProps){
     let idCounter = 1;
-    console.log('settings frame', settingsprops.data.patterns);
+    
     const Elemets = settingsprops.data.patterns.map((item) => {
         return {
             id: idCounter++,
