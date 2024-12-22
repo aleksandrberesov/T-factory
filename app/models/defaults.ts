@@ -1,4 +1,4 @@
-import { TProfile, TMarket, TPattern, TMarketPoint } from './types'
+import { TProfile, TMarket, TPattern, TMarketPoint, TDeal } from './types'
 
 const defaultProfile : TProfile = {
     id : 0,
@@ -76,4 +76,11 @@ const defaultMarketPoint: TMarketPoint = {
     time: 0,
 };
 
-export { defaultProfile, defaultPattern, defaultMarket, defaultMarketPoint };
+const defaultDeal: TDeal = {
+    openValue: 0,
+    closeValue: 0,
+    openTime: 0,
+    closeTime: 0,
+};
+
+export { defaultProfile, defaultPattern, defaultMarket, defaultMarketPoint, defaultDeal };

@@ -25,7 +25,10 @@ type TMoney = {
 };
 
 type TDeal = {
-    
+    openValue: number;
+    closeValue: number;
+    openTime: number;
+    closeTime: number;
 };
 
 interface IAccount {
@@ -38,12 +41,14 @@ interface IAccount {
 };
 
 interface ITrade {
-    //state : 'started' | 'paused' | 'stopped' | 'closed' | undefined;
     init: (profile: IProfile, market: IMarket)=> void;
     buy: ()=> void;
     sell: ()=> void;
     close: ()=> void;
+    
     balance: number,
+    deal: TDeal,
+    count: number,
 
     changed: boolean,
 };

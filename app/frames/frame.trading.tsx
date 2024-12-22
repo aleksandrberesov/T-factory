@@ -32,8 +32,6 @@ function TradingFrame(tradeprops: TTradingFrameProps){
         />
     ), [tradeprops.getWord, isSettingsShow]);
 
-
-    
     return (
         <div
             className="h-full w-screen bg-transparent gap-y-2 grid grid-rows-12 grid-cols-2"
