@@ -19,5 +19,6 @@ const defaultAmounts = [
 
 const startTime = 0;//1645205476;
 const stepTime = 1000;
+const currencySymbol = '¤';
 
-export { startTime, stepTime, startFrame, defaultSpeeds, defaultAmounts };
+export { startTime, stepTime, startFrame, defaultSpeeds, defaultAmounts, currencySymbol };
