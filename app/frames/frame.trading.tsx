@@ -3,7 +3,7 @@ import SelectedTab from "../components/button";
 import ChartView from "../tradingview/chart.view";
 import LabelBox from '../components/label';
 import DropMenu from '../components/drop-menu';
-import { defaultSpeeds } from '../models/consts';
+import { currencySymbol, defaultSpeeds } from '../models/consts';
 import SettingsFrame from './frame.settings';
 import { TTradingFrameProps } from './types';
 import useChart from '../tradingview/chart.controller';
@@ -47,10 +47,10 @@ function TradingFrame(tradeprops: TTradingFrameProps){
                 <div
                     className='bg-gray-500 flex-col gap-y-2 row-span-3'
                 >
-                    <LabelBox title={tradeprops.getWord(6)}/*'Position'*/ value={1}/>
-                    <LabelBox title={tradeprops.getWord(7)}/*'Avarage cost'*/ value={1}/>
-                    <LabelBox title={tradeprops.getWord(8)}/*'Money'*/ value={1}/>
-                    <LabelBox title={tradeprops.getWord(9)}/*'Capital'*/ value={1}/>
+                    <LabelBox title={tradeprops.getWord(6)}/*'Position'*/ value={tradeprops.trader.deal.volume}/>
+                    <LabelBox title=''/*'lots'*/ value={tradeprops.trader.deal.amount} symbol={currencySymbol}/>
+                    <LabelBox title={tradeprops.getWord(7)}/*'Avarage cost'*/ value={tradeprops.trader.deal.openPrice}/>
+                    <LabelBox title={tradeprops.getWord(9)}/*'Capital'*/ value={tradeprops.trader.deal.volume}/>
                 </div>
                 <div
                     className='bg-gray-500 flex-col gap-y-2 col-span-2'
@@ -63,7 +63,7 @@ function TradingFrame(tradeprops: TTradingFrameProps){
                     className='bg-gray-500 flex-col gap-y-2 row-span-2 col-span-2'
                 >
                     <LabelBox title={tradeprops.getWord(13)+tradeprops.getWord(14)}/*'Profite'*//>
-                    <LabelBox title={tradeprops.getWord(15)}/*'Transactions'*/ value={1}/>
+                    <LabelBox title={tradeprops.getWord(15)}/*'Transactions'*/ value={tradeprops.trader.count}/>
                     <LabelBox title={tradeprops.getWord(16)}/*'Center'*/ value={1}/>
                     <LabelBox title={tradeprops.getWord(17)+"/"+tradeprops.getWord(18)}/*'Max/Min'*/ value={1}/>
                 </div>

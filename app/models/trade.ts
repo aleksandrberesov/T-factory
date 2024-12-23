@@ -21,11 +21,12 @@ const useTrade = ():ITrade  & IMarketDataManager =>{
         account.depositFiat(profile.data.balance);
     };
     const buy = ()=>{
-        const amount = account.money.fiat;
-        if (amount<=0){ exit; }
-        account.withdrawFiat(amount);
-        account.depositCurrency(amount/marketPoint.get().value);
-        deal.set({...deal.get(), ...{openValue: amount, openTime: marketPoint.get().time}});
+        const volume = account.money.fiat;
+        const currency = volume/marketPoint.get().value;
+        if (volume<=0){ return; }
+        account.withdrawFiat(volume);
+        account.depositCurrency(currency);
+        deal.set({...deal.get(), ...{volume: volume, amount: currency, openPrice: marketPoint.get().value, openTime: marketPoint.get().time}});
         setChanged(!changed);
     };
     const sell = ()=>{
@@ -34,7 +35,7 @@ const useTrade = ():ITrade  & IMarketDataManager =>{
         if (amount<=0){ exit; }
         account.withdrawCurrency(amount);
         account.depositFiat(fiat);
-        deal.set({...deal.get(), ...{closeValue: fiat, closeTime: marketPoint.get().time}});
+        deal.set({...deal.get(), ...{closePrice: marketPoint.get().value, closeTime: marketPoint.get().time}});
         deals.push(deal);
         setChanged(!changed);
     };

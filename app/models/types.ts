@@ -25,10 +25,13 @@ type TMoney = {
 };
 
 type TDeal = {
-    openValue: number;
-    closeValue: number;
+    openPrice: number;
+    closePrice: number;
     openTime: number;
     closeTime: number;
+    volume: number;
+    amount: number;
+    profitLoss: number;
 };
 
 interface IAccount {
