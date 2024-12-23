@@ -7,7 +7,7 @@ const useRefArray = <T, >(): IArray<T> => {
     const set = (newArray: T[]):void => { arrayRef.current = newArray; }; 
     const push = (newValue: T | IValue<T>):void => {
         if (newValue!==null && typeof  newValue === "object" && "get" in newValue) {
-             arrayRef.current = [...arrayRef.current, newValue.get()]; 
+            arrayRef.current = [...arrayRef.current, {...newValue.get()}]; 
         } else { 
             arrayRef.current = [...arrayRef.current, newValue]; 
         }

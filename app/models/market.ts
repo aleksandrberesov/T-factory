@@ -7,13 +7,13 @@ import { CreateMarketPoint } from "./utils";
 import { defaultMarket } from "./defaults";
 import { startTime, stepTime } from './consts';
 
-const useMarket = (): IMarket=> {
+const useMarket = (): IMarket => {
     const [changed, setChanged] = useState(false);
     const [managers, setManagers] = useState<IMarketDataManager[]>([]);
     const { setDuration, isActive, toggle, reset } = useTimer({
-        callback :  () => { step(); }, 
-        state : false,
-        duration : 1000,    
+        callback:  () => { step(); }, 
+        state: false,
+        duration: 1000,    
     });
     const pattern = useRefValue<TPatternPoint[]>(defaultMarket.pattern);
     const points = useRefValue<TMarketPoint[]>(defaultMarket.points); 

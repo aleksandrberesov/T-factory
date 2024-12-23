@@ -77,10 +77,13 @@ const defaultMarketPoint: TMarketPoint = {
 };
 
 const defaultDeal: TDeal = {
-    openValue: 0,
-    closeValue: 0,
+    openPrice: 0,
+    closePrice: 0,
     openTime: 0,
     closeTime: 0,
+    amount: 0,
+    profitLoss: 0,
+    volume: 0,
 };
 
 export { defaultProfile, defaultPattern, defaultMarket, defaultMarketPoint, defaultDeal };

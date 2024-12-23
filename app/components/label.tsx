@@ -3,11 +3,20 @@ import { TLabelProps } from "./types";
 
 function LabelBox(labelprops: TLabelProps) {
     return (
-        <p
-            className="text-black"
+        <div
+            className="flex justify-between"
         >
-            {labelprops.title} {labelprops.value} {labelprops.symbol}
-        </p>
+            <div
+                className="text-black"
+            >
+                {labelprops.title}
+            </div>
+            <div
+                className="text-black"
+            >
+                {labelprops.value}{labelprops.symbol}
+            </div>  
+        </div>
     );
 }
 
