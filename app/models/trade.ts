@@ -19,9 +19,15 @@ const useTrade = (): ITrade & IMarketDataManager => {
         marketPlace.current=market;
         account.depositFiat(profile.data.balance);
     };
+<<<<<<< HEAD
     const buy = () => {
         const volume = account.money.fiat;
         const currency = volume / marketPoint.get().value;
+=======
+    const buy = ()=>{
+        const volume = account.money.fiat;
+        const currency = volume/marketPoint.get().value;
+>>>>>>> e7ea7ac6cb65c0f7752c89a0f5868c29e062a9d0
         if (volume<=0){ return; }
         account.withdrawFiat(volume);
         account.depositCurrency(currency);
