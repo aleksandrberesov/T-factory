@@ -98,15 +98,9 @@ export default function Home() {
   }, []);
 
   if (loading){
-    
-    return(
-      <LoadingFrame/>
-    )
+    return <LoadingFrame/>
   }else if (error){
-    
-    return (
-      <h1>ERROR</h1>
-    )  
+    return <div>Error: {error}</div>;  
   }else{
     
     return (
