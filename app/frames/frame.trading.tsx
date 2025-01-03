@@ -47,17 +47,29 @@ function TradingFrame(tradeprops: TTradingFrameProps){
                 <div
                     className='bg-gray-500 flex-col gap-y-2 row-span-3'
                 >
-                    <LabelBox title={tradeprops.getWord(6)}/*'Position'*/ value={tradeprops.trader.deal.volume}/>
-                    <LabelBox title=''/*'lots'*/ value={tradeprops.trader.deal.amount} symbol={currencySymbol}/>
+                    <LabelBox title={tradeprops.getWord(6)}/*'Position'*/ value={tradeprops.trader.deal.volume} symbol={currencySymbol}/>
+                    <LabelBox title=''/*'lots'*/ value={tradeprops.trader.deal.amount} symbol='lot'/>
                     <LabelBox title={tradeprops.getWord(7)}/*'Avarage cost'*/ value={tradeprops.trader.deal.openPrice}/>
-                    <LabelBox title={tradeprops.getWord(9)}/*'Capital'*/ value={tradeprops.trader.deal.volume}/>
+                    <LabelBox title={tradeprops.getWord(9)}/*'Capital'*/ value={tradeprops.trader.balance} symbol={currencySymbol}/>
                 </div>
                 <div
                     className='bg-gray-500 flex-col gap-y-2 col-span-2'
                 >
-                    <LabelBox title={tradeprops.getWord(10)}/*'Result'*//>
-                    <LabelBox title={tradeprops.getWord(11)}/*'Current'*/ value={1}/>
-                    <LabelBox title={tradeprops.getWord(12)}/*'All'*/ value={1}/>
+                    <div>
+                        
+                    </div>
+                    <div>
+                        <LabelBox title={tradeprops.getWord(10)}/*'Result'*//>
+                            <LabelBox title={tradeprops.getWord(11)}/*'Current'*//>
+                            <LabelBox title='' value={tradeprops.trader.deal.profitLoss} symbol={currencySymbol} textcolor='green-200'/>
+                            <LabelBox value={tradeprops.trader.deal.profitLoss} symbol='%' textcolor='blue-500'/>    
+                    </div>
+                    <div>
+                        <LabelBox title={tradeprops.getWord(12)}/*'All'*//>
+                            <LabelBox title='' value={tradeprops.trader.deal.profitLoss} symbol={currencySymbol} textcolor='red-500'/>
+                            <LabelBox value={tradeprops.trader.deal.profitLoss} symbol='%' textcolor='blue-500'/>    
+                    </div>        
+                            
                 </div>
                 <div
                     className='bg-gray-500 flex-col gap-y-2 row-span-2 col-span-2'

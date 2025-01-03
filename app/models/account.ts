@@ -19,13 +19,12 @@ const useAccount = (): IAccount => {
         currency.set(currency.get()-value);
     };
     const getBalance = (currencyRate: number): number => {
-        //console.log("get Balance", fiat.get(), currency.get(), currencyRate);
         return Math.round(fiat.get()+currency.get()*currencyRate);    
     };
     const getMoney = () => {
         return {
-            fiat: fiat.get(),
-            currency: currency.get(),
+            fiat:  Math.round(fiat.get()),
+            currency: Math.round(currency.get()),
         }
     };
 

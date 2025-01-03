@@ -18,24 +18,26 @@ const useTrade = (): ITrade & IMarketDataManager => {
     const init = (profile: IProfile, market: IMarket) => {
         marketPlace.current=market;
         account.depositFiat(profile.data.balance);
+        setChanged(!changed);
     };
     const buy = () => {
+        if (account.money.fiat < 0){ return; }
         const volume = account.money.fiat;
         const currency = volume / marketPoint.get().value;
-        if (volume<=0){ return; }
         account.withdrawFiat(volume);
         account.depositCurrency(currency);
         deal.set({...deal.get(), ...{volume: volume, amount: currency, openPrice: marketPoint.get().value, openTime: marketPoint.get().time}});
         setChanged(!changed);
     };
     const sell = () => {
+        if (account.money.currency < 0){ return; }
         const amount = account.money.currency;
         const fiat = amount * marketPoint.get().value;
-        if (amount <= 0){ return; }
         account.withdrawCurrency(amount);
         account.depositFiat(fiat);
-        deal.set({...deal.get(), ...{closePrice: marketPoint.get().value, closeTime: marketPoint.get().time}});
+        deal.set({...deal.get(), ...{closePrice: marketPoint.get().value, closeTime: marketPoint.get().time, profitLoss: fiat-deal.get().volume}});
         deals.push(deal);
+        deal.set(defaultDeal);
         setChanged(!changed);
     };
     const close = () => {
@@ -48,7 +50,7 @@ const useTrade = (): ITrade & IMarketDataManager => {
     }, []);
     const appendPoint =useCallback((point: TMarketPoint) => {
         marketPoint.set(point);
-    },[]);
+    },[marketPoint]);
 
     return {
         init,
@@ -58,6 +60,8 @@ const useTrade = (): ITrade & IMarketDataManager => {
         balance: getBalance(),
         deal: deal.get(),
         count: deals.count,
+
+
 
         changed,
 
