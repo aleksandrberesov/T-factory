@@ -22,6 +22,15 @@ interface IAccount {
     money: TMoney;
 };
 
+interface IStatistics {
+    deals: TDeal[];
+    lastDeal: TDeal;
+    pushDeal: (deal: TDeal) => void;
+    clear: () => void;
+    count: number;
+
+}
+
 interface IMarketDataManager {
     setPoints : (points: TMarketPoint[]) => void;
     appendPoint: (point: TMarketPoint) => void;
@@ -47,14 +56,13 @@ interface ITrade {
     
     balance: number,
     deal: TDeal,
-    count: number,
+
+    statistics: IStatistics,
 
     changed: boolean,
 };
 
-interface IStatistics {
 
-}
 
 interface IApplication {
 

@@ -1,18 +1,30 @@
-import useRefValue from "../libs/value";
 import useRefArray from "../libs/array";
 import { IArray, IValue } from "../libs/interfaces";
 import { TDeal } from './types';
-import { defaultDeal } from "./defaults";
 import { IStatistics } from './interfaces';
 
 const useStatistics = (): IStatistics => {
-    const deal: IValue<TDeal> = useRefValue(defaultDeal);
     const deals: IArray<TDeal> = useRefArray();
 
+    function pushDeal(deal: TDeal) {
+        deals.push(deal);
+    };
+
+    function clear() {
+        deals.clear();
+    };
+
+    function lastDeal(): TDeal {
+        return deals.get()[deals.count - 1];
+    }
 
     return {
-
+        deals: deals.get(),
+        lastDeal: lastDeal(),
+        pushDeal,
+        clear,
+        count: deals.count,
     };
 };
 
-export { useStatistics };
+export default useStatistics;

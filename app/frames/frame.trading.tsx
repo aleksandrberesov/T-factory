@@ -80,9 +80,9 @@ function TradingFrame(tradeprops: TTradingFrameProps){
                         </thead>
                         <tr>
                             <td><LabelBox title={tradeprops.getWord(15)}/*'Transactions'*//></td>
-                            <td><LabelBox value={tradeprops.trader.count}/></td>
-                            <td><LabelBox value={tradeprops.trader.count}/></td>
-                            <td><LabelBox value={tradeprops.trader.count}/></td>
+                            <td><LabelBox value={tradeprops.trader.statistics.count}/></td>
+                            <td><LabelBox value={tradeprops.trader.statistics.count}/></td>
+                            <td><LabelBox value={tradeprops.trader.statistics.count}/></td>
                         </tr>
                         <tr>
                             <td><LabelBox title={tradeprops.getWord(16)}/></td>

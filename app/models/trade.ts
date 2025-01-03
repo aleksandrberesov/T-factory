@@ -1,18 +1,18 @@
 import { useRef, useState, useCallback } from "react";
 import useRefValue from "../libs/value";
-import { IArray, IValue } from "../libs/interfaces";
+import { IValue } from "../libs/interfaces";
 import { TMarketPoint, TDeal } from "./types";
-import { IMarket, ITrade, IProfile, IAccount, IMarketDataManager } from "./interfaces";
+import { IMarket, ITrade, IProfile, IAccount, IMarketDataManager, IStatistics } from "./interfaces";
 import useAccount from "./account";
+import useStatistics from "./statistics";
 import { defaultDeal, defaultMarketPoint } from "./defaults";
-import useRefArray from "../libs/array";
 
 const useTrade = (): ITrade & IMarketDataManager => {
     const [changed, setChanged] = useState(false);
     const account: IAccount = useAccount();
     const marketPoint: IValue<TMarketPoint> = useRefValue(defaultMarketPoint);
+    const statistics: IStatistics = useStatistics();
     const deal: IValue<TDeal> = useRefValue(defaultDeal);
-    const deals: IArray<TDeal> = useRefArray();
 
     const marketPlace = useRef<IMarket | undefined>(undefined);
 
@@ -37,7 +37,7 @@ const useTrade = (): ITrade & IMarketDataManager => {
         account.withdrawCurrency(amount);
         account.depositFiat(fiat);
         deal.set({...deal.get(), ...{closePrice: marketPoint.get().value, closeTime: marketPoint.get().time, profitLoss: fiat-deal.get().volume}});
-        deals.push(deal);
+        statistics.pushDeal(deal.get());
         deal.set(defaultDeal);
         setChanged(!changed);
     };
@@ -60,12 +60,8 @@ const useTrade = (): ITrade & IMarketDataManager => {
         close,
         balance: getBalance(),
         deal: deal.get(),
-        count: deals.count,
-
-
-
+        statistics,
         changed,
-
         setPoints,
         appendPoint, 
     }
