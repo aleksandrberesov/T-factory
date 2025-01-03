@@ -1,5 +1,5 @@
 import { TUpdateObjectProc } from '../libs/lib.types';
-import { TDeal, TProfile, TMoney, TPatternPoint, TPattern, TMarketPoint } from './types';
+import { TDeal, TProfile, TMoney, TPatternPoint, TPattern, TMarketPoint, TStatValue, TStatRange } from './types';
 
 interface IPattern {
     patterns : string[];
@@ -28,7 +28,13 @@ interface IStatistics {
     pushDeal: (deal: TDeal) => void;
     clear: () => void;
     count: number;
-
+    currentResult: TStatValue;
+    totalResult: TStatValue;
+    profitDeals: TStatValue
+    lossDeals: TStatValue;
+    profit: TStatRange;
+    loss: TStatRange;
+    averageProfitLoss: TStatValue;
 }
 
 interface IMarketDataManager {

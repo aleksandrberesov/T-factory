@@ -23,6 +23,18 @@ type TMoney = {
     currency: number;
 };
 
+type TStatValue = {
+    value: number;
+    percentage: number;
+};
+
+type TStatRange = {
+    min: number;
+    max: number;
+    average: number;
+};
+
+
 type TDeal = {
     openPrice: number;
     closePrice: number;
@@ -74,4 +86,5 @@ type TProfile = {
 export type { TUser, TStatisticItem, TCard, TStar };
 export type { TMarketPoint, TPatternPoint };
 export type { TProfile, TMarket, TPattern };
-export type { TMoney, TDeal };
+export type { TMoney, TDeal};
+export type { TStatRange, TStatValue };
