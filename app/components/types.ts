@@ -1,16 +1,18 @@
 import React from "react";
 import { TOnClickFunction, TOnSelectedFunction } from "../libs/lib.types"
 
+type TStyleProps = {
+    style ?: string;
+};
+
 type TTextProps = {
     backgroundcolor ?: string;
     textcolor ?: string;
 };
 
-type TButtonProps = TTextProps & {
+type TButtonProps = TStyleProps & TTextProps & {
     id  ?: number | string;
     title ?: string;
-    
-    style ?: string;
 
     onclick ?: TOnClickFunction;
     onselected ?: TOnSelectedFunction;
@@ -23,7 +25,7 @@ type TIconTabProps = TButtonProps & {
 
 };
 
-type TLabelProps = TTextProps &{
+type TLabelProps = TStyleProps & TTextProps &{
     title ?: string;
     value ?: string | number;
     symbol ?: string;    

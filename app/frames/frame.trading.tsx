@@ -34,7 +34,7 @@ function TradingFrame(tradeprops: TTradingFrameProps){
 
     return (
         <div
-            className="h-full w-screen bg-transparent gap-y-2 grid grid-rows-12 grid-cols-2"
+            className="h-full w-screen bg-transparent gap-y-2 grid grid-rows-12 grid-cols-1"
         >
             <div
                 className="row-span-7 col-span-2"
@@ -42,42 +42,61 @@ function TradingFrame(tradeprops: TTradingFrameProps){
                 {isSettingsShow ? settings : chart}
             </div>
             <div
-                className='gap-2 grid grid-rows-2 grid-flow-col col-span-2 row-span-3'    
+                className='gap-2 grid col-span-2 row-span-3 grid-rows-3 grid-flow-col'    
             >
                 <div
                     className='bg-gray-500 flex-col gap-y-2 row-span-3'
                 >
                     <LabelBox title={tradeprops.getWord(6)}/*'Position'*/ value={tradeprops.trader.deal.volume} symbol={currencySymbol}/>
-                    <LabelBox title=''/*'lots'*/ value={tradeprops.trader.deal.amount} symbol='lot'/>
+                    <LabelBox value={tradeprops.trader.deal.amount} symbol='lot'/>
                     <LabelBox title={tradeprops.getWord(7)}/*'Avarage cost'*/ value={tradeprops.trader.deal.openPrice}/>
                     <LabelBox title={tradeprops.getWord(9)}/*'Capital'*/ value={tradeprops.trader.balance} symbol={currencySymbol}/>
                 </div>
                 <div
                     className='bg-gray-500 flex-col gap-y-2 col-span-2'
                 >
-                    <div>
-                        
+                    <div className='flex justify-between'>
+                        <LabelBox title={tradeprops.getWord(11)}/*'Current'*//>
+                        <LabelBox title='' value={tradeprops.trader.deal.profitLoss} symbol={currencySymbol} textcolor='green-200'/>
+                        <LabelBox value={tradeprops.trader.deal.profitLoss} symbol='%' textcolor='blue-500'/>    
                     </div>
-                    <div>
-                        <LabelBox title={tradeprops.getWord(10)}/*'Result'*//>
-                            <LabelBox title={tradeprops.getWord(11)}/*'Current'*//>
-                            <LabelBox title='' value={tradeprops.trader.deal.profitLoss} symbol={currencySymbol} textcolor='green-200'/>
-                            <LabelBox value={tradeprops.trader.deal.profitLoss} symbol='%' textcolor='blue-500'/>    
-                    </div>
-                    <div>
+                    <div className='flex justify-between'>
                         <LabelBox title={tradeprops.getWord(12)}/*'All'*//>
-                            <LabelBox title='' value={tradeprops.trader.deal.profitLoss} symbol={currencySymbol} textcolor='red-500'/>
-                            <LabelBox value={tradeprops.trader.deal.profitLoss} symbol='%' textcolor='blue-500'/>    
-                    </div>        
-                            
+                        <LabelBox title='' value={tradeprops.trader.deal.profitLoss} symbol={currencySymbol} textcolor='red-500'/>
+                        <LabelBox value={tradeprops.trader.deal.profitLoss} symbol='%' textcolor='blue-500'/>
+                    </div>            
                 </div>
                 <div
                     className='bg-gray-500 flex-col gap-y-2 row-span-2 col-span-2'
                 >
-                    <LabelBox title={tradeprops.getWord(13)+tradeprops.getWord(14)}/*'Profite'*//>
-                    <LabelBox title={tradeprops.getWord(15)}/*'Transactions'*/ value={tradeprops.trader.count}/>
-                    <LabelBox title={tradeprops.getWord(16)}/*'Center'*/ value={1}/>
-                    <LabelBox title={tradeprops.getWord(17)+"/"+tradeprops.getWord(18)}/*'Max/Min'*/ value={1}/>
+                    <table className='min-w-full h-full bg-white'>
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th><LabelBox title={tradeprops.getWord(13)}/></th>
+                                <th><LabelBox title={tradeprops.getWord(14)}/></th>
+                            </tr>
+                        </thead>
+                        <tr>
+                            <td><LabelBox title={tradeprops.getWord(15)}/*'Transactions'*//></td>
+                            <td><LabelBox value={tradeprops.trader.count}/></td>
+                            <td><LabelBox value={tradeprops.trader.count}/></td>
+                            <td><LabelBox value={tradeprops.trader.count}/></td>
+                        </tr>
+                        <tr>
+                            <td><LabelBox title={tradeprops.getWord(16)}/></td>
+                            <td><LabelBox value={1}/></td>
+                            <td><LabelBox value={1}/></td>
+                            <td><LabelBox value={1}/></td>
+                        </tr>
+                        <tr>
+                            <td><LabelBox title={tradeprops.getWord(17)+"/"+tradeprops.getWord(18)}/></td>
+                            <td></td>
+                            <td><LabelBox value={1}/></td>
+                            <td><LabelBox value={1}/></td>
+                        </tr>
+                    </table>
                 </div>
             </div>
             <div

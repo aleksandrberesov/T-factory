@@ -10,5 +10,5 @@ interface IStatistics {
 interface IApplication {
 
 };
-
+    
 export type { IApplication, IStatistics };

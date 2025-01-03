@@ -7,16 +7,8 @@ function LabelBox(labelprops: TLabelProps) {
         <div
             className="flex justify-between"
         >
-            <div
-                className={textColorClass}
-            >
-                {labelprops.title}
-            </div>
-            <div
-                className={textColorClass}
-            >
-                {labelprops.value}{" "}{labelprops.symbol}
-            </div>  
+            {labelprops.title && (<p className={textColorClass}>{labelprops.title}</p>)}
+            {labelprops.value && (<p className={textColorClass}>{labelprops.value}{" "}{labelprops.symbol && labelprops.symbol}</p>)} 
         </div>
     );
 }
