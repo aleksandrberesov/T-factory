@@ -6,7 +6,7 @@ import useProfile from "../models/profile";
 import usePattern from "../models/pattern";
 import useMarket from "../models/market";
 import useTrade from "../models/trade";
-import { IApplication } from "./interfaces";
+import IApplication from "./interfaces";
 import { startFrame } from "./consts";
 
 const useApp = (): IApplication => {

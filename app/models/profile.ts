@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { IProfile, TProfile  } from "./types"; 
+import { TProfile  } from "./types"; 
+import { IProfile } from "./interfaces";
 import { TUpdateObjectProc } from "../libs/lib.types";
 import { defaultProfile } from "./defaults" 
 

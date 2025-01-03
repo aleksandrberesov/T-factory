@@ -1,7 +1,8 @@
 import { useRef, useState, useCallback } from "react";
 import useRefValue from "../libs/value";
 import { IArray, IValue } from "../libs/interfaces";
-import { IMarket, ITrade, IProfile, IAccount, TMarketPoint, IMarketDataManager, TDeal } from "./types";
+import { TMarketPoint, TDeal } from "./types";
+import { IMarket, ITrade, IProfile, IAccount, IMarketDataManager } from "./interfaces";
 import useAccount from "./account";
 import { defaultDeal, defaultMarketPoint } from "./defaults";
 import useRefArray from "../libs/array";

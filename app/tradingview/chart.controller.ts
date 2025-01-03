@@ -1,6 +1,7 @@
 import { useEffect, useState, useCallback, useRef } from 'react';
 import IChartController  from './types';
-import { TMarketPoint, IMarketDataManager } from '../models/types';
+import { TMarketPoint } from '../models/types';
+import { IMarketDataManager } from '../models/interfaces';
 import { IChartApi, ISeriesApi, Time, UTCTimestamp } from 'lightweight-charts';
 import { lineStyle } from './styles';
 

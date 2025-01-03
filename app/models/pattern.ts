@@ -1,5 +1,6 @@
 import { useState, useCallback, useEffect } from "react";
-import { TPattern, IPattern } from "./types";
+import { IPattern } from "./interfaces";
+import { TPattern } from "./types";
 import { defaultPattern } from "./defaults";
 
 const usePattern = (fetch: (name: string)=> Promise<object>, init_fetch: ()=> Promise<object>): IPattern => {

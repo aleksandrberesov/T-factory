@@ -1,20 +1,17 @@
-import { useState } from 'react';
+import useRefValue from "../libs/value";
+import useRefArray from "../libs/array";
+import { IArray, IValue } from "../libs/interfaces";
 import { TDeal } from './types';
+import { defaultDeal } from "./defaults";
 import { IStatistics } from './interfaces';
 
 const useStatistics = (): IStatistics => {
-    const [currentDeal, setCurrentDeal] = useState<TDeal | null>(null);
-    const [allDeals, setAllDeals] = useState<TDeal[]>([]);
+    const deal: IValue<TDeal> = useRefValue(defaultDeal);
+    const deals: IArray<TDeal> = useRefArray();
 
-    const addDeal = (deal: TDeal) => {
-        setAllDeals([...allDeals, deal]);
-    };
 
     return {
-        currentDeal,
-        allDeals,
-        setCurrentDeal,
-        addDeal,
+
     };
 };
 

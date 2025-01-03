@@ -1,6 +1,6 @@
 import useRefValue from "../libs/value";
 import { IValue } from "../libs/interfaces";
-import { IAccount } from "./types";
+import { IAccount } from "./interfaces";
 
 const useAccount = (): IAccount => {
     const fiat: IValue<number> = useRefValue(0);

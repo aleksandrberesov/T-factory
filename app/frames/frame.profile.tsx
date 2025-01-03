@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useId } from 'react';
 import { TProfileFrameProps} from "./types"
+import { TCard, TStar } from "../models/types"
 import LabelBox from "../components/label"
 import IconTab from '../components/icontab';
 import CardTab from '../components/cardtab';
@@ -13,13 +14,13 @@ function ProfileFrame(profileprops: TProfileFrameProps){
 
     };
  
-    const StarElements = profileprops.profile.data.stars.map((item) => {
+    const StarElements = profileprops.profile.data.stars.map((item: TStar) => {
         return {
             id: idStar++,
             element: <SelectedTab icon_image="/icons/star.svg" onclick={onStarClick}/>
         };
     });
-    const cardElemets = profileprops.profile.data.cards.map((item) => {
+    const cardElemets = profileprops.profile.data.cards.map((item: TCard) => {
         return {
             id: idCard++,
             element: <CardTab title={item.title} description={item.description}/>
