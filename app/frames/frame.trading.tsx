@@ -69,7 +69,7 @@ function TradingFrame(tradeprops: TTradingFrameProps){
                 <div
                     className='bg-gray-500 flex-col gap-y-2 row-span-2 col-span-2'
                 >
-                    <table className='min-w-full h-full bg-white'>
+                    <table className='min-w-full min-h-fit bg-transparent'>
                         <thead>
                             <tr>
                                 <th></th>
