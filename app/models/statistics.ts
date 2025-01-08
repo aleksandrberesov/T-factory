@@ -2,9 +2,10 @@ import useRefArray from "../libs/array";
 import { IArray, IValue } from "../libs/interfaces";
 import { TDeal, TStatValue, TStatRange } from './types';
 import { IStatistics } from './interfaces';
+import { defaultDeal } from "./defaults";
 
 const useStatistics = (): IStatistics => {
-    const deals: IArray<TDeal> = useRefArray();
+    const deals: IArray<TDeal> = useRefArray([defaultDeal]);
 
     function pushDeal(deal: TDeal) {
         deals.push(deal);

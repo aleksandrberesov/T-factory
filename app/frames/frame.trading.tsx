@@ -78,24 +78,26 @@ function TradingFrame(tradeprops: TTradingFrameProps){
                                 <th><LabelBox title={tradeprops.getWord(14)}/></th>
                             </tr>
                         </thead>
-                        <tr>
-                            <td><LabelBox title={tradeprops.getWord(15)}/*'Transactions'*//></td>
-                            <td><LabelBox value={tradeprops.trader.statistics.count}/></td>
-                            <td><LabelBox value={tradeprops.trader.statistics.count}/></td>
-                            <td><LabelBox value={tradeprops.trader.statistics.count}/></td>
-                        </tr>
-                        <tr>
-                            <td><LabelBox title={tradeprops.getWord(16)}/></td>
-                            <td><LabelBox value={1}/></td>
-                            <td><LabelBox value={1}/></td>
-                            <td><LabelBox value={1}/></td>
-                        </tr>
-                        <tr>
-                            <td><LabelBox title={tradeprops.getWord(17)+"/"+tradeprops.getWord(18)}/></td>
-                            <td></td>
-                            <td><LabelBox value={1}/></td>
-                            <td><LabelBox value={1}/></td>
-                        </tr>
+                        <tbody>
+                            <tr>
+                                <td><LabelBox title={tradeprops.getWord(15)}/*'Transactions'*//></td>
+                                <td><LabelBox value={tradeprops.trader.statistics.count}/></td>
+                                <td><LabelBox value={tradeprops.trader.statistics.count}/></td>
+                                <td><LabelBox value={tradeprops.trader.statistics.count}/></td>
+                            </tr>
+                            <tr>
+                                <td><LabelBox title={tradeprops.getWord(16)}/></td>
+                                <td><LabelBox value={1}/></td>
+                                <td><LabelBox value={1}/></td>
+                                <td><LabelBox value={1}/></td>
+                            </tr>
+                            <tr>
+                                <td><LabelBox title={tradeprops.getWord(17)+"/"+tradeprops.getWord(18)}/></td>
+                                <td></td>
+                                <td><LabelBox value={1}/></td>
+                                <td><LabelBox value={1}/></td>
+                            </tr>    
+                        </tbody>                
                     </table>
                 </div>
             </div>

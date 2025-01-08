@@ -1,8 +1,8 @@
 import { useRef } from 'react'; 
-import { IArray, IValue } from './interfaces'; 
+import { IArray, IValue } from './interfaces';
 
-const useRefArray = <T, >(): IArray<T> => { 
-    const arrayRef = useRef<T[]>([]); 
+const useRefArray = <T, >(initalArray: T[]): IArray<T> => { 
+    const arrayRef = useRef<T[]>(initalArray); 
     const get = ():T[] => { return arrayRef.current; }; 
     const set = (newArray: T[]):void => { arrayRef.current = newArray; }; 
     const push = (newValue: T | IValue<T>):void => {
