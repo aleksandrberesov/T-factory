@@ -69,15 +69,7 @@ function TradingFrame(tradeprops: TTradingFrameProps){
                 <div
                     className='bg-gray-500 flex-col gap-y-2 row-span-2 col-span-2'
                 >
-                    <table className='min-w-full min-h-fit bg-transparent'>
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th></th>
-                                <th><LabelBox title={tradeprops.getWord(13)}/></th>
-                                <th><LabelBox title={tradeprops.getWord(14)}/></th>
-                            </tr>
-                        </thead>
+                    <table className='min-w-full min-h-fit w-full h-full'>
                         <tbody>
                             <tr>
                                 <td><LabelBox title={tradeprops.getWord(15)}/*'Transactions'*//></td>
