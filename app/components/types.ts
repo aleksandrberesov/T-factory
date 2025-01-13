@@ -57,7 +57,7 @@ type TGridBoxProps = {
 };
 
 type TTableBoxProps ={
-    elements : React.JSX.Element[][];
+    elements: (React.JSX.Element | null)[][];
 };
 
 type TDropMenuProps = TButtonProps & {

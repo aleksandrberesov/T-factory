@@ -8,6 +8,7 @@ import SettingsFrame from './frame.settings';
 import { TTradingFrameProps } from './types';
 import useChart from '../tradingview/chart.controller';
 import { SpeedTitleToNumber } from './utils';
+import TableBox from '../components/table';
 
 function TradingFrame(tradeprops: TTradingFrameProps){
     const HideShowSettings = ()=>{
@@ -44,53 +45,59 @@ function TradingFrame(tradeprops: TTradingFrameProps){
             <div
                 className='gap-2 grid col-span-2 row-span-3 grid-rows-3 grid-flow-col'    
             >
-                <div
-                    className='bg-gray-500 flex-col gap-y-2 row-span-3'
-                >
-                    <LabelBox title={tradeprops.getWord(6)}/*'Position'*/ value={tradeprops.trader.deal.volume} symbol={currencySymbol}/>
-                    <LabelBox value={tradeprops.trader.deal.amount} symbol='lot'/>
-                    <LabelBox title={tradeprops.getWord(7)}/*'Avarage cost'*/ value={tradeprops.trader.deal.openPrice}/>
-                    <LabelBox title={tradeprops.getWord(9)}/*'Capital'*/ value={tradeprops.trader.balance} symbol={currencySymbol}/>
-                </div>
-                <div
-                    className='bg-gray-500 flex-col gap-y-2 col-span-2'
-                >
-                    <div className='flex justify-between'>
-                        <LabelBox title={tradeprops.getWord(11)}/*'Current'*//>
-                        <LabelBox title='' value={tradeprops.trader.deal.profitLoss} symbol={currencySymbol} textcolor='green-200'/>
-                        <LabelBox value={tradeprops.trader.deal.profitLoss} symbol='%' textcolor='blue-500'/>    
-                    </div>
-                    <div className='flex justify-between'>
-                        <LabelBox title={tradeprops.getWord(12)}/*'All'*//>
-                        <LabelBox title='' value={tradeprops.trader.deal.profitLoss} symbol={currencySymbol} textcolor='red-500'/>
-                        <LabelBox value={tradeprops.trader.deal.profitLoss} symbol='%' textcolor='blue-500'/>
-                    </div>            
-                </div>
+                <div className='bg-gray-500 flex-col gap-y-2 row-span-3'>
+            <TableBox elements={[
+                [
+                    <LabelBox key="position" title={tradeprops.getWord(6)}/*'Position'*/ value={tradeprops.trader.deal.volume} symbol={currencySymbol}/>
+                ],
+                [
+                    <LabelBox key="amount" value={tradeprops.trader.deal.amount} symbol='lot'/>
+                ],
+                [
+                    <LabelBox key="average-cost" title={tradeprops.getWord(7)}/*'Average cost'*/ value={tradeprops.trader.deal.openPrice}/>
+                ],
+                [
+                    <LabelBox key="capital" title={tradeprops.getWord(9)}/*'Capital'*/ value={tradeprops.trader.balance} symbol={currencySymbol}/>
+                ]
+            ]}/>
+        </div>
+                <div className='bg-gray-500 flex-col gap-y-2 col-span-2'>
+            <TableBox elements={[
+                [
+                    <LabelBox key="current-title" title={tradeprops.getWord(11)}/*'Current'*//>,
+                    <LabelBox key="current-value" title='' value={tradeprops.trader.deal.profitLoss} symbol={currencySymbol} textcolor='green-200'/>,
+                    <LabelBox key="current-percent" value={tradeprops.trader.deal.profitLoss} symbol='%' textcolor='blue-500'/>
+                ],
+                [
+                    <LabelBox key="all-title" title={tradeprops.getWord(12)}/*'All'*//>,
+                    <LabelBox key="all-value" title='' value={tradeprops.trader.deal.profitLoss} symbol={currencySymbol} textcolor='red-500'/>,
+                    <LabelBox key="all-percent" value={tradeprops.trader.deal.profitLoss} symbol='%' textcolor='blue-500'/>
+                ]
+            ]}/>
+        </div>
                 <div
                     className='bg-gray-500 flex-col gap-y-2 row-span-2 col-span-2'
                 >
-                    <table className='min-w-full min-h-fit w-full h-full'>
-                        <tbody>
-                            <tr>
-                                <td><LabelBox title={tradeprops.getWord(15)}/*'Transactions'*//></td>
-                                <td><LabelBox value={tradeprops.trader.statistics.count}/></td>
-                                <td><LabelBox value={tradeprops.trader.statistics.count}/></td>
-                                <td><LabelBox value={tradeprops.trader.statistics.count}/></td>
-                            </tr>
-                            <tr>
-                                <td><LabelBox title={tradeprops.getWord(16)}/></td>
-                                <td><LabelBox value={1}/></td>
-                                <td><LabelBox value={1}/></td>
-                                <td><LabelBox value={1}/></td>
-                            </tr>
-                            <tr>
-                                <td><LabelBox title={tradeprops.getWord(17)+"/"+tradeprops.getWord(18)}/></td>
-                                <td></td>
-                                <td><LabelBox value={1}/></td>
-                                <td><LabelBox value={1}/></td>
-                            </tr>    
-                        </tbody>                
-                    </table>
+                    <TableBox elements={[
+                        [
+                            <LabelBox key="transactions-title" title={tradeprops.getWord(15)}/*'Transactions'*//>,
+                            <LabelBox key="transactions-count-1" value={tradeprops.trader.statistics.count}/>,
+                            <LabelBox key="transactions-count-2" value={tradeprops.trader.statistics.count}/>,
+                            <LabelBox key="transactions-count-3" value={tradeprops.trader.statistics.count}/>
+                        ],
+                        [
+                            <LabelBox key="all-title" title={tradeprops.getWord(16)}/>,
+                            <LabelBox key="all-value-1" value={1}/>,
+                            <LabelBox key="all-value-2" value={1}/>,
+                            <LabelBox key="all-value-3" value={1}/>
+                        ],
+                        [
+                            <LabelBox key="combined-title" title={tradeprops.getWord(17)+"/"+tradeprops.getWord(18)}/>,
+                            null,
+                            <LabelBox key="combined-value-1" value={1}/>,
+                            <LabelBox key="combined-value-2" value={1}/>
+                        ]
+                    ]}/>
                 </div>
             </div>
             <div
