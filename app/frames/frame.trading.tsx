@@ -51,6 +51,7 @@ function TradingFrame(tradeprops: TTradingFrameProps){
                     <LabelBox key="position" title={tradeprops.getWord(6)}/*'Position'*/ value={tradeprops.trader.deal.volume} symbol={currencySymbol}/>
                 ],
                 [
+                    null,
                     <LabelBox key="amount" value={tradeprops.trader.deal.amount} symbol='lot'/>
                 ],
                 [
@@ -86,7 +87,7 @@ function TradingFrame(tradeprops: TTradingFrameProps){
                             <LabelBox key="transactions-count-3" value={tradeprops.trader.statistics.count}/>
                         ],
                         [
-                            <LabelBox key="all-title" title={tradeprops.getWord(16)}/>,
+                            <LabelBox key="all-title" title={tradeprops.getWord(16)}/>, 
                             <LabelBox key="all-value-1" value={1}/>,
                             <LabelBox key="all-value-2" value={1}/>,
                             <LabelBox key="all-value-3" value={1}/>
