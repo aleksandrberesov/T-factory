@@ -47,6 +47,9 @@ const useTrade = (): ITrade & IMarketDataManager => {
     const getBalance = (): number => {
         return account.getBalance(marketPoint.get().value);
     };
+    const getAverageCost = (): number => {
+        return Math.round(deal.get().openPrice);
+    };
     const setPoints = useCallback((points: TMarketPoint[]) => {
     }, []);
     const appendPoint =useCallback((point: TMarketPoint) => {
@@ -60,6 +63,7 @@ const useTrade = (): ITrade & IMarketDataManager => {
         close,
         balance: getBalance(),
         deal: deal.get(),
+        averageCost: getAverageCost(),
         statistics,
         changed,
         setPoints,

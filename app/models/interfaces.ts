@@ -62,7 +62,7 @@ interface ITrade {
     
     balance: number,
     deal: TDeal,
-
+    averageCost: number,
     statistics: IStatistics,
 
     changed: boolean,

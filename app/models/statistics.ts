@@ -1,4 +1,5 @@
 import useRefArray from "../libs/array";
+import useRefValue from "../libs/value";
 import { IArray, IValue } from "../libs/interfaces";
 import { TDeal, TStatValue, TStatRange } from './types';
 import { IStatistics } from './interfaces';
@@ -6,6 +7,7 @@ import { defaultDeal } from "./defaults";
 
 const useStatistics = (): IStatistics => {
     const deals: IArray<TDeal> = useRefArray([defaultDeal]);
+    //const indicators: IValue<TStatistic> = useRefValue(defaultStatistics);
 
     function pushDeal(deal: TDeal) {
         deals.push(deal);
@@ -23,7 +25,7 @@ const useStatistics = (): IStatistics => {
         const last = lastDeal();
         return {
             value: last.profitLoss,
-            percentage: (last.profitLoss / last.volume) * 100,
+            percentage: Math.round(last.profitLoss / last.volume * 100),
         };
     }
 
@@ -32,7 +34,7 @@ const useStatistics = (): IStatistics => {
         const totalVolume = deals.get().reduce((total, deal) => total + deal.volume, 0);
         return {
             value: totalProfitLoss,
-            percentage: totalVolume > 0 ? (totalProfitLoss / totalVolume) * 100 : 0,
+            percentage: Math.round(totalVolume > 0 ? (totalProfitLoss / totalVolume) * 100 : 0),
         };
     }
 
@@ -40,7 +42,7 @@ const useStatistics = (): IStatistics => {
         const profitDeals = deals.get().filter(deal => deal.profitLoss > 0).length;
         return {
             value: profitDeals,
-            percentage: (profitDeals / deals.count) * 100,
+            percentage: Math.round(profitDeals / deals.count * 100),
         };
     }
 
@@ -48,7 +50,7 @@ const useStatistics = (): IStatistics => {
         const lossDeals = deals.get().filter(deal => deal.profitLoss < 0).length;
         return {
             value: lossDeals,
-            percentage: (lossDeals / deals.count) * 100,
+            percentage: Math.round(lossDeals / deals.count * 100),
         };
     }
 
@@ -75,7 +77,7 @@ const useStatistics = (): IStatistics => {
         const average = deals.count > 0 ? totalProfitLoss / deals.count : 0;
         return {
             value: average,
-            percentage: (average / totalProfitLoss) * 100,
+            percentage: Math.round(average / totalProfitLoss * 100),
         };
     }
     

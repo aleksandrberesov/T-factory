@@ -7,8 +7,9 @@ import { currencySymbol, defaultSpeeds } from '../models/consts';
 import SettingsFrame from './frame.settings';
 import { TTradingFrameProps } from './types';
 import useChart from '../tradingview/chart.controller';
-import { SpeedTitleToNumber } from './utils';
+import { SpeedTitleToNumber, NumberToSignedString } from './utils';
 import TableBox from '../components/table';
+import IChartController from '../tradingview/types';
 
 function TradingFrame(tradeprops: TTradingFrameProps){
     const HideShowSettings = ()=>{
@@ -19,7 +20,7 @@ function TradingFrame(tradeprops: TTradingFrameProps){
     };
 
     const [ isSettingsShow, SetIsSettingsShow ] = useState(false);
-    const chartManager = useChart(tradeprops.market.addManager);
+    const chartManager: IChartController = useChart(tradeprops.market.addManager);
     const chart = useMemo(() => (
         <ChartView 
             setChartApi={chartManager.assignChart} 
@@ -55,7 +56,7 @@ function TradingFrame(tradeprops: TTradingFrameProps){
                     <LabelBox key="amount" value={tradeprops.trader.deal.amount} symbol='lot'/>
                 ],
                 [
-                    <LabelBox key="average-cost" title={tradeprops.getWord(7)}/*'Average cost'*/ value={tradeprops.trader.deal.openPrice}/>
+                    <LabelBox key="average-cost" title={tradeprops.getWord(7)}/*'Average cost'*/ value={tradeprops.trader.averageCost}/>
                 ],
                 [
                     <LabelBox key="capital" title={tradeprops.getWord(9)}/*'Capital'*/ value={tradeprops.trader.balance} symbol={currencySymbol}/>
@@ -66,13 +67,13 @@ function TradingFrame(tradeprops: TTradingFrameProps){
             <TableBox elements={[
                 [
                     <LabelBox key="current-title" title={tradeprops.getWord(11)}/*'Current'*//>,
-                    <LabelBox key="current-value" title='' value={tradeprops.trader.deal.profitLoss} symbol={currencySymbol} textcolor='green-200'/>,
-                    <LabelBox key="current-percent" value={tradeprops.trader.deal.profitLoss} symbol='%' textcolor='blue-500'/>
+                    <LabelBox key="current-value" value={NumberToSignedString(tradeprops.trader.statistics.currentResult.value)} symbol={currencySymbol} textcolor='green-200'/>,
+                    <LabelBox key="current-percent" value={NumberToSignedString(tradeprops.trader.statistics.currentResult.percentage)} symbol='%' textcolor='blue-500'/>
                 ],
                 [
                     <LabelBox key="all-title" title={tradeprops.getWord(12)}/*'All'*//>,
-                    <LabelBox key="all-value" title='' value={tradeprops.trader.deal.profitLoss} symbol={currencySymbol} textcolor='red-500'/>,
-                    <LabelBox key="all-percent" value={tradeprops.trader.deal.profitLoss} symbol='%' textcolor='blue-500'/>
+                    <LabelBox key="all-value" value={NumberToSignedString(tradeprops.trader.statistics.totalResult.value)} symbol={currencySymbol} textcolor='red-500'/>,
+                    <LabelBox key="all-percent" value={NumberToSignedString(tradeprops.trader.statistics.totalResult.percentage)} symbol='%' textcolor='blue-500'/>
                 ]
             ]}/>
         </div>
@@ -88,15 +89,15 @@ function TradingFrame(tradeprops: TTradingFrameProps){
                         ],
                         [
                             <LabelBox key="all-title" title={tradeprops.getWord(16)}/>, 
-                            <LabelBox key="all-value-1" value={1}/>,
-                            <LabelBox key="all-value-2" value={1}/>,
-                            <LabelBox key="all-value-3" value={1}/>
+                            <LabelBox key="all-value-1" value={tradeprops.trader.statistics.count}/>,
+                            <LabelBox key="all-value-2" value={tradeprops.trader.statistics.count}/>,
+                            <LabelBox key="all-value-3" value={tradeprops.trader.statistics.count}/>
                         ],
                         [
                             <LabelBox key="combined-title" title={tradeprops.getWord(17)+"/"+tradeprops.getWord(18)}/>,
                             null,
-                            <LabelBox key="combined-value-1" value={1}/>,
-                            <LabelBox key="combined-value-2" value={1}/>
+                            <LabelBox key="combined-value-1" value={tradeprops.trader.statistics.count}/>,
+                            <LabelBox key="combined-value-2" value={tradeprops.trader.statistics.count}/>
                         ]
                     ]}/>
                 </div>
