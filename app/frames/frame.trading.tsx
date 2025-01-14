@@ -84,20 +84,20 @@ function TradingFrame(tradeprops: TTradingFrameProps){
                         [
                             <LabelBox key="transactions-title" title={tradeprops.getWord(15)}/*'Transactions'*//>,
                             <LabelBox key="transactions-count-1" value={tradeprops.trader.statistics.count}/>,
-                            <LabelBox key="transactions-count-2" value={tradeprops.trader.statistics.count}/>,
-                            <LabelBox key="transactions-count-3" value={tradeprops.trader.statistics.count}/>
+                            <LabelBox key="transactions-count-2" value={tradeprops.trader.statistics.profitDeals.value+'('+tradeprops.trader.statistics.profitDeals.percentage.toString()+'%'+')'}/>,
+                            <LabelBox key="transactions-count-3" value={tradeprops.trader.statistics.lossDeals.value+'('+tradeprops.trader.statistics.lossDeals.percentage.toString()+'%'+')'}/>
                         ],
                         [
                             <LabelBox key="all-title" title={tradeprops.getWord(16)}/>, 
-                            <LabelBox key="all-value-1" value={tradeprops.trader.statistics.count}/>,
-                            <LabelBox key="all-value-2" value={tradeprops.trader.statistics.count}/>,
-                            <LabelBox key="all-value-3" value={tradeprops.trader.statistics.count}/>
+                            <LabelBox key="all-value-1" value={NumberToSignedString(tradeprops.trader.statistics.averageProfitLoss.percentage)} symbol='%'/>,
+                            <LabelBox key="all-value-2" value={NumberToSignedString(tradeprops.trader.statistics.profit.average)} symbol='%'/>,
+                            <LabelBox key="all-value-3" value={NumberToSignedString(tradeprops.trader.statistics.loss.average)} symbol='%'/>
                         ],
                         [
                             <LabelBox key="combined-title" title={tradeprops.getWord(17)+"/"+tradeprops.getWord(18)}/>,
                             null,
-                            <LabelBox key="combined-value-1" value={tradeprops.trader.statistics.count}/>,
-                            <LabelBox key="combined-value-2" value={tradeprops.trader.statistics.count}/>
+                            <LabelBox key="combined-value-1" value={tradeprops.trader.statistics.profit.min+"/"+tradeprops.trader.statistics.profit.max} symbol='%'/>,
+                            <LabelBox key="combined-value-2" value={tradeprops.trader.statistics.loss.min+"/"+tradeprops.trader.statistics.loss.max} symbol='%'/>
                         ]
                     ]}/>
                 </div>
