@@ -40,3 +40,5 @@ yarn-error.log*
 next-env.d.ts
 next.config.mjs
 .env
+package-lock.json
+package.json
