@@ -58,6 +58,7 @@ type TPatternPoint = {
     expectation: number; 
     volatility: number;
     count: number;
+    [key: string]: number | string;
 };
 
 type TMarket = {

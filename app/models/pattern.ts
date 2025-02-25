@@ -3,15 +3,14 @@ import { IPattern } from "./interfaces";
 import { TPattern } from "./types";
 import { defaultPattern } from "./defaults";
 
-const usePattern = (fetch: (name: string)=> Promise<object>, init_fetch: ()=> Promise<object>): IPattern => {
+const usePattern = (fetch: (name: string)=> Promise<object>, init_fetch: ()=> Promise<object>, commit : (data: object)=>void): IPattern => {
     
     
     const [patterns, setPatterns] = useState<string[]>([]);
     const [selectedPattern, setSelectedPattern] = useState<string>('');
     const [pattern, setPattern] = useState<TPattern>(defaultPattern);
     
-    const select = useCallback(async (name: string) => { 
-        
+    const select = useCallback(async (name: string) => {     
         try { 
             const data = await fetch(name); 
             
@@ -39,6 +38,12 @@ const usePattern = (fetch: (name: string)=> Promise<object>, init_fetch: ()=> Pr
         }     
     }, [init_fetch]);
 
+    const save = useCallback((points: TPattern) => {
+        console.log("Save pattern");
+        setPattern({...pattern, ...points});
+        commit({...{name: selectedPattern}, ...points});
+    },[]);
+
     useEffect(()=>{
         select(patterns[0]);
     },[patterns]);
@@ -47,6 +52,7 @@ const usePattern = (fetch: (name: string)=> Promise<object>, init_fetch: ()=> Pr
         patterns,
         pattern,
         select,
+        save,
         init
     };
 };

@@ -5,6 +5,7 @@ interface IPattern {
     patterns : string[];
     pattern: TPattern;
     select : (name: string) => void;
+    save : (points: TPattern) => void;
     init : () => void;    
 };
 

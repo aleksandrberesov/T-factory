@@ -32,4 +32,8 @@ async function UpdateProfile(profile: Object){
     return await PutItem("users", profile); 
 };
 
-export {GetProfile, UpdateProfile, GetPatterns, GetPoints};
+async function CommitPattern(pattern: Object){
+    await PutItem("patterns", pattern);
+};
+
+export {GetProfile, UpdateProfile, GetPatterns, CommitPattern, GetPoints};

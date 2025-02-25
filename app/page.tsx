@@ -1,7 +1,7 @@
 "use client";
 
 import { FullScreen, GetUserData } from "./telegram/integration";
-import { GetProfile, UpdateProfile, GetPatterns, GetPoints } from "./aws/dataService"
+import { GetProfile, UpdateProfile, GetPatterns, CommitPattern, GetPoints } from "./aws/dataService"
 import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import { startFrame } from "./models/consts";
 import NavigationFrame from "./frames/frame.navigation";
@@ -21,7 +21,7 @@ export default function Home() {
   const [component, setComponent] = useState<React.JSX.Element>();
   const [currentFrame, setCurrentFrame] = useState<number>(startFrame); 
   
-  const pattern = usePattern(GetPoints, GetPatterns);
+  const pattern = usePattern(GetPoints, GetPatterns, CommitPattern);
   const profile = useProfile(UpdateProfile);
   const market = useMarket();
   const trader = useTrade();

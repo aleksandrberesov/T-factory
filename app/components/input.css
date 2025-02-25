@@ -1,0 +1,20 @@
+.input-group {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.input-description {
+    font-size: 0.875rem;
+    color: #6c757d;
+}
+
+.hidden-span {
+    visibility: hidden;
+    position: absolute;
+    white-space: pre;
+}
+
+.dynamic-width-input {
+    transition: width 0.2s ease;
+}
