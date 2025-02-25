@@ -4,6 +4,17 @@
     gap: 1rem;
 }
 
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem; /* Adjust the gap as needed */
+}
+
+.column {
+    flex: 1;
+    min-width: 300px; /* Adjust the minimum width as needed */
+}
+
 .h-screen {
     height: 100vh;
 }
@@ -35,4 +46,23 @@
 
 .bg-gray-500 {
     background-color: #6b7280; /* Tailwind CSS gray-500 */
+}
+
+.point-item {
+    display: flex;
+    align-items: center;
+    gap: 0.1rem; /* Reduce gap between items */
+    margin-bottom: 0.1rem; /* Reduce space between rows */
+}
+
+.point-item .selected-tab {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 0.2rem 0.5rem; /* Reduce padding to make the button smaller */
+    cursor: pointer;
+}
+
+.point-item .selected-tab:hover {
+    background-color: darkred;
 }
