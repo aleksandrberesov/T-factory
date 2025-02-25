@@ -37,7 +37,7 @@ const LabeledInput: React.FC<LabeledInputProps> = ({ id, title, description, typ
                 value={value}
                 placeholder={placeholder}
                 onChange={onChange}
-                className="dynamic-width-input"
+                className="dynamic-width-input input-background"
             />
             <span ref={spanRef} className="hidden-span">
                 {value}

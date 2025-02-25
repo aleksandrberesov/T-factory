@@ -18,3 +18,7 @@
 .dynamic-width-input {
     transition: width 0.2s ease;
 }
+
+.input-background {
+    background-color: transparent;  
+}
