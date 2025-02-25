@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback, useMemo } from "react";
 import { FullScreen, GetUserData } from "../telegram/integration";
-import { GetProfile, UpdateProfile, GetPatterns, GetPoints } from "../aws/dataService"
+import { GetProfile, UpdateProfile, GetPatterns, GetPoints, CommitPattern } from "../aws/dataService"
 import useLocalizaion from "../libs/lib.localization";
 import useProfile from "../models/profile";
 import usePattern from "../models/pattern";
@@ -15,7 +15,7 @@ const useApp = (): IApplication => {
   const [component, setComponent] = useState<React.JSX.Element>();
   const [currentFrame, setCurrentFrame] = useState<number>(startFrame); 
   
-  const pattern = usePattern(GetPoints, GetPatterns);
+  const pattern = usePattern(GetPoints, GetPatterns, CommitPattern);
   const profile = useProfile(UpdateProfile);
   const market = useMarket();
   const trader = useTrade();
