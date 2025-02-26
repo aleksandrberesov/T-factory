@@ -59,9 +59,9 @@ const defaultPattern: TPattern = {
 const defaultMarket: TMarket = {
     pattern: [
         {
-            count: 10,
+            count: 1,
             expectation: 0,
-            volatility: 20
+            volatility: 0,
         }
     ],
     points: [],

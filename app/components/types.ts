@@ -49,12 +49,12 @@ type TListBoxProps = {
     elements : {id: number; element: React.JSX.Element}[];
 };
 
-type TGridBoxProps = {
-    title ?: string;
-    columns ?: number;
-    rows ?: number; 
-    elements : {id: number; element: React.JSX.Element}[];
-};
+export interface TGridBoxProps {
+    title?: string;
+    elements: { element: React.ReactNode }[];
+    columns?: number;
+    rows?: number | 'auto';
+}
 
 type TTableBoxProps ={
     elements: (React.JSX.Element | null)[][];
@@ -87,5 +87,5 @@ type TRectangleProps = {
 
 export type { TButtonProps, TLabelProps, TCheckBoxProps, TIconTabProps } ;
 export type { TCircleProps, TRectangleProps };
-export type { TListBoxProps, TTableBoxProps, TGridBoxProps, TDropMenuProps };
+export type { TListBoxProps, TTableBoxProps, TDropMenuProps };
 export type { TCardTabProps };

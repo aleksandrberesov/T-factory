@@ -17,17 +17,17 @@ const useMarket = (): IMarket => {
         duration: 1000,    
     });
     const pattern = useRefValue<TPatternPoint[]>(defaultMarket.pattern);
-    const points = useRefValue<TMarketPoint[]>(defaultMarket.points); 
+    const points = useRefValue<TMarketPoint[]>([]); 
     const currentTime: IValue<number> = useRefValue(0);
     const count: IValue<number> = useRefValue(0);
     const current: IValue<number> = useRefValue(0);
-    const currentPatternPoint: IValue<TPatternPoint> = useRefValue(pattern.get()[0]);
+    const currentPatternPoint: IValue<TPatternPoint> = useRefValue(defaultMarket.pattern[0]);
     
     const MoveTime = ()=> {
         currentTime.set(currentTime.get() + stepTime);     
     };
 
-    const initialPoints = (init_pattern: TPatternPoint[])=> {
+    const initialPoints = (init_pattern: TPatternPoint[]): TMarketPoint[] => {
         let result : TMarketPoint[] = [];
         init_pattern.filter((item)=>item.count>0)
                     .forEach(element => {
@@ -43,9 +43,8 @@ const useMarket = (): IMarket => {
         currentTime.set(startTime);
         count.set(0);
         current.set(0);
-        pattern.set([...pattern.get(), ... init_pattern.points]);
+        pattern.set([... init_pattern.points]);
         currentPatternPoint.set(pattern.get()[0]);
-        points.set([...points.get(), ...initialPoints(init_pattern.pre_points)]); 
         managers.forEach(element => {
             element.setPoints(initialPoints(init_pattern.pre_points));    
         });  
@@ -95,6 +94,8 @@ const useMarket = (): IMarket => {
         stop,
         pause,
         start,
+
+        currentPoint: currentPatternPoint.get(),
 
         isActive,
         setDuration,

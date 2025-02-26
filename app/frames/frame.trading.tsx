@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from 'react';
+import PointInputGroup from '../composite-components/PointInputGroup';
 import SelectedTab from "../components/button";
 import ChartView from "../tradingview/chart.view";
 import LabelBox from '../components/label';
@@ -44,8 +45,16 @@ function TradingFrame(tradeprops: TTradingFrameProps){
                     </div>
                 </div>
             )}
+
             <div className="row-span-7 col-span-2">
                 {chart}
+            </div>
+            <div className="row-span-1 col-span-2 bg-orange-300">
+                <PointInputGroup
+                    id={0}
+                    point={tradeprops.market.currentPoint}
+                    onChange={()=>{}}
+                />
             </div>
             <div className='gap-2 grid col-span-2 row-span-3 grid-rows-3 grid-flow-col'>
                 <div className='bg-gray-500 flex-col gap-y-2 row-span-3'>

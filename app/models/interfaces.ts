@@ -49,6 +49,9 @@ interface IMarket {
     start: ()=> void;
     stop: ()=> void;
     pause: ()=> void;
+
+    currentPoint: TPatternPoint;
+
     isActive: boolean;
     setDuration: (duration: number) => void;
     addManager: (manager: IMarketDataManager) => void;
