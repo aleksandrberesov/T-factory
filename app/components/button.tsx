@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
-import { TButtonProps } from "./types"
+import { TButtonProps } from "./types";
+import './button.css';
 
 function SelectedTab(buttonprops: TButtonProps) {
     function GetContent(isIcon: boolean){
@@ -22,10 +23,10 @@ function SelectedTab(buttonprops: TButtonProps) {
         } 
     };
 
-    const buttonstyle = [buttonprops.style, "flex", "items-center", "justify-center" ].join(" ");
+    const buttonstyle = [buttonprops.style, "selected-tab"].join(" ");
     return (
         <button
-            style={{ backgroundColor: buttonprops.backgroundcolor, color: buttonprops.textcolor, padding: '10px 20px', border: 'none', borderRadius: '5px' }}
+            style={{ backgroundColor: buttonprops.backgroundcolor, color: buttonprops.textcolor }}
             onClick={Doclick}
             className={buttonstyle}
         >
