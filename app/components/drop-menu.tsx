@@ -40,7 +40,7 @@ function DropMenu( menuprops: TDropMenuProps) {
         className={liststyle}
         style = {{ width: `${width}px` }}
       >
-        <p className=' text-gray-700 '>{menuprops.title}</p>
+        <p>{menuprops.title}</p>
         <div className="py-1 flex flex-wrap">
           {listItems} 
         </div>
