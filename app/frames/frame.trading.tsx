@@ -119,7 +119,7 @@ function TradingFrame(tradeprops: TTradingFrameProps){
                     elements={defaultSpeeds} 
                     selected={0} 
                     title='' 
-                    backgroundcolor='white' 
+                    backgroundcolor='grey' 
                     onselected={ChangeSpeed}
                     style="rounded-md px-3 py-2 text-sm font-medium"
                 />

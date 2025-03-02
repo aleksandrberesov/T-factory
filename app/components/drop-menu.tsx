@@ -13,7 +13,7 @@ function DropMenu( menuprops: TDropMenuProps) {
 
   const buttonstyle = [menuprops.style, "w-full" ].join(" ");
   const liststyle = [menuprops.dropDirection==="down" ? "translate-y-0": "-translate-y-full",  
-                     "flex origin-top-right absolute justify-self-auto z-50 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5"
+                     "flex origin-top-right absolute justify-self-auto z-50 rounded-md shadow-lg ring-1 ring-black ring-opacity-5"
                     ].join(" ");
 
   const SelecItem = (id: number) =>{
@@ -25,7 +25,7 @@ function DropMenu( menuprops: TDropMenuProps) {
   };
 
   const listItems = menuprops.elements.map((item) =>
-    <SelectedTab key={item.id} id={item.id} title={item.element} onselected={SelecItem} style={buttonstyle}/>
+    <SelectedTab key={item.id} id={item.id} title={item.element} onselected={SelecItem} style={buttonstyle} textcolor={menuprops.textcolor}  backgroundcolor={menuprops.backgroundcolor}/>
   );
 
   useEffect(() => {
@@ -49,7 +49,7 @@ function DropMenu( menuprops: TDropMenuProps) {
   };
 
   return (
-    <div  ref={parentRef} className="bg-purple-600">
+    <div  ref={parentRef}>
         <SelectedTab 
             title={menuprops.elements[selectedItem].element} 
             textcolor={menuprops.textcolor} 
