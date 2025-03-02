@@ -6,23 +6,22 @@ interface LabeledInputProps {
     title?: string;
     description?: string;
     type: string;
-    value: number;
+    value: number | string;
     placeholder?: string;
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const LabeledInput: React.FC<LabeledInputProps> = ({ id, title, description, type, value, placeholder, onChange }) => {
-    const [inputWidth, setInputWidth] = useState<string>('auto');
     const spanRef = useRef<HTMLSpanElement>(null);
     const labelRef = useRef<HTMLLabelElement>(null);
     const inputRef = useRef<HTMLInputElement>(null);
 
     useEffect(() => {
+        const fontCoef = 1.4; // Adjust this value to make the input wider
         if (spanRef.current && labelRef.current && inputRef.current) {
             const labelFontSize = window.getComputedStyle(labelRef.current).fontSize;
-            const padding = parseFloat(labelFontSize) * 1.1;
+            const padding = parseFloat(labelFontSize) * fontCoef;
             const newWidth = `${spanRef.current.offsetWidth + padding}px`;
-            setInputWidth(newWidth);
             inputRef.current.style.width = newWidth;
         }
     }, [value]);

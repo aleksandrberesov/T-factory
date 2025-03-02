@@ -1,22 +1,30 @@
 .input-group {
     display: flex;
-    align-items: center;
-    gap: 1rem;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+}
+
+.input-group label {
+    font-weight: bold;
 }
 
 .input-description {
     font-size: 0.875rem;
-    color: #6c757d;
+    color: #6b7280; /* Tailwind CSS gray-500 */
 }
 
 .hidden-span {
     visibility: hidden;
-    position: absolute;
-    white-space: pre;
+    white-space: nowrap;
 }
 
 .dynamic-width-input {
-    transition: width 0.2s ease;
+    width: 100%;
+    min-width: 75px; /* Set a minimum width for the input element */
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
 }
 
 .input-background {
