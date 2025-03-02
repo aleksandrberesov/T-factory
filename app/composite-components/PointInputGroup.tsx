@@ -3,10 +3,12 @@ import LabeledInput from '../components/input';
 import { TPatternPoint } from '../models/types';
 import './PointInputGroup.css';
 
+type TPatternPointChangeFunction = (id: number, field: keyof TPatternPoint, value: number) => void;
+
 interface PointInputGroupProps {
     id: number;
     point?: TPatternPoint;
-    onChange?: (id: number, field: keyof TPatternPoint, value: string) => void;
+    onChange?: TPatternPointChangeFunction;
     prefix?: string;
 }
 
@@ -18,9 +20,11 @@ const PointInputGroup: React.FC<PointInputGroupProps> = ({ id, point, onChange, 
     const expectationId = `${prefix}expectation-${id}`;
     const volatilityId = `${prefix}volatility-${id}`;
 
-    const handleChange = (id: number, field: keyof TPatternPoint, value: string) => {
+    const handleChange: TPatternPointChangeFunction = (id, field, value) => {
         if (onChange) {
-            onChange(id, field, value);
+            if (value>=0){
+                onChange(id, field, value);    
+            }
         }
     };
 
@@ -52,7 +56,7 @@ const PointInputGroup: React.FC<PointInputGroupProps> = ({ id, point, onChange, 
                 title={useShortTitles ? "Cnt" : "Count"}
                 placeholder="Enter count"
                 value={point?.count ?? 0}
-                onChange={(e) => handleChange(id, 'count', e.target.value)}
+                onChange={(e) => handleChange(id, 'count', Number(e.target.value))}
             />
             <LabeledInput
                 id={expectationId}
@@ -60,7 +64,7 @@ const PointInputGroup: React.FC<PointInputGroupProps> = ({ id, point, onChange, 
                 title={useShortTitles ? "Exp" : "Expectation"}
                 placeholder="Enter expectation"
                 value={point?.expectation ?? 0}
-                onChange={(e) => handleChange(id, 'expectation', e.target.value)}
+                onChange={(e) => handleChange(id, 'expectation', Number(e.target.value))}
             />
             <LabeledInput
                 id={volatilityId}
@@ -68,7 +72,7 @@ const PointInputGroup: React.FC<PointInputGroupProps> = ({ id, point, onChange, 
                 title={useShortTitles ? "Vol" : "Volatility"}
                 placeholder="Enter volatility"
                 value={point?.volatility ?? 0}
-                onChange={(e) => handleChange(id, 'volatility', e.target.value)}
+                onChange={(e) => handleChange(id, 'volatility', Number(e.target.value))}
             />
         </div>
     );
