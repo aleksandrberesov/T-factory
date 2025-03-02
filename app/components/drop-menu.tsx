@@ -25,7 +25,15 @@ function DropMenu( menuprops: TDropMenuProps) {
   };
 
   const listItems = menuprops.elements.map((item) =>
-    <SelectedTab key={item.id} id={item.id} title={item.element} onselected={SelecItem} style={buttonstyle} textcolor={menuprops.textcolor}  backgroundcolor={menuprops.backgroundcolor}/>
+    <SelectedTab 
+      key={item.id} 
+      id={item.id} 
+      title={item.element} 
+      onselected={SelecItem} 
+      style={buttonstyle} 
+      textcolor={menuprops.textcolor}  
+      backgroundcolor={menuprops.backgroundcolor}
+    />
   );
 
   useEffect(() => {
