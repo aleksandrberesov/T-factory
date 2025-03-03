@@ -58,7 +58,7 @@ const GridBox: React.FC<TGridBoxProps> = ({title, elements, columns = 1, rows = 
 
     // Sort listItems according to row and column
     listItems.sort((a, b) => {
-        if (!a || !b) return 0; // Handle null values
+        if (!a || !b || !a.props.style || !b.props.style) return 0; // Handle null values and undefined style
         const aRow = parseInt(String(a.props.style.gridRow).split(' ')[0]);
         const aCol = parseInt(String(a.props.style.gridColumn).split(' ')[0]);
         const bRow = parseInt(String(b.props.style.gridRow).split(' ')[0]);
