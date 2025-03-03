@@ -4,11 +4,10 @@ import ListBox from '../components/listbox';
 import CheckBox from '../components/checkbox'; 
 
 function StatisticFrame(statprops: TStatisticFrameProps){
-    let idCounter = 1;
 
-    const statElemets = statprops.profile.data.statistics.map((item) => {
+    const statElemets = statprops.profile.data.statistics.map((item, index) => {
         return {
-            id: idCounter++,
+            id: index,
             element: <CheckBox title={item.title} is_checked={item.isDone}/>
         }
     });

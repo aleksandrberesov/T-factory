@@ -11,16 +11,16 @@ function SettingsFrame(settingsprops: TSettingsFrameProps) {
     const [showMessage, setShowMessage] = useState(false);
     const [unsavedChanges, setUnsavedChanges] = useState(false);
 
-    const onChange = (id: number, field: keyof TPatternPoint, value: string) => {
+    const onChange = (id: number, field: keyof TPatternPoint, value: number) => {
         const updatedPattern = { ...editPattern };
-        updatedPattern.points[id][field] = parseFloat(value);
+        updatedPattern.points[id][field] = value;
         setEditPattern(updatedPattern);
         setUnsavedChanges(true);
     };
 
-    const onChangePrePoints = (id: number, field: keyof TPatternPoint, value: string) => {
+    const onChangePrePoints = (id: number, field: keyof TPatternPoint, value: number) => {
         const updatedPattern = { ...editPattern };
-        updatedPattern.pre_points[id][field] = parseFloat(value);
+        updatedPattern.pre_points[id][field] = value;
         setEditPattern(updatedPattern);
         setUnsavedChanges(true);
     };

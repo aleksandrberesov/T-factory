@@ -46,14 +46,23 @@ type TCheckBoxProps = {
 type TListBoxProps = {
     title ?: string;
     rowslimit ?: number; 
-    elements : {id: number; element: React.JSX.Element}[];
+    elements : {element: React.JSX.Element}[];
 };
 
-export interface TGridBoxProps {
+type TGridBoxElement = {
+    element: React.ReactNode;
+    column?: number;
+    row?: number;
+    columnSpan?: number;
+    rowSpan?: number;
+};
+
+type TGridBoxProps = {
     title?: string;
-    elements: { element: React.ReactNode }[];
+    elements?: TGridBoxElement[];
     columns?: number;
-    rows?: number | 'auto';
+    rows?: number;
+    showBorders?: boolean;
 }
 
 type TTableBoxProps ={
@@ -85,7 +94,7 @@ type TRectangleProps = {
     iconURL: string;
 };
 
-export type { TButtonProps, TLabelProps, TCheckBoxProps, TIconTabProps } ;
+export type { TButtonProps, TLabelProps, TCheckBoxProps, TIconTabProps };
 export type { TCircleProps, TRectangleProps };
-export type { TListBoxProps, TTableBoxProps, TDropMenuProps };
+export type { TListBoxProps, TTableBoxProps, TDropMenuProps, TGridBoxProps, TGridBoxElement };
 export type { TCardTabProps };

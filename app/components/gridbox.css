@@ -1,7 +1,12 @@
 .gridbox-container {
-    background-color: #2d3748; /* Tailwind CSS slate-700 */
-    padding: 1rem;
+    background-color: transparent; /* Changed to transparent */
+    padding: 0; /* Remove padding */
     border-radius: 0.5rem;
+    width: 100%; /* Ensure the container takes full width */
+    height: 100%; /* Ensure the container takes full height */
+    display: grid; /* Use CSS Grid for layout */
+    grid-template-columns: repeat(var(--grid-columns), 1fr); /* Ensure columns fill available space */
+    grid-template-rows: repeat(var(--grid-rows), 1fr); /* Ensure rows fill available space */
 }
 
 .gridbox-title {
@@ -12,12 +17,24 @@
 }
 
 .grid-item {
-    background-color: #4a5568; /* Tailwind CSS gray-700 */
-    padding: 0.5rem;
+    background-color: transparent; /* Changed to transparent */
+    padding: 0; /* Set padding to 0 to remove gap */
     border-radius: 0.25rem;
-    color: #ffffff; /* Tailwind CSS white */
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
+    box-sizing: border-box; /* Include border within element's dimensions */
+ /*    min-width: 100px; Set fixed minimum width */
+/*    min-height: 100px;  Set fixed minimum height */
+    flex-shrink: 0; /* Prevent shrinking */
+    flex-grow: 0; /* Prevent growing */
+    width: 100%; /* Set fixed width */
+    height: 100%; /* Set fixed height */
+    overflow: hidden; /* Prevent content from overflowing */
+}
+
+.grid-item.border {
+    border: 1px solid #000000; /* Add border to grid items */
 }
