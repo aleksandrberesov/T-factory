@@ -23,7 +23,12 @@ function SelectedTab(buttonprops: TButtonProps) {
         } 
     };
 
-    const buttonstyle = [buttonprops.style, "selected-tab"].join(" ");
+    const buttonstyle = [
+        buttonprops.style, 
+        "selected-tab",
+        "w-fUll",
+        "h-full"
+    ].join(" ");
     return (
         <button
             style={{ backgroundColor: buttonprops.backgroundcolor, color: buttonprops.textcolor }}

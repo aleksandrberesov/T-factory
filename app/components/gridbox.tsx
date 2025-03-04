@@ -55,7 +55,7 @@ const GridBox: React.FC<TGridBoxProps> = ({title, elements, columns = 1, rows = 
             }
         }
     }
-
+/*
     // Sort listItems according to row and column
     listItems.sort((a, b) => {
         if (!a || !b || !a.props.style || !b.props.style) return 0; // Handle null values and undefined style
@@ -69,7 +69,7 @@ const GridBox: React.FC<TGridBoxProps> = ({title, elements, columns = 1, rows = 
         }
         return aRow - bRow;
     });
-
+*/
     const gridSettings = [
         'w-full h-full',
         'grid',

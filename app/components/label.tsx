@@ -5,7 +5,7 @@ function LabelBox(labelprops: TLabelProps) {
     const textColorClass = labelprops.textcolor ? `text-${labelprops.textcolor}` : "text-black";
     return (
         <div
-            className="flex justify-between"
+            className="flex justify-between w-full"
         >
             {labelprops.title && (<p className={textColorClass}>{labelprops.title}</p>)}
             <p> </p>
