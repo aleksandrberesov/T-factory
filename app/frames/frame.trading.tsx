@@ -53,7 +53,7 @@ const TradingFrame: React.FC<TTradingFrameProps> = (tradeprops) => {
                     elements={[
                 {
                     element: <div className=" bg-red-500 w-full h-full">{chart}</div>,
-                    column: 1, row: 1, rowSpan: 18, columnSpan: 1
+                    column: 1, row: 1, rowSpan: 10, columnSpan: 1
                 },
                 {
                     element: 
@@ -63,7 +63,7 @@ const TradingFrame: React.FC<TTradingFrameProps> = (tradeprops) => {
                                 trader={tradeprops.trader}
                             />
                         </div>,
-                    //row: 11, column: 1, rowSpan: 5, columnSpan: 1
+                    row: 11, column: 1, rowSpan: 5, columnSpan: 1
                 },
                 {
                     element: 
@@ -73,7 +73,6 @@ const TradingFrame: React.FC<TTradingFrameProps> = (tradeprops) => {
                                 trader={tradeprops.trader}
                             />
                         </div>,
-                    //row: 16, column: 1, rowSpan: 2, columnSpan: 1
                 },
                 {
                     element: 
@@ -84,7 +83,6 @@ const TradingFrame: React.FC<TTradingFrameProps> = (tradeprops) => {
                                 ChangeSpeed={ChangeSpeed}
                             />
                         </div>,
-                    //row: 18, column: 1, rowSpan: 2, columnSpan: 1
                 }, 
             ]}          
         />
