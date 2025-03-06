@@ -18,7 +18,8 @@ const MarketControlPanel: React.FC<TMarketControlPanelProps> = (tradeprops) => {
             showBorders = {true}
             elements={[
                 {
-                    element: !tradeprops.market.isActive ? <SelectedTab icon_image="/icons/play.svg" onclick={tradeprops.market.start}/> : <SelectedTab icon_image="/icons/pause.svg" onclick={tradeprops.market.pause}/>,
+                    element:
+                        !tradeprops.market.isActive ? <SelectedTab icon_image="/icons/play.svg" onclick={tradeprops.market.start}/> : <SelectedTab icon_image="/icons/pause.svg" onclick={tradeprops.market.pause}/>,
                 },
                 {
                     element: 
