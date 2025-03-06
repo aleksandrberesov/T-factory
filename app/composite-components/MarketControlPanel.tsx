@@ -5,12 +5,12 @@ import { TTradingFrameProps } from '../frames/types';
 import DropMenu from '../components/drop-menu';
 import { defaultSpeeds } from '../models/consts';
 
-type TMarketControlPanelProps = TTradingFrameProps & {
-    HideShowSettings() : void;
-    ChangeSpeed(speedID: number) : void;
+type TMarketControlPanelProps = Pick<TTradingFrameProps, 'market'> & {
+    HideShowSettings(): void;
+    ChangeSpeed(speedID: number): void;
 };
 
-const MarketControlPanel: React.FC<TMarketControlPanelProps> = (tradeprops) => {
+const MarketControlPanel: React.FC<TMarketControlPanelProps> = (props) => {
     return (
         <GridBox  
             columns={5} 
@@ -19,7 +19,7 @@ const MarketControlPanel: React.FC<TMarketControlPanelProps> = (tradeprops) => {
             elements={[
                 {
                     element:
-                        !tradeprops.market.isActive ? <SelectedTab icon_image="/icons/play.svg" onclick={tradeprops.market.start}/> : <SelectedTab icon_image="/icons/pause.svg" onclick={tradeprops.market.pause}/>,
+                        !props.market.isActive ? <SelectedTab icon_image="/icons/play.svg" onclick={props.market.start}/> : <SelectedTab icon_image="/icons/pause.svg" onclick={props.market.pause}/>,
                 },
                 {
                     element: 
@@ -28,18 +28,18 @@ const MarketControlPanel: React.FC<TMarketControlPanelProps> = (tradeprops) => {
                             selected={0} 
                             title='' 
                             backgroundcolor='grey' 
-                            onselected={tradeprops.ChangeSpeed}
+                            onselected={props.ChangeSpeed}
                             style="rounded-md px-3 py-2 text-sm font-medium"
                         />,
                 },
                 {
-                    element: <SelectedTab icon_image="/icons/next.svg" onclick={tradeprops.market.step}/>,
+                    element: <SelectedTab icon_image="/icons/next.svg" onclick={props.market.step}/>,
                 },
                 {
-                    element: <SelectedTab icon_image="/icons/stop.svg" onclick={tradeprops.market.stop}/>,
+                    element: <SelectedTab icon_image="/icons/stop.svg" onclick={props.market.stop}/>,
                 },
                 {
-                    element: <SelectedTab icon_image="/icons/settings.svg" onclick={tradeprops.HideShowSettings}/>,
+                    element: <SelectedTab icon_image="/icons/settings.svg" onclick={props.HideShowSettings}/>,
                },
             ]}
         />

@@ -3,25 +3,25 @@ import SelectedTab from '../components/button';
 import GridBox from '../components/gridbox';
 import { TTradingFrameProps } from '../frames/types';
 
-type TradeControlPanelProps = TTradingFrameProps;
+type TradeControlPanelProps = Pick<TTradingFrameProps, 'trader' | 'getWord'>;
 
-const TradeControlPanel: React.FC<TradeControlPanelProps> = (tradeprops) => {
+const TradeControlPanel: React.FC<TradeControlPanelProps> = (props) => {
     return (
         <GridBox  
             columns={4} 
             rows={1} 
             elements={[
                 {
-                    element: <SelectedTab title={tradeprops.getWord(4)} backgroundcolor="green" textcolor='white' onclick={tradeprops.trader.sell}/>,
+                    element: <SelectedTab title={props.getWord(4)} backgroundcolor="green" textcolor='white' onclick={props.trader.sell}/>,
                 },
                 {
-                    element: <SelectedTab title={String(tradeprops.trader.balance)} backgroundcolor='white' textcolor='black'/>,
+                    element: <SelectedTab title={String(props.trader.balance)} backgroundcolor='white' textcolor='black'/>,
                 },
                 {
-                    element: <SelectedTab title={tradeprops.getWord(3)} backgroundcolor="red" textcolor='white' onclick={tradeprops.trader.buy}/>,
+                    element: <SelectedTab title={props.getWord(3)} backgroundcolor="red" textcolor='white' onclick={props.trader.buy}/>,
                 },
                 {
-                    element: <SelectedTab title={tradeprops.getWord(5)} backgroundcolor="blue" textcolor='white' onclick={tradeprops.trader.close}/>,
+                    element: <SelectedTab title={props.getWord(5)} backgroundcolor="blue" textcolor='white' onclick={props.trader.close}/>,
                 }
             ]}
         />

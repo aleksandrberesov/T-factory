@@ -39,7 +39,7 @@ const TradingFrame: React.FC<TTradingFrameProps> = (tradeprops) => {
     ), [tradeprops.getWord, isSettingsShow]);
 
     return (
-        <div id='trading-frame' className="h-full w-full bg-transparent">
+        <div id='trading-frame' className="h-full w-full bg-gray-800">
             {isSettingsShow && (
                 <div className="modal">
                     <div className="modal-content">
@@ -52,8 +52,8 @@ const TradingFrame: React.FC<TTradingFrameProps> = (tradeprops) => {
                     rows={20}
                     elements={[
                 {
-                    element: <div className="w-full h-full">{chart}</div>,
-                    column: 1, row: 1, rowSpan: 10, columnSpan: 1
+                    element: <div className=" bg-red-500 w-full h-full">{chart}</div>,
+                    column: 1, row: 1, rowSpan: 18, columnSpan: 1
                 },
                 {
                     element: 
@@ -61,11 +61,9 @@ const TradingFrame: React.FC<TTradingFrameProps> = (tradeprops) => {
                             <TradeStatisticGroup 
                                 getWord={tradeprops.getWord}
                                 trader={tradeprops.trader}
-                                market={tradeprops.market}
-                                pattern={tradeprops.pattern}
                             />
                         </div>,
-                    row: 11, column: 1, rowSpan: 5, columnSpan: 1
+                    //row: 11, column: 1, rowSpan: 5, columnSpan: 1
                 },
                 {
                     element: 
@@ -73,25 +71,20 @@ const TradingFrame: React.FC<TTradingFrameProps> = (tradeprops) => {
                             <TradeControlPanel 
                                 getWord={tradeprops.getWord}
                                 trader={tradeprops.trader}
-                                market={tradeprops.market}
-                                pattern={tradeprops.pattern}
                             />
                         </div>,
-                    row: 16, column: 1, rowSpan: 2, columnSpan: 1
+                    //row: 16, column: 1, rowSpan: 2, columnSpan: 1
                 },
                 {
                     element: 
                         <div className="w-full h-full">
                             <MarketControlPanel 
-                                getWord={tradeprops.getWord}
                                 market={tradeprops.market}
-                                trader={tradeprops.trader}
-                                pattern={tradeprops.pattern}
                                 HideShowSettings={HideShowSettings}
                                 ChangeSpeed={ChangeSpeed}
                             />
                         </div>,
-                    row: 18, column: 1, rowSpan: 2, columnSpan: 1
+                    //row: 18, column: 1, rowSpan: 2, columnSpan: 1
                 }, 
             ]}          
         />
