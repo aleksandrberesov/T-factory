@@ -15,6 +15,10 @@ import TradeStatisticGroup from '../composite-components/TradeStatisticGroup';
 import TradeControlPanel from '../composite-components/TradeControlPanel';
 import MarketControlPanel from '../composite-components/MarketControlPanel';
 
+const height = 20;
+const chartHeight = 10;
+const statisticsHeight = 8;
+
 const TradingFrame: React.FC<TTradingFrameProps> = (tradeprops) => {
     const HideShowSettings = () => {
         SetIsSettingsShow(!isSettingsShow);
@@ -22,7 +26,6 @@ const TradingFrame: React.FC<TTradingFrameProps> = (tradeprops) => {
     const ChangeSpeed = (speedID: number) => {
         tradeprops.market.setDuration(1000 / SpeedTitleToNumber(defaultSpeeds[speedID].element));
     };
-
     const [isSettingsShow, SetIsSettingsShow] = useState(false);
     const chartManager: IChartController = useChart(tradeprops.market.addManager);
     const chart = useMemo(() => (
@@ -48,44 +51,48 @@ const TradingFrame: React.FC<TTradingFrameProps> = (tradeprops) => {
                 </div>
             )}
             <GridBox
-                    columns={1}
-                    rows={20}
-                    elements={[
-                {
-                    element: <div className=" bg-red-500 w-full h-full">{chart}</div>,
-                    column: 1, row: 1, rowSpan: 10, columnSpan: 1
-                },
-                {
-                    element: 
-                        <div className="w-full h-full">
-                            <TradeStatisticGroup 
-                                getWord={tradeprops.getWord}
-                                trader={tradeprops.trader}
-                            />
-                        </div>,
-                    row: 11, column: 1, rowSpan: 5, columnSpan: 1
-                },
-                {
-                    element: 
-                        <div className="w-full h-full">
-                            <TradeControlPanel 
-                                getWord={tradeprops.getWord}
-                                trader={tradeprops.trader}
-                            />
-                        </div>,
-                },
-                {
-                    element: 
-                        <div className="w-full h-full">
-                            <MarketControlPanel 
-                                market={tradeprops.market}
-                                HideShowSettings={HideShowSettings}
-                                ChangeSpeed={ChangeSpeed}
-                            />
-                        </div>,
-                }, 
-            ]}          
-        />
+                columns={1}
+                rows={height}
+                showBorders={true}
+                elements={[
+                    {
+                        element: 
+                            <div className=" bg-red-500 w-full h-full">
+                                {chart}
+                            </div>,
+                        column: 1, row: 1, rowSpan: chartHeight, columnSpan: 1
+                    },
+                    {
+                        element: 
+                            <div className="w-full h-full">
+                                <TradeStatisticGroup
+                                    trader={tradeprops.trader}
+                                    getWord={tradeprops.getWord}
+                                />
+                            </div>,
+                        row: 1+chartHeight, column: 1, rowSpan: statisticsHeight, columnSpan: 1
+                    },
+                    {
+                        element: 
+                            <div className="w-full h-full">
+                                <TradeControlPanel
+                                    trader={tradeprops.trader}
+                                    getWord={tradeprops.getWord}
+                                />
+                            </div>,
+                    },
+                    {
+                        element: 
+                            <div className="w-full h-full">
+                                <MarketControlPanel
+                                    market={tradeprops.market}
+                                    HideShowSettings={HideShowSettings}
+                                    ChangeSpeed={ChangeSpeed}
+                                />
+                            </div>,
+                    }, 
+                ]}          
+            />
         </div>
     );
 }

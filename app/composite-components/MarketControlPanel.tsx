@@ -15,7 +15,7 @@ const MarketControlPanel: React.FC<TMarketControlPanelProps> = (props) => {
         <GridBox  
             columns={5} 
             rows={1} 
-            showBorders = {true}
+            showBorders = {false}
             elements={[
                 {
                     element:
