@@ -1,13 +1,15 @@
 {
   "name": "tfactory_app",
-  "version": "1.1.1",
+  "version": "1.1.17",
   "private": true,
   "scripts": {
+    "prebuild": "node ./scripts/updateVersion.js",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "launch": "next build && next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "update-version": "node ./scripts/updateVersion.js"
   },
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.699.0",
