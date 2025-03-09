@@ -4,16 +4,25 @@
     border-radius: 0.5rem;
     width: 100%; /* Ensure the container takes full width */
     height: 100%; /* Ensure the container takes full height */
-    display: grid; /* Use CSS Grid for layout */
-    grid-template-columns: repeat(var(--grid-columns), 1fr); /* Ensure columns fill available space */
-    grid-template-rows: repeat(var(--grid-rows), 1fr); /* Ensure rows fill available space */
 }
 
 .gridbox-title {
+    background-color: transparent;
     color: #ffffff; /* Tailwind CSS white */
     margin-bottom: 0.5rem;
     font-size: 1.25rem;
     font-weight: bold;
+}
+
+.gridbox-grid {
+    background-color: transparent;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    /*grid-auto-flow: row;*/ /* Remove this line */
+    gap: 0.25rem; /* Add gaps between items */
+    margin: 0; /* Remove margins */
+    /*grid-template-rows: repeat(auto-fill, minmax(0, 2fr)); /* Make row sizes strict */
 }
 
 .grid-item {
@@ -26,8 +35,6 @@
     justify-content: center;
     text-align: center;
     box-sizing: border-box; /* Include border within element's dimensions */
- /*    min-width: 100px; Set fixed minimum width */
-/*    min-height: 100px;  Set fixed minimum height */
     flex-shrink: 0; /* Prevent shrinking */
     flex-grow: 0; /* Prevent growing */
     width: 100%; /* Set fixed width */

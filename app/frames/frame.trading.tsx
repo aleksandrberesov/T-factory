@@ -1,13 +1,10 @@
 import React, { useState, useMemo } from 'react';
-import SelectedTab from "../components/button";
 import ChartView from "../tradingview/chart.view";
-import LabelBox from '../components/label';
-import DropMenu from '../components/drop-menu';
-import { currencySymbol, defaultSpeeds } from '../models/consts';
+import { defaultSpeeds } from '../models/consts';
 import SettingsFrame from './frame.settings';
 import { TTradingFrameProps } from './types';
 import useChart from '../tradingview/chart.controller';
-import { SpeedTitleToNumber, NumberToSignedString } from './utils';
+import { SpeedTitleToNumber } from './utils';
 import IChartController from '../tradingview/types';
 import GridBox from '../components/gridbox';
 import './frame.trading.css';
@@ -17,7 +14,7 @@ import MarketControlPanel from '../composite-components/MarketControlPanel';
 
 const height = 20;
 const chartHeight = 10;
-const statisticsHeight = 8;
+const statisticsHeight = 6;
 
 const TradingFrame: React.FC<TTradingFrameProps> = (tradeprops) => {
     const HideShowSettings = () => {
@@ -56,40 +53,28 @@ const TradingFrame: React.FC<TTradingFrameProps> = (tradeprops) => {
                 showBorders={true}
                 elements={[
                     {
-                        element: 
-                            <div className=" bg-red-500 w-full h-full">
-                                {chart}
-                            </div>,
+                        element: chart,
                         column: 1, row: 1, rowSpan: chartHeight, columnSpan: 1
                     },
                     {
-                        element: 
-                            <div className="w-full h-full">
-                                <TradeStatisticGroup
+                        element: <TradeStatisticGroup
                                     trader={tradeprops.trader}
                                     getWord={tradeprops.getWord}
-                                />
-                            </div>,
+                                 />,
                         row: 1+chartHeight, column: 1, rowSpan: statisticsHeight, columnSpan: 1
                     },
                     {
-                        element: 
-                            <div className="w-full h-full">
-                                <TradeControlPanel
+                        element: <TradeControlPanel
                                     trader={tradeprops.trader}
                                     getWord={tradeprops.getWord}
-                                />
-                            </div>,
+                                 />,
                     },
                     {
-                        element: 
-                            <div className="w-full h-full">
-                                <MarketControlPanel
+                        element: <MarketControlPanel
                                     market={tradeprops.market}
                                     HideShowSettings={HideShowSettings}
                                     ChangeSpeed={ChangeSpeed}
-                                />
-                            </div>,
+                                 />,
                     }, 
                 ]}          
             />
