@@ -1,6 +1,7 @@
 import React from "react";
 import { TGridBoxProps } from "./types";
 import './gridbox.css';
+import BaseComponent from "./base-component";
 
 const GridBox: React.FC<TGridBoxProps> = ({title, elements, columns, rows, showBorders}) => {
     const numbercolumns = columns ?? 1;
@@ -50,7 +51,7 @@ const GridBox: React.FC<TGridBoxProps> = ({title, elements, columns, rows, showB
                         className={`grid-item ${showBorders ? 'border' : ''}`} 
                         style={style}
                     >
-                        {extraElement?.element || (/**/)}
+                        {extraElement?.element || <BaseComponent align="stretch"/>}
                     </div>
                 );
             }
