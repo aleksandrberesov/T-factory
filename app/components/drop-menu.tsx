@@ -1,25 +1,24 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { TDropMenuProps } from './types';
 import SelectedTab from './button';
+import './drop-menu.css';
 
-function DropMenu( menuprops: TDropMenuProps) {
+function DropMenu(menuprops: TDropMenuProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(menuprops.selected);
   const [width, setWidth] = useState(0);
+  const [height, setHeight] = useState(0);
   const parentRef = useRef<HTMLDivElement>(null);
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
 
-  const buttonstyle = [menuprops.style, "w-full" ].join(" ");
-  const liststyle = [menuprops.dropDirection==="down" ? "translate-y-0": "-translate-y-full",  
-                     "flex origin-top-right absolute justify-self-auto z-50 rounded-md shadow-lg ring-1 ring-black ring-opacity-5"
-                    ].join(" ");
+  const liststyle = menuprops.dropDirection === "down" ? "dropdown-down" : "dropdown-up";
 
-  const SelecItem = (id: number) =>{
+  const SelecItem = (id: number) => {
     setIsOpen(false);
     setSelectedItem(id);
-    if (menuprops.onselected !==undefined){
+    if (menuprops.onselected !== undefined) {
       menuprops.onselected(id);
     }
   };
@@ -30,7 +29,6 @@ function DropMenu( menuprops: TDropMenuProps) {
       id={item.id} 
       title={item.element} 
       onselected={SelecItem} 
-      style={buttonstyle} 
       textcolor={menuprops.textcolor}  
       backgroundcolor={menuprops.backgroundcolor}
     />
@@ -39,33 +37,32 @@ function DropMenu( menuprops: TDropMenuProps) {
   useEffect(() => {
     if (parentRef.current) {
       setWidth(parentRef.current.offsetWidth);
+      setHeight(parentRef.current.offsetHeight);
     }
   }, []);
 
   function GetList(): React.JSX.Element {
-    return(
+    return (
       <div 
         className={liststyle}
-        style = {{ width: `${width}px` }}
+        style={{ width: `${width}px`, height: `${height}px` }}
       >
         <p>{menuprops.title}</p>
-        <div className="py-1 flex flex-wrap">
-          {listItems} 
-        </div>
+        <ul>{listItems}</ul>
       </div>
     );
   };
 
   return (
-    <div  ref={parentRef}>
-        <SelectedTab 
-            title={menuprops.elements[selectedItem].element} 
-            textcolor={menuprops.textcolor} 
-            backgroundcolor={menuprops.backgroundcolor}
-            onclick={toggleDropdown}
-            style = "w-full h-full"
-        />
-        {isOpen && (GetList())}
+    <div ref={parentRef} className='dropdown-container'>
+      <SelectedTab 
+        title={menuprops.elements[selectedItem].element} 
+        textcolor={menuprops.textcolor} 
+        backgroundcolor={menuprops.backgroundcolor}
+        onclick={toggleDropdown}
+        style="w-full h-full"
+      />
+      {isOpen && (GetList())}
     </div>
   );
 }
