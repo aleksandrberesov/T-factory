@@ -13,7 +13,7 @@ import TradeControlPanel from '../composite-components/TradeControlPanel';
 import MarketControlPanel from '../composite-components/MarketControlPanel';
 
 const height = 20;
-const chartHeight = 10;
+const chartHeight = 12;
 const statisticsHeight = 6;
 
 const TradingFrame: React.FC<TTradingFrameProps> = (tradeprops) => {
