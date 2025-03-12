@@ -22,7 +22,6 @@ const TradingFrame: React.FC<TTradingFrameProps> = (tradeprops) => {
         SetIsSettingsShow(!isSettingsShow);
     }; 
     const HideShowStatistics = () => {
-
         SetIsStatisticShow(!isStatisticShow);   
     };
     const ChangeSpeed = (speedID: number) => {
@@ -35,7 +34,7 @@ const TradingFrame: React.FC<TTradingFrameProps> = (tradeprops) => {
         <ChartView 
             setChartApi={chartManager.assignChart} 
         />
-    ), [isStatisticShow]);
+    ), []);
     const settings = useMemo(() => (
         <SettingsFrame 
             callBack={HideShowSettings}

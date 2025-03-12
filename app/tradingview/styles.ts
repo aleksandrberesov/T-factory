@@ -15,7 +15,8 @@ const chartStyle : DeepPartial<ChartOptions>  = {
             type: ColorType.Solid , 
             color: 'black' 
         } 
-    } 
+    },
+    autoSize: true, 
 };
 
 const lineStyle : LineSeriesPartialOptions = {

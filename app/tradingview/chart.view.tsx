@@ -18,7 +18,7 @@ function ChartView( chartviewprops: TChartViewProps) {
     return (
         <div
             id = {chart_id.current}
-            className="left-0 top-0 flex h-full w-full justify-center"
+            className="flex h-full w-full"
         >
         </div>
     );

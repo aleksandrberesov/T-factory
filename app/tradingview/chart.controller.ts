@@ -34,7 +34,6 @@ const useChart = (addModelProc: (manager: IMarketDataManager) => void): IChartCo
         setPoints,
         appendPoint, 
     };
-
 };
 
 export default useChart;
