@@ -17,6 +17,7 @@ const GridBox: React.FC<TGridBoxProps> = ({title, elements, columns, rows, showB
             unAssignedElements.push({ element: item.element, index });
             return null;
         } else {
+            if (item.row < 1 || item.column < 1) return null; // Ensure row and column are positive
             for (let r = item.row - 1; r < item.row - 1 + rowSpan; r++) {
                 if (r >= numberrows) continue; // Ensure row is within bounds
                 for (let c = item.column - 1; c < item.column - 1 + colSpan; c++) {

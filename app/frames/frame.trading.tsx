@@ -6,6 +6,7 @@ import { TTradingFrameProps } from './types';
 import useChart from '../tradingview/chart.controller';
 import { SpeedTitleToNumber } from './utils';
 import IChartController from '../tradingview/types';
+import SelectedTab from '../components/button';
 import GridBox from '../components/gridbox';
 import './frame.trading.css';
 import TradeStatisticGroup from '../composite-components/TradeStatisticGroup';
@@ -14,22 +15,27 @@ import MarketControlPanel from '../composite-components/MarketControlPanel';
 
 const height = 20;
 const chartHeight = 12;
-const statisticsHeight = 6;
+const statisticsHeight = 5;
 
 const TradingFrame: React.FC<TTradingFrameProps> = (tradeprops) => {
     const HideShowSettings = () => {
         SetIsSettingsShow(!isSettingsShow);
     }; 
+    const HideShowStatistics = () => {
+
+        SetIsStatisticShow(!isStatisticShow);   
+    };
     const ChangeSpeed = (speedID: number) => {
         tradeprops.market.setDuration(1000 / SpeedTitleToNumber(defaultSpeeds[speedID].element));
     };
     const [isSettingsShow, SetIsSettingsShow] = useState(false);
+    const [isStatisticShow, SetIsStatisticShow] = useState(true);  
     const chartManager: IChartController = useChart(tradeprops.market.addManager);
     const chart = useMemo(() => (
         <ChartView 
             setChartApi={chartManager.assignChart} 
         />
-    ), []);
+    ), [isStatisticShow]);
     const settings = useMemo(() => (
         <SettingsFrame 
             callBack={HideShowSettings}
@@ -54,14 +60,27 @@ const TradingFrame: React.FC<TTradingFrameProps> = (tradeprops) => {
                 elements={[
                     {
                         element: chart,
-                        column: 1, row: 1, rowSpan: chartHeight, columnSpan: 1
+                        column: 1, row: 1, 
+                        rowSpan: isStatisticShow ? chartHeight : chartHeight+statisticsHeight, 
+                        columnSpan: 1
                     },
                     {
-                        element: <TradeStatisticGroup
+                        element: <SelectedTab
+                                    title={'Statistics'}
+                                    textcolor='white'
+                                    backgroundcolor='grey'
+                                    onclick={HideShowStatistics}
+                                 />,   
+                    },
+                    {
+                        element: isStatisticShow ? (<TradeStatisticGroup
                                     trader={tradeprops.trader}
                                     getWord={tradeprops.getWord}
-                                 />,
-                        row: 1+chartHeight, column: 1, rowSpan: statisticsHeight, columnSpan: 1
+                                 />) : null,
+                        row: isStatisticShow ? 2+chartHeight : -1, 
+                        column: 1, 
+                        rowSpan: statisticsHeight, 
+                        columnSpan: 1
                     },
                     {
                         element: <TradeControlPanel
