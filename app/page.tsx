@@ -4,6 +4,7 @@ import { FullScreen, GetUserData } from "./telegram/integration";
 import { GetProfile, UpdateProfile, GetPatterns, CommitPattern, GetPoints } from "./aws/dataService"
 import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import { startFrame } from "./models/consts";
+import GridBox from "./components/gridbox";
 import NavigationFrame from "./frames/frame.navigation";
 import TradingFrame from "./frames/frame.trading";
 import ProfileFrame from "./frames/frame.profile";
@@ -107,17 +108,28 @@ export default function Home() {
       <main 
         className="h-screen w-screen overflow-hidden bg-black"
       >
-        <NavigationFrame
-          onselected = {ChangeFrame} 
-          lang = {profile.data.lang}
-          getWord={getWord}
-          setLanguage={ChangeLanguage}
+        <GridBox
+          columns={1}
+          rows={10}
+          elements={[
+            {
+              element:         
+                <NavigationFrame
+                  onselected = {ChangeFrame} 
+                  lang = {profile.data.lang}
+                  getWord={getWord}
+                  setLanguage={ChangeLanguage}
+                />,
+              column: 1, row: 1,
+              columnSpan: 1, rowSpan: 1  
+            },
+            {
+              element: component,
+              column: 1, row: 1, 
+              columnSpan: 1, rowSpan: 9
+            }
+          ]}
         />
-        <div 
-          className="h-5/6"
-        >
-          {component}
-        </div>
       </main>
     );
   }

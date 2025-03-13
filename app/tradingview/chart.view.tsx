@@ -1,6 +1,6 @@
 import React, { useEffect, useId, useRef } from 'react';
 import { createChart } from 'lightweight-charts';
-import { chartStyle } from "./styles"
+import { chartStyle } from "./options"
 import { TChartViewProps } from './types';
 import { removeElementById } from '../libs/lib.utils';
 

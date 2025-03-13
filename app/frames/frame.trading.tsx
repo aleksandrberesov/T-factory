@@ -44,7 +44,7 @@ const TradingFrame: React.FC<TTradingFrameProps> = (tradeprops) => {
     ), [tradeprops.getWord, isSettingsShow]);
 
     return (
-        <div id='trading-frame' className="h-full w-full bg-gray-800">
+        <div id='trading-frame' className="h-full w-full">
             {isSettingsShow && (
                 <div className="modal">
                     <div className="modal-content">
@@ -55,7 +55,7 @@ const TradingFrame: React.FC<TTradingFrameProps> = (tradeprops) => {
             <GridBox
                 columns={1}
                 rows={height}
-                showBorders={true}
+                showBorders={false}
                 elements={[
                     {
                         element: chart,
@@ -65,7 +65,7 @@ const TradingFrame: React.FC<TTradingFrameProps> = (tradeprops) => {
                     },
                     {
                         element: <SelectedTab
-                                    title={'Statistics'}
+                                    title={(isStatisticShow ? 'Hide Statistics' : 'Show Statistics')}    
                                     textcolor='white'
                                     backgroundcolor='grey'
                                     onclick={HideShowStatistics}

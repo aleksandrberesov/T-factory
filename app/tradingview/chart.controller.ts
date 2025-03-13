@@ -3,7 +3,7 @@ import IChartController  from './types';
 import { TMarketPoint } from '../models/types';
 import { IMarketDataManager } from '../models/interfaces';
 import { IChartApi, ISeriesApi, Time, UTCTimestamp } from 'lightweight-charts';
-import { lineStyle } from './styles';
+import { lineStyle } from './options';
 
 const useChart = (addModelProc: (manager: IMarketDataManager) => void): IChartController & IMarketDataManager =>{
     const [chart, setChart] = useState<IChartApi | undefined>(undefined);
