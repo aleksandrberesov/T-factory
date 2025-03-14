@@ -25,6 +25,7 @@ function SelectedTab(buttonprops: TButtonProps) {
 
     const buttonstyle = [
         buttonprops.style, 
+        buttonprops.extraClasses,
         "selected-tab",
         "w-fUll",
         "h-full"

@@ -75,20 +75,18 @@ function SettingsFrame(settingsprops: TSettingsFrameProps) {
     };
 
     return (
-        <div className="h-screen w-screen bg-transparent gap-y-10">
-            <div className='container m-2 bg-gray-500'>
-                <div className='column'>
-                    <h3>Pre-Points</h3>
-                    <ListBox elements={PrePoints} />
-                    <SelectedTab title='Add Pre-Point' backgroundcolor='green' onclick={() => addNewPoint('pre_points')} />
-                </div>
-                <div className='column'>
-                    <h3>Points</h3>
-                    <ListBox elements={Points} />
-                    <SelectedTab title='Add Point' backgroundcolor='green' onclick={() => addNewPoint('points')} />
-                </div>
+        <div className="container">
+            <div className='items-container'>
+                <h3>Pre-Points</h3>
+                <ListBox elements={PrePoints} />
+                <SelectedTab title='Add Pre-Point' backgroundcolor='green' onclick={() => addNewPoint('pre_points')} />
             </div>
-            <div className='m-2 bg-gray-500'>
+            <div className='items-container'>
+                <h3>Points</h3>
+                <ListBox elements={Points} />
+                <SelectedTab title='Add Point' backgroundcolor='green' onclick={() => addNewPoint('points')} />
+            </div>
+            <div className='buttons-continer'>
                 <SelectedTab
                     title={unsavedChanges ? 'Save' : 'Saved'}
                     onclick={unsavedChanges ? HandlePointsChange : () => {}}
@@ -96,7 +94,7 @@ function SettingsFrame(settingsprops: TSettingsFrameProps) {
                 <SelectedTab title={settingsprops.getWord(19)} onclick={settingsprops.callBack} />
                 {showMessage && <div className="save-message">Changes saved successfully!</div>}
             </div>
-         </div>
+        </div>
     );
 }
 

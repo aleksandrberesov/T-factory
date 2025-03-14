@@ -3,6 +3,7 @@ import { TOnClickFunction, TOnSelectedFunction } from "../libs/lib.types"
 
 type TStyleProps = {
     style ?: string;
+    extraClasses ?: string;
 };
 
 type TTextProps = {
