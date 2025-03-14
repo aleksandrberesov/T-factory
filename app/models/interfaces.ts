@@ -53,7 +53,9 @@ interface IMarket {
     currentPoint: TPatternPoint;
 
     isActive: boolean;
-    setDuration: (duration: number) => void;
+    //setDuration: (duration: number) => void;
+    setSpeed: (speedID: number)=> void;
+    speed: string;
     addManager: (manager: IMarketDataManager) => void;
     changed: boolean;
 };

@@ -24,4 +24,8 @@ function CreateMarketPoint(time: number, pattern: TPatternPoint): TMarketPoint{
     };
 };
 
-export { CreateMarketPoint };
+function SpeedTitleToNumber(str: string) {
+    return Number(str.replace("x", ''));
+}
+
+export { SpeedTitleToNumber, CreateMarketPoint };

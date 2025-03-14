@@ -6,7 +6,9 @@ import { TPattern, TMarketPoint, TPatternPoint } from "./types";
 import { IMarket, IMarketDataManager } from "./interfaces";
 import { CreateMarketPoint } from "./utils";
 import { defaultMarket } from "./defaults";
+import { defaultSpeeds } from '../models/consts';
 import { startTime, stepTime } from './consts';
+import { SpeedTitleToNumber } from './utils';
 
 const useMarket = (): IMarket => {
     const [changed, setChanged] = useState(false);
@@ -22,7 +24,8 @@ const useMarket = (): IMarket => {
     const count: IValue<number> = useRefValue(0);
     const current: IValue<number> = useRefValue(0);
     const currentPatternPoint: IValue<TPatternPoint> = useRefValue(defaultMarket.pattern[0]);
-    
+    const speedID: IValue<number> = useRefValue(0);
+
     const MoveTime = ()=> {
         currentTime.set(currentTime.get() + stepTime);     
     };
@@ -88,6 +91,15 @@ const useMarket = (): IMarket => {
         setChanged(!changed); 
     };
 
+    const setSpeed = (ID: number) => {
+        speedID.set(ID);
+        setDuration(1000 / SpeedTitleToNumber(defaultSpeeds[ID].element));
+    };
+
+    const getSpeedTitle = (): string => {
+        return defaultSpeeds[speedID.get()].element;
+    };
+
     return {
         init,
         step,
@@ -98,7 +110,8 @@ const useMarket = (): IMarket => {
         currentPoint: currentPatternPoint.get(),
 
         isActive,
-        setDuration,
+        setSpeed,
+        speed: getSpeedTitle(),
         addManager,
         changed,
     };

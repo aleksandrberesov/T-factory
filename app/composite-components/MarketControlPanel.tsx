@@ -7,7 +7,7 @@ import { defaultSpeeds } from '../models/consts';
 
 type TMarketControlPanelProps = Pick<TTradingFrameProps, 'market'> & {
     HideShowSettings(): void;
-    ChangeSpeed(speedID: number): void;
+    HideShowSpeed(): void;
 };
 
 const MarketControlPanel: React.FC<TMarketControlPanelProps> = (props) => {
@@ -23,12 +23,10 @@ const MarketControlPanel: React.FC<TMarketControlPanelProps> = (props) => {
                 },
                 {
                     element: 
-                        <DropMenu 
-                            elements={defaultSpeeds} 
-                            selected={0} 
-                            title='' 
+                        <SelectedTab 
+                            title={props.market.speed} 
                             backgroundcolor='grey' 
-                            onselected={props.ChangeSpeed}
+                            onclick={props.HideShowSpeed}
                        />,
                 },
                 {

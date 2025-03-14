@@ -4,14 +4,15 @@ import { defaultSpeeds } from '../models/consts';
 import SettingsFrame from './frame.settings';
 import { TTradingFrameProps } from './types';
 import useChart from '../tradingview/chart.controller';
-import { SpeedTitleToNumber } from './utils';
 import IChartController from '../tradingview/types';
 import SelectedTab from '../components/button';
+import ModalWindow from '../components/modal-window';
 import GridBox from '../components/gridbox';
 import './frame.trading.css';
 import TradeStatisticGroup from '../composite-components/TradeStatisticGroup';
 import TradeControlPanel from '../composite-components/TradeControlPanel';
 import MarketControlPanel from '../composite-components/MarketControlPanel';
+import SpeedChangePanel from '../composite-components/SpeedChangePanel';
 
 const height = 20;
 const chartHeight = 12;
@@ -24,11 +25,16 @@ const TradingFrame: React.FC<TTradingFrameProps> = (tradeprops) => {
     const HideShowStatistics = () => {
         SetIsStatisticShow(!isStatisticShow);   
     };
+    const HideShowSpeedChange = () => {
+        SetIsSpeedChangeShow(!isSpeedChangeShow);
+    };
     const ChangeSpeed = (speedID: number) => {
-        tradeprops.market.setDuration(1000 / SpeedTitleToNumber(defaultSpeeds[speedID].element));
+        tradeprops.market.setSpeed(speedID);//Duration(1000 / SpeedTitleToNumber(defaultSpeeds[speedID].element));
+        SetIsSpeedChangeShow(false);
     };
     const [isSettingsShow, SetIsSettingsShow] = useState(false);
     const [isStatisticShow, SetIsStatisticShow] = useState(true);  
+    const [isSpeedChangeShow, SetIsSpeedChangeShow] = useState(false);
     const chartManager: IChartController = useChart(tradeprops.market.addManager);
     const chart = useMemo(() => (
         <ChartView 
@@ -45,13 +51,8 @@ const TradingFrame: React.FC<TTradingFrameProps> = (tradeprops) => {
 
     return (
         <div id='trading-frame' className="h-full w-full">
-            {isSettingsShow && (
-                <div className="modal">
-                    <div className="modal-content">
-                        {settings}
-                    </div>
-                </div>
-            )}
+            {isSettingsShow && (<ModalWindow content={settings}/>)}
+            {isSpeedChangeShow && (<ModalWindow content={<SpeedChangePanel ChangeSpeed={ChangeSpeed} Close={HideShowSpeedChange}/>}/>)}
             <GridBox
                 columns={1}
                 rows={height}
@@ -91,7 +92,7 @@ const TradingFrame: React.FC<TTradingFrameProps> = (tradeprops) => {
                         element: <MarketControlPanel
                                     market={tradeprops.market}
                                     HideShowSettings={HideShowSettings}
-                                    ChangeSpeed={ChangeSpeed}
+                                    HideShowSpeed={HideShowSpeedChange}
                                  />,
                     }, 
                 ]}          
