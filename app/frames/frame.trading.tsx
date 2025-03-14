@@ -29,7 +29,7 @@ const TradingFrame: React.FC<TTradingFrameProps> = (tradeprops) => {
         SetIsSpeedChangeShow(!isSpeedChangeShow);
     };
     const ChangeSpeed = (speedID: number) => {
-        tradeprops.market.setSpeed(speedID);//Duration(1000 / SpeedTitleToNumber(defaultSpeeds[speedID].element));
+        tradeprops.market.setSpeed(speedID);
         SetIsSpeedChangeShow(false);
     };
     const [isSettingsShow, SetIsSettingsShow] = useState(false);
@@ -52,7 +52,7 @@ const TradingFrame: React.FC<TTradingFrameProps> = (tradeprops) => {
     return (
         <div id='trading-frame' className="h-full w-full">
             {isSettingsShow && (<ModalWindow content={settings}/>)}
-            {isSpeedChangeShow && (<ModalWindow content={<SpeedChangePanel ChangeSpeed={ChangeSpeed} Close={HideShowSpeedChange}/>}/>)}
+            {isSpeedChangeShow && (<ModalWindow content={<SpeedChangePanel ChangeSpeed={ChangeSpeed}/>}/>)}
             <GridBox
                 columns={1}
                 rows={height}
