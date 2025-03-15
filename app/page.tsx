@@ -125,8 +125,8 @@ export default function Home() {
             },
             {
               element: component,
-              column: 1, row: 1, 
-              columnSpan: 1, rowSpan: 9
+              column: 1, row: 2, 
+              columnSpan: 1, rowSpan: 9 
             }
           ]}
         />

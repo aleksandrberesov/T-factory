@@ -25,7 +25,7 @@ function NavigationFrame(navigationProps: TNavigationFrameProps){
     };
 
     return(
-        <div className="bg-gray-800">
+        <div className="w-full bg-gray-800">
             <div className="grid grid-cols-7 gap-2 m-2">
                     {CreateButton(0)}
                     {CreateButton(1)}
