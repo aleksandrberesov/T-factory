@@ -9,9 +9,10 @@ interface LabeledInputProps {
     value: number | string;
     placeholder?: string;
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    textColor?: string; // New property for text color
 }
 
-const LabeledInput: React.FC<LabeledInputProps> = ({ id, title, description, type, value, placeholder, onChange }) => {
+const LabeledInput: React.FC<LabeledInputProps> = ({ id, title, description, type, value, placeholder, onChange, textColor }) => {
     const spanRef = useRef<HTMLSpanElement>(null);
     const labelRef = useRef<HTMLLabelElement>(null);
     const inputRef = useRef<HTMLInputElement>(null);
@@ -28,7 +29,15 @@ const LabeledInput: React.FC<LabeledInputProps> = ({ id, title, description, typ
 
     return (
         <div className="input-group">
-            {title && <label ref={labelRef} htmlFor={id}>{title}</label>}
+            {title && (
+                <label 
+                    ref={labelRef} 
+                    htmlFor={id} 
+                    style={{ color: textColor }} // Apply text color to label
+                >
+                    {title}
+                </label>
+            )}
             <input
                 ref={inputRef}
                 id={id}
@@ -36,6 +45,7 @@ const LabeledInput: React.FC<LabeledInputProps> = ({ id, title, description, typ
                 value={value}
                 placeholder={placeholder}
                 onChange={onChange}
+                style={{ color: textColor }} // Apply text color
                 className="dynamic-width-input input-background"
             />
             <span ref={spanRef} className="hidden-span">

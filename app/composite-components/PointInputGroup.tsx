@@ -64,6 +64,7 @@ const PointInputGroup: React.FC<PointInputGroupProps> = ({ id, point, onChange, 
                                 title={useShortTitles ? "Cnt" : "Count"}
                                 placeholder="Enter count"
                                 value={point?.count ?? 0}
+                                textColor='black'
                                 onChange={(e) => handleChange(id, 'count', Number(e.target.value))}
                             />, 
                     },
@@ -75,6 +76,7 @@ const PointInputGroup: React.FC<PointInputGroupProps> = ({ id, point, onChange, 
                                 title={useShortTitles ? "Exp" : "Expectation"}
                                 placeholder="Enter expectation"
                                 value={point?.expectation ?? 0}
+                                textColor='black'
                                 onChange={(e) => handleChange(id, 'expectation', Number(e.target.value))}
                             />, 
                     },
@@ -86,6 +88,7 @@ const PointInputGroup: React.FC<PointInputGroupProps> = ({ id, point, onChange, 
                                 title={useShortTitles ? "Exp" : "Expectation"}
                                 placeholder="Enter expectation"
                                 value={point?.expectation ?? 0}
+                                textColor='black'
                                 onChange={(e) => handleChange(id, 'expectation', Number(e.target.value))}
                             />
                     },
@@ -97,6 +100,7 @@ const PointInputGroup: React.FC<PointInputGroupProps> = ({ id, point, onChange, 
                                 title={useShortTitles ? "Vol" : "Volatility"}
                                 placeholder="Enter volatility"
                                 value={point?.volatility ?? 0}
+                                textColor='black'
                                 onChange={(e) => handleChange(id, 'volatility', Number(e.target.value))}
                             />, 
                     }

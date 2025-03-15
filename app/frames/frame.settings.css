@@ -13,7 +13,7 @@
 
 .point-item {
     display: flex;
-    align-items: center;
+    align-items: left;
     gap: 0.1rem; /* Reduce gap between items */
     margin-bottom: 0.1rem; /* Reduce space between rows */
 }
