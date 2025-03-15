@@ -14,6 +14,7 @@ const SpeedChangePanel: React.FC<TSpeedChangePanelProps> = (props) => {
             element: (
                 <SelectedTab 
                     key={index} 
+                    textcolor="black"
                     title={item.element} 
                     onclick={() => {
                         props.ChangeSpeed(index); 

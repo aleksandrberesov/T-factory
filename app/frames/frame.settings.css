@@ -20,7 +20,8 @@
 
 .point-item .selected-tab {
     background-color: red;
-    color: white;
+    
+    color: black;
     border: none;
     padding: 0.2rem 0.5rem; /* Reduce padding to make the button smaller */
     cursor: pointer;
@@ -37,4 +38,5 @@
 
 .selected-tab {
     height: 40px; /* Set a fixed height */
+    color: black;
 }

@@ -21,3 +21,12 @@
     border: 1px solid #ccc;
     border-radius: 0.25rem;
 }
+
+.selected-tab {
+    height: 40px; /* Set a fixed height */
+    color: black;
+}
+
+.input-background {
+    color: black;
+}
