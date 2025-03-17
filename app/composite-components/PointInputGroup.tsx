@@ -33,7 +33,7 @@ const PointInputGroup: React.FC<PointInputGroupProps> = ({ id, point, onChange, 
         const adjustFontSize = () => {
             if (containerRef.current) {
                 const containerWidth = containerRef.current.offsetWidth;
-                if (containerWidth < 300) {
+                if (containerWidth < 100) {
                     containerRef.current.classList.add('small-font');
                     setUseShortTitles(true);
                 } else {
@@ -43,9 +43,13 @@ const PointInputGroup: React.FC<PointInputGroupProps> = ({ id, point, onChange, 
             }
         };
 
+        const handleResize = () => {
+            requestAnimationFrame(adjustFontSize);
+        };
+
         adjustFontSize();
-        window.addEventListener('resize', adjustFontSize);
-        return () => window.removeEventListener('resize', adjustFontSize);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
     }, []);
 
     return (
@@ -78,18 +82,6 @@ const PointInputGroup: React.FC<PointInputGroupProps> = ({ id, point, onChange, 
                                 value={point?.expectation ?? 0}
                                 textColor='black'
                                 onChange={(e) => handleChange(id, 'expectation', Number(e.target.value))}
-                            />, 
-                    },
-                    {
-                        element: 
-                            <LabeledInput
-                                id={expectationId}
-                                type="number"
-                                title={useShortTitles ? "Exp" : "Expectation"}
-                                placeholder="Enter expectation"
-                                value={point?.expectation ?? 0}
-                                textColor='black'
-                                onChange={(e) => handleChange(id, 'expectation', Number(e.target.value))}
                             />
                     },
                     {
@@ -105,7 +97,7 @@ const PointInputGroup: React.FC<PointInputGroupProps> = ({ id, point, onChange, 
                             />, 
                     }
                 ]}
-                columns={5}
+                columns={4}
                 rows={1}            
             />
         </div>
