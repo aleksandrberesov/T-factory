@@ -2,7 +2,7 @@
     display: flex;
     flex-wrap: wrap;
     flex-direction: column ;
-    width: 90%;
+    width: 95%;
     gap: 2rem; /* Adjust the gap as needed */
 }
 
@@ -16,7 +16,7 @@
 .point-item {
     display: flex;
     align-items: left;
-    gap: 0.1rem; /* Reduce gap between items */
+    gap: 0.5rem; /* Reduce gap between items */
     margin-bottom: 0.1rem; /* Reduce space between rows */
 }
 

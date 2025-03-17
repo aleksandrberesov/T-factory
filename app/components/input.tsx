@@ -4,6 +4,7 @@ import './input.css';
 interface LabeledInputProps {
     id: string;
     title?: string;
+    shortTitle?: string;
     description?: string;
     type: string;
     value: number | string;
@@ -12,10 +13,12 @@ interface LabeledInputProps {
     textColor?: string; // New property for text color
 }
 
-const LabeledInput: React.FC<LabeledInputProps> = ({ id, title, description, type, value, placeholder, onChange, textColor }) => {
+const LabeledInput: React.FC<LabeledInputProps> = ( props ) => {
     const spanRef = useRef<HTMLSpanElement>(null);
     const labelRef = useRef<HTMLLabelElement>(null);
     const inputRef = useRef<HTMLInputElement>(null);
+    const containerRef = useRef<HTMLDivElement>(null);
+    const [useShortTitle, setUseShortTitle] = useState(false);
 
     useEffect(() => {
         const fontCoef = 1.4; // Adjust this value to make the input wider
@@ -25,33 +28,56 @@ const LabeledInput: React.FC<LabeledInputProps> = ({ id, title, description, typ
             const newWidth = `${spanRef.current.offsetWidth + padding}px`;
             inputRef.current.style.width = newWidth;
         }
-    }, [value]);
+    }, [props.value]);
+
+    useEffect(() => {
+        const adjustFontSize = () => {
+            if (containerRef.current) {
+                const containerWidth = containerRef.current.offsetWidth;
+                if (containerWidth < 200) {
+                    containerRef.current.classList.add('small-font');
+                    setUseShortTitle(true);
+                } else {
+                    containerRef.current.classList.remove('small-font');
+                    setUseShortTitle(false);
+                }
+            }
+        };
+
+        const handleResize = () => {
+            requestAnimationFrame(adjustFontSize);
+        };
+
+        adjustFontSize();
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
     return (
-        <div className="input-group">
-            {title && (
+        <div className="input-group" ref={containerRef}>
+            {props.title && (
                 <label 
                     ref={labelRef} 
-                    htmlFor={id} 
-                    style={{ color: textColor }} // Apply text color to label
+                    htmlFor={props.id} 
+                    style={{ color: props.textColor }}
                 >
-                    {title}
+                    {useShortTitle ? (props.shortTitle || props.title?.slice(0, 3)) : props.title}
                 </label>
             )}
             <input
                 ref={inputRef}
-                id={id}
-                type={type}
-                value={value}
-                placeholder={placeholder}
-                onChange={onChange}
-                style={{ color: textColor }} // Apply text color
+                id={props.id}
+                type={props.type}
+                value={props.value}
+                placeholder={props.placeholder}
+                onChange={props.onChange}
+                style={{ color: props.textColor }} 
                 className="dynamic-width-input input-background"
             />
             <span ref={spanRef} className="hidden-span">
-                {value}
+                {props.value}
             </span>
-            {description && <span id={`${id}-desc`} className="input-description">{description}</span>}
+            {props.description && <span id={`${props.id}-desc`} className="input-description">{props.description}</span>}
         </div>
     );
 };
