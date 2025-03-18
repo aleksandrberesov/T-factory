@@ -24,7 +24,7 @@ const useTrade = (): ITrade & IMarketDataManager => {
     const buy = () => {
         if (account.money.fiat < 0){ return; }
         const volume = account.money.fiat;
-        const currency = volume / marketPoint.get().value;
+        const currency = Math.round(volume / marketPoint.get().value);
         account.withdrawFiat(volume);
         account.depositCurrency(currency);
         deal.set({...deal.get(), ...{volume: volume, amount: currency, openPrice: marketPoint.get().value, openTime: marketPoint.get().time}});
@@ -38,14 +38,14 @@ const useTrade = (): ITrade & IMarketDataManager => {
         account.depositFiat(fiat);
         deal.set({...deal.get(), ...{closePrice: marketPoint.get().value, closeTime: marketPoint.get().time, profitLoss: fiat-deal.get().volume}});
         statistics.pushDeal(deal.get());
-        deal.set(defaultDeal);
+        //deal.set(defaultDeal);
         setChanged(!changed);
     };
     const close = () => {
         marketPlace.current?.stop();
     };
     const getBalance = (): number => {
-        return account.getBalance(marketPoint.get().value);
+        return Math.round(account.getBalance(marketPoint.get().value));
     };
     const getAverageCost = (): number => {
         return Math.round(deal.get().openPrice);
