@@ -60,12 +60,17 @@ const TradingFrame: React.FC<TTradingFrameProps> = (tradeprops) => {
                     columnSpan: 1
                 },
                 {
-                    element: <SelectedTab
+                    element:   
+                        <div className='bg-slate-300 w-full'>
+                            <SelectedTab
+                                //icon_image={(isStatisticShow ? "/icons/down_left_arrow.svg" : "/icons/up_right_arrow.svg")}
                                 title={(isStatisticShow ? 'Hide Statistics' : 'Show Statistics')}    
                                 textcolor='white'
                                 backgroundcolor='grey'
                                 onclick={HideShowStatistics}
-                             />,   
+                            />
+                        </div>
+                     ,   
                 },
                 {
                     element: isStatisticShow ? 

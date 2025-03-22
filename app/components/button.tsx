@@ -27,7 +27,7 @@ function SelectedTab(buttonprops: TButtonProps) {
         buttonprops.style, 
         buttonprops.extraClasses,
         "selected-tab",
-        "w-fUll",
+        "w-full", // Corrected class name
         "h-full"
     ].join(" ");
     return (
