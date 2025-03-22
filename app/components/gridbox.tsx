@@ -3,13 +3,13 @@ import { TGridBoxProps } from "./types";
 import './gridbox.css';
 import BaseComponent from "./base-component";
 
-const GridBox: React.FC<TGridBoxProps> = ({title, elements, columns, rows, showBorders}) => {
-    const numbercolumns = columns ?? 1;
-    const numberrows = rows ?? 1;
+const GridBox: React.FC<TGridBoxProps> = (props) => {
+    const numbercolumns = props.columns ?? 1;
+    const numberrows = props.rows ?? 1;
     const occupiedCells: boolean[][] = Array.from({ length: numberrows }, () => Array(numbercolumns).fill(false));
     const unAssignedElements: { element: React.ReactNode, index: number }[] = [];
 
-    const listItems = elements?.map((item, index) => {
+    const listItems = props.elements?.map((item, index) => {
         const colSpan = item.columnSpan ?? 1;
         const rowSpan = item.rowSpan ?? 1;
 
@@ -31,7 +31,7 @@ const GridBox: React.FC<TGridBoxProps> = ({title, elements, columns, rows, showB
                 gridRow: `${item.row} / span ${rowSpan}`,
             };
             return (
-                <div key={index} className={`grid-item ${showBorders ? 'border' : ''}`} style={style}>
+                <div key={index} className={`grid-item ${props.showBorders ? 'border' : ''}`} style={style}>
                     {item.element}
                 </div>
             );   
@@ -49,7 +49,7 @@ const GridBox: React.FC<TGridBoxProps> = ({title, elements, columns, rows, showB
                 listItems.push(
                     <div 
                         key={`empty-${r}-${c}`} 
-                        className={`grid-item ${showBorders ? 'border' : ''}`} 
+                        className={`grid-item ${props.showBorders ? 'border' : ''}`} 
                         style={style}
                     >
                         {extraElement?.element || <BaseComponent align="stretch"/>}
@@ -59,15 +59,17 @@ const GridBox: React.FC<TGridBoxProps> = ({title, elements, columns, rows, showB
         }
     }
 
+   // const backgroundColor = props.backgroundColor ? 'background-color:'+props.backgroundColor : '';
+
     const gridSettings = [
         'gridbox-grid',
-        `grid-cols-${columns}`,
-        `grid-rows-${rows}`
+        `grid-cols-${props.columns}`,
+        `grid-rows-${props.rows}`
     ].join(' ');
 
     return (
-        <div className="gridbox-container">
-            {title && (<p className="gridbox-title">{title}</p>)}
+        <div className="gridbox-container" style={{ backgroundColor: props.backgroundColor || 'transparent' }}>
+            {props.title && (<p className="gridbox-title">{props.title}</p>)}
             <div className={gridSettings}>{listItems}</div>
         </div>
     );

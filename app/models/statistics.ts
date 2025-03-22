@@ -24,7 +24,7 @@ const useStatistics = (): IStatistics => {
         const last = lastDeal();
         return {
             value: Math.round(last.profitLoss),
-            percentage: Math.round(last.profitLoss / last.volume * 100),
+            percentage: last.volume>0 ? Math.round(last.profitLoss / last.volume * 100) : 0,
         };
     }
 
@@ -56,18 +56,18 @@ const useStatistics = (): IStatistics => {
     function profit(): TStatRange {
         const profits = deals.get().filter(deal => deal.profitLoss > 0).map(deal => deal.profitLoss);
         return {
-            min: Math.round(Math.min(...profits)),
-            max: Math.round(Math.max(...profits)),
-            average: Math.round(profits.reduce((total, profit) => total + profit, 0) / profits.length),
+            min: profits.length>0 ? Math.round(Math.min(...profits)) : 0,
+            max: profits.length>0 ? Math.round(Math.max(...profits)) : 0,
+            average: profits.length>0 ? Math.round(profits.reduce((total, profit) => total + profit, 0) / profits.length) : 0,
         };
     }
 
     function loss(): TStatRange {
         const losses = deals.get().filter(deal => deal.profitLoss < 0).map(deal => deal.profitLoss);
         return {
-            min: Math.round(Math.min(...losses)),
-            max: Math.round(Math.max(...losses)),
-            average: Math.round(losses.reduce((total, loss) => total + loss, 0) / losses.length),
+            min: losses.length>0 ? Math.round(Math.min(...losses)) : 0,
+            max: losses.length>0 ? Math.round(Math.max(...losses)) : 0,
+            average: losses.length>0 ? Math.round(losses.reduce((total, loss) => total + loss, 0) / losses.length) : 0,
         };
     }
 
@@ -76,7 +76,7 @@ const useStatistics = (): IStatistics => {
         const average = deals.count > 0 ? totalProfitLoss / deals.count : 0;
         return {
             value: Math.round(average),
-            percentage: Math.round(average / totalProfitLoss * 100),
+            percentage: totalProfitLoss>0 ? Math.round(average / totalProfitLoss * 100) : 0,
         };
     }
     

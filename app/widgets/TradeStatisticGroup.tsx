@@ -9,16 +9,17 @@ type TradeStatisticGroupProps = Pick<TTradingFrameProps, 'trader' | 'getWord'>;
 
 const TradeStatisticGroup: React.FC<TradeStatisticGroupProps> = (props) => {
   return (
-    <div className='bg-gray-300'>
+    <div className='w-full'>
     <GridBox
       columns={3}
       rows={5}
-      showBorders={true}
+      showBorders={false}
       elements={[
         {element: 
             <GridBox
                 columns={2}
                 rows={4}    
+                backgroundColor='gray'
                 elements={[
                     {
                         element: <LabelBox key="position" title={props.getWord(6)}/*'Position'*/ value={NumberToString(props.trader.deal.volume)} symbol={currencySymbol}/>,
@@ -42,7 +43,8 @@ const TradeStatisticGroup: React.FC<TradeStatisticGroupProps> = (props) => {
         {element: 
             <GridBox
                 columns={3}
-                rows={2}    
+                rows={2}   
+                backgroundColor='gray' 
                 elements={[
                     {element: <LabelBox key="current-title" title={props.getWord(11)}/*'Current'*//>},
                     {element: <LabelBox key="current-value" value={NumberToString(props.trader.statistics.currentResult.value)} symbol={currencySymbol} textcolor='green-200'/>},
@@ -57,7 +59,8 @@ const TradeStatisticGroup: React.FC<TradeStatisticGroupProps> = (props) => {
         {element:
             <GridBox
                 columns={4}
-                rows={3}    
+                rows={3}   
+                backgroundColor='gray' 
                 elements={[
                 {
                     element: <LabelBox key="transactions-title" title={props.getWord(15)}/*'Transactions'*//>,
@@ -74,7 +77,7 @@ const TradeStatisticGroup: React.FC<TradeStatisticGroupProps> = (props) => {
                     element: <LabelBox key="transactions-count-3" value={props.trader.statistics.lossDeals.value+'('+props.trader.statistics.lossDeals.percentage+'%'+')'}/>,
                     row: 1, column: 4, rowSpan: 1, columnSpan: 1},
                 {
-                    element: <LabelBox key="all-title" title={props.getWord(16)}/>,
+                    element: <LabelBox key="all-title" title={props.getWord(16)} /*'average'*//>,
                     row: 2, column: 1, rowSpan: 1, columnSpan: 1
                 }, 
                 {
@@ -90,7 +93,7 @@ const TradeStatisticGroup: React.FC<TradeStatisticGroupProps> = (props) => {
                     row: 2, column: 4, rowSpan: 1, columnSpan: 1
                 },
                 {
-                    element: <LabelBox key="combined-title" title={props.getWord(17)+"/"+props.getWord(18)}/>,
+                    element: <LabelBox key="combined-title" title={props.getWord(17)+"/"+props.getWord(18)} /*'min/max'*//>,
                     row: 3, column: 1, rowSpan: 1, columnSpan: 2
                 },
                 {

@@ -1,6 +1,10 @@
 import React from "react";
 import { TOnClickFunction, TOnSelectedFunction } from "../libs/lib.types"
 
+type TStyledElementProps = {
+    backgroundColor ?: string;
+};
+
 type TStyleProps = {
     style ?: string;
     extraClasses ?: string;
@@ -50,7 +54,7 @@ type TListBoxProps = {
     elements : {element: React.JSX.Element}[];
 };
 
-type TGridBoxElement = {
+type TGridBoxElement = TStyledElementProps & {
     element: React.ReactNode;
     column?: number;
     row?: number;
@@ -58,7 +62,7 @@ type TGridBoxElement = {
     rowSpan?: number;
 };
 
-type TGridBoxProps = {
+type TGridBoxProps = TStyledElementProps & {
     title?: string;
     elements?: TGridBoxElement[];
     columns?: number;
