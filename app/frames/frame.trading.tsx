@@ -93,7 +93,7 @@ const TradingFrame: React.FC<TTradingFrameProps> = (tradeprops) => {
                 }, 
             ]}          
         />
-    ),[isStatisticShow, tradeprops.getWord]);
+    ),[isStatisticShow, tradeprops.market.changed, tradeprops.getWord]);
 
     return (
         <div id='trading-frame' className="h-full w-full">

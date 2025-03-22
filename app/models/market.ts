@@ -94,6 +94,7 @@ const useMarket = (): IMarket => {
     const setSpeed = (ID: number) => {
         speedID.set(ID);
         setDuration(1000 / SpeedTitleToNumber(defaultSpeeds[ID].element));
+        setChanged(!changed);
     };
 
     const getSpeedTitle = (): string => {

@@ -27,7 +27,7 @@ const SpeedChangePanel: React.FC<TSpeedChangePanelProps> = (props) => {
     return (
         <div className="speed-change-panel">    
             <Listbox
-                elements={SelectedTabs()} // Use the mapping function
+                elements={SelectedTabs()} 
             />                
         </div>
     );
