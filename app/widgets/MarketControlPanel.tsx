@@ -2,8 +2,6 @@ import React from 'react';
 import SelectedTab from '../components/button';
 import GridBox from '../components/gridbox';
 import { TTradingFrameProps } from '../frames/types';
-import DropMenu from '../components/drop-menu';
-import { defaultSpeeds } from '../models/consts';
 
 type TMarketControlPanelProps = Pick<TTradingFrameProps, 'market'> & {
     HideShowSettings(): void;

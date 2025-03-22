@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import SelectedTab from "../components/button";
-import PointInputGroup from '../composite-components/PointInputGroup';
+import PointInputGroup from '../widgets/PointInputGroup';
 import ListBox from '../components/listbox';
 import { TPatternPoint } from '../models/types';
 import { TSettingsFrameProps } from "./types";
