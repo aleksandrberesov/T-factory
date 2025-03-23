@@ -1,17 +1,17 @@
 import React from "react";
 import { TLabelProps } from "./types";
 
-function LabelBox(labelprops: TLabelProps) {
-    const textColorClass = labelprops.textcolor ? `text-${labelprops.textcolor}` : "text-black";
+const LabelBox: React.FC<TLabelProps> = (props) => {
+    const textColorClass = props.textcolor ? `text-${props.textcolor}` : "text-black";
     return (
         <div
             className="flex justify-between w-full"
         >
-            {labelprops.title && (<p className={textColorClass}>{labelprops.title}</p>)}
-            {labelprops.title && (labelprops.value !== undefined && labelprops.value !== null) && (<p> </p>)}
-            {(labelprops.value !== undefined && labelprops.value !== null) && (
+            {props.title && (<p className={textColorClass}>{props.title}</p>)}
+            {props.title && (props.value !== undefined && props.value !== null) && (<p> </p>)}
+            {(props.value !== undefined && props.value !== null) && (
                 <p className={textColorClass}>
-                    {labelprops.value}{labelprops.symbol && " "}{labelprops.symbol && labelprops.symbol}
+                    {props.value}{props.symbol && " "}{props.symbol && props.symbol}
                 </p>
             )}
         </div>

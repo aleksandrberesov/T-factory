@@ -1,7 +1,9 @@
 import React, { useRef, useEffect, useState } from 'react';
 import './input.css';
+import useResponsiveFontSize from '../hooks/useResponsiveFontSize';
+import useDynamicWidth from '../hooks/useDynamicWidth';
 
-interface LabeledInputProps {
+type LabeledInputProps = {
     id: string;
     title?: string;
     shortTitle?: string;
@@ -10,7 +12,7 @@ interface LabeledInputProps {
     value: number | string;
     placeholder?: string;
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    textColor?: string; // New property for text color
+    textColor?: string;
 }
 
 const LabeledInput: React.FC<LabeledInputProps> = ( props ) => {
@@ -20,38 +22,8 @@ const LabeledInput: React.FC<LabeledInputProps> = ( props ) => {
     const containerRef = useRef<HTMLDivElement>(null);
     const [useShortTitle, setUseShortTitle] = useState(false);
 
-    useEffect(() => {
-        const fontCoef = 1.4; // Adjust this value to make the input wider
-        if (spanRef.current && labelRef.current && inputRef.current) {
-            const labelFontSize = window.getComputedStyle(labelRef.current).fontSize;
-            const padding = parseFloat(labelFontSize) * fontCoef;
-            const newWidth = `${spanRef.current.offsetWidth + padding}px`;
-            inputRef.current.style.width = newWidth;
-        }
-    }, [props.value]);
-
-    useEffect(() => {
-        const adjustFontSize = () => {
-            if (containerRef.current) {
-                const containerWidth = containerRef.current.offsetWidth;
-                if (containerWidth < 200) {
-                    containerRef.current.classList.add('small-font');
-                    setUseShortTitle(true);
-                } else {
-                    containerRef.current.classList.remove('small-font');
-                    setUseShortTitle(false);
-                }
-            }
-        };
-
-        const handleResize = () => {
-            requestAnimationFrame(adjustFontSize);
-        };
-
-        adjustFontSize();
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-    }, []);
+    useResponsiveFontSize(containerRef, 200, () => setUseShortTitle(true), () => setUseShortTitle(false));
+    useDynamicWidth(spanRef, inputRef, props.value);
 
     return (
         <div className="input-group" ref={containerRef}>

@@ -32,6 +32,7 @@ type TIconTabProps = TButtonProps & {
 
 type TLabelProps = TStyleProps & TTextProps &{
     title ?: string;
+    shortTitle ?: string;
     value ?: string | number;
     symbol ?: string;    
 };
