@@ -8,8 +8,12 @@ function LabelBox(labelprops: TLabelProps) {
             className="flex justify-between w-full"
         >
             {labelprops.title && (<p className={textColorClass}>{labelprops.title}</p>)}
-            <p> </p>
-            {labelprops.value && (<p className={textColorClass}>{labelprops.value}{" "}{labelprops.symbol && labelprops.symbol}</p>)} 
+            {labelprops.title && (labelprops.value !== undefined && labelprops.value !== null) && (<p> </p>)}
+            {(labelprops.value !== undefined && labelprops.value !== null) && (
+                <p className={textColorClass}>
+                    {labelprops.value}{labelprops.symbol && " "}{labelprops.symbol && labelprops.symbol}
+                </p>
+            )}
         </div>
     );
 }

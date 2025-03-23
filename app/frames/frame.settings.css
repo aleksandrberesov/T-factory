@@ -2,7 +2,7 @@
     display: flex;
     flex-wrap: wrap;
     flex-direction: column ;
-    width: 95%;
+    width: 99%;
     gap: 2rem; /* Adjust the gap as needed */
 }
 
@@ -22,7 +22,7 @@
 
 .point-item .selected-tab {
     background-color: red;
-    
+    width: min-content;
     color: black;
     border: none;
     padding: 0.2rem 0.5rem; /* Reduce padding to make the button smaller */

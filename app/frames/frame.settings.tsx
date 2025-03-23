@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import SelectedTab from "../components/button";
 import PointInputGroup from '../widgets/PointInputGroup';
 import ListBox from '../components/listbox';
@@ -71,7 +71,7 @@ function SettingsFrame(settingsprops: TSettingsFrameProps) {
         settingsprops.data.save(editPattern);
         setShowMessage(true);
         setUnsavedChanges(false);
-        setTimeout(() => setShowMessage(false), 3000); // Hide message after 3 seconds
+        setTimeout(() => setShowMessage(false), 3000);
     };
 
     return (

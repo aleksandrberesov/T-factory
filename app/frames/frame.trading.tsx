@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 import ChartView from "../tradingview/chart.view";
 import SettingsFrame from './frame.settings';
 import { TTradingFrameProps } from './types';
@@ -19,8 +19,9 @@ const statisticsHeight = 5;
 
 const TradingFrame: React.FC<TTradingFrameProps> = (tradeprops) => {
     const HideShowSettings = () => {
-        SetIsSettingsShow(!isSettingsShow);
-    }; 
+        console.log(isSettingsShow);
+		SetIsSettingsShow(!isSettingsShow);
+	};
     const HideShowStatistics = () => {
         SetIsStatisticShow(!isStatisticShow);   
     };
@@ -46,7 +47,7 @@ const TradingFrame: React.FC<TTradingFrameProps> = (tradeprops) => {
             data={tradeprops.pattern}
             getWord={tradeprops.getWord}
         />
-    ), [tradeprops.getWord, isSettingsShow]);
+    ), [tradeprops.getWord]);
     const grid = useMemo(() => (
         <GridBox 
             columns={1} 
@@ -98,11 +99,15 @@ const TradingFrame: React.FC<TTradingFrameProps> = (tradeprops) => {
                 }, 
             ]}          
         />
-    ),[isStatisticShow, tradeprops.market.changed, tradeprops.getWord]);
+    ),[isStatisticShow, isSettingsShow, tradeprops.market.changed, tradeprops.getWord]);
 
     return (
         <div id='trading-frame' className="h-full w-full">
-            {isSettingsShow && (<ModalWindow content={settings}/>)}
+            {isSettingsShow && (<ModalWindow content={<SettingsFrame 
+            callBack={HideShowSettings}
+            data={tradeprops.pattern}
+            getWord={tradeprops.getWord}
+        />}/>)}
             {isSpeedChangeShow && (<ModalWindow content={<SpeedChangePanel ChangeSpeed={ChangeSpeed}/>}/>)}
             {grid}
         </div>
