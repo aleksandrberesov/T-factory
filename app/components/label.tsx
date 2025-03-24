@@ -9,7 +9,7 @@ const LabelBox: React.FC<TLabelProps> = (props) => {
     const valueRef = useRef<HTMLParagraphElement>(null);
     const [useShortTitle, setUseShortTitle] = useState(false);
 
-    useResponsiveFontSize(containerRef, 50, () => setUseShortTitle(true), () => setUseShortTitle(false));
+    useResponsiveFontSize(containerRef, 150, () => setUseShortTitle(true), () => setUseShortTitle(false));
     useDynamicWidth(spanRef, valueRef, props.value || "");
 
     const textColorClass = props.textcolor ? `text-${props.textcolor}` : "text-black";
