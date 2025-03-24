@@ -79,13 +79,21 @@ const useStatistics = (): IStatistics => {
             percentage: totalProfitLoss>0 ? Math.round(average / totalProfitLoss * 100) : 0,
         };
     }
+
+    function definedDealsCount(): number {
+        return deals.get().filter(deal => deal.status !== undefined).length;
+    }
     
+    function closedDealsCount(): number {
+        return deals.get().filter(deal => deal.status === false).length;
+    }
+
     return {
         deals: deals.get(),
         lastDeal: lastDeal(),
         pushDeal,
         clear,
-        count: deals.count,
+        count: closedDealsCount(),
         currentResult: currentResult(),
         totalResult: totalResult(),
         profitDeals: profitDeals(),

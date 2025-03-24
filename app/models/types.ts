@@ -43,6 +43,7 @@ type TDeal = {
     volume: number;
     amount: number;
     profitLoss: number;
+    status: boolean | undefined;
 };
 
 type TMarketPoint = {

@@ -22,23 +22,25 @@ const useTrade = (): ITrade & IMarketDataManager => {
         setChanged(!changed);
     };
     const buy = () => {
+        if (deal.get().status){ return; }
         if (account.money.fiat < 0){ return; }
         const volume = account.money.fiat;
-        const currency = Math.round(volume / marketPoint.get().value);
+        const currency = volume / marketPoint.get().value;
         account.withdrawFiat(volume);
         account.depositCurrency(currency);
-        deal.set({...deal.get(), ...{volume: volume, amount: currency, openPrice: marketPoint.get().value, openTime: marketPoint.get().time}});
+        deal.set({...deal.get(), ...{volume: volume, amount: currency, openPrice: marketPoint.get().value, openTime: marketPoint.get().time, status: true}});
         setChanged(!changed);
     };
     const sell = () => {
+        if (deal.get().status===undefined || !deal.get().status){ return; }
         if (account.money.currency < 0){ return; }
         const amount = account.money.currency;
         const fiat = amount * marketPoint.get().value;
         account.withdrawCurrency(amount);
         account.depositFiat(fiat);
-        deal.set({...deal.get(), ...{closePrice: marketPoint.get().value, closeTime: marketPoint.get().time, profitLoss: fiat-deal.get().volume}});
+        deal.set({...deal.get(), ...{closePrice: marketPoint.get().value, closeTime: marketPoint.get().time, profitLoss: fiat-deal.get().volume, status: false}});
         statistics.pushDeal(deal.get());
-        //deal.set(defaultDeal);
+        deal.set(defaultDeal);
         setChanged(!changed);
     };
     const close = () => {

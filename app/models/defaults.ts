@@ -84,6 +84,7 @@ const defaultDeal: TDeal = {
     amount: 0,
     profitLoss: 0,
     volume: 0,
+    status: undefined, 
 };
 
 export { defaultProfile, defaultPattern, defaultMarket, defaultMarketPoint, defaultDeal };
