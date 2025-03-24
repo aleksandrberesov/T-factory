@@ -26,8 +26,8 @@ const TradeStatisticGroup: React.FC<TradeStatisticGroupProps> = (props) => {
                         row: 1, column: 1, rowSpan: 1, columnSpan: 2
                     },
                     {
-                        element: <LabelBox key="amount" value={props.trader.deal.amount} symbol='lot'/>,
-                        row: 2, column: 2, rowSpan: 1, columnSpan: 1    
+                        element: <LabelBox key="amount" title={'  '} value={props.trader.deal.amount} symbol='lot'/>,
+                        row: 2, column: 1, rowSpan: 1, columnSpan: 2    
                     },
                     {
                         element: <LabelBox key="average-cost" title={props.getWord(7)}/*'Average cost'*/ value={props.trader.averageCost}/>,
@@ -97,11 +97,11 @@ const TradeStatisticGroup: React.FC<TradeStatisticGroupProps> = (props) => {
                     row: 3, column: 1, rowSpan: 1, columnSpan: 2
                 },
                 {
-                    element: <LabelBox key="combined-value-1" value={props.trader.statistics.profit.min+"/"+props.trader.statistics.profit.max} symbol='%'/>,
+                    element: <LabelBox key="combined-value-1" value={NumberToString(props.trader.statistics.profit.min)+"/"+NumberToString(props.trader.statistics.profit.max)} symbol='%'/>,
                     row: 3, column: 3, rowSpan: 1, columnSpan: 1
                 },
                 {
-                    element: <LabelBox key="combined-value-2" value={props.trader.statistics.loss.min+"/"+props.trader.statistics.loss.max} symbol='%'/>,
+                    element: <LabelBox key="combined-value-2" value={NumberToString(props.trader.statistics.loss.min)+"/"+NumberToString(props.trader.statistics.loss.max)} symbol='%'/>,
                     row: 3, column: 4, rowSpan: 1, columnSpan: 1
                 },
                 ]}
