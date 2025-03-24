@@ -30,7 +30,9 @@ const LabelBox: React.FC<TLabelProps> = (props) => {
                     <span ref={spanRef} className="hidden-span">
                         {props.value}
                     </span>
-                    {props.value}{props.symbol && " "}{props.symbol && props.symbol}
+                    <span style={{ whiteSpace: "nowrap" }}>
+                        {props.value}{props.symbol && " "}{props.symbol && props.symbol}
+                    </span>
                 </p>
             )}
         </div>
