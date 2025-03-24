@@ -13,9 +13,9 @@ import TradeControlPanel from '../widgets/TradeControlPanel';
 import MarketControlPanel from '../widgets/MarketControlPanel';
 import SpeedChangePanel from '../widgets/SpeedChangePanel';
 
-const height = 20;
-const chartHeight = 12;
-const statisticsHeight = 5;
+const height = 25;
+const chartHeight = 8;
+const statisticsHeight = 4;
 
 const TradingFrame: React.FC<TTradingFrameProps> = (tradeprops) => {
     const HideShowSettings = () => {
@@ -81,7 +81,7 @@ const TradingFrame: React.FC<TTradingFrameProps> = (tradeprops) => {
                              />) : null,
                     row: isStatisticShow ? 2+chartHeight : -1, 
                     column: 1, 
-                    rowSpan: statisticsHeight, 
+                    rowSpan: isStatisticShow ? statisticsHeight : -1, 
                     columnSpan: 1
                 },
                 {
