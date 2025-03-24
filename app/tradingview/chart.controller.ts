@@ -18,6 +18,12 @@ const useChart = (addModelProc: (manager: IMarketDataManager) => void): IChartCo
     },[chart, line]);
 
     useEffect(() => {
+        chart?.timeScale().applyOptions({
+            barSpacing: 10, // Adjust spacing between bars
+            timeVisible: true, // Show time on the axis
+            secondsVisible: false, // Hide seconds
+            borderColor: '#D6DCDE', // Set border color  
+        });
         setLine(chart?.addLineSeries(lineStyle));
         addModelProc({
             setPoints,

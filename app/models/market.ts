@@ -6,8 +6,8 @@ import { TPattern, TMarketPoint, TPatternPoint } from "./types";
 import { IMarket, IMarketDataManager } from "./interfaces";
 import { CreateMarketPoint } from "./utils";
 import { defaultMarket } from "./defaults";
-import { defaultSpeeds } from '../models/consts';
-import { startTime, stepTime } from './consts';
+import { defaultSpeeds } from './consts';
+import { stepTime } from './consts';
 import { SpeedTitleToNumber } from './utils';
 
 const useMarket = (): IMarket => {
@@ -43,7 +43,7 @@ const useMarket = (): IMarket => {
     };
 
     const init = (init_pattern: TPattern) =>{
-        currentTime.set(startTime);
+        currentTime.set(Date.now()/1000); // Use current time instead of startTime
         count.set(0);
         current.set(0);
         pattern.set([... init_pattern.points]);

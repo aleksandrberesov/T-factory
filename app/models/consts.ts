@@ -17,8 +17,7 @@ const defaultAmounts = [
     {id: 2, element: "10"},
 ];
 
-const startTime = 0;//1645205476;
-const stepTime = 1000;
+const stepTime = 24 * 60 * 60;
 const currencySymbol = '¤';
 
-export { startTime, stepTime, startFrame, defaultSpeeds, defaultAmounts, currencySymbol };
+export { stepTime, startFrame, defaultSpeeds, defaultAmounts, currencySymbol };
