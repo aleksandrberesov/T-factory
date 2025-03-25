@@ -52,7 +52,7 @@ type TCheckBoxProps = {
 type TListBoxProps = {
     title ?: string;
     rowslimit ?: number; 
-    elements : {element: React.JSX.Element}[];
+    elements : React.JSX.Element[];
 };
 
 type TGridBoxElement = TStyledElementProps & {

@@ -5,12 +5,9 @@ import CheckBox from '../components/checkbox';
 
 function StatisticFrame(statprops: TStatisticFrameProps){
 
-    const statElemets = statprops.profile.data.statistics.map((item, index) => {
-        return {
-            id: index,
-            element: <CheckBox title={item.title} is_checked={item.isDone}/>
-        }
-    });
+    const statElemets = statprops.profile.data.statistics.map((item, index) => (
+        <CheckBox key={index} title={item.title} is_checked={item.isDone}/>
+    ));
 
     return(
         <div

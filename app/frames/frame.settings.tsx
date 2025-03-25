@@ -38,34 +38,28 @@ function SettingsFrame(settingsprops: TSettingsFrameProps) {
         setUnsavedChanges(true);
     };
 
-    const Points = editPattern.points.map((item, index) => ({
-        id: index,
-        element: (
-            <div key={index} className="point-item">
-                <PointInputGroup
-                    id={index}
-                    point={item}
-                    onChange={onChange}
-                />
-                <SelectedTab title='Delete' backgroundcolor='red' onclick={() => deletePoint('points', index)} />
-            </div>
-        )
-    }));
+    const Points: React.JSX.Element[] = editPattern.points.map((item, index) => (
+        <div key={index} className="point-item">
+            <PointInputGroup
+                id={index}
+                point={item}
+                onChange={onChange}
+            />
+            <SelectedTab title='Delete' backgroundcolor='red' onclick={() => deletePoint('points', index)} />
+        </div>
+    ));
 
-    const PrePoints = editPattern.pre_points.map((item, index) => ({
-        id: index,
-        element: (
-            <div key={index} className="point-item">
-                <PointInputGroup
-                    id={index}
-                    point={item}
-                    onChange={onChangePrePoints}
-                    prefix="pre-"
-                />
-                <SelectedTab title='Delete' backgroundcolor='red' onclick={() => deletePoint('pre_points', index)} />
-            </div>
-        )
-    }));
+    const PrePoints: React.JSX.Element[] = editPattern.pre_points.map((item, index) => (
+        <div key={index} className="point-item">
+            <PointInputGroup
+                id={index}
+                point={item}
+                onChange={onChangePrePoints}
+                prefix="pre-"
+            />
+            <SelectedTab title='Delete' backgroundcolor='red' onclick={() => deletePoint('pre_points', index)} />
+        </div>
+    ));
 
     const HandlePointsChange = () => {
         settingsprops.data.save(editPattern);

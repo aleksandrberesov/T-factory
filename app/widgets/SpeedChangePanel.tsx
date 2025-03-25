@@ -9,19 +9,16 @@ type TSpeedChangePanelProps = {
 
 const SpeedChangePanel: React.FC<TSpeedChangePanelProps> = (props) => {
     const SelectedTabs = () => {
-        return defaultSpeeds.map((item, index) => ({
-            id: index,
-            element: (
-                <SelectedTab 
-                    key={index} 
-                    textcolor="black"
-                    title={item.element} 
-                    onclick={() => {
-                        props.ChangeSpeed(index); 
-                    }}    
-                />
-            )
-        }));
+        return defaultSpeeds.map((item, index) => (
+            <SelectedTab 
+                key={index} 
+                textcolor="black"
+                title={item.element} 
+                onclick={() => {
+                    props.ChangeSpeed(index); 
+                }}    
+            />    
+        ));
     };
 
     return (

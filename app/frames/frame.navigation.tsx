@@ -37,6 +37,8 @@ function NavigationFrame(navigationProps: TNavigationFrameProps){
                         style="rounded-md px-3 py-2 text-sm font-medium"
                         dropDirection='down'
                         onselected={ChangeLanguage}
+                        backgroundcolor='yellow'
+                        textcolor='black'
                     /> 
                 </div>
             </div>    

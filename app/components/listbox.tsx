@@ -3,7 +3,7 @@ import { TListBoxProps } from "./types";
 
 function ListBox(listprops: TListBoxProps) {
     const listItems = listprops.elements.map((item, index) =>
-        <li key={index}>{item.element}</li>
+        <li key={index}>{item}</li>
     );
 
     return (
