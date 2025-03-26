@@ -2,14 +2,14 @@ import React, { useState, useEffect, useCallback, useMemo } from "react";
 import { FullScreen, GetUserData } from "../telegram/integration";
 import { GetProfile, UpdateProfile, GetPatterns, GetPoints, CommitPattern } from "../aws/dataService"
 import useLocalizaion from "../libs/lib.localization";
-import useProfile from "../models/profile";
-import usePattern from "../models/pattern";
-import useMarket from "../models/market";
-import useTrade from "../models/trade";
+import useProfile from "./profile";
+import usePattern from "./pattern";
+import useMarket from "./market";
+import useTrade from "./trade";
 import IApplication from "./interfaces";
 import { startFrame } from "./consts";
 
-const useApp = (): IApplication => {
+const useMainPageController = (): IApplication => {
   const [loading, setLoading] = useState<boolean>(true); 
   const [error, setError] = useState<string | null>(null);
   const [component, setComponent] = useState<React.JSX.Element>();
@@ -97,4 +97,4 @@ const useApp = (): IApplication => {
     };
 };
 
-export default useApp;
+export default useMainPageController;
