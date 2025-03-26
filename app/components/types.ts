@@ -37,19 +37,13 @@ type TLabelProps = TStyleProps & TTextProps &{
     symbol ?: string;    
 };
 
-type TCardTabProps = {
-    title : string;
-    description ?: string;
-    iconURL ?: string;
-};
-
 type TCheckBoxProps = {
    title : string;
    description ?: string;
    is_checked ?: boolean;
 };
 
-type TListBoxProps = {
+type TListBoxProps = TStyledElementProps & {
     title ?: string;
     rowslimit ?: number; 
     elements : React.JSX.Element[];
@@ -103,4 +97,3 @@ type TRectangleProps = {
 export type { TButtonProps, TLabelProps, TCheckBoxProps, TIconTabProps };
 export type { TCircleProps, TRectangleProps };
 export type { TListBoxProps, TTableBoxProps, TDropMenuProps, TGridBoxProps, TGridBoxElement };
-export type { TCardTabProps };

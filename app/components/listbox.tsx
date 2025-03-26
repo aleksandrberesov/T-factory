@@ -1,14 +1,14 @@
 import React from "react";
 import { TListBoxProps } from "./types";
 
-function ListBox(listprops: TListBoxProps) {
-    const listItems = listprops.elements.map((item, index) =>
+function ListBox(props: TListBoxProps) {
+    const listItems = props.elements.map((item, index) =>
         <li key={index}>{item}</li>
     );
 
     return (
-        <div>
-            <p className="text-black" > {listprops.title} </p>
+        <div style={{ backgroundColor: props.backgroundColor || 'transparent' }}>
+            <p className="text-black" > {props.title} </p>
             <ul>{listItems}</ul>        
         </div>
 

@@ -1,22 +1,27 @@
 import React from "react";
 import Image from "next/image";
-import { TCardTabProps } from "./types"
 
-function CardTab(cardprops: TCardTabProps) {
+type TIncomeCardProps = {
+    title : string;
+    description ?: string;
+    iconURL ?: string;
+};
+
+const IncomeCard: React.FC<TIncomeCardProps> = (props) => {
     return (
         <div className='grid grid-rows-2 grid-flow-col gap-1 m-1'>
             <div
                 className=""
             >
                 <p>
-                    {cardprops.title}
+                    {props.title}
                 </p>
             </div>
             <div
                 className="row-span-2"
             >
                 <p>
-                    {cardprops.description}
+                    {props.description}
                 </p>
             </div>
             <div>
@@ -26,4 +31,4 @@ function CardTab(cardprops: TCardTabProps) {
     );
 };
 
-export default CardTab;
+export default IncomeCard;
