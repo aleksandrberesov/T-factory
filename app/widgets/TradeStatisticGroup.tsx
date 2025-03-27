@@ -1,8 +1,8 @@
 import React from 'react';
 import LabelBox from '../components/label';
 import GridBox from '../components/gridbox';
-import { TTradingFrameProps } from '../frames/types';
-import { NumberToString } from '../frames/utils';
+import { TTradingFrameProps } from '../views/types';
+import { NumberToString } from '../libs/utils';
 import { currencySymbol } from '../models/consts';
 
 type TradeStatisticGroupProps = Pick<TTradingFrameProps, 'trader' | 'getWord'>;

@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { TVoidFunc } from './lib.types';
+import { TVoidFunc } from './types';
 
 interface ITimer {
     seconds: number;

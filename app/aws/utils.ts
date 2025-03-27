@@ -1,4 +1,4 @@
-import { JSONItem, DynamoItem } from "./types"; 
+import { JSONItem } from "./types"; 
 import { AttributeValue } from "@aws-sdk/client-dynamodb";
 
 const convertToAttributeValue = (obj: object): Record<string, AttributeValue> => { 

@@ -1,13 +1,13 @@
 import React from 'react';
-import { TNavigationFrameProps } from "./types"
+import { TNavigationFrameProps } from "../views/types"
 import SelectedTab from '../components/button';
 import DropMenu from '../components/drop-menu';
-import { LanguageIDs } from '../libs/lib.localization';
+import { LanguageIDs } from '../libs/useLocalization';
 
-function NavigationFrame(navigationProps: TNavigationFrameProps){
+function NavigationPanel(props: TNavigationFrameProps){
     const ChangeLanguage = (id: number)=>{
-        if (navigationProps.setLanguage!==undefined) {
-            navigationProps.setLanguage(LanguageIDs[LanguageIDs.findIndex(element => element.id === id)].element);        
+        if (props.setLanguage!==undefined) {
+            props.setLanguage(LanguageIDs[LanguageIDs.findIndex(element => element.id === id)].element);        
         }
     };
 
@@ -16,9 +16,9 @@ function NavigationFrame(navigationProps: TNavigationFrameProps){
             <div className='flex-col gap-y-2 col-span-2'>
                 <SelectedTab
                     id={id}
-                    title={navigationProps.getWord(id)} 
+                    title={props.getWord(id)} 
                     style="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white w-full"
-                    onselected={navigationProps.onselected}
+                    onselected={props.onselected}
                 />
             </div>    
         );
@@ -33,7 +33,7 @@ function NavigationFrame(navigationProps: TNavigationFrameProps){
                 <div>             
                     <DropMenu
                         elements={LanguageIDs}
-                        selected={LanguageIDs.findIndex(element => element.element === navigationProps.lang)}
+                        selected={LanguageIDs.findIndex(element => element.element === props.lang)}
                         style="rounded-md px-3 py-2 text-sm font-medium"
                         dropDirection='down'
                         onselected={ChangeLanguage}
@@ -46,4 +46,4 @@ function NavigationFrame(navigationProps: TNavigationFrameProps){
     );
 }
 
-export default NavigationFrame;
+export default NavigationPanel;

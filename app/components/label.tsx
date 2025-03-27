@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import { TLabelProps } from "./types";
-import useResponsiveFontSize from "../hooks/useResponsiveFontSize";
-import useDynamicWidth from "../hooks/useDynamicWidth";
+import useResponsiveFontSize from "../libs/visual-hooks/useResponsiveFontSize";
+import useDynamicWidth from "../libs/visual-hooks/useDynamicWidth";
 
 const LabelBox: React.FC<TLabelProps> = (props) => {
     const containerRef = useRef<HTMLDivElement>(null);

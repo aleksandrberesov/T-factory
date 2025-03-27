@@ -1,3 +1,14 @@
+const isEmptyObject = (obj: Record<string, unknown>): boolean => { 
+    return Object.keys(obj).length === 0; 
+};
+
+function removeElementById(id: string, parentElement: HTMLElement = document.body): void { 
+    if (id === '') { return; }
+    const element = parentElement.querySelector(`#${id}`);
+    if (!element) { return }
+    element.parentElement?.removeChild(element); 
+}
+
 function GetNumberSign(num: number): string{
     if (num === 0) {
         return "";
@@ -7,7 +18,7 @@ function GetNumberSign(num: number): string{
 
 function NumberToSignedString(num: number): string {
     return GetNumberSign(num)+ num.toString();
-}
+};
 
 function NumberToFormattedString(num: number): string {
     const absNum = Math.abs(num);
@@ -22,10 +33,11 @@ function NumberToFormattedString(num: number): string {
     }
 
     return formattedNum;
-}
+};
 
 function NumberToString(num: number): string {
     return GetNumberSign(num) + NumberToFormattedString(num);
-}
+};
 
 export { NumberToSignedString, NumberToFormattedString, NumberToString };
+export { removeElementById };

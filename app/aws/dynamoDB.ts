@@ -1,5 +1,5 @@
 import { PutItemCommand, PutItemCommandInput, GetItemCommand, ScanCommand, ScanCommandInput, GetItemCommandInput } from "@aws-sdk/client-dynamodb";
-import dynamoDBClient from './aws-exports';
+import dynamoDBClient from './dynamoClient';
 import { convertToAttributeValue, convertToCommonJSON} from './utils'
 import { JSONItem, DynamoItem } from "./types";
 
@@ -11,8 +11,6 @@ async function GetItem(name: string, id_name: string, item_id: number | string) 
             [id]: typeof item_id === "number" ? { N: item_id.toString() } : { S: item_id},
         }, 
     }; 
-    
-    
     try{
         const data = await dynamoDBClient.send(new GetItemCommand(params));
         if (data && data.Item){
@@ -51,8 +49,6 @@ async function GetItemList(table_name: string, key_name: string ): Promise<(stri
         ProjectionExpression: expressionAttributeName, 
         ExpressionAttributeNames: { [expressionAttributeName]: key_name } 
     }; 
-    
- 
     try{
         const data = await dynamoDBClient.send(new ScanCommand(params));
         if (data) { 

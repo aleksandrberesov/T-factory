@@ -1,16 +1,17 @@
 "use client";
 
-import { FullScreen, GetUserData } from "./telegram/integration";
+import { GetUserData } from "./telegram/dataService";
+import { FullScreen } from "./telegram/utils";
 import { GetProfile, UpdateProfile, GetPatterns, CommitPattern, GetPoints } from "./aws/dataService"
 import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import { startFrame } from "./models/consts";
 import GridBox from "./components/gridbox";
-import NavigationFrame from "./frames/frame.navigation";
-import TradingFrame from "./frames/frame.trading";
-import ProfileFrame from "./frames/frame.profile";
-import StatisticFrame from "./frames/frame.statistic";
-import LoadingFrame from "./frames/frame.loading";
-import useLocalizaion from "./libs/lib.localization";
+import NavigationPanel from "./widgets/NavigationPanel";
+import TradingFrame from "./views/Trading";
+import ProfileFrame from "./views/Profile";
+import StatisticFrame from "./views/Statistic";
+import LoadingFrame from "./views/Loading";
+import useLocalizaion from "./libs/useLocalization";
 import useProfile from "./models/profile";
 import usePattern from "./models/pattern";
 import useMarket from "./models/market";
@@ -114,7 +115,7 @@ export default function Home() {
           elements={[
             {
               element:         
-                <NavigationFrame
+                <NavigationPanel
                   onselected = {ChangeFrame} 
                   lang = {profile.data.lang}
                   getWord={getWord}

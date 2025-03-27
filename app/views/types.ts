@@ -1,6 +1,5 @@
-import {  } from "../models/types";
 import { IPattern, IProfile, IMarket, ITrade } from "../models/interfaces";
-import { TOnSelectedFunction, TNumberToStringFunc, TStringProc } from "../libs/lib.types";
+import { TOnSelectedFunction, TNumberToStringFunc, TStringProc } from "../libs/types";
 
 type TLocalizedFrameProps = {
     getWord : TNumberToStringFunc;
@@ -26,9 +25,4 @@ type TStatisticFrameProps = TLocalizedFrameProps & {
     profile: IProfile;
 };
 
-type TSettingsFrameProps = TLocalizedFrameProps & {
-    callBack() : void;
-    data: IPattern;
-};
-
-export type { TProfileFrameProps, TNavigationFrameProps, TTradingFrameProps, TStatisticFrameProps, TSettingsFrameProps } ;
+export type { TProfileFrameProps, TNavigationFrameProps, TTradingFrameProps, TStatisticFrameProps, TLocalizedFrameProps }; ;

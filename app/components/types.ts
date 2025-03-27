@@ -1,5 +1,5 @@
 import React from "react";
-import { TOnClickFunction, TOnSelectedFunction } from "../libs/lib.types"
+import { TOnClickFunction, TOnSelectedFunction } from "../libs/types"
 
 type TStyledElementProps = {
     backgroundColor ?: string;

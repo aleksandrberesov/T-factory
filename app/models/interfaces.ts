@@ -1,4 +1,4 @@
-import { TUpdateObjectProc } from '../libs/lib.types';
+import { TUpdateObjectProc } from '../libs/types';
 import { TDeal, TProfile, TMoney, TPatternPoint, TPattern, TMarketPoint, TStatValue, TStatRange } from './types';
 
 interface IPattern {

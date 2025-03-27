@@ -1,6 +1,6 @@
-import useRefArray from "../libs/array";
-import useRefValue from "../libs/value";
-import { IArray, IValue } from "../libs/interfaces";
+import useRefArray from "../libs/data-hooks/array";
+import useRefValue from "../libs/data-hooks/value";
+import { IArray, IValue } from "../libs/data-hooks/interfaces";
 import { TDeal, TStatValue, TStatRange } from './types';
 import { IStatistics } from './interfaces';
 import { defaultDeal } from "./defaults";

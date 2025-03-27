@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { TProfile  } from "./types"; 
 import { IProfile } from "./interfaces";
-import { TUpdateObjectProc } from "../libs/lib.types";
+import { TUpdateObjectProc } from "../libs/types";
 import { defaultProfile } from "./defaults" 
 
 const useProfile = (updFunc: TUpdateObjectProc | undefined): IProfile => {

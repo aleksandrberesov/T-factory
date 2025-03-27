@@ -1,7 +1,7 @@
 import React from 'react';
 import SelectedTab from '../components/button';
 import GridBox from '../components/gridbox';
-import { TTradingFrameProps } from '../frames/types';
+import { TTradingFrameProps } from '../views/types';
 
 type TradeControlPanelProps = Pick<TTradingFrameProps, 'trader' | 'getWord'>;
 

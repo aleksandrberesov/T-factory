@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { IValue } from '../libs/interfaces';
-import  useRefValue from '../libs/value';
-import { useTimer } from "../libs/lib.timer";
+import { IValue } from '../libs/data-hooks/interfaces';
+import  useRefValue from '../libs/data-hooks/value';
+import { useTimer } from "../libs/useTimer";
 import { TPattern, TMarketPoint, TPatternPoint } from "./types"; 
 import { IMarket, IMarketDataManager } from "./interfaces";
 import { CreateMarketPoint } from "./utils";

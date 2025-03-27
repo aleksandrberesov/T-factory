@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import './input.css';
-import useResponsiveFontSize from '../hooks/useResponsiveFontSize';
-import useDynamicWidth from '../hooks/useDynamicWidth';
+import useResponsiveFontSize from '../libs/visual-hooks/useResponsiveFontSize';
+import useDynamicWidth from '../libs/visual-hooks/useDynamicWidth';
 
 type LabeledInputProps = {
     id: string;

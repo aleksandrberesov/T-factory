@@ -1,13 +1,13 @@
-import React, { useState, useMemo, useCallback } from 'react';
-import ChartView from "../tradingview/chart.view";
-import SettingsFrame from './frame.settings';
+import React, { useState, useMemo } from 'react';
+import './trading.css';
 import { TTradingFrameProps } from './types';
-import useChart from '../tradingview/chart.controller';
+import ChartView from "../tradingview/chartView";
+import PointsSettingPanel from '../widgets/PointsSettingPanel';
+import useChart from '../tradingview/chartController';
 import IChartController from '../tradingview/types';
 import SelectedTab from '../components/button';
 import ModalWindow from '../components/modal-window';
 import GridBox from '../components/gridbox';
-import './frame.trading.css';
 import TradeStatisticGroup from '../widgets/TradeStatisticGroup';
 import TradeControlPanel from '../widgets/TradeControlPanel';
 import MarketControlPanel from '../widgets/MarketControlPanel';
@@ -42,7 +42,7 @@ const TradingFrame: React.FC<TTradingFrameProps> = (tradeprops) => {
         />
     ), []);
     const settings = useMemo(() => (
-        <SettingsFrame 
+        <PointsSettingPanel 
             callBack={HideShowSettings}
             data={tradeprops.pattern}
             getWord={tradeprops.getWord}
@@ -103,7 +103,7 @@ const TradingFrame: React.FC<TTradingFrameProps> = (tradeprops) => {
 
     return (
         <div id='trading-frame' className="h-full w-full">
-            {isSettingsShow && (<ModalWindow content={<SettingsFrame 
+            {isSettingsShow && (<ModalWindow content={<PointsSettingPanel 
             callBack={HideShowSettings}
             data={tradeprops.pattern}
             getWord={tradeprops.getWord}

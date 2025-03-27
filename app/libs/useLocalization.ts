@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef, useCallback } from 'react';
-import { TStringElement } from '../libs/lib.types';   
-import { TNumberToStringFunc, TStringProc } from '../libs/lib.types';        
+import { TStringElement } from './types';   
+import { TNumberToStringFunc, TStringProc } from './types';        
 
 type TLanguage = 'en' | 'ru';
 

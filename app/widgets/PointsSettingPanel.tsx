@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
 import SelectedTab from "../components/button";
-import PointInputGroup from '../widgets/PointInputGroup';
+import PointInputGroup from './PointInputGroup';
 import ListBox from '../components/listbox';
 import { TPatternPoint } from '../models/types';
-import { TSettingsFrameProps } from "./types";
-import './frame.settings.css';
+import './PointsSettingPanel.css';
+import { IPattern } from '../models/interfaces';
+import { TLocalizedFrameProps } from '../views/types';
 
-function SettingsFrame(settingsprops: TSettingsFrameProps) {
+type TSettingsFrameProps = TLocalizedFrameProps & {
+    callBack() : void;
+    data: IPattern;
+};
+function PointsSettingPanel(settingsprops: TSettingsFrameProps) {
     const [editPattern, setEditPattern] = useState(settingsprops.data.pattern);
     const [showMessage, setShowMessage] = useState(false);
     const [unsavedChanges, setUnsavedChanges] = useState(false);
@@ -92,4 +97,4 @@ function SettingsFrame(settingsprops: TSettingsFrameProps) {
     );
 }
 
-export default SettingsFrame;
+export default PointsSettingPanel;
