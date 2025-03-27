@@ -1,5 +1,8 @@
 "use client";
 
+//import useApplication from "./controllers/Application";
+//import useApplicationView from "./views/Application";
+
 import { GetUserData } from "./telegram/dataService";
 import { FullScreen } from "./telegram/utils";
 import { GetProfile, UpdateProfile, GetPatterns, CommitPattern, GetPoints } from "./aws/dataService"
@@ -17,7 +20,11 @@ import usePattern from "./models/pattern";
 import useMarket from "./models/market";
 import useTrade from "./models/trade";
 
+
 export default function Home() {
+  //const ApplicationController = useApplication();
+  //const ApplicationView = useApplicationView();
+
   const [loading, setLoading] = useState<boolean>(true); 
   const [error, setError] = useState<string | null>(null);
   const [component, setComponent] = useState<React.JSX.Element>();
