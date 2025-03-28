@@ -23,4 +23,5 @@ const useRefArray = <T, >(initalArray: T[]): IArray<T> => {
     }; 
 };
 
+export type { IArray, IValue };
 export default useRefArray;

@@ -1,5 +1,4 @@
-import useRefValue from "../libs/data-hooks/value";
-import { IValue } from "../libs/data-hooks/interfaces";
+import useRefValue, { IValue } from "../libs/data-hooks/value";
 import { IAccount } from "./interfaces";
 
 const useAccount = (): IAccount => {

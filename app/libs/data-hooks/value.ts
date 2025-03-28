@@ -8,4 +8,5 @@ const useRefValue = <T, >(initialValue: T): IValue<T> => {
     return { get, set }; 
 };
 
+export type { IValue };
 export default useRefValue;

@@ -1,6 +1,5 @@
 import { useRef, useState, useCallback } from "react";
-import useRefValue from "../libs/data-hooks/value";
-import { IValue } from "../libs/data-hooks/interfaces";
+import useRefValue, { IValue } from "../libs/data-hooks/value";
 import { TMarketPoint, TDeal } from "./types";
 import { IMarket, ITrade, IProfile, IAccount, IMarketDataManager, IStatistics } from "./interfaces";
 import useAccount from "./account";
