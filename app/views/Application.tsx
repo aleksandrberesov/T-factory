@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useMemo, useState, useCallback } from 'react';
+import { startFrame } from '../models/consts';
 import { TNumberToStringFunc } from '../libs/types';
 import GridBox from "../components/gridbox";
 import NavigationPanel from "../widgets/NavigationPanel";
@@ -10,15 +11,52 @@ import LoadingFrame from "../views/Loading";
 type TApplicationViewProps = {
     loading: boolean;
     error: string | null;
-    component: React.JSX.Element;
-    ChangeFrame: (frame: number) => void;
     ChangeLanguage: (lang: string) => void;
     getWord: TNumberToStringFunc;
-    profile: any;    
+    profile: any; 
+    pattern: any;
+    market: any;
+    trader: any;   
 };
 
 const ApplicationView: React.FC<TApplicationViewProps> = (props) => {
-    
+    const [component, setComponent] = useState<React.JSX.Element>();
+    const [currentFrame, setCurrentFrame] = useState<number>(startFrame); 
+
+    const Frames = useMemo(() => [
+        {id: 0 , 
+         element: <ProfileFrame 
+                    profile={props.profile}  
+                    getWord={props.getWord}
+                  />
+        },
+        {id: 1 , 
+         element: <TradingFrame
+                    getWord={props.getWord}
+                    pattern={props.pattern}
+                    market={props.market}
+                    trader={props.trader}
+                  />
+        },
+        {id: 2 , 
+         element: <StatisticFrame 
+                    profile={props.profile}
+                    getWord={props.getWord}
+                  />
+        }   
+    ], [props.profile, props.market, props.pattern]);
+//], [profile, market, market.isActive, pattern]);
+
+  const ChangeFrame = useCallback((id: number) => { 
+    setCurrentFrame(id); 
+    setComponent(Frames[id].element); 
+  }, [Frames]); 
+
+  /*  useEffect(()=>{
+      ChangeFrame(currentFrame);
+    },[words, profile.data, pattern.patterns, market.isActive, trader.changed, market.changed]);
+*/
+
     if (props.loading){
         return ( 
             <LoadingFrame/>
@@ -36,7 +74,7 @@ const ApplicationView: React.FC<TApplicationViewProps> = (props) => {
                 {
                     element:         
                     <NavigationPanel
-                        onselected = {props.ChangeFrame} 
+                        onselected = {ChangeFrame} 
                         lang = {props.profile.data.lang}
                         getWord={props.getWord}
                         setLanguage={props.ChangeLanguage}
@@ -45,7 +83,7 @@ const ApplicationView: React.FC<TApplicationViewProps> = (props) => {
                     columnSpan: 1, rowSpan: 1  
                 },
                 {
-                    element: props.component,
+                    element: component,
                     column: 1, row: 2, 
                     columnSpan: 1, rowSpan: 9 
                 }
