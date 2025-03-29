@@ -2,7 +2,7 @@ import React from 'react';
 import GridBox from '../components/gridbox';
 import LabeledInput from '../components/input';
 import { TPatternPoint } from '../models/types';
-import './PointInputGroup.css';
+import './styles/PointInputGroup.css';
 import LabelBox from '../components/label';
 
 type TPatternPointChangeFunction = (id: number, field: keyof TPatternPoint, value: number) => void;

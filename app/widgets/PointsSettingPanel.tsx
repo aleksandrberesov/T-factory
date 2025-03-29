@@ -3,7 +3,7 @@ import SelectedTab from "../components/button";
 import PointInputGroup from './PointInputGroup';
 import ListBox from '../components/listbox';
 import { TPatternPoint } from '../models/types';
-import './PointsSettingPanel.css';
+import './styles/PointsSettingPanel.css';
 import { IPattern } from '../models/interfaces';
 import { TLocalizedFrameProps } from '../views/types';
 

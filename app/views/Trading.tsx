@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import './trading.css';
+import './styles/trading.css';
 import { TTradingFrameProps } from './types';
 import ChartView from "../tradingview/chartView";
 import PointsSettingPanel from '../widgets/PointsSettingPanel';

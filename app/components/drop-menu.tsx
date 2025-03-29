@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { TDropMenuProps } from './types';
 import SelectedTab from './button';
-import './drop-menu.css';
+import './styles/drop-menu.css';
 
 function DropMenu(menuprops: TDropMenuProps) {
   const [isOpen, setIsOpen] = useState(false);

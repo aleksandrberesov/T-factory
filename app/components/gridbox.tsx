@@ -1,6 +1,6 @@
 import React from "react";
 import { TGridBoxProps } from "./types";
-import './gridbox.css';
+import './styles/gridbox.css';
 import BaseComponent from "./base-component";
 
 const GridBox: React.FC<TGridBoxProps> = (props) => {

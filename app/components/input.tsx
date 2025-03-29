@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
-import './input.css';
+import './styles/input.css';
 import useResponsiveFontSize from '../libs/visual-hooks/useResponsiveFontSize';
 import useDynamicWidth from '../libs/visual-hooks/useDynamicWidth';
 
