@@ -25,25 +25,38 @@ const useApplication = (): IApplication => {
   const fetchAppData = useCallback(async () => { 
     try { 
       currentStatus.set('loading');
-      controller.applyChanges;
-      const tgProfile = await GetUserData();
-      const dbProfile = await GetProfile(tgProfile.id); 
-      profile.setData({ ...tgProfile, ...dbProfile }); 
-      pattern.init(); 
+      //controller.applyChanges;
+      await GetUserData().then(
+        (tgProfile)=>{
+          GetProfile(tgProfile.id).then(
+            (dbProfile)=>{
+              profile.setData({ ...tgProfile, ...dbProfile });  
+            }
+          );
+        }   
+      ).finally(()=>{
+        pattern.init(); 
+        localizer.setLanguage(profile.data.lang);
+      }     
+      );
+      //const dbProfile = GetProfile(tgProfile.id); 
+      //profile.setData({ ...tgProfile, ...dbProfile }); 
+      //pattern.init(); 
     } catch ( error ) { 
       currentStatus.set('error');
       statusInformaion.set((error as Error).message); 
-      controller.applyChanges;
+      //controller.applyChanges;
     } finally { 
       currentStatus.set('done');
-      controller.applyChanges;
+      //controller.applyChanges;
     } 
   }, []);
 
   useEffect(()=>{
+    fetchAppData();
     FullScreen();
   },[]);
-
+/*
   useEffect(()=>{
     market.init(pattern.pattern);
     trader.init(profile, market);
@@ -55,12 +68,12 @@ const useApplication = (): IApplication => {
   },[profile.data.id]); 
   
   useEffect(() => {
-    fetchAppData();
-    /*return ()=>{
+    
+    return ()=>{
       profile.setData({ lang: localizer.selectedLang });   
-    };*/
+    };
   },[]);
-
+*/
     return {
       changed: controller.isChanged,
       status: currentStatus.get(),

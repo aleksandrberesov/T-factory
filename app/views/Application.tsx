@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useCallback, useEffect } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import { IApplication } from '../controllers/types';
 import { startFrame } from '../models/consts';
 import GridBox from "../components/gridbox";
@@ -14,41 +14,45 @@ type TApplicationViewProps = {
 
 const ApplicationView: React.FC<TApplicationViewProps> = (props) => {
     const [component, setComponent] = useState<React.JSX.Element>();
-    const [currentFrame, setCurrentFrame] = useState<number>(startFrame); 
-
-    const Frames = useMemo(() => [
-        {id: 0 , 
-         element: <ProfileFrame 
+    const Views = useMemo(() => [
+        {
+            id: 0 , 
+            name: props.controller.localizer.getWord('profile'), 
+            element: 
+                <ProfileFrame 
                     profile={props.controller.profile}  
                     getWord={props.controller.localizer.getWord}
-                  />
+                />
         },
-        {id: 1 , 
-         element: <TradingFrame
+        {
+            id: 1 , 
+            name: props.controller.localizer.getWord('trading'), 
+            element: 
+                <TradingFrame
                     getWord={props.controller.localizer.getWord}
                     pattern={props.controller.pattern}
                     market={props.controller.market}
                     trader={props.controller.trader}
-                  />
+                />
         },
-        {id: 2 , 
-         element: <StatisticFrame 
+        {
+            id: 2 , 
+            name: props.controller.localizer.getWord('statistic'), 
+            element: 
+                <StatisticFrame 
                     profile={props.controller.profile}
                     getWord={props.controller.localizer.getWord}
-                  />
+                />
         }   
-    ], []);
+    ], [props.controller.localizer.language]);
 
-
-  const ChangeFrame = useCallback((id: number | string) => { 
-    setCurrentFrame(Number(id)); 
-    setComponent(Frames[Number(id)].element); 
-  }, [Frames]); 
+    const setView = (id: number | string) => {
+        setComponent(Views[Number(id)].element);
+    };
 
     useEffect(()=>{
-      ChangeFrame(currentFrame);
-    },[props.controller.localizer.getWord]);
-
+       setView(startFrame); 
+    }, []);
 
     if (props.controller.status==='loading'){
         return ( 
@@ -68,7 +72,8 @@ const ApplicationView: React.FC<TApplicationViewProps> = (props) => {
                     element:         
                     <NavigationPanel
                         localizer={props.controller.localizer}
-                        onSelected = {ChangeFrame} 
+                        elements={Views.map((item)=>({id: item.id, name: item.name}))}
+                        onSelected = { setView } 
                     />,
                     column: 1, row: 1,
                     columnSpan: 1, rowSpan: 1  

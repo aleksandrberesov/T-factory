@@ -1,4 +1,4 @@
-import { TNumberToStringFunc } from '../libs/types';
+import { ILocalizator } from '../libs/useLocalization';
 
 type TStatus = 'loading' | 'error' | 'done' | 'init';
 
@@ -8,7 +8,7 @@ interface IApplication {
     status: string; 
     statusInfo: string;
 
-    localizer: any;
+    localizer: ILocalizator;
     profile: any; 
     pattern: any;
     market: any;

@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import useRefValue from "../libs/data-hooks/value";
 import { TProfile  } from "./types"; 
 import { IProfile } from "./interfaces";
 import { TUpdateObjectProc } from "../libs/types";
@@ -6,10 +7,10 @@ import { defaultProfile } from "./defaults"
 
 const useProfile = (updFunc: TUpdateObjectProc | undefined): IProfile => {
     
-    const [data, acceptData] = useState<TProfile>(defaultProfile); 
+    const data = useRefValue<TProfile>(defaultProfile); 
     
     const setData = (newData: object) => {
-        acceptData({...data, ...newData});
+        data.set({...data.get(), ...newData});
     };
 
     useEffect(() => { 
@@ -19,7 +20,7 @@ const useProfile = (updFunc: TUpdateObjectProc | undefined): IProfile => {
     }, [data]);
 
     return {
-        data,
+        data: data.get(),
         setData
     };
 };

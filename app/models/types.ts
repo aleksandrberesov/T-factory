@@ -74,7 +74,7 @@ type TPattern = {
 
 type TProfile = {
     id: number;
-    lang?: string;
+    lang: string;
     user: TUser;
     balance: number;
     status: string;

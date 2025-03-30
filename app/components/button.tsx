@@ -14,7 +14,7 @@ function SelectedTab(buttonprops: TButtonProps) {
 
     function Doclick(){
         if (buttonprops.onClick){ buttonprops.onClick(); }   
-        if ((buttonprops.onSelected) && (buttonprops.id)){ buttonprops.onSelected(buttonprops.id); } 
+        if ((buttonprops.onSelected) && (buttonprops.id!==undefined)){ buttonprops.onSelected(buttonprops.id); } 
     };
 
     const buttonstyle = [
