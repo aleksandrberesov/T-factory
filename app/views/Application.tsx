@@ -37,7 +37,7 @@ const ApplicationView: React.FC<TApplicationViewProps> = (props) => {
                     getWord={props.controller.localizer.getWord}
                   />
         }   
-    ], [props.controller.profile, props.controller.market, props.controller.pattern]);
+    ], []);
 
 
   const ChangeFrame = useCallback((id: number) => { 
