@@ -39,10 +39,10 @@ const usePattern = (fetch: (name: string)=> Promise<object>, init_fetch: ()=> Pr
         commit({...{name: selectedPattern}, ...points});
     },[]);
 
-   useEffect(()=>{
+   /*useEffect(()=>{
         select(patterns[0]);
     },[patterns]);
-
+*/
     return {
         patterns,
         pattern,

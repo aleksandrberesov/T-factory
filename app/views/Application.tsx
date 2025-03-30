@@ -52,7 +52,7 @@ const ApplicationView: React.FC<TApplicationViewProps> = (props) => {
 
     useEffect(()=>{
        setView(startFrame); 
-    }, []);
+    }, [props.controller.changed]);
 
     if (props.controller.status==='loading'){
         return ( 

@@ -26,21 +26,24 @@ const useApplication = (): IApplication => {
     try { 
       currentStatus.set('loading');
       controller.applyChanges;
-      await GetUserData().then(
+      profile.setData(GetUserData().then(
         (tgProfile)=>{
           return GetProfile(tgProfile.id).then(
-            (dbProfile)=>{
-              profile.setData({ ...tgProfile, ...dbProfile });  
+            (dbProfile)=>{ 
               return { ...tgProfile, ...dbProfile };
             }
           );
-      }).then((combineProfile)=>{
+        }
+      ));
+
+      /*}).finally(()=>{
+        //controller.applyChanges;
         pattern.init(); 
         market.init(pattern.pattern);
         trader.init(profile, market);
         market.addManager(trader);
         localizer.setLanguage(profile.data.lang);
-      });
+      });*/
     } catch ( error ) { 
       currentStatus.set('error');
       statusInformaion.set((error as Error).message); 

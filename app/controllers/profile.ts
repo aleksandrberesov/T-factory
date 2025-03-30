@@ -10,11 +10,11 @@ const useProfile = (updFunc: TUpdateObjectProc | undefined): IProfile => {
     const setData = (newData: object) => {
         data.set({...data.get(), ...newData});
     };
-    useEffect(() => { 
+    /*useEffect(() => { 
         if (updFunc !== undefined){
             updFunc(data);    
         } 
-    }, [data]);
+    }, [data]);*/
     return {
         data: data.get(),
         setData
