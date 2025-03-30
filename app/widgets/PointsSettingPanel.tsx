@@ -90,7 +90,7 @@ function PointsSettingPanel(settingsprops: TSettingsFrameProps) {
                     title={unsavedChanges ? 'Save' : 'Saved'}
                     onclick={unsavedChanges ? HandlePointsChange : () => {}}
                 />
-                <SelectedTab title={settingsprops.getWord(19)} onclick={settingsprops.callBack} />
+                <SelectedTab title={settingsprops.getWord('back')} onclick={settingsprops.callBack} />
                 {showMessage && <div className="save-message">Changes saved successfully!</div>}
             </div>
         </div>
