@@ -13,14 +13,8 @@ function SelectedTab(buttonprops: TButtonProps) {
     };
 
     function Doclick(){
-        if (buttonprops.onclick !== undefined){
-            buttonprops.onclick();
-        }   
-        if ((buttonprops.onselected !== undefined) && (buttonprops.id !== undefined)){
-            if (typeof buttonprops.id !== "string"){
-                buttonprops.onselected(Number(buttonprops.id));
-            }
-        } 
+        if (buttonprops.onClick){ buttonprops.onClick(); }   
+        if ((buttonprops.onSelected) && (buttonprops.id)){ buttonprops.onSelected(buttonprops.id); } 
     };
 
     const buttonstyle = [

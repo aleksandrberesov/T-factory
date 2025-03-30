@@ -1,6 +1,6 @@
 type TVoidFunc = () => void;
 type TOnClickFunction = () => void;
-type TOnSelectedFunction = (id: number) => void;
+type TOnSelectedFunction = (id: number | string) => void;
 type TNumberToStringFunc = (id: number) => string;
 type TStringToStringFunc = (id: string) => string;
 type TStringProc  = (lang: string) => void;

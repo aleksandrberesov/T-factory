@@ -15,20 +15,20 @@ function DropMenu(menuprops: TDropMenuProps) {
 
   const liststyle = menuprops.dropDirection === "down" ? "dropdown-down" : "dropdown-up";
 
-  const SelecItem = (id: number) => {
+  const SelectItem = (id: number | string) => {
     setIsOpen(false);
-    setSelectedItem(id);
-    if (menuprops.onselected !== undefined) {
-      menuprops.onselected(id);
+    setSelectedItem(String(id));
+    if (menuprops.onSelected) {
+      menuprops.onSelected(id);
     }
   };
 
-  const listItems = menuprops.elements.map((item) =>
+  const listItems = menuprops.elements.map((item, index) =>
     <SelectedTab 
-      key={item.id} 
-      id={item.id} 
-      title={item.element} 
-      onselected={SelecItem} 
+      key={index} 
+      id={item} 
+      title={item} 
+      onSelected={SelectItem} 
       textcolor={menuprops.textcolor}  
       backgroundcolor={menuprops.backgroundcolor}
     />
@@ -56,10 +56,10 @@ function DropMenu(menuprops: TDropMenuProps) {
   return (
     <div ref={parentRef} className='dropdown-container'>
       <SelectedTab 
-        title={menuprops.elements[selectedItem].element} 
+        title={menuprops.selected} 
         textcolor={menuprops.textcolor} 
         backgroundcolor={menuprops.backgroundcolor}
-        onclick={toggleDropdown}
+        onClick={toggleDropdown}
         style="w-full h-full"
       />
       {isOpen && (GetList())}

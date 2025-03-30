@@ -40,9 +40,9 @@ const ApplicationView: React.FC<TApplicationViewProps> = (props) => {
     ], []);
 
 
-  const ChangeFrame = useCallback((id: number) => { 
-    setCurrentFrame(id); 
-    setComponent(Frames[id].element); 
+  const ChangeFrame = useCallback((id: number | string) => { 
+    setCurrentFrame(Number(id)); 
+    setComponent(Frames[Number(id)].element); 
   }, [Frames]); 
 
     useEffect(()=>{
@@ -67,9 +67,8 @@ const ApplicationView: React.FC<TApplicationViewProps> = (props) => {
                 {
                     element:         
                     <NavigationPanel
-                        onselected = {ChangeFrame} 
-                        lang = {props.controller.profile.data.lang}
-                        getWord={props.controller.localizer.getWord}
+                        localizer={props.controller.localizer}
+                        onSelected = {ChangeFrame} 
                     />,
                     column: 1, row: 1,
                     columnSpan: 1, rowSpan: 1  

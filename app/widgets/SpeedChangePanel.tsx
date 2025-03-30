@@ -14,7 +14,7 @@ const SpeedChangePanel: React.FC<TSpeedChangePanelProps> = (props) => {
                 key={index} 
                 textcolor="black"
                 title={item.element} 
-                onclick={() => {
+                onClick={() => {
                     props.ChangeSpeed(index); 
                 }}    
             />    

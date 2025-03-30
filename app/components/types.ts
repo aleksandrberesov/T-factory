@@ -19,8 +19,8 @@ type TButtonProps = TStyleProps & TTextProps & {
     id  ?: number | string;
     title ?: string;
 
-    onclick ?: TOnClickFunction;
-    onselected ?: TOnSelectedFunction;
+    onClick ?: TOnClickFunction;
+    onSelected ?: TOnSelectedFunction;
     
     icon_image ?: string;
     content ?: React.JSX.Element;
@@ -70,8 +70,8 @@ type TTableBoxProps ={
 };
 
 type TDropMenuProps = TButtonProps & {
-    elements : {id: number; element: string}[]
-    selected : number;
+    elements : string[]
+    selected : string;
     dropDirection ?: "down" | "up" | undefined; 
 };
 

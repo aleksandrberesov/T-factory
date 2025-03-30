@@ -50,7 +50,7 @@ function PointsSettingPanel(settingsprops: TSettingsFrameProps) {
                 point={item}
                 onChange={onChange}
             />
-            <SelectedTab title='Delete' backgroundcolor='red' onclick={() => deletePoint('points', index)} />
+            <SelectedTab title='Delete' backgroundcolor='red' onClick={() => deletePoint('points', index)} />
         </div>
     ));
 
@@ -62,7 +62,7 @@ function PointsSettingPanel(settingsprops: TSettingsFrameProps) {
                 onChange={onChangePrePoints}
                 prefix="pre-"
             />
-            <SelectedTab title='Delete' backgroundcolor='red' onclick={() => deletePoint('pre_points', index)} />
+            <SelectedTab title='Delete' backgroundcolor='red' onClick={() => deletePoint('pre_points', index)} />
         </div>
     ));
 
@@ -78,19 +78,19 @@ function PointsSettingPanel(settingsprops: TSettingsFrameProps) {
             <div className='items-container'>
                 <h3>Pre-Points</h3>
                 <ListBox elements={PrePoints} />
-                <SelectedTab title='Add Pre-Point' backgroundcolor='green' onclick={() => addNewPoint('pre_points')} />
+                <SelectedTab title='Add Pre-Point' backgroundcolor='green' onClick={() => addNewPoint('pre_points')} />
             </div>
             <div className='items-container'>
                 <h3>Points</h3>
                 <ListBox elements={Points} />
-                <SelectedTab title='Add Point' backgroundcolor='green' onclick={() => addNewPoint('points')} />
+                <SelectedTab title='Add Point' backgroundcolor='green' onClick={() => addNewPoint('points')} />
             </div>
             <div className='buttons-continer'>
                 <SelectedTab
                     title={unsavedChanges ? 'Save' : 'Saved'}
-                    onclick={unsavedChanges ? HandlePointsChange : () => {}}
+                    onClick={unsavedChanges ? HandlePointsChange : () => {}}
                 />
-                <SelectedTab title={settingsprops.getWord('back')} onclick={settingsprops.callBack} />
+                <SelectedTab title={settingsprops.getWord('back')} onClick={settingsprops.callBack} />
                 {showMessage && <div className="save-message">Changes saved successfully!</div>}
             </div>
         </div>

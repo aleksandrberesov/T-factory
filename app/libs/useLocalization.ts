@@ -1,17 +1,7 @@
-import { useEffect, useState, useRef, useCallback } from 'react';
-import { TStringElement } from './types';   
+import { useEffect, useState, useRef } from 'react';   
 import { TNumberToStringFunc, TStringToStringFunc, TStringProc } from './types';        
 
-type TLanguage = 'en' | 'ru';
-
 type TWord = {
-    id: number;
-    key: string;
-    word: string;
-    annotation?: string;  
-}; 
-
-type TDictionaryWord = {
     id: number; 
     key: string;
     en: string; 
@@ -25,64 +15,39 @@ interface IDictionary {
 };
 
 interface ILocalizator extends IDictionary {
-    selectedLang: string;
+    language: string;
     languages: string[];
     setLanguage: TStringProc;
 };
 
-const AvailableLanguages: TLanguage[] = ["en", 'ru'];
-const LanguageIDs : TStringElement[] = [
-    {
-        id: 0,  
-        element: AvailableLanguages[0]
-    },
-    {
-        id: 1,
-        element: AvailableLanguages[1]
-    }
-];
+const AvailableLanguages: string[] = ['en', 'ru'];
 
-const useLocalizaion = (initlang: string | undefined):ILocalizator => {
-    
-    const dictionaryRef = useRef<TDictionaryWord[]>([]);
-    const [words, setWords] = useState<TWord[]>([]);
-    const Lang = initlang || AvailableLanguages[0];
+const useLocalizaion = ():ILocalizator => {
+    const [Language, setLanguage] = useState(AvailableLanguages[0]); 
+    const dictionaryRef = useRef<TWord[]>([]);
 
     useEffect(() => {
-        
-        fetch('/words.json')
-            .then((response) => response.json())
-            .then((data) => {
-                dictionaryRef.current = data;
-                setLanguage(Lang);
-            });
-    }, [Lang]);
-
-    function PushWords(lang: keyof TDictionaryWord = "en"): TWord[]{
-        let w: TWord[] = [];
-        dictionaryRef.current.forEach((_word: TDictionaryWord) => {
-            w.push({id: _word.id, key: _word.key, word: String(_word[lang]), annotation: _word.annotation});    
-        });
-        return w;
-    };
-
-    const setLanguage = useCallback((lang: string) => {
-        let selectedLang: keyof TDictionaryWord = lang as keyof TDictionaryWord;
-        setWords(PushWords(selectedLang));
+        if (dictionaryRef.current && dictionaryRef.current.length === 0){
+            fetch('/words.json')
+                .then((response) => response.json())
+                .then((data) => {
+                    dictionaryRef.current = data;
+                });    
+        }
     }, []);
 
     function getWordByID(id: number): string{
-        const word = words.find((word: TWord) => word.id === id);
-        if (word) {
-          return word.word;
+        const result_word = dictionaryRef.current.find((word: TWord) => word.id === id);
+        if (result_word && result_word[Language as keyof TWord]) {
+          return String(result_word[Language as keyof TWord]);
         }
         return String(id);
     };
 
     function getWord(search_word: string): string{
-        const word = words.find((word: TWord) => word.key === search_word);
-        if (word) {
-          return word.word;
+        const result_word = dictionaryRef.current.find((word: TWord) => word.key === search_word);
+        if (result_word && result_word[Language as keyof TWord]) {
+          return String(result_word[Language as keyof TWord]);
         }
         return String(search_word);
     };
@@ -90,13 +55,11 @@ const useLocalizaion = (initlang: string | undefined):ILocalizator => {
     return {
         getWordByID,
         getWord,
-
-        selectedLang: 'ru',
+        language: Language,
         languages: AvailableLanguages,
-        setLanguage
+        setLanguage,
     };
 };
 
 export default useLocalizaion;
-export type { TLanguage };
-export { LanguageIDs };
+export type { IDictionary, ILocalizator };

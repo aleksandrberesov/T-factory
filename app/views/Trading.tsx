@@ -68,7 +68,7 @@ const TradingFrame: React.FC<TTradingFrameProps> = (tradeprops) => {
                                 title={(isStatisticShow ? 'Hide Statistics' : 'Show Statistics')}    
                                 textcolor='white'
                                 backgroundcolor='grey'
-                                onclick={HideShowStatistics}
+                                onClick={HideShowStatistics}
                             />
                         </div>
                      ,   

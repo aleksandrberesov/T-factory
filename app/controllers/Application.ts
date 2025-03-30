@@ -20,7 +20,7 @@ const useApplication = (): IApplication => {
   const profile = useProfile(UpdateProfile);
   const market = useMarket();
   const trader = useTrade();
-  const localizer = useLocalizaion(profile.data.lang);
+  const localizer = useLocalizaion();
 
   const fetchAppData = useCallback(async () => { 
     try { 
@@ -56,9 +56,9 @@ const useApplication = (): IApplication => {
   
   useEffect(() => {
     fetchAppData();
-    return ()=>{
+    /*return ()=>{
       profile.setData({ lang: localizer.selectedLang });   
-    };
+    };*/
   },[]);
 
     return {
