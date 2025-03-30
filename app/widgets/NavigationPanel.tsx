@@ -1,14 +1,20 @@
 import React from 'react';
-import { TNavigationFrameProps } from "../views/types"
+import { TOnSelectedFunction, TNumberToStringFunc, TStringProc } from "../libs/types";
 import SelectedTab from '../components/button';
 import DropMenu from '../components/drop-menu';
 import { LanguageIDs } from '../libs/useLocalization';
 
-function NavigationPanel(props: TNavigationFrameProps){
+type TNavigationPanelProps = {
+    getWord : TNumberToStringFunc;
+    onselected ?: TOnSelectedFunction;
+    lang ?: string;
+};
+
+const NavigationPanel: React.FC<TNavigationPanelProps> = (props) => {
     const ChangeLanguage = (id: number)=>{
-        if (props.setLanguage!==undefined) {
+ /*       if (props.setLanguage!==undefined) {
             props.setLanguage(LanguageIDs[LanguageIDs.findIndex(element => element.id === id)].element);        
-        }
+        }*/
     };
 
     function CreateButton(id: number): React.JSX.Element{

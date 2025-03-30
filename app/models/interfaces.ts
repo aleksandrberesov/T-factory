@@ -74,13 +74,6 @@ interface ITrade {
     changed: boolean,
 };
 
-
-
-interface IApplication {
-
-};
-
 export type { IPattern, IProfile, IMarket, ITrade };
 export type { IMarketDataManager };
 export type { IAccount, IStatistics };
-export default IApplication;

@@ -1,6 +1,6 @@
-import React, { useMemo, useState, useCallback } from 'react';
+import React, { useMemo, useState, useCallback, useEffect } from 'react';
+import { IApplication } from '../controllers/types';
 import { startFrame } from '../models/consts';
-import { TNumberToStringFunc } from '../libs/types';
 import GridBox from "../components/gridbox";
 import NavigationPanel from "../widgets/NavigationPanel";
 import TradingFrame from "../views/Trading";
@@ -9,14 +9,7 @@ import StatisticFrame from "../views/Statistic";
 import LoadingFrame from "../views/Loading";
 
 type TApplicationViewProps = {
-    loading: boolean;
-    error: string | null;
-    ChangeLanguage: (lang: string) => void;
-    getWord: TNumberToStringFunc;
-    profile: any; 
-    pattern: any;
-    market: any;
-    trader: any;   
+    controller: IApplication;
 };
 
 const ApplicationView: React.FC<TApplicationViewProps> = (props) => {
@@ -26,46 +19,46 @@ const ApplicationView: React.FC<TApplicationViewProps> = (props) => {
     const Frames = useMemo(() => [
         {id: 0 , 
          element: <ProfileFrame 
-                    profile={props.profile}  
-                    getWord={props.getWord}
+                    profile={props.controller.profile}  
+                    getWord={props.controller.localizer.getWord}
                   />
         },
         {id: 1 , 
          element: <TradingFrame
-                    getWord={props.getWord}
-                    pattern={props.pattern}
-                    market={props.market}
-                    trader={props.trader}
+                    getWord={props.controller.localizer.getWord}
+                    pattern={props.controller.pattern}
+                    market={props.controller.market}
+                    trader={props.controller.trader}
                   />
         },
         {id: 2 , 
          element: <StatisticFrame 
-                    profile={props.profile}
-                    getWord={props.getWord}
+                    profile={props.controller.profile}
+                    getWord={props.controller.localizer.getWord}
                   />
         }   
-    ], [props.profile, props.market, props.pattern]);
-//], [profile, market, market.isActive, pattern]);
+    ], [props.controller.profile, props.controller.market, props.controller.pattern]);
+
 
   const ChangeFrame = useCallback((id: number) => { 
     setCurrentFrame(id); 
     setComponent(Frames[id].element); 
   }, [Frames]); 
 
-  /*  useEffect(()=>{
+    useEffect(()=>{
       ChangeFrame(currentFrame);
-    },[words, profile.data, pattern.patterns, market.isActive, trader.changed, market.changed]);
-*/
+    },[props.controller.localizer.getWord]);
 
-    if (props.loading){
+
+    if (props.controller.status==='loading'){
         return ( 
             <LoadingFrame/>
         )
-    }else if (props.error){
+    }else if (props.controller.status==='error'){
         return (
-            <div>Error: {props.error}</div>
+            <div>Error: {props.controller.statusInfo}</div>
         )
-    }else{
+    }else if (props.controller.status==='done'){
         return (
             <GridBox
                 columns={1}
@@ -75,9 +68,8 @@ const ApplicationView: React.FC<TApplicationViewProps> = (props) => {
                     element:         
                     <NavigationPanel
                         onselected = {ChangeFrame} 
-                        lang = {props.profile.data.lang}
-                        getWord={props.getWord}
-                        setLanguage={props.ChangeLanguage}
+                        lang = {props.controller.profile.data.lang}
+                        getWord={props.controller.localizer.getWord}
                     />,
                     column: 1, row: 1,
                     columnSpan: 1, rowSpan: 1  

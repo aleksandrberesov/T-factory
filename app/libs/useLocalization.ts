@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef, useCallback } from 'react';
 import { TStringElement } from './types';   
-import { TNumberToStringFunc, TStringProc } from './types';        
+import { TNumberToStringFunc, TStringToStringFunc, TStringProc } from './types';        
 
 type TLanguage = 'en' | 'ru';
 
@@ -18,7 +18,8 @@ type TDictionaryWord = {
 };
 
 interface ILocalizator {
-    words: TWord[]; 
+    selectedLang: string;
+    languages: string[];
     getWord: TNumberToStringFunc;
     setLanguage: TStringProc;
 };
@@ -35,7 +36,7 @@ const LanguageIDs : TStringElement[] = [
     }
 ];
 
-function useLocalizaion(initlang: string | undefined): ILocalizator {
+const useLocalizaion = (initlang: string | undefined):ILocalizator => {
     
     const dictionaryRef = useRef<TDictionaryWord[]>([]);
     const [words, setWords] = useState<TWord[]>([]);
@@ -73,7 +74,8 @@ function useLocalizaion(initlang: string | undefined): ILocalizator {
     };
     
     return {
-        words,
+        selectedLang: 'ru',
+        languages: AvailableLanguages,
         getWord,
         setLanguage
     };
