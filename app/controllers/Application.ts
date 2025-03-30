@@ -3,10 +3,10 @@ import { FullScreen } from "../telegram/utils";
 import { GetProfile, UpdateProfile, GetPatterns, CommitPattern, GetPoints } from "../aws/dataService"
 import { useEffect, useCallback } from 'react';
 import useLocalizaion from "../libs/useLocalization";
-import useProfile from "../models/profile";
-import usePattern from "../models/pattern";
-import useMarket from "../models/market";
-import useTrade from "../models/trade";
+import useProfile from "./profile";
+import usePattern from "./pattern";
+import useMarket from "./market";
+import useTrade from "./trade";
 import { IApplication, TStatus } from "./types";
 import useValue, { IValue } from "../libs/data-hooks/value";
 import useBaseController, { IController } from "./baseController";
@@ -25,55 +25,43 @@ const useApplication = (): IApplication => {
   const fetchAppData = useCallback(async () => { 
     try { 
       currentStatus.set('loading');
-      //controller.applyChanges;
+      controller.applyChanges;
       await GetUserData().then(
         (tgProfile)=>{
-          GetProfile(tgProfile.id).then(
+          return GetProfile(tgProfile.id).then(
             (dbProfile)=>{
               profile.setData({ ...tgProfile, ...dbProfile });  
+              return { ...tgProfile, ...dbProfile };
             }
           );
-        }   
-      ).finally(()=>{
+      }).then((combineProfile)=>{
         pattern.init(); 
+        market.init(pattern.pattern);
+        trader.init(profile, market);
+        market.addManager(trader);
         localizer.setLanguage(profile.data.lang);
-      }     
-      );
-      //const dbProfile = GetProfile(tgProfile.id); 
-      //profile.setData({ ...tgProfile, ...dbProfile }); 
-      //pattern.init(); 
+      });
     } catch ( error ) { 
       currentStatus.set('error');
       statusInformaion.set((error as Error).message); 
-      //controller.applyChanges;
+      controller.applyChanges;
     } finally { 
       currentStatus.set('done');
-      //controller.applyChanges;
+      controller.applyChanges;
     } 
   }, []);
 
   useEffect(()=>{
-    fetchAppData();
     FullScreen();
   },[]);
-/*
+
   useEffect(()=>{
-    market.init(pattern.pattern);
-    trader.init(profile, market);
-  },[pattern.pattern]);
-  
-  useEffect(()=>{
-    trader.init(profile, market);
-    market.addManager(trader);
-  },[profile.data.id]); 
-  
-  useEffect(() => {
-    
+    fetchAppData();
     return ()=>{
-      profile.setData({ lang: localizer.selectedLang });   
+      //profile.setData({ lang: localizer.language });   
     };
   },[]);
-*/
+
     return {
       changed: controller.isChanged,
       status: currentStatus.get(),

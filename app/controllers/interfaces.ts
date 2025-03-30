@@ -1,5 +1,5 @@
 import { TUpdateObjectProc } from '../libs/types';
-import { TDeal, TProfile, TMoney, TPatternPoint, TPattern, TMarketPoint, TStatValue, TStatRange } from './types';
+import { TDeal, TProfile, TMoney, TPatternPoint, TPattern, TMarketPoint, TStatValue, TStatRange } from '../models/types';
 
 interface IPattern {
     patterns : string[];

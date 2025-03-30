@@ -4,7 +4,7 @@ import PointInputGroup from './PointInputGroup';
 import ListBox from '../components/listbox';
 import { TPatternPoint } from '../models/types';
 import './styles/PointsSettingPanel.css';
-import { IPattern } from '../models/interfaces';
+import { IPattern } from '../controllers/interfaces';
 import { TLocalizedFrameProps } from '../views/types';
 
 type TSettingsFrameProps = TLocalizedFrameProps & {

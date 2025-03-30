@@ -1,7 +1,7 @@
 import useRefArray, { IArray }  from "../libs/data-hooks/array";
-import { TDeal, TStatValue, TStatRange } from './types';
+import { TDeal, TStatValue, TStatRange } from '../models/types';
 import { IStatistics } from './interfaces';
-import { defaultDeal } from "./defaults";
+import { defaultDeal } from "../models/defaults";
 
 const useStatistics = (): IStatistics => {
     const deals: IArray<TDeal> = useRefArray([defaultDeal]);

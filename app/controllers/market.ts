@@ -2,13 +2,13 @@ import { useState } from "react";
 import { IValue } from '../libs/data-hooks/interfaces';
 import  useRefValue from '../libs/data-hooks/value';
 import { useTimer } from "../libs/useTimer";
-import { TPattern, TMarketPoint, TPatternPoint } from "./types"; 
+import { TPattern, TMarketPoint, TPatternPoint } from "../models/types"; 
 import { IMarket, IMarketDataManager } from "./interfaces";
-import { CreateMarketPoint } from "./utils";
-import { defaultMarket } from "./defaults";
-import { defaultSpeeds } from './consts';
-import { stepTime } from './consts';
-import { SpeedTitleToNumber } from './utils';
+import { CreateMarketPoint } from "../models/utils";
+import { defaultMarket } from "../models/defaults";
+import { defaultSpeeds } from '../models/consts';
+import { stepTime } from '../models/consts';
+import { SpeedTitleToNumber } from '../models/utils';
 
 const useMarket = (): IMarket => {
     const [changed, setChanged] = useState(false);
@@ -43,7 +43,7 @@ const useMarket = (): IMarket => {
     };
 
     const init = (init_pattern: TPattern) =>{
-        currentTime.set(Date.now()/1000); // Use current time instead of startTime
+        currentTime.set(Date.now()/1000); 
         count.set(0);
         current.set(0);
         pattern.set([... init_pattern.points]);

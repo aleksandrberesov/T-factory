@@ -1,10 +1,10 @@
 import { useRef, useState, useCallback } from "react";
 import useRefValue, { IValue } from "../libs/data-hooks/value";
-import { TMarketPoint, TDeal } from "./types";
+import { TMarketPoint, TDeal } from "../models/types";
 import { IMarket, ITrade, IProfile, IAccount, IMarketDataManager, IStatistics } from "./interfaces";
 import useAccount from "./account";
 import useStatistics from "./statistics";
-import { defaultDeal, defaultMarketPoint } from "./defaults";
+import { defaultDeal, defaultMarketPoint } from "../models/defaults";
 
 const useTrade = (): ITrade & IMarketDataManager => {
     const [changed, setChanged] = useState(false);
