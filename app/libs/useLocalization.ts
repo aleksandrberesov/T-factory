@@ -6,21 +6,27 @@ type TLanguage = 'en' | 'ru';
 
 type TWord = {
     id: number;
+    key: string;
     word: string;
     annotation?: string;  
 }; 
 
 type TDictionaryWord = {
     id: number; 
+    key: string;
     en: string; 
     ru: string; 
     annotation: string;
 };
 
-interface ILocalizator {
+interface IDictionary {
+    getWordByID: TNumberToStringFunc;  
+    getWord: TStringToStringFunc;  
+};
+
+interface ILocalizator extends IDictionary {
     selectedLang: string;
     languages: string[];
-    getWord: TNumberToStringFunc;
     setLanguage: TStringProc;
 };
 
@@ -55,7 +61,7 @@ const useLocalizaion = (initlang: string | undefined):ILocalizator => {
     function PushWords(lang: keyof TDictionaryWord = "en"): TWord[]{
         let w: TWord[] = [];
         dictionaryRef.current.forEach((_word: TDictionaryWord) => {
-            w.push({id: _word.id, word: String(_word[lang]), annotation: _word.annotation});    
+            w.push({id: _word.id, key: _word.key, word: String(_word[lang]), annotation: _word.annotation});    
         });
         return w;
     };
@@ -65,18 +71,28 @@ const useLocalizaion = (initlang: string | undefined):ILocalizator => {
         setWords(PushWords(selectedLang));
     }, []);
 
-    function getWord(id: number): string{
+    function getWordByID(id: number): string{
         const word = words.find((word: TWord) => word.id === id);
         if (word) {
           return word.word;
         }
         return String(id);
     };
+
+    function getWord(search_word: string): string{
+        const word = words.find((word: TWord) => word.key === search_word);
+        if (word) {
+          return word.word;
+        }
+        return String(search_word);
+    };
     
     return {
+        getWordByID,
+        getWord,
+
         selectedLang: 'ru',
         languages: AvailableLanguages,
-        getWord,
         setLanguage
     };
 };
