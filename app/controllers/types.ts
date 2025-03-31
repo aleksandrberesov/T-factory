@@ -6,7 +6,7 @@ type TStatus = 'loading' | 'error' | 'done' | 'init';
 interface IApplication {
     isChanged: boolean;
     
-    status: string; 
+    status: ()=>string; 
     statusInfo: string;
 
     localizer: ILocalizator;

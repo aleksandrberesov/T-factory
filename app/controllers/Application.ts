@@ -61,16 +61,16 @@ const useApplication = (): IApplication => {
     };
   }, [fetchAppData]);
 
-  return useMemo(() => ( {
+  return {
     isChanged: controller.isChanged,
-    status: currentStatus.get() as string,
+    status: currentStatus.get,
     statusInfo: statusInformaion.get(),
     localizer,
     profile, 
     pattern,
     market,
     trader,
-  }), []);
+  };
 };
 
 export type { IApplication };

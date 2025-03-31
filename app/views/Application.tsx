@@ -14,7 +14,7 @@ type TApplicationViewProps = {
 
 const ApplicationView: React.FC<TApplicationViewProps> = (props) => {
     console.log("ApplicationView rendered");
-    console.log("VIEW STATUS", "[",props.controller.isChanged,"]",props.controller.statusInfo, props.controller.status);
+    console.log("VIEW STATUS", "[",props.controller.isChanged,"]",props.controller.statusInfo, props.controller.status());
     const [component, setComponent] = useState<React.JSX.Element>();
     const Views = useMemo(() => [
         {
@@ -58,15 +58,15 @@ const ApplicationView: React.FC<TApplicationViewProps> = (props) => {
         console.log("Controller changed, re-rendering ApplicationView");
     }, [props.controller.isChanged]); 
         
-    if (props.controller.status==='loading'){
+    if (props.controller.status()==='loading'){
         return ( 
             <LoadingFrame/>
         )
-    }else if (props.controller.status==='error'){
+    }else if (props.controller.status()==='error'){
         return (
             <div>Error: {props.controller.statusInfo}</div>
         )
-    }else if (props.controller.status==='done'){
+    }else if (props.controller.status()==='done'){
         return (
             <GridBox
                 columns={1}
