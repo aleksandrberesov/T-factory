@@ -1,7 +1,7 @@
 import { GetUserData } from "../telegram/dataService";
 import { FullScreen } from "../telegram/utils";
 import { GetProfile, UpdateProfile, GetPatterns, CommitPattern, GetPoints } from "../aws/dataService"
-import { useEffect, useCallback } from 'react';
+import { useEffect, useCallback, useMemo } from 'react';
 import useLocalizaion from "../libs/useLocalization";
 import useProfile from "./profile";
 import usePattern from "./pattern";
@@ -12,10 +12,11 @@ import useValue, { IValue } from "../libs/data-hooks/value";
 import useBaseController, { IController } from "./baseController";
 
 const useApplication = (): IApplication => {
+  console.log("Application controller initialized");
   const controller: IController = useBaseController();
   const currentStatus: IValue<TStatus> = useValue('init' as TStatus);
-  const statusInformaion: IValue<string> = useValue('');
-  
+  const statusInformaion: IValue<string> = useValue('initialization');
+  console.log("APP STATUS before initialization", currentStatus.get());
   const pattern = usePattern(GetPoints, GetPatterns, CommitPattern);
   const profile = useProfile(UpdateProfile);
   const market = useMarket();
@@ -25,57 +26,51 @@ const useApplication = (): IApplication => {
   const fetchAppData = useCallback(async () => { 
     try { 
       currentStatus.set('loading');
-      controller.applyChanges;
-      profile.setData(GetUserData().then(
-        (tgProfile)=>{
+      statusInformaion.set('fetching profile data');
+      controller.applyChanges();
+      console.log("APP STATUS", currentStatus.get());
+      /*profile.setData(GetUserData().then(
+        (tgProfile) => {
           return GetProfile(tgProfile.id).then(
-            (dbProfile)=>{ 
+            (dbProfile) => { 
               return { ...tgProfile, ...dbProfile };
             }
           );
         }
-      ));
-
-      /*}).finally(()=>{
-        //controller.applyChanges;
-        pattern.init(); 
-        market.init(pattern.pattern);
-        trader.init(profile, market);
-        market.addManager(trader);
-        localizer.setLanguage(profile.data.lang);
-      });*/
-    } catch ( error ) { 
+      ));*/
+    } catch (error) { 
       currentStatus.set('error');
       statusInformaion.set((error as Error).message); 
-      controller.applyChanges;
+      controller.applyChanges();
+      console.log("APP STATUS", currentStatus.get(), statusInformaion.get());
     } finally { 
       currentStatus.set('done');
-      controller.applyChanges;
+      controller.applyChanges();
+      console.log("APP STATUS", currentStatus.get());
     } 
+  }, [controller, profile]);
+
+  useEffect(() => {
+    FullScreen();
   }, []);
 
-  useEffect(()=>{
-    FullScreen();
-  },[]);
-
-  useEffect(()=>{
+  useEffect(() => {
     fetchAppData();
-    return ()=>{
+    return () => {
       //profile.setData({ lang: localizer.language });   
     };
-  },[]);
+  }, [fetchAppData]);
 
-    return {
-      changed: controller.isChanged,
-      status: currentStatus.get(),
-      statusInfo: statusInformaion.get(),
-
-      localizer,
-      profile, 
-      pattern,
-      market,
-      trader,      
-    };
+  return useMemo(() => ( {
+    isChanged: controller.isChanged,
+    status: currentStatus.get() as string,
+    statusInfo: statusInformaion.get(),
+    localizer,
+    profile, 
+    pattern,
+    market,
+    trader,
+  }), []);
 };
 
 export type { IApplication };

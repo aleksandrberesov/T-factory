@@ -13,6 +13,8 @@ type TApplicationViewProps = {
 };
 
 const ApplicationView: React.FC<TApplicationViewProps> = (props) => {
+    console.log("ApplicationView rendered");
+    console.log("VIEW STATUS", "[",props.controller.isChanged,"]",props.controller.statusInfo, props.controller.status);
     const [component, setComponent] = useState<React.JSX.Element>();
     const Views = useMemo(() => [
         {
@@ -49,11 +51,13 @@ const ApplicationView: React.FC<TApplicationViewProps> = (props) => {
     const setView = (id: number | string) => {
         setComponent(Views[Number(id)].element);
     };
-
-    useEffect(()=>{
-       setView(startFrame); 
-    }, [props.controller.changed]);
-
+    useEffect(() => {
+        setView(startFrame);
+    }, []);
+    useEffect(() => {
+        console.log("Controller changed, re-rendering ApplicationView");
+    }, [props.controller.isChanged]); 
+        
     if (props.controller.status==='loading'){
         return ( 
             <LoadingFrame/>

@@ -4,6 +4,7 @@ import useApplication, { IApplication } from "./controllers/Application";
 import ApplicationView from "./views/Application";
 
 export default function Home() {
+  console.log("Home rendered");
   const ApplicationController: IApplication = useApplication();
 
   return (

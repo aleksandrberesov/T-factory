@@ -1,25 +1,22 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 interface IController {
     isChanged: boolean;
-    applyChanges: ()=> void;
-};
+    applyChanges: () => void;
+}
 
 const useBaseController = (): IController => {
-    const [changed, setChanged] = useState<boolean>(false);
+    const [isChanged, setIsChanged] = useState<boolean>(false);
 
-    const getIsChanged = ()=>{
-       return changed; 
-    }; 
-
-    const applyChanges = ()=>{
-        setChanged(!changed);
+    const applyChanges = () => {
+        console.log("Controller changes applied");
+        setIsChanged((prev) => !prev);
     };
 
-    return {
-        isChanged: getIsChanged(),
+    return useMemo(() => ({
+        isChanged,
         applyChanges,
-    };
+    }), []);
 };
 
 export default useBaseController;
