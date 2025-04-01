@@ -17,7 +17,7 @@ const height = 25;
 const chartHeight = 8;
 const statisticsHeight = 4;
 
-const TradingFrame: React.FC<TTradingFrameProps> = (tradeprops) => {
+const TradingFrame: React.FC<TTradingFrameProps> = (props) => {
     const HideShowSettings = () => {
         console.log(isSettingsShow);
 		SetIsSettingsShow(!isSettingsShow);
@@ -29,25 +29,18 @@ const TradingFrame: React.FC<TTradingFrameProps> = (tradeprops) => {
         SetIsSpeedChangeShow(!isSpeedChangeShow);
     };
     const ChangeSpeed = (speedID: number) => {
-        tradeprops.market.setSpeed(speedID);
+        props.market.setSpeed(speedID);
         SetIsSpeedChangeShow(false);
     };
     const [isSettingsShow, SetIsSettingsShow] = useState(false);
     const [isStatisticShow, SetIsStatisticShow] = useState(true);  
     const [isSpeedChangeShow, SetIsSpeedChangeShow] = useState(false);
-    const chartManager: IChartController = useChart(tradeprops.market.addManager);
+    const chartManager: IChartController = useChart(props.market.addManager);
     const chart = useMemo(() => (
         <ChartView 
             setChartApi={chartManager.assignChart} 
         />
     ), []);
-    const settings = useMemo(() => (
-        <PointsSettingPanel 
-            callBack={HideShowSettings}
-            data={tradeprops.pattern}
-            getWord={tradeprops.getWord}
-        />
-    ), [tradeprops.getWord]);
     const grid = useMemo(() => (
         <GridBox 
             columns={1} 
@@ -76,8 +69,8 @@ const TradingFrame: React.FC<TTradingFrameProps> = (tradeprops) => {
                 {
                     element: isStatisticShow ? 
                              (<TradeStatisticGroup
-                                trader={tradeprops.trader}
-                                getWord={tradeprops.getWord}
+                                trader={props.trader}
+                                dictionary={props.dictionary}
                              />) : null,
                     row: isStatisticShow ? 2+chartHeight : -1, 
                     column: 1, 
@@ -86,27 +79,27 @@ const TradingFrame: React.FC<TTradingFrameProps> = (tradeprops) => {
                 },
                 {
                     element: <TradeControlPanel
-                                trader={tradeprops.trader}
-                                getWord={tradeprops.getWord}
+                                trader={props.trader}
+                                getWord={props.dictionary.getWord}
                              />,
                 },
                 {
                     element: <MarketControlPanel
-                                market={tradeprops.market}
+                                market={props.market}
                                 HideShowSettings={HideShowSettings}
                                 HideShowSpeed={HideShowSpeedChange}
                              />,
                 }, 
             ]}          
         />
-    ),[isStatisticShow, isSettingsShow, tradeprops.market.changed, tradeprops.getWord]);
+    ),[isStatisticShow, isSettingsShow, props.market.changed, props.dictionary]);
 
     return (
         <div id='trading-frame' className="h-full w-full">
             {isSettingsShow && (<ModalWindow content={<PointsSettingPanel 
             callBack={HideShowSettings}
-            data={tradeprops.pattern}
-            getWord={tradeprops.getWord}
+            data={props.pattern}
+            dicrionary={props.dictionary}
         />}/>)}
             {isSpeedChangeShow && (<ModalWindow content={<SpeedChangePanel ChangeSpeed={ChangeSpeed}/>}/>)}
             {grid}

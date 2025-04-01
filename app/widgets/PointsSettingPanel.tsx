@@ -5,14 +5,15 @@ import ListBox from '../components/listbox';
 import { TPatternPoint } from '../models/types';
 import './styles/PointsSettingPanel.css';
 import { IPattern } from '../controllers/interfaces';
-import { TLocalizedFrameProps } from '../views/types';
+import { IDictionary } from '../libs/useLocalization';
 
-type TSettingsFrameProps = TLocalizedFrameProps & {
+type TSettingsFrameProps = {
+    dicrionary: IDictionary;  
     callBack() : void;
     data: IPattern;
 };
-function PointsSettingPanel(settingsprops: TSettingsFrameProps) {
-    const [editPattern, setEditPattern] = useState(settingsprops.data.pattern);
+function PointsSettingPanel(props: TSettingsFrameProps) {
+    const [editPattern, setEditPattern] = useState(props.data.pattern);
     const [showMessage, setShowMessage] = useState(false);
     const [unsavedChanges, setUnsavedChanges] = useState(false);
 
@@ -67,7 +68,7 @@ function PointsSettingPanel(settingsprops: TSettingsFrameProps) {
     ));
 
     const HandlePointsChange = () => {
-        settingsprops.data.save(editPattern);
+        props.data.save(editPattern);
         setShowMessage(true);
         setUnsavedChanges(false);
         setTimeout(() => setShowMessage(false), 3000);
@@ -90,7 +91,7 @@ function PointsSettingPanel(settingsprops: TSettingsFrameProps) {
                     title={unsavedChanges ? 'Save' : 'Saved'}
                     onClick={unsavedChanges ? HandlePointsChange : () => {}}
                 />
-                <SelectedTab title={settingsprops.getWord('back')} onClick={settingsprops.callBack} />
+                <SelectedTab title={props.dicrionary.getWord('back')} onClick={props.callBack} />
                 {showMessage && <div className="save-message">Changes saved successfully!</div>}
             </div>
         </div>

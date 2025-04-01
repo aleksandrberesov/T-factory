@@ -1,4 +1,5 @@
 import { TUpdateObjectProc } from '../libs/types';
+import { ILocalizator } from '../libs/useLocalization';
 import { TDeal, TProfile, TMoney, TPatternPoint, TPattern, TMarketPoint, TStatValue, TStatRange } from '../models/types';
 
 interface IPattern {
@@ -74,6 +75,18 @@ interface ITrade {
     changed: boolean,
 };
 
+interface IApplication {
+    status: string; 
+    statusInfo: string;
+
+    localizer: ILocalizator;
+    profile: IProfile; 
+    pattern: IPattern;
+    market: IMarket;
+    trader: ITrade;
+};
+
 export type { IPattern, IProfile, IMarket, ITrade };
 export type { IMarketDataManager };
 export type { IAccount, IStatistics };
+export type { IApplication };

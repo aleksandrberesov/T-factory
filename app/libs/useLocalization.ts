@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react';   
+import { useEffect, useState, useRef, useMemo } from 'react';   
 import { TNumberToStringFunc, TStringToStringFunc, TStringProc } from './types';        
 
 type TWord = {
@@ -12,6 +12,7 @@ type TWord = {
 interface IDictionary {
     getWordByID: TNumberToStringFunc;  
     getWord: TStringToStringFunc;  
+    isLoaded: boolean;
 };
 
 interface ILocalizator extends IDictionary {
@@ -23,7 +24,8 @@ interface ILocalizator extends IDictionary {
 const AvailableLanguages: string[] = ['en', 'ru'];
 
 const useLocalizaion = ():ILocalizator => {
-    const [Language, setLanguage] = useState(AvailableLanguages[0]); 
+    const [isLoaded, setIsLoaded] = useState(false);
+    const [Language, setLanguage] = useState(''); 
     const dictionaryRef = useRef<TWord[]>([]);
 
     useEffect(() => {
@@ -32,6 +34,8 @@ const useLocalizaion = ():ILocalizator => {
                 .then((response) => response.json())
                 .then((data) => {
                     dictionaryRef.current = data;
+                }).finally(() => {
+                    setIsLoaded(true);
                 });    
         }
     }, []);
@@ -45,20 +49,23 @@ const useLocalizaion = ():ILocalizator => {
     };
 
     function getWord(search_word: string): string{
+        console.log('getWord', search_word);
         const result_word = dictionaryRef.current.find((word: TWord) => word.key === search_word);
+        console.log('getWord', search_word, result_word);
         if (result_word && result_word[Language as keyof TWord]) {
           return String(result_word[Language as keyof TWord]);
         }
         return String(search_word);
     };
     
-    return {
+    return useMemo(() => ({
         getWordByID,
         getWord,
         language: Language,
         languages: AvailableLanguages,
         setLanguage,
-    };
+        isLoaded,
+    }), [Language, isLoaded]);
 };
 
 export default useLocalizaion;

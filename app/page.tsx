@@ -1,6 +1,6 @@
 "use client";
 
-import useApplication, { IApplication } from "./controllers/Application";
+import useApplication, { IApplication } from "./controllers/application";
 import ApplicationView from "./views/Application";
 
 export default function Home() {

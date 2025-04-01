@@ -1,9 +1,12 @@
 import React from 'react';
 import SelectedTab from '../components/button';
 import GridBox from '../components/gridbox';
-import { TTradingFrameProps } from '../views/types';
+import { ITrade } from '../controllers/interfaces';
 
-type TradeControlPanelProps = Pick<TTradingFrameProps, 'trader' | 'getWord'>;
+type TradeControlPanelProps = {
+    trader: ITrade;
+    getWord: (word: string) => string;
+};
 
 const TradeControlPanel: React.FC<TradeControlPanelProps> = (props) => {
     return (

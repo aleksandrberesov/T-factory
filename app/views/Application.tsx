@@ -1,5 +1,5 @@
 import React, { useMemo, useState, useEffect } from 'react';
-import { IApplication } from '../controllers/types';
+import { IApplication } from '../controllers/interfaces';
 import { startFrame } from '../models/consts';
 import GridBox from "../components/gridbox";
 import NavigationPanel from "../widgets/NavigationPanel";
@@ -14,7 +14,8 @@ type TApplicationViewProps = {
 
 const ApplicationView: React.FC<TApplicationViewProps> = (props) => {
     console.log("ApplicationView rendered");
-    console.log("VIEW STATUS", "[",props.controller.isChanged,"]",props.controller.statusInfo, props.controller.status());
+    console.log('locale', props.controller.localizer.language);
+    //console.log("VIEW STATUS",props.controller.statusInfo, props.controller.status);
     const [component, setComponent] = useState<React.JSX.Element>();
     const Views = useMemo(() => [
         {
@@ -23,7 +24,7 @@ const ApplicationView: React.FC<TApplicationViewProps> = (props) => {
             element: 
                 <ProfileFrame 
                     profile={props.controller.profile}  
-                    getWord={props.controller.localizer.getWord}
+                    dictionary={props.controller.localizer}
                 />
         },
         {
@@ -31,7 +32,7 @@ const ApplicationView: React.FC<TApplicationViewProps> = (props) => {
             name: props.controller.localizer.getWord('trading'), 
             element: 
                 <TradingFrame
-                    getWord={props.controller.localizer.getWord}
+                    dictionary={props.controller.localizer}
                     pattern={props.controller.pattern}
                     market={props.controller.market}
                     trader={props.controller.trader}
@@ -42,8 +43,8 @@ const ApplicationView: React.FC<TApplicationViewProps> = (props) => {
             name: props.controller.localizer.getWord('statistic'), 
             element: 
                 <StatisticFrame 
-                    profile={props.controller.profile}
-                    getWord={props.controller.localizer.getWord}
+                    dictionary={props.controller.localizer}
+                    profile={props.controller.profile}   
                 />
         }   
     ], [props.controller.localizer.language]);
@@ -54,19 +55,16 @@ const ApplicationView: React.FC<TApplicationViewProps> = (props) => {
     useEffect(() => {
         setView(startFrame);
     }, []);
-    useEffect(() => {
-        console.log("Controller changed, re-rendering ApplicationView");
-    }, [props.controller.isChanged]); 
         
-    if (props.controller.status()==='loading'){
+    if (props.controller.status==='loading'){
         return ( 
             <LoadingFrame/>
         )
-    }else if (props.controller.status()==='error'){
+    }else if (props.controller.status==='error'){
         return (
             <div>Error: {props.controller.statusInfo}</div>
         )
-    }else if (props.controller.status()==='done'){
+    }else if (props.controller.status==='done'){
         return (
             <GridBox
                 columns={1}
