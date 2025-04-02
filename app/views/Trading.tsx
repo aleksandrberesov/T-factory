@@ -41,6 +41,12 @@ const TradingFrame: React.FC<TTradingFrameProps> = (props) => {
             setChartApi={chartManager.assignChart} 
         />
     ), []);
+    const statGroup = useMemo(() => (
+        <TradeStatisticGroup
+            trader={props.trader}
+            dictionary={props.dictionary}
+        />
+    ), []);
     const grid = useMemo(() => (
         <GridBox 
             columns={1} 
@@ -68,10 +74,7 @@ const TradingFrame: React.FC<TTradingFrameProps> = (props) => {
                 },
                 {
                     element: isStatisticShow ? 
-                             (<TradeStatisticGroup
-                                trader={props.trader}
-                                dictionary={props.dictionary}
-                             />) : null,
+                             (statGroup) : null,
                     row: isStatisticShow ? 2+chartHeight : -1, 
                     column: 1, 
                     rowSpan: isStatisticShow ? statisticsHeight : -1, 
@@ -92,7 +95,7 @@ const TradingFrame: React.FC<TTradingFrameProps> = (props) => {
                 }, 
             ]}          
         />
-    ),[isStatisticShow, isSettingsShow, props.market.changed, props.dictionary]);
+    ),[isStatisticShow, isSettingsShow]);
 
     return (
         <div id='trading-frame' className="h-full w-full">

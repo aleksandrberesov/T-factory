@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef, useMemo } from 'react';   
+import { useState, useRef, useMemo } from 'react';   
 import { TNumberToStringFunc, TStringToStringFunc, TStringProc } from './types';        
 
 type TWord = {
@@ -12,13 +12,13 @@ type TWord = {
 interface IDictionary {
     getWordByID: TNumberToStringFunc;  
     getWord: TStringToStringFunc;  
-    isLoaded: boolean;
 };
 
 interface ILocalizator extends IDictionary {
     language: string;
     languages: string[];
     setLanguage: TStringProc;
+    init: () => void;
 };
 
 const AvailableLanguages: string[] = ['en', 'ru'];
@@ -27,18 +27,17 @@ const useLocalizaion = ():ILocalizator => {
     const [isLoaded, setIsLoaded] = useState(false);
     const [Language, setLanguage] = useState(''); 
     const dictionaryRef = useRef<TWord[]>([]);
-
-    useEffect(() => {
+    const init = ()=>{
         if (dictionaryRef.current && dictionaryRef.current.length === 0){
-            fetch('/words.json')
-                .then((response) => response.json())
-                .then((data) => {
-                    dictionaryRef.current = data;
-                }).finally(() => {
-                    setIsLoaded(true);
-                });    
-        }
-    }, []);
+                fetch('/words.json')
+                    .then((response) => response.json())
+                    .then((data) => {
+                        dictionaryRef.current = data;
+                    }).finally(() => {
+                        setIsLoaded(true);
+                    });    
+        }    
+    };
 
     function getWordByID(id: number): string{
         const result_word = dictionaryRef.current.find((word: TWord) => word.id === id);
@@ -64,7 +63,7 @@ const useLocalizaion = ():ILocalizator => {
         language: Language,
         languages: AvailableLanguages,
         setLanguage,
-        isLoaded,
+        init,
     }), [Language, isLoaded]);
 };
 

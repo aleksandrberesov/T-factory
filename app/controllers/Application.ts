@@ -29,7 +29,7 @@ const useApplication = (): IApplication => {
       statusInformaion.set('fetching profile data');
       controller.applyChanges();
       console.log("APP STATUS", currentStatus.get());
-      /*profile.setData(GetUserData().then(
+      profile.setData(GetUserData().then(
         (tgProfile) => {
           return GetProfile(tgProfile.id).then(
             (dbProfile) => { 
@@ -37,7 +37,10 @@ const useApplication = (): IApplication => {
             }
           );
         }
-      ));*/
+      ).finally(() => {
+        localizer.init();
+        localizer.setLanguage('en');
+      }));
     } catch (error) { 
       currentStatus.set('error');
       statusInformaion.set((error as Error).message); 
@@ -50,12 +53,6 @@ const useApplication = (): IApplication => {
       console.log("APP STATUS", currentStatus.get());
     } 
   }, []);
-
-  useEffect(() => {
-     if (currentStatus.get() === 'done') {
-      localizer.setLanguage('en');
-     }
-  }, [localizer.isLoaded]);
 
   useEffect(() => {
     fetchProfileData();
@@ -77,7 +74,8 @@ const useApplication = (): IApplication => {
     market,
     trader,
   }), [
-    controller.isChanged, localizer.isLoaded, localizer.language,
+    controller.isChanged, 
+    localizer.language,
   ]);
 };
 

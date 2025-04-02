@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import SelectedTab from '../components/button';
 import GridBox from '../components/gridbox';
 import { TTradingFrameProps } from '../views/types';
@@ -9,6 +9,16 @@ type TMarketControlPanelProps = Pick<TTradingFrameProps, 'market'> & {
 };
 
 const MarketControlPanel: React.FC<TMarketControlPanelProps> = (props) => {
+    const [isPlay, SetIsPlay] = useState(!props.market.isActive);
+    const togglePlay = () => {
+        if (isPlay) {
+            props.market.pause();
+        } else {
+            props.market.start();
+        }
+        SetIsPlay(!isPlay); 
+    };
+
     return (
         <GridBox  
             columns={5} 
@@ -17,7 +27,7 @@ const MarketControlPanel: React.FC<TMarketControlPanelProps> = (props) => {
             elements={[
                 {
                     element:
-                        !props.market.isActive ? <SelectedTab icon_image="/icons/play.svg" onClick={props.market.start}/> : <SelectedTab icon_image="/icons/pause.svg" onClick={props.market.pause}/>,
+                        (isPlay ? <SelectedTab icon_image="/icons/play.svg" onClick={togglePlay}/> : <SelectedTab icon_image="/icons/pause.svg" onClick={togglePlay}/>),
                 },
                 {
                     element: 
