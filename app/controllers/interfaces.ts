@@ -1,5 +1,6 @@
 import { TUpdateObjectProc } from '../libs/types';
 import { ILocalizator } from '../libs/useLocalization';
+import { TStatus } from './types';
 import { TDeal, TProfile, TMoney, TPatternPoint, TPattern, TMarketPoint, TStatValue, TStatRange } from '../models/types';
 
 interface IPattern {
@@ -76,7 +77,7 @@ interface ITrade {
 };
 
 interface IApplication {
-    status: string; 
+    status: TStatus; 
     statusInfo: string;
 
     localizer: ILocalizator;

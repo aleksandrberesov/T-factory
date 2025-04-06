@@ -18,6 +18,7 @@ const chartHeight = 8;
 const statisticsHeight = 4;
 
 const TradingFrame: React.FC<TTradingFrameProps> = (props) => {
+    console.log("TradingFrame rendered", props.market);
     const HideShowSettings = () => {
         console.log(isSettingsShow);
 		SetIsSettingsShow(!isSettingsShow);
@@ -47,6 +48,19 @@ const TradingFrame: React.FC<TTradingFrameProps> = (props) => {
             dictionary={props.dictionary}
         />
     ), []);
+    const marketPanel = useMemo(() => (
+        <MarketControlPanel 
+            market={props.market}
+            HideShowSettings={HideShowSettings}
+            HideShowSpeed={HideShowSpeedChange}
+        />
+    ), [props.market, props.market.changed, props.market.speed, props.market.isActive]);
+    const tradePanel = useMemo(() => (
+        <TradeControlPanel
+            trader={props.trader}
+            getWord={props.dictionary.getWord}
+        />
+    ), [props.trader]);
     const grid = useMemo(() => (
         <GridBox 
             columns={1} 
@@ -81,29 +95,24 @@ const TradingFrame: React.FC<TTradingFrameProps> = (props) => {
                     columnSpan: 1
                 },
                 {
-                    element: <TradeControlPanel
-                                trader={props.trader}
-                                getWord={props.dictionary.getWord}
-                             />,
+                    element: tradePanel,
                 },
                 {
-                    element: <MarketControlPanel
-                                market={props.market}
-                                HideShowSettings={HideShowSettings}
-                                HideShowSpeed={HideShowSpeedChange}
-                             />,
+                    element: marketPanel,
                 }, 
             ]}          
         />
-    ),[isStatisticShow, isSettingsShow]);
+    ),[isStatisticShow, isSettingsShow, props.market.speed]);
 
     return (
         <div id='trading-frame' className="h-full w-full">
             {isSettingsShow && (<ModalWindow content={<PointsSettingPanel 
-            callBack={HideShowSettings}
-            data={props.pattern}
-            dicrionary={props.dictionary}
-        />}/>)}
+                                    callBack={HideShowSettings}
+                                    data={props.pattern}
+                                    dicrionary={props.dictionary}
+                                />}
+                                />)
+            }
             {isSpeedChangeShow && (<ModalWindow content={<SpeedChangePanel ChangeSpeed={ChangeSpeed}/>}/>)}
             {grid}
         </div>

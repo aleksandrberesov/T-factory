@@ -18,25 +18,25 @@ interface ILocalizator extends IDictionary {
     language: string;
     languages: string[];
     setLanguage: TStringProc;
-    init: () => void;
+    init: () => Promise<boolean>;
 };
 
 const AvailableLanguages: string[] = ['en', 'ru'];
 
 const useLocalizaion = ():ILocalizator => {
-    const [isLoaded, setIsLoaded] = useState(false);
     const [Language, setLanguage] = useState(''); 
     const dictionaryRef = useRef<TWord[]>([]);
-    const init = ()=>{
+    const init = async ()=>{
         if (dictionaryRef.current && dictionaryRef.current.length === 0){
-                fetch('/words.json')
-                    .then((response) => response.json())
-                    .then((data) => {
-                        dictionaryRef.current = data;
-                    }).finally(() => {
-                        setIsLoaded(true);
-                    });    
+                await fetch('/words.json')
+                      .then((response) => response.json())
+                      .then((data) => {
+                          dictionaryRef.current = data;
+                      }).finally(() => {
+                          console.log('dictionaryRef', dictionaryRef.current);
+                      });    
         }    
+        return dictionaryRef.current.length > 0;
     };
 
     function getWordByID(id: number): string{
@@ -48,7 +48,7 @@ const useLocalizaion = ():ILocalizator => {
     };
 
     function getWord(search_word: string): string{
-        console.log('getWord', search_word);
+        console.log('getWord', search_word, Language);
         const result_word = dictionaryRef.current.find((word: TWord) => word.key === search_word);
         console.log('getWord', search_word, result_word);
         if (result_word && result_word[Language as keyof TWord]) {
@@ -57,14 +57,14 @@ const useLocalizaion = ():ILocalizator => {
         return String(search_word);
     };
     
-    return useMemo(() => ({
+    return {
         getWordByID,
         getWord,
         language: Language,
         languages: AvailableLanguages,
         setLanguage,
         init,
-    }), [Language, isLoaded]);
+    };
 };
 
 export default useLocalizaion;

@@ -15,56 +15,63 @@ type TApplicationViewProps = {
 const ApplicationView: React.FC<TApplicationViewProps> = (props) => {
     console.log("ApplicationView rendered");
     console.log('locale', props.controller.localizer.language);
-    //console.log("VIEW STATUS",props.controller.statusInfo, props.controller.status);
+    console.log("VIEW STATUS",props.controller.statusInfo, props.controller.status);
     const [component, setComponent] = useState<React.JSX.Element>();
-    const Views = useMemo(() => [
-        {
-            id: 0 , 
-            name: props.controller.localizer.getWord('profile'), 
-            element: 
-                <ProfileFrame 
-                    profile={props.controller.profile}  
-                    dictionary={props.controller.localizer}
-                />
-        },
-        {
-            id: 1 , 
-            name: props.controller.localizer.getWord('trading'), 
-            element: 
-                <TradingFrame
-                    dictionary={props.controller.localizer}
-                    pattern={props.controller.pattern}
-                    market={props.controller.market}
-                    trader={props.controller.trader}
-                />
-        },
-        {
-            id: 2 , 
-            name: props.controller.localizer.getWord('statistic'), 
-            element: 
-                <StatisticFrame 
-                    dictionary={props.controller.localizer}
-                    profile={props.controller.profile}   
-                />
-        }   
-    ], [props.controller.localizer.language]);
+    const Views = useMemo(() => {
+        console.log('Views rememorize');
+        if (!props.controller.status.isDone) {
+            return [];
+        }
+        return [
+            {
+                id: 0 , 
+                name: props.controller.localizer.getWord('profile'), 
+                element: 
+                    <ProfileFrame 
+                        profile={props.controller.profile}  
+                        dictionary={props.controller.localizer}
+                    />
+            },
+            {
+                id: 1 , 
+                name: props.controller.localizer.getWord('trading'), 
+                element: 
+                    <TradingFrame
+                        dictionary={props.controller.localizer}
+                        pattern={props.controller.pattern}
+                        market={props.controller.market}
+                        trader={props.controller.trader}
+                    />
+            },
+            {
+                id: 2 , 
+                name: props.controller.localizer.getWord('statistic'), 
+                element: 
+                    <StatisticFrame 
+                        dictionary={props.controller.localizer}
+                        profile={props.controller.profile}   
+                    />
+            }   
+        ];
+    }, [props.controller.localizer.language]);
 
     const setView = (id: number | string) => {
         setComponent(Views[Number(id)].element);
     };
     useEffect(() => {
-        setView(startFrame);
-    }, []);
-        
-    if (props.controller.status==='loading'){
+        if (Views.length > 0 && props.controller.status.isDone){ 
+            setView(startFrame);
+        }
+    }, [props.controller.status]);
+    if (props.controller.status.isLoading){
         return ( 
             <LoadingFrame/>
         )
-    }else if (props.controller.status==='error'){
+    }else if (props.controller.status.isError){
         return (
             <div>Error: {props.controller.statusInfo}</div>
         )
-    }else if (props.controller.status==='done'){
+    }else if (props.controller.status.isDone){
         return (
             <GridBox
                 columns={1}
