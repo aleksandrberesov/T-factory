@@ -48,13 +48,16 @@ const TradingFrame: React.FC<TTradingFrameProps> = (props) => {
             dictionary={props.dictionary}
         />
     ), []);
-    const marketPanel = useMemo(() => (
-        <MarketControlPanel 
-            market={props.market}
-            HideShowSettings={HideShowSettings}
-            HideShowSpeed={HideShowSpeedChange}
-        />
-    ), [props.market, props.market.changed, props.market.speed, props.market.isActive]);
+    const marketPanel = useMemo(() => {
+        console.log("marketPanel memo reinitialized");
+        return (
+            <MarketControlPanel 
+                market={props.market}
+                HideShowSettings={HideShowSettings}
+                HideShowSpeed={HideShowSpeedChange}
+            />
+        );
+    }, [props.market, props.market.changed, props.market.speed, props.market.isActive]);
     const tradePanel = useMemo(() => (
         <TradeControlPanel
             trader={props.trader}
@@ -87,8 +90,7 @@ const TradingFrame: React.FC<TTradingFrameProps> = (props) => {
                      ,   
                 },
                 {
-                    element: isStatisticShow ? 
-                             (statGroup) : null,
+                    element: isStatisticShow ? (statGroup) : null,
                     row: isStatisticShow ? 2+chartHeight : -1, 
                     column: 1, 
                     rowSpan: isStatisticShow ? statisticsHeight : -1, 
@@ -102,7 +104,7 @@ const TradingFrame: React.FC<TTradingFrameProps> = (props) => {
                 }, 
             ]}          
         />
-    ),[isStatisticShow, isSettingsShow, props.market.speed]);
+    ),[isStatisticShow, isSettingsShow]);
 
     return (
         <div id='trading-frame' className="h-full w-full">
