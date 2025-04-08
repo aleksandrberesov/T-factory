@@ -62,6 +62,11 @@ type TPatternPoint = {
     [key: string]: number | string;
 };
 
+type TMarketState = {
+    isActive: boolean;
+    speed: number;
+};
+
 type TMarket = {
     pattern: TPatternPoint[];
     points : TMarketPoint[];
@@ -86,7 +91,7 @@ type TProfile = {
 };
 
 export type { TUser, TStatisticItem, TCard, TStar };
-export type { TMarketPoint, TPatternPoint };
+export type { TMarketPoint, TMarketState, TPatternPoint };
 export type { TProfile, TMarket, TPattern };
 export type { TMoney, TDeal};
 export type { TStatRange, TStatValue };

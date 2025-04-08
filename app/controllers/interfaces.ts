@@ -1,7 +1,7 @@
 import { TUpdateObjectProc } from '../libs/types';
 import { ILocalizator } from '../libs/useLocalization';
 import { TStatus } from './types';
-import { TDeal, TProfile, TMoney, TPatternPoint, TPattern, TMarketPoint, TStatValue, TStatRange } from '../models/types';
+import { TDeal, TProfile, TMoney, TPatternPoint, TPattern, TMarketPoint, TStatValue, TStatRange, TMarket, TMarketState } from '../models/types';
 
 interface IPattern {
     patterns : string[];
@@ -45,6 +45,10 @@ interface IMarketDataManager {
     appendPoint: (point: TMarketPoint) => void;
 };
 
+interface IMarketView {
+    update: (marketState: TMarketState) => void;
+};
+
 interface IMarket {
     init: (pattern: TPattern) => void;
     step: ()=> void;
@@ -55,7 +59,6 @@ interface IMarket {
     currentPoint: TPatternPoint;
 
     isActive: boolean;
-    //setDuration: (duration: number) => void;
     setSpeed: (speedID: number)=> void;
     speed: string;
     addManager: (manager: IMarketDataManager) => void;
@@ -88,6 +91,6 @@ interface IApplication {
 };
 
 export type { IPattern, IProfile, IMarket, ITrade };
-export type { IMarketDataManager };
+export type { IMarketDataManager, IMarketView };
 export type { IAccount, IStatistics };
 export type { IApplication };
