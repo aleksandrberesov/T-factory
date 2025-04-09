@@ -3,7 +3,7 @@ import { IValue } from '../libs/data-hooks/interfaces';
 import  useRefValue from '../libs/data-hooks/value';
 import { useTimer } from "../libs/useTimer";
 import { TPattern, TMarketPoint, TPatternPoint } from "../models/types"; 
-import { IMarket, IMarketDataManager } from "./interfaces";
+import { IMarket, IMarketDataManager, IMarketView } from "./interfaces";
 import { CreateMarketPoint } from "../models/utils";
 import { defaultMarket } from "../models/defaults";
 import { defaultSpeeds } from '../models/consts';
@@ -11,8 +11,8 @@ import { stepTime } from '../models/consts';
 import { SpeedTitleToNumber } from '../models/utils';
 
 const useMarket = (): IMarket => {
-    const [changed, setChanged] = useState(false);
     const [managers, setManagers] = useState<IMarketDataManager[]>([]);
+    const [views, setViews] = useState<IMarketView[]>([]);
     const { setDuration, isActive, toggle, reset } = useTimer({
         callback:  () => { step(); }, 
         state: false,
@@ -50,12 +50,15 @@ const useMarket = (): IMarket => {
         currentPatternPoint.set(pattern.get()[0]);
         managers.forEach(element => {
             element.setPoints(initialPoints(init_pattern.pre_points));    
-        });  
-        setChanged(!changed);     
+        });       
     };
 
     function addManager(manager: IMarketDataManager){
         setManagers(prevItems => [...prevItems, manager]);
+    };
+
+    function addView(view: IMarketView){
+        setViews(prevItems => [...prevItems, view]);    
     };
 
     function start(){
@@ -88,13 +91,17 @@ const useMarket = (): IMarket => {
             }            
         } 
         MoveTime();
-        setChanged(!changed); 
     };
 
     const setSpeed = (ID: number) => {
         speedID.set(ID);
         setDuration(1000 / SpeedTitleToNumber(defaultSpeeds[ID].element));
-        setChanged(!changed);
+        views.forEach(element => {
+            element.update({
+                isActive: isActive,
+                speed: getSpeedTitle(),
+            });    
+        }); 
     };
 
     const getSpeedTitle = (): string => {
@@ -114,7 +121,7 @@ const useMarket = (): IMarket => {
         setSpeed,
         speed: getSpeedTitle(),
         addManager,
-        changed,
+        addView,
     };
 };
 

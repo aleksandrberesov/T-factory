@@ -1,15 +1,19 @@
-import React, { useState } from 'react';
+import React from 'react';
 import SelectedTab from '../components/button';
 import GridBox from '../components/gridbox';
-import { TTradingFrameProps } from '../views/types';
+import useViewController from '../controllers/viewController';
+import { IMarket } from '../controllers/interfaces';
+import { IMarketView } from '../controllers/interfaces';
 
-type TMarketControlPanelProps = Pick<TTradingFrameProps, 'market'> & {
+type TMarketControlPanelProps = {
+    market: IMarket;
     HideShowSettings(): void;
     HideShowSpeed(): void;
 };
 
 const MarketControlPanel: React.FC<TMarketControlPanelProps> = (props) => {
     console.log("MarketControlPanel rendered", props.market);
+    const data =  useViewController<IMarketView>(props.market.addView);
     return (
         <GridBox  
             columns={5} 

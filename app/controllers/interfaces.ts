@@ -62,7 +62,7 @@ interface IMarket {
     setSpeed: (speedID: number)=> void;
     speed: string;
     addManager: (manager: IMarketDataManager) => void;
-    changed: boolean;
+    addView: (view: IMarketView) => void;
 };
 
 interface ITrade {

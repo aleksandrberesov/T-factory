@@ -64,7 +64,7 @@ type TPatternPoint = {
 
 type TMarketState = {
     isActive: boolean;
-    speed: number;
+    speed: string;
 };
 
 type TMarket = {
