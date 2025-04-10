@@ -3,7 +3,7 @@ import SelectedTab from '../components/button';
 import GridBox from '../components/gridbox';
 import useViewController from '../controllers/viewController';
 import { IMarket } from '../controllers/interfaces';
-import { IMarketView } from '../controllers/interfaces';
+import { TMarketState } from '../models/types';
 
 type TMarketControlPanelProps = {
     market: IMarket;
@@ -13,7 +13,7 @@ type TMarketControlPanelProps = {
 
 const MarketControlPanel: React.FC<TMarketControlPanelProps> = (props) => {
     console.log("MarketControlPanel rendered", props.market);
-    const data =  useViewController<IMarketView>(props.market.addView);
+    const data =  useViewController<TMarketState>(props.market.addView, props.market.state);
     return (
         <GridBox  
             columns={5} 
@@ -27,7 +27,7 @@ const MarketControlPanel: React.FC<TMarketControlPanelProps> = (props) => {
                 {
                     element: 
                         <SelectedTab 
-                            title={props.market.speed} 
+                            title={data?.speed} 
                             backgroundcolor='grey' 
                             onClick={props.HideShowSpeed}
                        />,

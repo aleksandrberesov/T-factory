@@ -1,12 +1,17 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState, MutableRefObject } from 'react';
+
+type TAddViewProc = (view: IViewController<any>) => void;
+type TReturnValue = any | null;
 
 interface IViewController<T> {
-
+    update: (state: T) => void;
 };
 
-const useViewController = <T, >(subcrubeFunc: (view: T)=>{}): IViewController<T> => { 
+const useViewController = <T, >(subcrubeFunc: (view: IViewController<T>)=>void, initState: T | null): T | null => { 
     const [isChanged, setIsChanged] = useState(false);
-    const update = (): void => {
+    const data = useRef<T>(initState) as MutableRefObject<T>;
+    const update = (state: T): void => {
+        data.current = state;
         setIsChanged(!isChanged);
     };
     useEffect(() => {
@@ -14,10 +19,8 @@ const useViewController = <T, >(subcrubeFunc: (view: T)=>{}): IViewController<T>
             update,
         });
     });
-    const applyChanges = ()=>{
-            
-    };
-    return applyChanges; 
+
+    return data.current; 
 };
 
 export type { IViewController };
