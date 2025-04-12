@@ -1,6 +1,5 @@
-import { useEffect, useState } from "react";
 import { IValue } from '../libs/data-hooks/interfaces';
-import  useRefValue from '../libs/data-hooks/value';
+import useRefValue from '../libs/data-hooks/value';
 import useRefArray from '../libs/data-hooks/array';
 import { useTimer } from "../libs/useTimer";
 import { TMarketState } from "../models/types";
@@ -14,7 +13,7 @@ import { stepTime } from '../models/consts';
 import { SpeedTitleToNumber } from '../models/utils';
 
 const useMarket = (): IMarket => {
-    const [managers, setManagers] = useState<IMarketDataManager[]>([]);
+    const managers = useRefArray<IMarketDataManager>([]);
     const views = useRefArray<IViewController<TMarketState>>([]);
     const { setDuration, isActive, toggle, reset } = useTimer({
         callback:  () => { step(); }, 
@@ -52,19 +51,30 @@ const useMarket = (): IMarket => {
         pattern.set([... init_pattern.points]);
         currentPatternPoint.set(pattern.get()[0]);
         console.log('Market managers', managers);
-        managers.forEach(element => {
-            element.setPoints(initialPoints(init_pattern.pre_points));    
-        });       
+        updateManagers(null, initialPoints(init_pattern.pre_points));
     };
 
     function addManager(manager: IMarketDataManager){
-        setManagers(prevItems => [...prevItems, manager]);
+        managers.push(manager);
         console.log('manager is added to Market managers', manager);
     };
 
     function addView(view: IViewController<TMarketState>){
         views.push(view);  
         console.log('____________________view is added to Market views', view);
+    };
+
+    function updateManagers(point: TMarketPoint | null, points: TMarketPoint[] | null){
+        if (point !== null){
+            managers.get().forEach(element => {
+                element.appendPoint(point);
+            });
+        };
+        if (points !== null){
+            managers.get().forEach(element => {
+                element.setPoints(points);    
+            });
+        };
     };
 
     function updateViews(){
@@ -94,10 +104,7 @@ const useMarket = (): IMarket => {
     function step(){
         const newPoint: TMarketPoint = CreateMarketPoint(currentTime.get(), currentPatternPoint.get());
         points.set([...points.get(), ...[newPoint]]); 
-        managers.forEach(element => {
-            console.log('Market manager element', element);
-            element.appendPoint(newPoint);
-        });
+        updateManagers(newPoint, null);
         if (currentPatternPoint.get().count!==0){
             if(count.get() < currentPatternPoint.get().count){
                 count.set(count.get()+1);
@@ -121,11 +128,6 @@ const useMarket = (): IMarket => {
     const getSpeedTitle = (): string => {
         return defaultSpeeds[speedID.get()].element;
     };
-
-
-    useEffect(() => {
-        console.log('Market views updatyed', views);
-    }, [views]);
 
     return {
         init,
