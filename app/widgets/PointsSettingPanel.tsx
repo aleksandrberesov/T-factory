@@ -77,12 +77,12 @@ function PointsSettingPanel(props: TSettingsFrameProps) {
     return (
         <div className="container">
             <div className='items-container'>
-                <h3>Pre-Points</h3>
+                <h3 className="heading">Pre-Points</h3>
                 <ListBox elements={PrePoints} />
                 <SelectedTab title='Add Pre-Point' backgroundcolor='green' onClick={() => addNewPoint('pre_points')} />
             </div>
             <div className='items-container'>
-                <h3>Points</h3>
+                <h3 className="heading">Points</h3>
                 <ListBox elements={Points} />
                 <SelectedTab title='Add Point' backgroundcolor='green' onClick={() => addNewPoint('points')} />
             </div>
