@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useRef, useEffect, useCallback, useState } from 'react';
 import { TVoidFunc } from './types';
 import useRefValue from './data-hooks/value';
 
@@ -16,31 +16,35 @@ type TTimerProps = {
 };
 
 const useTimer = (props: TTimerProps): ITimer => {
-    const [seconds, setSeconds] = useState(0);
+    const [changed, setChanged] = useState<boolean>(false);
+    const seconds = useRef(0); 
     const isActive = useRefValue<boolean>(props.state);
     const duration = useRefValue<number>(props.duration);
-    const memoizedCallback = useCallback(()=>{props.callback()}, [props]);
+    const memoizedCallback = useCallback(() => { props.callback(); }, [props]);
+
     useEffect(() => {
         let interval = null;
         if (isActive.get()) {
             interval = setInterval(() => {
-                setSeconds(s => s + 1);
+                seconds.current += 1; 
                 memoizedCallback();
             }, duration.get());
-        } else if (!isActive.get() && seconds !== 0) {
+        } else if (!isActive.get() && seconds.current !== 0) {
             clearInterval(interval!);
         }
         return () => clearInterval(interval!);
-    }, [seconds, duration, memoizedCallback]);
+    }, [changed]); 
 
     const toggle = () => {
         isActive.set(!isActive.get());
-        setSeconds(s => s + 1);
+        seconds.current += 1;
+        setChanged(prev => !prev); 
     };
 
     const reset = () => {
-        setSeconds(0);
+        seconds.current = 0; // Reset seconds
         isActive.set(false);
+        setChanged(prev => !prev);
     };
 
     const getIsActive = (): boolean => {
@@ -49,6 +53,7 @@ const useTimer = (props: TTimerProps): ITimer => {
 
     const setDuration = (newDuration: number) => {
         duration.set(newDuration);
+        setChanged(prev => !prev);
     };
 
     return {
