@@ -55,13 +55,13 @@ const useMarket = (): IMarket => {
         currentTime.set(Date.now()/1000); 
         count.set(0);
         current.set(0);
-        pattern.set([... init_pattern.points]);
-        currentPatternPoint.set(pattern.get()[0]);
-        updateManagers(null, initialPoints(init_pattern.pre_points));
+        pattern.set(init_pattern.points);
+        currentPatternPoint.set(pattern.get()[0]);  
     };
 
     function addManager(manager: IMarketDataManager){
         managers.push(manager);
+        updateManagers(null, initialPoints(pattern.get()));
     };
 
     function addView(view: IViewController<TMarketState>){
@@ -70,13 +70,11 @@ const useMarket = (): IMarket => {
 
     function updateManagers(point: TMarketPoint | null, points: TMarketPoint[] | null){
         if (point !== null){
-            console.log("+++++++++++++++++updateManagers", managers, managers.count);	
             managers.get().forEach(element => {
                 element.appendPoint(point);
             });
         };
         if (points !== null){
-            console.log("-------------------updateManagers", managers, managers.count);	
             managers.get().forEach(element => {
                 element.setPoints(points);    
             });

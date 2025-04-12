@@ -13,13 +13,13 @@ const useRefArray = <T, >(initalArray: T[]): IArray<T> => {
         }
     };
     const clear = ():void => { arrayRef.current = []; };
-    const count = ():number => {return arrayRef.current.length;};
+    const getCount = ():number => {return arrayRef.current.length;};
     return { 
         get, 
         set, 
         push, 
         clear,
-        count: count() 
+        getCount,
     }; 
 };
 

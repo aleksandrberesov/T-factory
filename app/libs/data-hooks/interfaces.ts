@@ -8,7 +8,7 @@ interface IArray<T> {
     set: (newArray: T[]) => void;
     push: (newValue: T | IValue<T>) => void;
     clear: () => void;
-    count: number;
+    getCount: () => number;
 };
 
 export type { IArray, IValue };

@@ -15,7 +15,7 @@ const useStatistics = (): IStatistics => {
     };
 
     function lastDeal(): TDeal {
-        return deals.get()[deals.count - 1];
+        return deals.get()[deals.getCount() - 1];
     };
 
     function currentResult(): TStatValue {
@@ -39,7 +39,7 @@ const useStatistics = (): IStatistics => {
         const profitDeals = deals.get().filter(deal => deal.profitLoss > 0).length;
         return {
             value: Math.round(profitDeals),
-            percentage: Math.round(profitDeals / deals.count * 100),
+            percentage: Math.round(profitDeals / deals.getCount() * 100),
         };
     }
 
@@ -47,7 +47,7 @@ const useStatistics = (): IStatistics => {
         const lossDeals = deals.get().filter(deal => deal.profitLoss < 0).length;
         return {
             value: Math.round(lossDeals),
-            percentage: Math.round(lossDeals / deals.count * 100),
+            percentage: Math.round(lossDeals / deals.getCount() * 100),
         };
     }
 
@@ -71,7 +71,7 @@ const useStatistics = (): IStatistics => {
 
     function averageProfitLoss(): TStatValue {
         const totalProfitLoss = deals.get().reduce((total, deal) => total + deal.profitLoss, 0);
-        const average = deals.count > 0 ? totalProfitLoss / deals.count : 0;
+        const average = deals.getCount() > 0 ? totalProfitLoss / deals.getCount() : 0;
         return {
             value: Math.round(average),
             percentage: totalProfitLoss>0 ? Math.round(average / totalProfitLoss * 100) : 0,
