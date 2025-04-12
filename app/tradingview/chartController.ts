@@ -6,9 +6,11 @@ import { IChartApi, ISeriesApi, Time, UTCTimestamp } from 'lightweight-charts';
 import { createChart } from 'lightweight-charts';
 import { chartStyle } from "./options"
 import { lineStyle } from './options';
+import { removeElementById } from '../libs/utils';
 
 const useChart = (addModelProc: (manager: IMarketDataManager) => void): IChartController =>{
     const uniqueId = useId();
+    const [isCleared, setIsCleared] = useState(false);
     const [chart, setChart] = useState<IChartApi | undefined>(undefined);
     const [line, setLine] = useState<ISeriesApi<"Line", Time> | undefined>(undefined);
     const lineRef =useRef(line);
@@ -46,8 +48,16 @@ const useChart = (addModelProc: (manager: IMarketDataManager) => void): IChartCo
                 appendPoint,
                 id: uniqueId,
             });
+            setIsCleared(true);
         }
     },[chart, line]);
+
+    useEffect(() => {
+        const chartContainer = document.getElementById(uniqueId);
+        if (chartContainer) {
+            removeElementById('tv-attr-logo', chartContainer);
+        }
+    }, [isCleared]);
 
     return {
         id: uniqueId,
