@@ -10,11 +10,11 @@ type TChartPoint = {
 type TPoints = TChartPoint[];
 
 type TChartViewProps = {   
-    setChartApi : TAssignChartProc;
+    controller: IChartController;
 };
 
 interface IChartController {
-    assignChart: TAssignChartProc;
+    id: string;
 };
 
 export default IChartController;

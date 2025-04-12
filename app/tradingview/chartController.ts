@@ -3,6 +3,8 @@ import IChartController  from './types';
 import { TMarketPoint } from '../models/types';
 import { IMarketDataManager } from '../controllers/interfaces';
 import { IChartApi, ISeriesApi, Time, UTCTimestamp } from 'lightweight-charts';
+import { createChart } from 'lightweight-charts';
+import { chartStyle } from "./options"
 import { lineStyle } from './options';
 
 const useChart = (addModelProc: (manager: IMarketDataManager) => void): IChartController =>{
@@ -11,9 +13,6 @@ const useChart = (addModelProc: (manager: IMarketDataManager) => void): IChartCo
     const [line, setLine] = useState<ISeriesApi<"Line", Time> | undefined>(undefined);
     const lineRef =useRef(line);
     const setPoints = useCallback((points: TMarketPoint[]) => {
-        console.log("setPoints", points);
-        console.log("lineRef", lineRef.current);
-        console.log("chart", chart);
         lineRef.current?.setData(points.map((item)=>({value: item.value, time: item.time as UTCTimestamp})));       
         chart?.timeScale().fitContent(); 
     }, [chart, line]);
@@ -22,26 +21,36 @@ const useChart = (addModelProc: (manager: IMarketDataManager) => void): IChartCo
     },[chart, line]);
 
     useEffect(() => {
-        chart?.timeScale().applyOptions({
+        setChart(createChart(uniqueId, chartStyle));
+    },[]);
+
+    useEffect(() => {
+        if (!chart) return;
+        chart.timeScale().applyOptions({
             barSpacing: 10, // Adjust spacing between bars
             timeVisible: true, // Show time on the axis
             secondsVisible: false, // Hide seconds
             borderColor: '#D6DCDE', // Set border color  
         });
-        setLine(chart?.addLineSeries(lineStyle));
-        addModelProc({
-            setPoints,
-            appendPoint,
-            id: uniqueId,
-        });
+        setLine(chart.addLineSeries(lineStyle));
     }, [chart]);
     
     useEffect(() => { 
         lineRef.current = line; 
     }, [line]);
 
+    useEffect(()=>{
+        if (chart && lineRef.current) {
+            addModelProc({
+                setPoints,
+                appendPoint,
+                id: uniqueId,
+            });
+        }
+    },[chart, line]);
+
     return {
-        assignChart: setChart,  
+        id: uniqueId,
     };
 };
 

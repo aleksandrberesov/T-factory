@@ -38,8 +38,8 @@ const TradingFrame: React.FC<TTradingFrameProps> = (props) => {
     const [isSpeedChangeShow, SetIsSpeedChangeShow] = useState(false);
     const chartManager: IChartController = useChart(props.market.addManager);
     const chart = useMemo(() => (
-        <ChartView 
-            setChartApi={chartManager.assignChart} 
+        <ChartView
+            controller={chartManager} 
         />
     ), []);
     const statGroup = useMemo(() => (

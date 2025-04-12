@@ -1,25 +1,16 @@
-import React, { useEffect, useId, useRef } from 'react';
-import { createChart } from 'lightweight-charts';
-import { chartStyle } from "./options"
-import { TChartViewProps } from './types';
+import React, { useEffect } from 'react';
 import { removeElementById } from '../libs/utils';
+import { TChartViewProps } from './types';
 
-function ChartView( chartviewprops: TChartViewProps) {
-    const chart_id = useRef(useId()); 
-
-    useEffect(() => {
-        const chartContainer = document.getElementById(chart_id.current);
-        chartviewprops.setChartApi(createChart(chart_id.current, chartStyle));
+const ChartView: React.FC<TChartViewProps> = (props) => {
+    useEffect(()=>{
+        const chartContainer = document.getElementById(props.controller.id);
         if (chartContainer) {
             removeElementById('tv-attr-logo', chartContainer);
         }
-    }, [chartviewprops]);
-
+    },[]);
     return (
-        <div
-            id = {chart_id.current}
-            className="flex h-full w-full"
-        >
+        <div id = {props.controller.id} className="flex h-full w-full">
         </div>
     );
 }
