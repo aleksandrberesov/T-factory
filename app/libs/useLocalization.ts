@@ -33,7 +33,6 @@ const useLocalizaion = ():ILocalizator => {
                       .then((data) => {
                           dictionaryRef.current = data;
                       }).finally(() => {
-                          console.log('dictionaryRef', dictionaryRef.current);
                       });    
         }    
         return dictionaryRef.current.length > 0;
@@ -48,9 +47,7 @@ const useLocalizaion = ():ILocalizator => {
     };
 
     function getWord(search_word: string): string{
-        console.log('getWord', search_word, Language);
         const result_word = dictionaryRef.current.find((word: TWord) => word.key === search_word);
-        console.log('getWord', search_word, result_word);
         if (result_word && result_word[Language as keyof TWord]) {
           return String(result_word[Language as keyof TWord]);
         }

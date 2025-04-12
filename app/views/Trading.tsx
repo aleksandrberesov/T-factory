@@ -49,7 +49,6 @@ const TradingFrame: React.FC<TTradingFrameProps> = (props) => {
         />
     ), []);
     const marketPanel = useMemo(() => {
-        console.log("marketPanel memo reinitialized");
         return (
             <MarketControlPanel 
                 market={props.market}
