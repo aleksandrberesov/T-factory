@@ -12,7 +12,6 @@ type TMarketControlPanelProps = {
 };
 
 const MarketControlPanel: React.FC<TMarketControlPanelProps> = (props) => {
-    console.log("MarketControlPanel rendered", props.market.state);
     const controller = useViewController<TMarketState>(props.market.addView, props.market.state);
     return (
         <GridBox  

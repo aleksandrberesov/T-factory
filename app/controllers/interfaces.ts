@@ -52,14 +52,8 @@ interface IMarket {
     start: ()=> void;
     stop: ()=> void;
     pause: ()=> void;
-
-    lastPoint: TPatternPoint;
-    state: TMarketState;
-
-    isActive: boolean;
     setSpeed: (speedID: number)=> void;
-    speed: string;
-
+    state: TMarketState;
     addManager: (manager: IMarketDataManager) => void;
     addView: (view: IViewController<TMarketState>) => void;
 };

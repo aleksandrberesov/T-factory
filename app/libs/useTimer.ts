@@ -1,9 +1,9 @@
 import { useState, useEffect, useCallback } from 'react';
 import { TVoidFunc } from './types';
+import useRefValue from './data-hooks/value';
 
 interface ITimer {
-    seconds: number;
-    isActive: boolean;
+    getIsActive: () => boolean;
     setDuration: (duration: number) => void;
     toggle: () => void;
     reset: () => void;
@@ -15,36 +15,44 @@ type TTimerProps = {
     duration: number;
 };
 
-const useTimer = (timerprops: TTimerProps): ITimer => {
+const useTimer = (props: TTimerProps): ITimer => {
     const [seconds, setSeconds] = useState(0);
-    const [isActive, setIsActive] = useState(timerprops.state);
-    const [duration, setDuration] = useState(timerprops.duration);
-    const memoizedCallback = useCallback(()=>{timerprops.callback()}, [timerprops]);
+    const isActive = useRefValue<boolean>(props.state);
+    const duration = useRefValue<number>(props.duration);
+    const memoizedCallback = useCallback(()=>{props.callback()}, [props]);
     useEffect(() => {
         let interval = null;
-        if (isActive) {
+        if (isActive.get()) {
             interval = setInterval(() => {
-                setSeconds(seconds => seconds + 1);
+                setSeconds(s => s + 1);
                 memoizedCallback();
-            }, duration);
-        } else if (!isActive && seconds !== 0) {
+            }, duration.get());
+        } else if (!isActive.get() && seconds !== 0) {
             clearInterval(interval!);
         }
         return () => clearInterval(interval!);
-    }, [isActive, seconds, duration, memoizedCallback]);
+    }, [seconds, duration, memoizedCallback]);
 
     const toggle = () => {
-        setIsActive(!isActive);
+        isActive.set(!isActive.get());
+        setSeconds(s => s + 1);
     };
 
     const reset = () => {
         setSeconds(0);
-        setIsActive(false);
+        isActive.set(false);
+    };
+
+    const getIsActive = (): boolean => {
+        return isActive.get();
+    };
+
+    const setDuration = (newDuration: number) => {
+        duration.set(newDuration);
     };
 
     return {
-        seconds,
-        isActive,
+        getIsActive,
         setDuration,
         toggle,
         reset

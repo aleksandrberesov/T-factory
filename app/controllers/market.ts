@@ -15,7 +15,7 @@ import { SpeedTitleToNumber } from '../models/utils';
 const useMarket = (): IMarket => {
     const managers = useRefArray<IMarketDataManager>([]);
     const views = useRefArray<IViewController<TMarketState>>([]);
-    const { setDuration, isActive, toggle, reset } = useTimer({
+    const timer= useTimer({
         callback:  () => { step(); }, 
         state: false,
         duration: 1000,    
@@ -30,6 +30,13 @@ const useMarket = (): IMarket => {
 
     const MoveTime = ()=> {
         currentTime.set(currentTime.get() + stepTime);     
+    };
+
+    const getCurrentState = (): TMarketState => {
+        return {
+            isActive: timer.getIsActive(),
+            speed: getSpeedTitle(),
+        };
     };
 
     const initialPoints = (init_pattern: TPatternPoint[]): TMarketPoint[] => {
@@ -50,27 +57,26 @@ const useMarket = (): IMarket => {
         current.set(0);
         pattern.set([... init_pattern.points]);
         currentPatternPoint.set(pattern.get()[0]);
-        console.log('Market managers', managers);
         updateManagers(null, initialPoints(init_pattern.pre_points));
     };
 
     function addManager(manager: IMarketDataManager){
         managers.push(manager);
-        console.log('manager is added to Market managers', manager);
     };
 
     function addView(view: IViewController<TMarketState>){
         views.push(view);  
-        console.log('____________________view is added to Market views', view);
     };
 
     function updateManagers(point: TMarketPoint | null, points: TMarketPoint[] | null){
         if (point !== null){
+            console.log("+++++++++++++++++updateManagers", managers, managers.count);	
             managers.get().forEach(element => {
                 element.appendPoint(point);
             });
         };
         if (points !== null){
+            console.log("-------------------updateManagers", managers, managers.count);	
             managers.get().forEach(element => {
                 element.setPoints(points);    
             });
@@ -79,25 +85,22 @@ const useMarket = (): IMarket => {
 
     function updateViews(){
         views.get().forEach(element => {
-            element.update({
-                isActive: isActive,
-                speed: getSpeedTitle(),
-            });    
+            element.update(getCurrentState());    
         }); 
     };
 
     function start(){
-        toggle(); 
+        timer.toggle(); 
         updateViews();   
     };
     
     function stop(){
-        reset(); 
+        timer.reset(); 
         updateViews();      
     };
     
     function pause(){
-        toggle();  
+        timer.toggle();  
         updateViews();
     };
     
@@ -121,7 +124,7 @@ const useMarket = (): IMarket => {
 
     const setSpeed = (ID: number) => {
         speedID.set(ID);
-        setDuration(1000 / SpeedTitleToNumber(defaultSpeeds[ID].element));
+        timer.setDuration(1000 / SpeedTitleToNumber(defaultSpeeds[ID].element));
         updateViews(); 
     };
 
@@ -135,13 +138,8 @@ const useMarket = (): IMarket => {
         stop,
         pause,
         start,
-
-        lastPoint: currentPatternPoint.get(),
-        state: {isActive, speed: getSpeedTitle()} as TMarketState,
-
-        isActive,
+        state: getCurrentState(),
         setSpeed,
-        speed: getSpeedTitle(),
         addManager,
         addView,
     };
