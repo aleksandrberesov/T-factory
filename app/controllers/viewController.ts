@@ -1,20 +1,20 @@
-import { useEffect, useState } from 'react';
-
-type TAddViewProcedure = (view: IViewController<any>) => void;
-type TReturnValue = any | null;
+import { useEffect, useId, useState } from 'react';
 
 interface IViewController<T> {
-    update: (state: TReturnValue) => void;
+    update: (state: T) => void;
+    id: string;
 };
 
-const useViewController = <T, >(subscribeFunc: TAddViewProcedure, initState: TReturnValue): TReturnValue => { 
+const useViewController = <T, >(subscribeFunc: (view: IViewController<T>) => void, initState: T): T => { 
     const [state, setState] = useState(initState);
-    const update = (updatedState: TReturnValue): void => {	
+    const uniqueId = useId(); 
+    const update = (updatedState: T): void => {	
         setState(updatedState);
     };
     useEffect(() => {
         subscribeFunc({
             update,
+            id: uniqueId,
         });
     },[subscribeFunc]);
 

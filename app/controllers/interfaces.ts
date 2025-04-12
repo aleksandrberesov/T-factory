@@ -44,6 +44,7 @@ interface IStatistics {
 interface IMarketDataManager {
     setPoints : (points: TMarketPoint[]) => void;
     appendPoint: (point: TMarketPoint) => void;
+    id: string;
 };
 
 interface IMarket {

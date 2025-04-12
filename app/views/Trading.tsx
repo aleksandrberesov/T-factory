@@ -56,7 +56,7 @@ const TradingFrame: React.FC<TTradingFrameProps> = (props) => {
                 HideShowSpeed={HideShowSpeedChange}
             />
         );
-    }, [props.market]);
+    }, []);
     const tradePanel = useMemo(() => (
         <TradeControlPanel
             trader={props.trader}

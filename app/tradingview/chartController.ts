@@ -1,15 +1,19 @@
-import { useEffect, useState, useCallback, useRef } from 'react';
+import { useEffect, useState, useCallback, useRef, useId } from 'react';
 import IChartController  from './types';
 import { TMarketPoint } from '../models/types';
 import { IMarketDataManager } from '../controllers/interfaces';
 import { IChartApi, ISeriesApi, Time, UTCTimestamp } from 'lightweight-charts';
 import { lineStyle } from './options';
 
-const useChart = (addModelProc: (manager: IMarketDataManager) => void): IChartController & IMarketDataManager =>{
+const useChart = (addModelProc: (manager: IMarketDataManager) => void): IChartController =>{
+    const uniqueId = useId();
     const [chart, setChart] = useState<IChartApi | undefined>(undefined);
     const [line, setLine] = useState<ISeriesApi<"Line", Time> | undefined>(undefined);
     const lineRef =useRef(line);
     const setPoints = useCallback((points: TMarketPoint[]) => {
+        console.log("setPoints", points);
+        console.log("lineRef", lineRef.current);
+        console.log("chart", chart);
         lineRef.current?.setData(points.map((item)=>({value: item.value, time: item.time as UTCTimestamp})));       
         chart?.timeScale().fitContent(); 
     }, [chart, line]);
@@ -28,6 +32,7 @@ const useChart = (addModelProc: (manager: IMarketDataManager) => void): IChartCo
         addModelProc({
             setPoints,
             appendPoint,
+            id: uniqueId,
         });
     }, [chart]);
     
@@ -37,8 +42,6 @@ const useChart = (addModelProc: (manager: IMarketDataManager) => void): IChartCo
 
     return {
         assignChart: setChart,  
-        setPoints,
-        appendPoint, 
     };
 };
 

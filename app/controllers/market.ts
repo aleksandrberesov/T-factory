@@ -60,12 +60,18 @@ const useMarket = (): IMarket => {
     };
 
     function addManager(manager: IMarketDataManager){
-        managers.push(manager);
+        const existingView = managers.get().find(existing => existing.id === manager.id); // Check by unique ID
+        if (!existingView) {
+            managers.push(manager);
+        }
         updateManagers(null, initialPoints(pattern.get()));
     };
 
-    function addView(view: IViewController<TMarketState>){
-        views.push(view);  
+    function addView(view: IViewController<TMarketState>) {
+        const existingView = views.get().find(existing => existing.id === view.id); // Check by unique ID
+        if (!existingView) {
+            views.push(view);
+        }
     };
 
     function updateManagers(point: TMarketPoint | null, points: TMarketPoint[] | null){
