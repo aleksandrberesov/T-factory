@@ -12,8 +12,8 @@ type TMarketControlPanelProps = {
 };
 
 const MarketControlPanel: React.FC<TMarketControlPanelProps> = (props) => {
-    console.log("MarketControlPanel rendered", props.market);
-    const data =  useViewController<TMarketState>(props.market.addView, props.market.state);
+    console.log("MarketControlPanel rendered", props.market.state);
+    const controller = useViewController<TMarketState>(props.market.addView, props.market.state);
     return (
         <GridBox  
             columns={5} 
@@ -22,12 +22,12 @@ const MarketControlPanel: React.FC<TMarketControlPanelProps> = (props) => {
             elements={[
                 {
                     element:
-                        (!props.market.isActive ? <SelectedTab icon_image="/icons/play.svg" onClick={props.market.start}/> : <SelectedTab icon_image="/icons/pause.svg" onClick={props.market.pause}/>),
+                        (!controller?.isActive ? <SelectedTab icon_image="/icons/play.svg" onClick={props.market.start}/> : <SelectedTab icon_image="/icons/pause.svg" onClick={props.market.pause}/>),
                 },
                 {
                     element: 
                         <SelectedTab 
-                            title={data?.speed} 
+                            title={controller?.speed} 
                             backgroundcolor='grey' 
                             onClick={props.HideShowSpeed}
                        />,
