@@ -1,7 +1,7 @@
 import { GetUserData } from "../telegram/dataService";
 import { FullScreen } from "../telegram/utils";
 import { GetProfile, UpdateProfile, GetPatterns, CommitPattern, GetPoints } from "../aws/dataService"
-import { useEffect, useMemo } from 'react';
+import { useEffect } from 'react';
 import useLocalizaion, { ILocalizator } from "../libs/useLocalization";
 import useProfile from "./profile";
 import usePattern from "./pattern";
@@ -26,7 +26,6 @@ const useApplication = (): IApplication => {
   const fetchProfileData = async () => { 
       const tgProfile = await GetUserData();
       const dbProfile = await GetProfile(tgProfile.id);
-      
       return {...tgProfile, ...dbProfile};
   };
 
@@ -40,27 +39,20 @@ const useApplication = (): IApplication => {
       localizer.init()
                .then((status: boolean) => {
                   if (status) {
-                    console.log("------------------------------------------LOCALIZER INITIALIZED");
                     currentStatus.set({...currentStatus.get(), ...{isLoading: true, isInit: false}});  
                     statusInformaion.set('initialization'); 
-                    //
                   }
                 }).then(() => {
                   controller.applyChanges();  
                 });
-      //
-      //
     }else if(currentStatus.get().isLoading) {
       currentStatus.set({...currentStatus.get(), ...{isLoading: false, isDone: true}});  
-      statusInformaion.set('ready'); 
-      console.log("APP STATUS", currentStatus.get());   
-         
+      statusInformaion.set('ready');          
       fetchProfileData().then((pro) => {
         profile.setData(pro); 
         localizer.setLanguage(pro.lang || 'en');
       })
-      .then((pro) => {
-        console.log("APP STATUS", currentStatus.get());   
+      .then(() => {
         pattern.init();
         market.init(pattern.pattern);
         trader.init(profile, market);
