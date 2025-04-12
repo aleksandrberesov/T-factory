@@ -20,14 +20,14 @@ const useTimer = (props: TTimerProps): ITimer => {
     const seconds = useRef(0); 
     const isActive = useRefValue<boolean>(props.state);
     const duration = useRefValue<number>(props.duration);
-    const memoizedCallback = useCallback(() => { props.callback(); }, [props]);
+    const callbackFunc = useCallback(() => { props.callback(); }, [props]);
 
     useEffect(() => {
         let interval = null;
         if (isActive.get()) {
             interval = setInterval(() => {
                 seconds.current += 1; 
-                memoizedCallback();
+                callbackFunc();
             }, duration.get());
         } else if (!isActive.get() && seconds.current !== 0) {
             clearInterval(interval!);
