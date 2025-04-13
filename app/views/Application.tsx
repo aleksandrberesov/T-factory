@@ -18,10 +18,8 @@ const ApplicationView: React.FC<TApplicationViewProps> = (props) => {
     console.log("VIEW STATUS",props.controller.statusInfo, props.controller.status);
     const [component, setComponent] = useState<React.JSX.Element>();
     const Views = useMemo(() => {
-        console.log('Views rememorize');
-        if (!props.controller.status.isDone) {
-            return [];
-        }
+        console.log('Views rememorize', props.controller.status);
+        if (props.controller.status.isLoading || props.controller.status.isError) return [];
         return [
             {
                 id: 0 , 
@@ -53,7 +51,7 @@ const ApplicationView: React.FC<TApplicationViewProps> = (props) => {
                     />
             }   
         ];
-    }, [props.controller.localizer.language]);
+    }, [props.controller.localizer.language, props.controller.status]);
 
     const setView = (id: number | string) => {
         setComponent(Views[Number(id)].element);
@@ -71,7 +69,7 @@ const ApplicationView: React.FC<TApplicationViewProps> = (props) => {
         return (
             <div>Error: {props.controller.statusInfo}</div>
         )
-    }else if (props.controller.status.isDone){
+    }else if (props.controller.status.isReady){
         return (
             <GridBox
                 columns={1}

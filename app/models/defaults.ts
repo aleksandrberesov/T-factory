@@ -32,12 +32,12 @@ const defaultProfile : TProfile = {
 const defaultPattern: TPattern = {
     points: [
         {
-            count: 10,
+            count: 1,
             expectation: 0,
             volatility: 20
         },
         {
-            count: 20,
+            count: 2,
             expectation: 0,
             volatility: 30
         },
@@ -49,7 +49,7 @@ const defaultPattern: TPattern = {
     ],
     pre_points: [
         {
-            count: 10,
+            count: 5,
             expectation: 0,
             volatility: 20
         }

@@ -9,7 +9,7 @@ interface IPattern {
     pattern: TPattern;
     select : (name: string) => void;
     save : (points: TPattern) => void;
-    init : () => void;    
+    init : () => Promise<TPattern>;    
 };
 
 interface IProfile {

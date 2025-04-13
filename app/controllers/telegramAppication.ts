@@ -1,6 +1,6 @@
-import { GetUserData } from "../telegram/dataService";
+ import { GetUserData } from "../telegram/dataService";
 import { FullScreen } from "../telegram/utils";
-import { GetProfile, UpdateProfile, GetPatterns, CommitPattern, GetPoints } from "../aws/dataService"
+import { GetProfile, UpdateProfile, GetPatterns, CommitPattern, GetPoints } from "../aws/dataService";
 import { useEffect } from 'react';
 import useLocalizaion, { ILocalizator } from "../libs/useLocalization";
 import useProfile from "./profile";
@@ -8,6 +8,7 @@ import usePattern from "./pattern";
 import useMarket from "./market";
 import useTrade from "./trade";
 import { TStatus } from "./types";
+import { TProfile } from "../models/types";
 import { IApplication, IMarket, IProfile, ITrade } from "./interfaces";  
 import useValue, { IValue } from "../libs/data-hooks/value";
 import useBaseController, { IController } from "./baseController";
@@ -29,13 +30,17 @@ const useApplication = (): IApplication => {
       return {...tgProfile, ...dbProfile};
   };
 
-  useEffect(() => {
-    controller.applyChanges();
-  },[]);
+  const fetchPatternData = async () => { 
+      return await pattern.init();
+  };
 
   useEffect(() => {
-    if (currentStatus.get().isInit) {
-      console.log("APP STATUS", currentStatus.get());                                   
+    controller.applyChanges();
+    FullScreen();
+  }, []);
+
+  useEffect(() => {
+    if (currentStatus.get().isInit) {                                 
       localizer.init()
                .then((status: boolean) => {
                   if (status) {
@@ -46,25 +51,34 @@ const useApplication = (): IApplication => {
                   controller.applyChanges();  
                 });
     }else if(currentStatus.get().isLoading) {
-      currentStatus.set({...currentStatus.get(), ...{isLoading: false, isDone: true}});  
-      statusInformaion.set('ready');          
-      fetchProfileData().then((pro) => {
+      fetchProfileData()
+      .then((pro) => {
         profile.setData(pro); 
         localizer.setLanguage(pro.lang || 'en');
       })
       .then(() => {
-        pattern.init();
-        market.init(pattern.pattern);
-        trader.init(profile, market);
+        fetchPatternData()
+        .then((points) => {
+          console.log("Pattern loaded", points);
+          market.init(points);
+          trader.init(profile, market);   
+          currentStatus.set({...currentStatus.get(), ...{isLoading: false, isDone: true}});  
+          statusInformaion.set('done');                        
+          controller.applyChanges(); 
+        })
       })
-      .then(() => {;                             
-        controller.applyChanges();
+      .finally(() => {   
+
+        controller.applyChanges(); 
       });
+    } else if (currentStatus.get().isDone && !currentStatus.get().isReady) {
+      console.log("Application is ready");
+      console.log("-----------------------------Pattern", pattern.pattern);
+      currentStatus.set({...currentStatus.get(), ...{isReady: true}});  
+      statusInformaion.set('ready');                          
+      controller.applyChanges();
     }
   }, [controller.isChanged]);
-  useEffect(() => {
-    FullScreen();
-  }, []);
 
   return {
     status: currentStatus.get(),

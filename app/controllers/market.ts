@@ -55,7 +55,7 @@ const useMarket = (): IMarket => {
         currentTime.set(Date.now()/1000); 
         count.set(0);
         current.set(0);
-        pattern.set(init_pattern.points);
+        pattern.set(init_pattern.pre_points);
         currentPatternPoint.set(pattern.get()[0]);  
     };
 

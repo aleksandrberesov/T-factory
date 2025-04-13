@@ -1,19 +1,20 @@
-import { useState, useCallback, useEffect } from "react";
+import { useCallback } from "react";
 import { IPattern } from "./interfaces";
 import { TPattern } from "../models/types";
 import { defaultPattern } from "../models/defaults";
+import useRefArray from "../libs/data-hooks/array";
+import useRefValue from "../libs/data-hooks/value";
 
 const usePattern = (fetch: (name: string)=> Promise<object>, init_fetch: ()=> Promise<object>, commit : (data: object)=>void): IPattern => {
-    const [patterns, setPatterns] = useState<string[]>([]);
-    const [selectedPattern, setSelectedPattern] = useState<string>('');
-    const [pattern, setPattern] = useState<TPattern>(defaultPattern);
+    const patterns = useRefArray<string>([]);
+    const selectedPattern = useRefValue<string>('');
+    const pattern = useRefValue<TPattern>(defaultPattern);
     
     const select = useCallback(async (name: string) => {     
         try { 
             const data = await fetch(name); 
-            
-            setSelectedPattern(name);
-            setPattern({...pattern, ...data});
+            selectedPattern.set(name);
+            pattern.set({...pattern.get(), ...data});
         } catch (error) { 
             console.error("Error during fetch", error); 
         } 
@@ -23,29 +24,31 @@ const usePattern = (fetch: (name: string)=> Promise<object>, init_fetch: ()=> Pr
         try { 
             const data = await init_fetch(); 
             if (data && Array.isArray(data) && data.every(item => typeof item === 'string')) { 
-                setPatterns(data); 
+                console.log("Patterns fetched:", data);
+                patterns.set(data); 
             } 
-            if (patterns.length !== 0) { 
-                select(patterns[0]); 
+            if (patterns.getCount() !== 0) { 
+                await select(patterns.get()[0]); 
             }
-        } catch (error) { 
+        } 
+        catch (error) { 
             console.error("Error during init fetch:", error); 
-        }     
+        } 
+        finally {
+            console.log("Init fetch completed", pattern.get(), patterns.get());
+            return pattern.get();
+        }    
     }, [init_fetch]);
 
     const save = useCallback((points: TPattern) => {
         console.log("Save pattern");
-        setPattern({...pattern, ...points});
+        pattern.set({...pattern.get(), ...points});
         commit({...{name: selectedPattern}, ...points});
     },[]);
 
-   /*useEffect(()=>{
-        select(patterns[0]);
-    },[patterns]);
-*/
     return {
-        patterns,
-        pattern,
+        patterns: patterns.get(),
+        pattern: pattern.get(),
         select,
         save,
         init
