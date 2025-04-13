@@ -47,7 +47,8 @@ const useApplication = (): IApplication => {
                     currentStatus.set({...currentStatus.get(), ...{isLoading: true, isInit: false}});  
                     statusInformaion.set('initialization'); 
                   }
-                }).then(() => {
+                })
+                .then(() => {
                   controller.applyChanges();  
                 });
     }else if(currentStatus.get().isLoading) {
@@ -59,7 +60,6 @@ const useApplication = (): IApplication => {
       .then(() => {
         fetchPatternData()
         .then((points) => {
-          console.log("Pattern loaded", points);
           market.init(points);
           trader.init(profile, market);   
           currentStatus.set({...currentStatus.get(), ...{isLoading: false, isDone: true}});  
@@ -68,12 +68,10 @@ const useApplication = (): IApplication => {
         })
       })
       .finally(() => {   
-
         controller.applyChanges(); 
       });
     } else if (currentStatus.get().isDone && !currentStatus.get().isReady) {
       console.log("Application is ready");
-      console.log("-----------------------------Pattern", pattern.pattern);
       currentStatus.set({...currentStatus.get(), ...{isReady: true}});  
       statusInformaion.set('ready');                          
       controller.applyChanges();

@@ -17,7 +17,7 @@ const defaultAmounts = [
     {id: 2, element: "10"},
 ];
 
-const stepTime = 24 * 60 * 60;
+const stepTime = Math.round(24 * 60 * 60);
 const currencySymbol = '¤';
 
 export { stepTime, startFrame, defaultSpeeds, defaultAmounts, currencySymbol };

@@ -13,12 +13,12 @@ const useChart = (addModelProc: (manager: IMarketDataManager) => void): IChartCo
     const [isCleared, setIsCleared] = useState(false);
     const [chart, setChart] = useState<IChartApi | undefined>(undefined);
     const [line, setLine] = useState<ISeriesApi<"Line", Time> | undefined>(undefined);
-    const lineRef =useRef(line);
+    const lineRef = useRef(line);
     const setPoints = useCallback((points: TMarketPoint[]) => {
         lineRef.current?.setData(points.map((item)=>({value: item.value, time: item.time as UTCTimestamp})));       
         chart?.timeScale().fitContent(); 
     }, [chart, line]);
-    const appendPoint =useCallback((point: TMarketPoint) => {
+    const appendPoint = useCallback((point: TMarketPoint) => {
         lineRef.current?.update({value: point.value, time: point.time as UTCTimestamp});
     },[chart, line]);
 
@@ -29,7 +29,7 @@ const useChart = (addModelProc: (manager: IMarketDataManager) => void): IChartCo
     useEffect(() => {
         if (!chart) return;
         chart.timeScale().applyOptions({
-            barSpacing: 10, // Adjust spacing between bars
+            barSpacing: 20, // Adjust spacing between bars
             timeVisible: true, // Show time on the axis
             secondsVisible: false, // Hide seconds
             borderColor: '#D6DCDE', // Set border color  

@@ -14,8 +14,6 @@ type TApplicationViewProps = {
 
 const ApplicationView: React.FC<TApplicationViewProps> = (props) => {
     console.log("ApplicationView rendered");
-    console.log('locale', props.controller.localizer.language);
-    console.log("VIEW STATUS",props.controller.statusInfo, props.controller.status);
     const [component, setComponent] = useState<React.JSX.Element>();
     const Views = useMemo(() => {
         console.log('Views rememorize', props.controller.status);
@@ -57,7 +55,7 @@ const ApplicationView: React.FC<TApplicationViewProps> = (props) => {
         setComponent(Views[Number(id)].element);
     };
     useEffect(() => {
-        if (Views.length > 0 && props.controller.status.isDone){ 
+        if (Views.length > 0 && props.controller.status.isReady){ 
             setView(startFrame);
         }
     }, [props.controller.status]);

@@ -15,13 +15,14 @@ import { SpeedTitleToNumber } from '../models/utils';
 const useMarket = (): IMarket => {
     const managers = useRefArray<IMarketDataManager>([]);
     const views = useRefArray<IViewController<TMarketState>>([]);
-    const timer= useTimer({
+    const timer = useTimer({
         callback:  () => { step(); }, 
         state: false,
         duration: 1000,    
     });
-    const pattern = useRefValue<TPatternPoint[]>(defaultMarket.pattern);
-    const points = useRefValue<TMarketPoint[]>([]); 
+    const initPattern = useRefArray<TPatternPoint>(defaultMarket.pattern);
+    const pattern = useRefArray<TPatternPoint>(defaultMarket.pattern);
+    const points = useRefArray<TMarketPoint>([]); 
     const currentTime: IValue<number> = useRefValue(0);
     const count: IValue<number> = useRefValue(0);
     const current: IValue<number> = useRefValue(0);
@@ -29,7 +30,7 @@ const useMarket = (): IMarket => {
     const speedID: IValue<number> = useRefValue(0);
 
     const MoveTime = ()=> {
-        currentTime.set(currentTime.get() + stepTime);     
+        currentTime.set(currentTime.get() + stepTime);   
     };
 
     const getCurrentState = (): TMarketState => {
@@ -52,10 +53,11 @@ const useMarket = (): IMarket => {
     };
 
     const init = (init_pattern: TPattern) =>{
-        currentTime.set(Date.now()/1000); 
+        currentTime.set(Math.round(Date.now()/1000)); 
         count.set(0);
         current.set(0);
-        pattern.set(init_pattern.pre_points);
+        initPattern.set(init_pattern.pre_points);
+        pattern.set(init_pattern.points);
         currentPatternPoint.set(pattern.get()[0]);  
     };
 
@@ -64,7 +66,7 @@ const useMarket = (): IMarket => {
         if (!existingView) {
             managers.push(manager);
         }
-        updateManagers(null, initialPoints(pattern.get()));
+        updateManagers(null, initialPoints(initPattern.get()));
     };
 
     function addView(view: IViewController<TMarketState>) {
@@ -109,8 +111,9 @@ const useMarket = (): IMarket => {
     };
     
     function step(){
+        MoveTime();
         const newPoint: TMarketPoint = CreateMarketPoint(currentTime.get(), currentPatternPoint.get());
-        points.set([...points.get(), ...[newPoint]]); 
+        points.push(newPoint); 
         updateManagers(newPoint, null);
         if (currentPatternPoint.get().count!==0){
             if(count.get() < currentPatternPoint.get().count){
@@ -123,7 +126,6 @@ const useMarket = (): IMarket => {
                 currentPatternPoint.set(pattern.get()[current.get()])
             }            
         } 
-        MoveTime();
     };
 
     const setSpeed = (ID: number) => {
