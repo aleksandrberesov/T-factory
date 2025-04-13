@@ -1,6 +1,6 @@
 "use client";
 
-import useApplication from "./controllers/Application";
+import useApplication from "./controllers/telegramAppication";
 import ApplicationView from "./views/Application";
 
 export default function Home() {
