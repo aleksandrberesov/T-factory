@@ -10,6 +10,7 @@ type TradeControlPanelProps = {
 };
 
 const TradeControlPanel: React.FC<TradeControlPanelProps> = (props) => {
+    console.log('TradeControlPanel', props.trader);
     return (
         <GridBox  
             columns={4} 

@@ -1,4 +1,4 @@
- import { GetUserData } from "../telegram/dataService";
+import { GetUserData } from "../telegram/dataService";
 import { FullScreen } from "../telegram/utils";
 import { GetProfile, UpdateProfile, GetPatterns, CommitPattern, GetPoints } from "../aws/dataService";
 import { useEffect } from 'react';
@@ -23,6 +23,7 @@ const useApplication = (): IApplication => {
   const market: IMarket = useMarket();
   const trader: ITrade = useTrade();
   const localizer: ILocalizator = useLocalizaion();
+  const hasFetchedPatternData = useValue(false); // Add a flag to track fetchPatternData execution
 
   const fetchProfileData = async () => { 
       const tgProfile = await GetUserData();
@@ -31,6 +32,7 @@ const useApplication = (): IApplication => {
   };
 
   const fetchPatternData = async () => { 
+      console.log("fetchPatternData");
       return await pattern.init();
   };
 
@@ -58,14 +60,18 @@ const useApplication = (): IApplication => {
         localizer.setLanguage(pro.lang || 'en');
       })
       .then(() => {
-        fetchPatternData()
-        .then((points) => {
-          market.init(points);
-          trader.init(profile, market);   
-          currentStatus.set({...currentStatus.get(), ...{isLoading: false, isDone: true}});  
-          statusInformaion.set('done');                        
-          controller.applyChanges(); 
-        })
+        if (!hasFetchedPatternData.get()) { // Ensure fetchPatternData is executed only once
+          fetchPatternData()
+          .then((points) => {
+            hasFetchedPatternData.set(true);
+            market.init(points);
+            trader.init(profile, market);   
+            currentStatus.set({...currentStatus.get(), ...{isLoading: false, isDone: true}});  
+            statusInformaion.set('done');                        
+            //controller.applyChanges(); 
+         // Mark as executed
+          });
+        }
       })
       .finally(() => {   
         controller.applyChanges(); 

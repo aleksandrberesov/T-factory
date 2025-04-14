@@ -18,7 +18,7 @@ const chartHeight = 8;
 const statisticsHeight = 4;
 
 const TradingFrame: React.FC<TTradingFrameProps> = (props) => {
-    console.log("TradingFrame rendered");
+    console.log("TradingFrame rendered", props);
     const HideShowSettings = () => {
         console.log(isSettingsShow);
 		SetIsSettingsShow(!isSettingsShow);

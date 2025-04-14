@@ -13,10 +13,10 @@ const useTrade = (): ITrade & IMarketDataManager => {
     const marketPoint: IValue<TMarketPoint> = useRefValue(defaultMarketPoint);
     const statistics: IStatistics = useStatistics();
     const deal: IValue<TDeal> = useRefValue(defaultDeal);
-
     const marketPlace = useRef<IMarket | undefined>(undefined);
 
     const init = (profile: IProfile, market: IMarket) => {
+        console.log("useTrade init", profile, market);
         marketPlace.current=market;
         account.depositFiat(profile.data.balance);
         setChanged(!changed);
@@ -47,16 +47,20 @@ const useTrade = (): ITrade & IMarketDataManager => {
         marketPlace.current?.stop();
     };
     const getBalance = (): number => {
+        console.log("getBalance", marketPoint.get().value);
         return Math.round(account.getBalance(marketPoint.get().value));
     };
     const getAverageCost = (): number => {
         return Math.round(deal.get().openPrice);
     };
     const setPoints = useCallback((points: TMarketPoint[]) => {
+        if (points.length === 0) { return; }
+        const point = points[points.length - 1];
+        marketPoint.set(point);
     }, []);
     const appendPoint =useCallback((point: TMarketPoint) => {
         marketPoint.set(point);
-    },[marketPoint]);
+    },[]);
 
     return {
         init,
