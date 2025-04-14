@@ -10,12 +10,12 @@ type TWord = {
 };
 
 interface IDictionary {
+    language: string;    
     getWordByID: TNumberToStringFunc;  
     getWord: TStringToStringFunc;  
 };
 
 interface ILocalizator extends IDictionary {
-    language: string;
     languages: string[];
     setLanguage: TStringProc;
     init: () => Promise<boolean>;

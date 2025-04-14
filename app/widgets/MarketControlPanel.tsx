@@ -29,7 +29,7 @@ const MarketControlPanel: React.FC<TMarketControlPanelProps> = (props) => {
                             title={controller.speed} 
                             backgroundcolor='grey' 
                             onClick={props.HideShowSpeed}
-                       />,
+                        />,
                 },
                 {
                     element: <SelectedTab icon_image="/icons/next.svg" onClick={props.market.step}/>,

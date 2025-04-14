@@ -18,7 +18,7 @@ const chartHeight = 8;
 const statisticsHeight = 4;
 
 const TradingFrame: React.FC<TTradingFrameProps> = (props) => {
-    console.log("TradingFrame rendered", props.market);
+    console.log("TradingFrame rendered");
     const HideShowSettings = () => {
         console.log(isSettingsShow);
 		SetIsSettingsShow(!isSettingsShow);
@@ -42,12 +42,12 @@ const TradingFrame: React.FC<TTradingFrameProps> = (props) => {
             controller={chartManager} 
         />
     ), []);
-    const statGroup = useMemo(() => (
+    const statPanel = useMemo(() => (
         <TradeStatisticGroup
             trader={props.trader}
             dictionary={props.dictionary}
         />
-    ), []);
+    ), [props.dictionary.language]);
     const marketPanel = useMemo(() => {
         return (
             <MarketControlPanel 
@@ -60,9 +60,9 @@ const TradingFrame: React.FC<TTradingFrameProps> = (props) => {
     const tradePanel = useMemo(() => (
         <TradeControlPanel
             trader={props.trader}
-            getWord={props.dictionary.getWord}
+            dictionary={props.dictionary} 
         />
-    ), [props.trader]);
+    ), [props.dictionary.language]);
     const grid = useMemo(() => (
         <GridBox 
             columns={1} 
@@ -89,7 +89,7 @@ const TradingFrame: React.FC<TTradingFrameProps> = (props) => {
                      ,   
                 },
                 {
-                    element: isStatisticShow ? (statGroup) : null,
+                    element: isStatisticShow ? (statPanel) : null,
                     row: isStatisticShow ? 2+chartHeight : -1, 
                     column: 1, 
                     rowSpan: isStatisticShow ? statisticsHeight : -1, 
@@ -103,7 +103,7 @@ const TradingFrame: React.FC<TTradingFrameProps> = (props) => {
                 }, 
             ]}          
         />
-    ),[isStatisticShow, isSettingsShow]);
+    ),[isStatisticShow, isSettingsShow, props.dictionary.language]);
 
     return (
         <div id='trading-frame' className="h-full w-full">

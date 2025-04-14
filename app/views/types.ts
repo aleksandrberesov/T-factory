@@ -1,5 +1,4 @@
 import { IPattern, IProfile, IMarket, ITrade } from "../controllers/interfaces";
-import { TStringToStringFunc } from "../libs/types";
 import { IDictionary } from "../libs/useLocalization";
 
 type TLocalizedFrameProps = {

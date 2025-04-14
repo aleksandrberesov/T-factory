@@ -78,6 +78,10 @@ const useApplication = (): IApplication => {
     }
   }, [controller.isChanged]);
 
+  /*useEffect(()=>{
+    controller.applyChanges();
+  },[localizer.language]);
+*/
   return {
     status: currentStatus.get(),
     statusInfo: statusInformaion.get(),
