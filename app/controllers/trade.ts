@@ -17,7 +17,7 @@ const useTrade = (): ITrade & IMarketDataManager => {
 
     const init = (profile: IProfile, market: IMarket) => {
         marketPlace.current=market;
-        account.depositFiat(profile.data.balance);
+        account.init({fiat: profile.data.balance, currency: 0});
         setChanged(!changed);
     };
     const buy = () => {

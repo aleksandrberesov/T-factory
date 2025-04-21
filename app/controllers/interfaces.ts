@@ -18,6 +18,7 @@ interface IProfile {
 };
 
 interface IAccount {
+    init: (money: TMoney) => void;
     depositFiat: (value: number)=> void;
     withdrawFiat: (value: number)=> void;
     depositCurrency: (value: number)=> void;

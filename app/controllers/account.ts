@@ -5,6 +5,10 @@ const useAccount = (): IAccount => {
     const fiat: IValue<number> = useRefValue(0);
     const currency: IValue<number> = useRefValue(0);
 
+    const init = (money: {fiat: number, currency: number}) => {
+        fiat.set(money.fiat);
+        currency.set(money.currency);
+    };
     const depositFiat = (value: number) => {
         fiat.set(fiat.get()+value);
     };
@@ -28,6 +32,7 @@ const useAccount = (): IAccount => {
     };
 
     return { 
+        init,
         depositFiat,
         withdrawFiat,
         depositCurrency,
