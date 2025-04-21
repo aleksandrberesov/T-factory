@@ -15,7 +15,6 @@ type TApplicationViewProps = {
 };
 
 const ApplicationView: React.FC<TApplicationViewProps> = (props) => {
-    console.log("ApplicationView rendered");
     const [component, setComponent] = useState<React.JSX.Element>();
     const [isLanguageChangeShow, setIsLanguageChangeShow] = useState(false);
     const ChangeLanguage = (lang: string) => {
@@ -23,7 +22,6 @@ const ApplicationView: React.FC<TApplicationViewProps> = (props) => {
         props.controller.localizer.setLanguage(lang);
     };
     const Views = useMemo(() => {
-        console.log('Views rememorize', props.controller.status, props.controller.localizer.language);
         if (props.controller.status.isLoading || props.controller.status.isError) return [];
         return [
             {

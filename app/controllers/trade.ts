@@ -16,7 +16,6 @@ const useTrade = (): ITrade & IMarketDataManager => {
     const marketPlace = useRef<IMarket | undefined>(undefined);
 
     const init = (profile: IProfile, market: IMarket) => {
-        console.log("useTrade init", profile, market);
         marketPlace.current=market;
         account.depositFiat(profile.data.balance);
         setChanged(!changed);
@@ -47,7 +46,6 @@ const useTrade = (): ITrade & IMarketDataManager => {
         marketPlace.current?.stop();
     };
     const getBalance = (): number => {
-        console.log("getBalance", marketPoint.get().value);
         return Math.round(account.getBalance(marketPoint.get().value));
     };
     const getAverageCost = (): number => {

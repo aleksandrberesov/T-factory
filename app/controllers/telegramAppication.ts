@@ -14,7 +14,6 @@ import useValue, { IValue } from "../libs/data-hooks/value";
 import useBaseController, { IController } from "./baseController";
 
 const useApplication = (): IApplication => {
-  console.log("Application controller initialized");
   const controller: IController = useBaseController();
   const currentStatus: IValue<TStatus> = useValue({isInit: true} as TStatus);
   const statusInformaion: IValue<string> = useValue('initialization');
@@ -23,7 +22,7 @@ const useApplication = (): IApplication => {
   const market: IMarket = useMarket();
   const trader: ITrade = useTrade();
   const localizer: ILocalizator = useLocalizaion();
-  const hasFetchedPatternData = useValue(false); // Add a flag to track fetchPatternData execution
+  const hasFetchedPatternData = useValue(false); 
 
   const fetchProfileData = async () => { 
       const tgProfile = await GetUserData();
@@ -32,7 +31,6 @@ const useApplication = (): IApplication => {
   };
 
   const fetchPatternData = async () => { 
-      console.log("fetchPatternData");
       return await pattern.init();
   };
 
@@ -60,7 +58,7 @@ const useApplication = (): IApplication => {
         localizer.setLanguage(pro.lang || 'en');
       })
       .then(() => {
-        if (!hasFetchedPatternData.get()) { // Ensure fetchPatternData is executed only once
+        if (!hasFetchedPatternData.get()) { 
           fetchPatternData()
           .then((points) => {
             hasFetchedPatternData.set(true);
@@ -68,8 +66,6 @@ const useApplication = (): IApplication => {
             trader.init(profile, market);   
             currentStatus.set({...currentStatus.get(), ...{isLoading: false, isDone: true}});  
             statusInformaion.set('done');                        
-            //controller.applyChanges(); 
-         // Mark as executed
           });
         }
       })
@@ -77,17 +73,12 @@ const useApplication = (): IApplication => {
         controller.applyChanges(); 
       });
     } else if (currentStatus.get().isDone && !currentStatus.get().isReady) {
-      console.log("Application is ready");
       currentStatus.set({...currentStatus.get(), ...{isReady: true}});  
       statusInformaion.set('ready');                          
       controller.applyChanges();
     }
   }, [controller.isChanged]);
 
-  /*useEffect(()=>{
-    controller.applyChanges();
-  },[localizer.language]);
-*/
   return {
     status: currentStatus.get(),
     statusInfo: statusInformaion.get(),

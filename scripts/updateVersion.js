@@ -1,6 +1,6 @@
 const path = require('path');
 const versionManager = require('./versionManager');
-const modulePath = path.resolve(__dirname, '../package.json'); // Update with the actual path to your module
+const modulePath = path.resolve(__dirname, '../package.json');
 
 const args = process.argv.slice(2);
 const newVersionArg = args.find(arg => arg.startsWith('--newVersion='));

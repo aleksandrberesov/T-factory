@@ -24,7 +24,6 @@ const usePattern = (fetch: (name: string)=> Promise<object>, init_fetch: ()=> Pr
         try { 
             const data = await init_fetch(); 
             if (data && Array.isArray(data) && data.every(item => typeof item === 'string')) { 
-                console.log("Patterns fetched:", data);
                 patterns.set(data); 
             } 
             if (patterns.getCount() !== 0) { 
@@ -35,13 +34,11 @@ const usePattern = (fetch: (name: string)=> Promise<object>, init_fetch: ()=> Pr
             console.error("Error during init fetch:", error); 
         } 
         finally {
-            console.log("Init fetch completed", pattern.get(), patterns.get());
             return pattern.get();
         }    
     }, [init_fetch]);
 
     const save = useCallback((points: TPattern) => {
-        console.log("Save pattern");
         pattern.set({...pattern.get(), ...points});
         commit({...{name: selectedPattern}, ...points});
     },[]);

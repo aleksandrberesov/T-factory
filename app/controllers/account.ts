@@ -6,7 +6,6 @@ const useAccount = (): IAccount => {
     const currency: IValue<number> = useRefValue(0);
 
     const depositFiat = (value: number) => {
-        console.log("depositFiat", value);
         fiat.set(fiat.get()+value);
     };
     const withdrawFiat = (value: number) => {
@@ -19,7 +18,6 @@ const useAccount = (): IAccount => {
         currency.set(currency.get()-value);
     };
     const getBalance = (currencyRate: number): number => {
-        console.log("account", fiat.get(), currency.get(), currencyRate);
         return Math.round(fiat.get()+currency.get()*currencyRate);    
     };
     const getMoney = () => {
