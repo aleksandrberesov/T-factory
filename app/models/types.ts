@@ -34,7 +34,6 @@ type TStatRange = {
     average: number;
 };
 
-
 type TDeal = {
     openPrice: number;
     closePrice: number;
@@ -90,8 +89,15 @@ type TProfile = {
     stars : TStar[]
 };
 
+type TTradeState = {
+    balance: number,
+    deal: TDeal,
+    averageCost: number,
+};
+
 export type { TUser, TStatisticItem, TCard, TStar };
 export type { TMarketPoint, TMarketState, TPatternPoint };
 export type { TProfile, TMarket, TPattern };
 export type { TMoney, TDeal};
 export type { TStatRange, TStatValue };
+export type { TTradeState };	

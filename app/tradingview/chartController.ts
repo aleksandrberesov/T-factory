@@ -1,24 +1,24 @@
 import { useEffect, useState, useCallback, useRef, useId } from 'react';
 import IChartController  from './types';
-import { TMarketPoint } from '../models/types';
-import { IMarketDataManager } from '../controllers/interfaces';
 import { IChartApi, ISeriesApi, Time, UTCTimestamp } from 'lightweight-charts';
 import { createChart } from 'lightweight-charts';
 import { chartStyle } from "./options"
 import { lineStyle } from './options';
+import { TMarketPoint } from '../models/types';
+import { IDataManager } from '../controllers/dataController';
 import { removeElementById } from '../libs/utils';
 
-const useChart = (addModelProc: (manager: IMarketDataManager) => void): IChartController =>{
+const useChart = (addModelProc: (manager: IDataManager<TMarketPoint>) => void): IChartController =>{
     const uniqueId = useId();
     const [isCleared, setIsCleared] = useState(false);
     const [chart, setChart] = useState<IChartApi | undefined>(undefined);
     const [line, setLine] = useState<ISeriesApi<"Line", Time> | undefined>(undefined);
     const lineRef = useRef(line);
-    const setPoints = useCallback((points: TMarketPoint[]) => {
+    const set = useCallback((points: TMarketPoint[]) => {
         lineRef.current?.setData(points.map((item)=>({value: item.value, time: item.time as UTCTimestamp})));       
         chart?.timeScale().fitContent(); 
     }, [chart, line]);
-    const appendPoint = useCallback((point: TMarketPoint) => {
+    const push = useCallback((point: TMarketPoint) => {
         lineRef.current?.update({value: point.value, time: point.time as UTCTimestamp});
     },[chart, line]);
 
@@ -44,9 +44,9 @@ const useChart = (addModelProc: (manager: IMarketDataManager) => void): IChartCo
     useEffect(()=>{
         if (chart && lineRef.current) {
             addModelProc({
-                setPoints,
-                appendPoint,
                 id: uniqueId,
+                push,
+                set,
             });
             setIsCleared(true);
         }

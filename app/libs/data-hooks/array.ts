@@ -14,12 +14,16 @@ const useRefArray = <T, >(initalArray: T[]): IArray<T> => {
     };
     const clear = ():void => { arrayRef.current = []; };
     const getCount = ():number => {return arrayRef.current.length;};
+    const remove = (index: number): void => {
+        arrayRef.current = arrayRef.current.filter((element, i) => i !== index);
+    };
     return { 
         get, 
         set, 
         push, 
         clear,
         getCount,
+        remove,
     }; 
 };
 

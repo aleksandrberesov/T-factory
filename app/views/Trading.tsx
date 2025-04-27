@@ -8,7 +8,7 @@ import IChartController from '../tradingview/types';
 import SelectedTab from '../components/button';
 import ModalWindow from '../components/modal-window';
 import GridBox from '../components/gridbox';
-import TradeStatisticGroup from '../widgets/TradeStatisticGroup';
+import TradeStatisticPanel from '../widgets/TradeStatisticPanel';
 import TradeControlPanel from '../widgets/TradeControlPanel';
 import MarketControlPanel from '../widgets/MarketControlPanel';
 import SpeedChangePanel from '../widgets/SpeedChangePanel';
@@ -41,7 +41,7 @@ const TradingFrame: React.FC<TTradingFrameProps> = (props) => {
         />
     ), []);
     const statPanel = useMemo(() => (
-        <TradeStatisticGroup
+        <TradeStatisticPanel
             trader={props.trader}
             dictionary={props.dictionary}
         />

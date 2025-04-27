@@ -1,24 +1,27 @@
-import { useRef, useState, useCallback, useId } from "react";
+import { useRef, useCallback, useId } from "react";
 import useRefValue, { IValue } from "../libs/data-hooks/value";
 import { TMarketPoint, TDeal } from "../models/types";
-import { IMarket, ITrade, IProfile, IAccount, IMarketDataManager, IStatistics } from "./interfaces";
+import { IMarket, ITrade, IProfile, IAccount, IStatistics } from "./interfaces";
 import useAccount from "./account";
 import useStatistics from "./statistics";
 import { defaultDeal, defaultMarketPoint } from "../models/defaults";
+import { TTradeState } from "../models/types";
+import useViewsManager from "./viewsManager"; 
 
-const useTrade = (): ITrade & IMarketDataManager => {
-    const [changed, setChanged] = useState(false);
+const useTrade = (): ITrade => {
+    const viewsManager = useViewsManager<TTradeState>();
     const uniqueId = useId(); 
     const account: IAccount = useAccount();
     const marketPoint: IValue<TMarketPoint> = useRefValue(defaultMarketPoint);
-    const statistics: IStatistics = useStatistics();
     const deal: IValue<TDeal> = useRefValue(defaultDeal);
     const marketPlace = useRef<IMarket | undefined>(undefined);
+    const statistics: IStatistics = useStatistics();
 
     const init = (profile: IProfile, market: IMarket) => {
         marketPlace.current=market;
+        market.addManager({id: uniqueId, push, set});
         account.init({fiat: profile.data.balance, currency: 0});
-        setChanged(!changed);
+        viewsManager.updateAll(getCurrentState());
     };
     const buy = () => {
         if (deal.get().status){ return; }
@@ -28,7 +31,7 @@ const useTrade = (): ITrade & IMarketDataManager => {
         account.withdrawFiat(volume);
         account.depositCurrency(currency);
         deal.set({...deal.get(), ...{volume: volume, amount: currency, openPrice: marketPoint.get().value, openTime: marketPoint.get().time, status: true}});
-        setChanged(!changed);
+        viewsManager.updateAll(getCurrentState());
     };
     const sell = () => {
         if (deal.get().status===undefined || !deal.get().status){ return; }
@@ -40,7 +43,7 @@ const useTrade = (): ITrade & IMarketDataManager => {
         deal.set({...deal.get(), ...{closePrice: marketPoint.get().value, closeTime: marketPoint.get().time, profitLoss: fiat-deal.get().volume, status: false}});
         statistics.pushDeal(deal.get());
         deal.set(defaultDeal);
-        setChanged(!changed);
+        viewsManager.updateAll(getCurrentState());
     };
     const close = () => {
         marketPlace.current?.stop();
@@ -51,13 +54,22 @@ const useTrade = (): ITrade & IMarketDataManager => {
     const getAverageCost = (): number => {
         return Math.round(deal.get().openPrice);
     };
-    const setPoints = useCallback((points: TMarketPoint[]) => {
+    const getCurrentState = (): TTradeState => {
+        return {
+            balance: getBalance(),
+            deal: deal.get(),
+            averageCost: getAverageCost(),
+        };
+    };
+    const set = useCallback((points: TMarketPoint[]) => {
         if (points.length === 0) { return; }
         const point = points[points.length - 1];
         marketPoint.set(point);
+        viewsManager.updateAll(getCurrentState());
     }, []);
-    const appendPoint =useCallback((point: TMarketPoint) => {
+    const push =useCallback((point: TMarketPoint) => {
         marketPoint.set(point);
+        viewsManager.updateAll(getCurrentState());
     },[]);
 
     return {
@@ -65,14 +77,11 @@ const useTrade = (): ITrade & IMarketDataManager => {
         buy,
         sell,
         close,
-        balance: getBalance(),
-        deal: deal.get(),
-        averageCost: getAverageCost(),
+
         statistics,
-        changed,
-        setPoints,
-        appendPoint, 
-        id: uniqueId,
+        state: getCurrentState(),
+
+        addView: viewsManager.add,
     };
 };
 

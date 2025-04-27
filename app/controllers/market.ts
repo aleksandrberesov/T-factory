@@ -3,18 +3,20 @@ import useRefValue from '../libs/data-hooks/value';
 import useRefArray from '../libs/data-hooks/array';
 import { useTimer } from "../libs/useTimer";
 import { TMarketState } from "../models/types";
-import { IViewController } from "./viewController";
 import { TPattern, TMarketPoint, TPatternPoint } from "../models/types"; 
-import { IMarket, IMarketDataManager } from "./interfaces";
+import { IMarket } from "./interfaces";
 import { CreateMarketPoint } from "../models/utils";
 import { defaultMarket } from "../models/defaults";
 import { defaultSpeeds } from '../models/consts';
 import { stepTime } from '../models/consts';
 import { SpeedTitleToNumber } from '../models/utils';
+import useViewsManager from "./viewsManager"; 
+import useDataController from './dataController';
+import { IDataManager } from './dataController';
 
 const useMarket = (): IMarket => {
-    const managers = useRefArray<IMarketDataManager>([]);
-    const views = useRefArray<IViewController<TMarketState>>([]);
+    const dataController = useDataController<TMarketPoint>();
+    const viewsManager = useViewsManager<TMarketState>();
     const timer = useTimer({
         callback:  () => { step(); }, 
         state: false,
@@ -61,60 +63,31 @@ const useMarket = (): IMarket => {
         currentPatternPoint.set(pattern.get()[0]);  
     };
 
-    function addManager(manager: IMarketDataManager){
-        const existingView = managers.get().find(existing => existing.id === manager.id); // Check by unique ID
-        if (!existingView) {
-            managers.push(manager);
-        }
-        updateManagers(null, initialPoints(initPattern.get()));
-    };
-
-    function addView(view: IViewController<TMarketState>) {
-        const existingView = views.get().find(existing => existing.id === view.id); // Check by unique ID
-        if (!existingView) {
-            views.push(view);
-        }
-    };
-
-    function updateManagers(point: TMarketPoint | null, points: TMarketPoint[] | null){
-        if (point !== null){
-            managers.get().forEach(element => {
-                element.appendPoint(point);
-            });
-        };
-        if (points !== null){
-            managers.get().forEach(element => {
-                element.setPoints(points);    
-            });
-        };
-    };
-
-    function updateViews(){
-        views.get().forEach(element => {
-            element.update(getCurrentState());    
-        }); 
+    function addManager(manager: IDataManager<TMarketPoint>) {
+        dataController.add(manager);
+        dataController.setAll(initialPoints(initPattern.get()));
     };
 
     function start(){
         timer.toggle(); 
-        updateViews();   
+        viewsManager.updateAll(getCurrentState());  
     };
     
     function stop(){
         timer.reset(); 
-        updateViews();      
+        viewsManager.updateAll(getCurrentState());     
     };
     
     function pause(){
         timer.toggle();  
-        updateViews();
+        viewsManager.updateAll(getCurrentState());
     };
     
     function step(){
         MoveTime();
         const newPoint: TMarketPoint = CreateMarketPoint(currentTime.get(), currentPatternPoint.get());
         points.push(newPoint); 
-        updateManagers(newPoint, null);
+        dataController.updateAll(newPoint);
         if (currentPatternPoint.get().count!==0){
             if(count.get() < currentPatternPoint.get().count){
                 count.set(count.get()+1);
@@ -131,7 +104,7 @@ const useMarket = (): IMarket => {
     const setSpeed = (ID: number) => {
         speedID.set(ID);
         timer.setDuration(1000 / SpeedTitleToNumber(defaultSpeeds[ID].element));
-        updateViews(); 
+        viewsManager.updateAll(getCurrentState()); 
     };
 
     const getSpeedTitle = (): string => {
@@ -147,7 +120,7 @@ const useMarket = (): IMarket => {
         state: getCurrentState(),
         setSpeed,
         addManager,
-        addView,
+        addView: viewsManager.add,
     };
 };
 

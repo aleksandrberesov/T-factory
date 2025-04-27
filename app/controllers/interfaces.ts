@@ -3,6 +3,9 @@ import { ILocalizator } from '../libs/useLocalization';
 import { TStatus } from './types';
 import { IViewController } from './viewController';
 import { TDeal, TProfile, TMoney, TPatternPoint, TPattern, TMarketPoint, TStatValue, TStatRange, TMarket, TMarketState } from '../models/types';
+import { TTradeState } from '../models/types';
+import { IDataManager } from './dataController';
+
 
 interface IPattern {
     patterns : string[];
@@ -42,12 +45,6 @@ interface IStatistics {
     averageProfitLoss: TStatValue;
 }
 
-interface IMarketDataManager {
-    setPoints : (points: TMarketPoint[]) => void;
-    appendPoint: (point: TMarketPoint) => void;
-    id: string;
-};
-
 interface IMarket {
     init: (pattern: TPattern) => void;
     step: ()=> void;
@@ -56,7 +53,7 @@ interface IMarket {
     pause: ()=> void;
     setSpeed: (speedID: number)=> void;
     state: TMarketState;
-    addManager: (manager: IMarketDataManager) => void;
+    addManager: (manager: IDataManager<TMarketPoint>) => void;
     addView: (view: IViewController<TMarketState>) => void;
 };
 
@@ -66,12 +63,9 @@ interface ITrade {
     sell: ()=> void;
     close: ()=> void;
     
-    balance: number,
-    deal: TDeal,
-    averageCost: number,
     statistics: IStatistics,
-
-    changed: boolean,
+    state: TTradeState,
+    addView: (view: IViewController<TTradeState>) => void;
 };
 
 interface IApplication {
@@ -86,6 +80,5 @@ interface IApplication {
 };
 
 export type { IPattern, IProfile, IMarket, ITrade };
-export type { IMarketDataManager };
 export type { IAccount, IStatistics };
 export type { IApplication };
