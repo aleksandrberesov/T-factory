@@ -69,6 +69,7 @@ const useTrade = (): ITrade => {
     }, []);
     const push =useCallback((point: TMarketPoint) => {
         marketPoint.set(point);
+        if (deal.get().status===undefined || !deal.get().status){ return; }
         viewsManager.updateAll(getCurrentState());
     },[]);
 
