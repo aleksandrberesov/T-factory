@@ -85,10 +85,6 @@ const useTrade = (): ITrade => {
         buy,
         sell,
         close,
-
-        statistics,
-        state: getCurrentState(),
-
         addView,
     };
 };

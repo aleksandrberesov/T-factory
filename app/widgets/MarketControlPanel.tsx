@@ -12,7 +12,7 @@ type TMarketControlPanelProps = {
 };
 
 const MarketControlPanel: React.FC<TMarketControlPanelProps> = (props) => {
-    const controller = useViewController<TMarketState>(props.market.addView, props.market.state);
+    const controller = useViewController<TMarketState>(props.market.addView);
     return (
         <GridBox  
             columns={5} 

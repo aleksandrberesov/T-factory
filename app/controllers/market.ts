@@ -13,6 +13,7 @@ import { SpeedTitleToNumber } from '../models/utils';
 import useViewsManager from "./viewsManager"; 
 import useDataController from './dataController';
 import { IDataManager } from './dataController';
+import { IViewController } from "./viewController";
 
 const useMarket = (): IMarket => {
     const dataController = useDataController<TMarketPoint>();
@@ -111,16 +112,20 @@ const useMarket = (): IMarket => {
         return defaultSpeeds[speedID.get()].element;
     };
 
+    const addView = (view: IViewController<TMarketState>) => {
+        viewsManager.add(view);
+        view.update(getCurrentState());
+    };
+
     return {
         init,
         step,
         stop,
         pause,
         start,
-        state: getCurrentState(),
         setSpeed,
         addManager,
-        addView: viewsManager.add,
+        addView,
     };
 };
 

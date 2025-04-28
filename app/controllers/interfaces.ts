@@ -44,7 +44,6 @@ interface IMarket {
     stop: ()=> void;
     pause: ()=> void;
     setSpeed: (speedID: number)=> void;
-    state: TMarketState;
     addManager: (manager: IDataManager<TMarketPoint>) => void;
     addView: (view: IViewController<TMarketState>) => void;
 };
@@ -54,9 +53,6 @@ interface ITrade {
     buy: ()=> void;
     sell: ()=> void;
     close: ()=> void;
-    
-    statistics: IStatistics,
-    state: TTradeState,
     addView: (view: IViewController<TTradeState>) => void;
 };
 

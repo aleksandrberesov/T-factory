@@ -5,7 +5,7 @@ interface IViewController<T> {
     id: string;
 };
 
-const useViewController = <T, >(subscribe: (view: IViewController<T>) => void, initState: T): T | undefined => { 
+const useViewController = <T, >(subscribe: (view: IViewController<T>) => void): T | undefined => { 
     const [state, setState] = useState<T>();
     const uniqueId = useId(); 
     const update = (updatedState: T): void => {	
