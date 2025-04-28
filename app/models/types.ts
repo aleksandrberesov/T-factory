@@ -93,6 +93,18 @@ type TTradeState = {
     balance: number,
     deal: TDeal,
     averageCost: number,
+    statistics: TStatistics,
+};
+
+type TStatistics = {
+    dealsCount: number;
+    currentResult: TStatValue;
+    totalResult: TStatValue;
+    profitDeals: TStatValue
+    lossDeals: TStatValue;
+    profit: TStatRange;
+    loss: TStatRange;
+    averageProfitLoss: TStatValue;    
 };
 
 export type { TUser, TStatisticItem, TCard, TStar };
@@ -100,4 +112,5 @@ export type { TMarketPoint, TMarketState, TPatternPoint };
 export type { TProfile, TMarket, TPattern };
 export type { TMoney, TDeal};
 export type { TStatRange, TStatValue };
-export type { TTradeState };	
+export type { TTradeState };
+export type { TStatistics };	

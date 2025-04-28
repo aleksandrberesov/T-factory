@@ -21,12 +21,12 @@ const MarketControlPanel: React.FC<TMarketControlPanelProps> = (props) => {
             elements={[
                 {
                     element:
-                        (!controller.isActive ? <SelectedTab icon_image="/icons/play.svg" onClick={props.market.start}/> : <SelectedTab icon_image="/icons/pause.svg" onClick={props.market.pause}/>),
+                        (!controller?.isActive ? <SelectedTab icon_image="/icons/play.svg" onClick={props.market.start}/> : <SelectedTab icon_image="/icons/pause.svg" onClick={props.market.pause}/>),
                 },
                 {
                     element: 
                         <SelectedTab 
-                            title={controller.speed} 
+                            title={controller?.speed} 
                             backgroundcolor='grey' 
                             onClick={props.HideShowSpeed}
                         />,

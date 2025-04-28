@@ -1,3 +1,5 @@
+import { number } from "@telegram-apps/sdk";
+
 const isEmptyObject = (obj: Record<string, unknown>): boolean => { 
     return Object.keys(obj).length === 0; 
 };
@@ -35,7 +37,8 @@ function NumberToFormattedString(num: number): string {
     return formattedNum;
 };
 
-function NumberToString(num: number): string {
+function NumberToString(num: number | undefined): string {
+    if (num === undefined || num === null) { return ""; }
     return GetNumberSign(num) + NumberToFormattedString(num);
 };
 

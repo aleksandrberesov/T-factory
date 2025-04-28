@@ -5,6 +5,7 @@ import { ITrade } from '../controllers/interfaces';
 import { IDictionary } from '../libs/useLocalization';
 import useViewController from '../controllers/viewController';
 import { TTradeState } from '../models/types';
+import { NumberToString } from '../libs/utils';
 
 type TradeControlPanelProps = {
     trader: ITrade;
@@ -22,7 +23,7 @@ const TradeControlPanel: React.FC<TradeControlPanelProps> = (props) => {
                     element: <SelectedTab title={props.dictionary.getWord('buy')} backgroundcolor="green" textcolor='white' onClick={props.trader.buy}/>,
                 },
                 {
-                    element: <SelectedTab title={String(controller.balance)} backgroundcolor='white' textcolor='black'/>,
+                    element: <SelectedTab title={NumberToString(controller?.balance)} backgroundcolor='white' textcolor='black'/>,
                 },
                 {
                     element: <SelectedTab title={props.dictionary.getWord('sell')} backgroundcolor="red" textcolor='white' onClick={props.trader.sell}/>,

@@ -7,6 +7,7 @@ import useStatistics from "./statistics";
 import { defaultDeal, defaultMarketPoint } from "../models/defaults";
 import { TTradeState } from "../models/types";
 import useViewsManager from "./viewsManager"; 
+import { IViewController } from "./viewController";
 
 const useTrade = (): ITrade => {
     const viewsManager = useViewsManager<TTradeState>();
@@ -41,7 +42,7 @@ const useTrade = (): ITrade => {
         account.withdrawCurrency(amount);
         account.depositFiat(fiat);
         deal.set({...deal.get(), ...{closePrice: marketPoint.get().value, closeTime: marketPoint.get().time, profitLoss: fiat-deal.get().volume, status: false}});
-        statistics.pushDeal(deal.get());
+        statistics.push(deal.get());
         deal.set(defaultDeal);
         viewsManager.updateAll(getCurrentState());
     };
@@ -59,6 +60,7 @@ const useTrade = (): ITrade => {
             balance: getBalance(),
             deal: deal.get(),
             averageCost: getAverageCost(),
+            statistics: statistics.state,
         };
     };
     const set = useCallback((points: TMarketPoint[]) => {
@@ -73,6 +75,11 @@ const useTrade = (): ITrade => {
         viewsManager.updateAll(getCurrentState());
     },[]);
 
+    const addView = (view: IViewController<TTradeState>) => {
+        viewsManager.add(view);
+        view.update(getCurrentState());
+    };
+
     return {
         init,
         buy,
@@ -82,7 +89,7 @@ const useTrade = (): ITrade => {
         statistics,
         state: getCurrentState(),
 
-        addView: viewsManager.add,
+        addView,
     };
 };
 

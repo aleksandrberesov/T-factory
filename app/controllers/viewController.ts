@@ -5,18 +5,18 @@ interface IViewController<T> {
     id: string;
 };
 
-const useViewController = <T, >(subscribeFunc: (view: IViewController<T>) => void, initState: T): T => { 
-    const [state, setState] = useState(initState);
+const useViewController = <T, >(subscribe: (view: IViewController<T>) => void, initState: T): T | undefined => { 
+    const [state, setState] = useState<T>();
     const uniqueId = useId(); 
     const update = (updatedState: T): void => {	
         setState(updatedState);
     };
     useEffect(() => {
-        subscribeFunc({
+        subscribe({
             update,
             id: uniqueId,
         });
-    },[subscribeFunc]);
+    },[]);
 
     return state; 
 };

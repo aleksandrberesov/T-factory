@@ -1,12 +1,12 @@
 import useRefArray, { IArray }  from "../libs/data-hooks/array";
-import { TDeal, TStatValue, TStatRange } from '../models/types';
+import { TDeal, TStatValue, TStatRange, TStatistics } from '../models/types';
 import { IStatistics } from './interfaces';
 import { defaultDeal } from "../models/defaults";
 
 const useStatistics = (): IStatistics => {
     const deals: IArray<TDeal> = useRefArray([defaultDeal]);
     
-    function pushDeal(deal: TDeal) {
+    function push(deal: TDeal) {
         deals.push(deal);
     };
 
@@ -86,19 +86,22 @@ const useStatistics = (): IStatistics => {
         return deals.get().filter(deal => deal.status === false).length;
     }
 
+    const getCurrentState = (): TStatistics => {
+        return {
+            dealsCount: closedDealsCount(),
+            currentResult: currentResult(),
+            totalResult: totalResult(),
+            profitDeals: profitDeals(),
+            lossDeals: lossDeals(),
+            profit: profit(),
+            loss: loss(),
+            averageProfitLoss: averageProfitLoss(),
+        }
+    };
     return {
-        deals: deals.get(),
-        lastDeal: lastDeal(),
-        pushDeal,
+        push,
         clear,
-        count: closedDealsCount(),
-        currentResult: currentResult(),
-        totalResult: totalResult(),
-        profitDeals: profitDeals(),
-        lossDeals: lossDeals(),
-        profit: profit(),
-        loss: loss(),
-        averageProfitLoss: averageProfitLoss(), 
+        state: getCurrentState(), 
     };
 };
 
