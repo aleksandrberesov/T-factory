@@ -17,7 +17,7 @@ import { IViewController } from "./viewController";
 
 const useMarket = (): IMarket => {
     const dataController = useDataController<TMarketPoint>();
-    const viewsManager = useViewsManager<TMarketState>();
+    const viewsManager = useViewsManager<TMarketState>({});
     const timer = useTimer({
         callback:  () => { step(); }, 
         state: false,

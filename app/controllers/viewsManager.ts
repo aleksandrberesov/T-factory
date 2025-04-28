@@ -9,10 +9,11 @@ interface IViewsManager<T> {
 };
 
 type TViewsManagerProps<T> = {
-
+    initState ?: T;
+    updateFunction ?: (state: T) => void;
 };
 
-const useViewsManager = <T, >(): IViewsManager<T>  => {
+const useViewsManager = <T, >( props: TViewsManagerProps<T> ): IViewsManager<T>  => {
     const views = useRefArray<IViewController<T>>([]);
 
     const add = (view: IViewController<T>) => {
