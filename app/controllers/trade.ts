@@ -3,7 +3,6 @@ import useRefValue, { IValue } from "../libs/data-hooks/value";
 import { TMarketPoint, TDeal } from "../models/types";
 import { IMarket, ITrade, IProfile, IAccount, IStatistics } from "./interfaces";
 import useAccount from "./account";
-import useStatistics from "./statistics";
 import { defaultDeal, defaultMarketPoint } from "../models/defaults";
 import { TTradeState } from "../models/types";
 import useViewsManager from "./viewsManager"; 
@@ -16,10 +15,11 @@ const useTrade = (): ITrade => {
     const marketPoint: IValue<TMarketPoint> = useRefValue(defaultMarketPoint);
     const deal: IValue<TDeal> = useRefValue(defaultDeal);
     const marketPlace = useRef<IMarket | undefined>(undefined);
-    const statistics = useRef<IStatistics | undefined>(undefined);
+    const statisticsStorage = useRef<IStatistics | undefined>(undefined);
 
-    const init = (profile: IProfile, market: IMarket) => {
+    const init = (profile: IProfile, market: IMarket, statistics: IStatistics) => {
         marketPlace.current=market;
+        statisticsStorage.current=statistics;
         market.addManager({id: uniqueId, push, set});
         account.init({fiat: profile.data.balance, currency: 0});
         viewsManager.updateAll(getCurrentState());
@@ -55,7 +55,7 @@ const useTrade = (): ITrade => {
                                         status: false
                                     }
         });
-        statistics.current?.push(deal.get());
+        statisticsStorage.current?.push(deal.get());
         deal.set(defaultDeal);
         viewsManager.updateAll(getCurrentState());
     };
