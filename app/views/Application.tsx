@@ -43,6 +43,7 @@ const ApplicationView: React.FC<TApplicationViewProps> = (props) => {
                         pattern={props.controller.pattern}
                         market={props.controller.market}
                         trader={props.controller.trader}
+                        statistics={props.controller.statistics}
                     />,
                 viewFunction: setComponent,
             },

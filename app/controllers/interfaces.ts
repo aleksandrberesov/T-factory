@@ -34,7 +34,7 @@ interface IAccount {
 interface IStatistics {
     push: (deal: TDeal) => void;
     clear: () => void;
-    state: TStatistics;
+    addView: (view: IViewController<TStatistics>) => void;
 }
 
 interface IMarket {
@@ -49,7 +49,7 @@ interface IMarket {
 };
 
 interface ITrade {
-    init: (profile: IProfile, market: IMarket)=> void;
+    init: (profile: IProfile, market: IMarket, statistics: IStatistics)=> void;
     buy: ()=> void;
     sell: ()=> void;
     close: ()=> void;
@@ -65,6 +65,7 @@ interface IApplication {
     pattern: IPattern;
     market: IMarket;
     trader: ITrade;
+    statistics: IStatistics;
 };
 
 export type { IPattern, IProfile, IMarket, ITrade };

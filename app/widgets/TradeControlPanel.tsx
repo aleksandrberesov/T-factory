@@ -13,7 +13,7 @@ type TradeControlPanelProps = {
 };
 
 const TradeControlPanel: React.FC<TradeControlPanelProps> = (props) => {
-    const controller = useViewController<TTradeState>(props.trader.addView, props.trader.state);
+    const controller = useViewController<TTradeState>(props.trader.addView);
     return (
         <GridBox  
             columns={4} 

@@ -43,6 +43,7 @@ const TradingFrame: React.FC<TTradingFrameProps> = (props) => {
     const statPanel = useMemo(() => (
         <TradeStatisticPanel
             trader={props.trader}
+            statistics={props.statistics}
             dictionary={props.dictionary}
         />
     ), [props.dictionary.language]);

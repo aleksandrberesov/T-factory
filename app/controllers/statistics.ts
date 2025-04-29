@@ -2,12 +2,15 @@ import useRefArray, { IArray }  from "../libs/data-hooks/array";
 import { TDeal, TStatValue, TStatRange, TStatistics } from '../models/types';
 import { IStatistics } from './interfaces';
 import { defaultDeal } from "../models/defaults";
+import useViewsManager from "./viewsManager";
+import { IViewController } from "./viewController";
 
 const useStatistics = (): IStatistics => {
     const deals: IArray<TDeal> = useRefArray([defaultDeal]);
-    
+    const viewsManager = useViewsManager<TStatistics>({});
     function push(deal: TDeal) {
         deals.push(deal);
+        viewsManager.updateAll(getCurrentState());
     };
 
     function clear() {
@@ -98,10 +101,16 @@ const useStatistics = (): IStatistics => {
             averageProfitLoss: averageProfitLoss(),
         }
     };
+    const addView = (view: IViewController<TStatistics>) => {
+        if (view.id === undefined) { return; }
+        viewsManager.add(view);
+        view.update(getCurrentState());
+    };
+
     return {
         push,
         clear,
-        state: getCurrentState(), 
+        addView, 
     };
 };
 

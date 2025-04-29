@@ -93,7 +93,6 @@ type TTradeState = {
     balance: number,
     deal: TDeal,
     averageCost: number,
-    statistics: TStatistics,
 };
 
 type TStatistics = {

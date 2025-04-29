@@ -12,6 +12,7 @@ import { TProfile } from "../models/types";
 import { IApplication, IMarket, IProfile, ITrade } from "./interfaces";  
 import useValue, { IValue } from "../libs/data-hooks/value";
 import useBaseController, { IController } from "./baseController";
+import useStatistics from "./statistics";
 
 const useApplication = (): IApplication => {
   const controller: IController = useBaseController();
@@ -21,6 +22,7 @@ const useApplication = (): IApplication => {
   const profile: IProfile = useProfile(UpdateProfile);
   const market: IMarket = useMarket();
   const trader: ITrade = useTrade();
+  const statistics = useStatistics();
   const localizer: ILocalizator = useLocalizaion();
   const hasFetchedPatternData = useValue(false); 
 
@@ -63,7 +65,7 @@ const useApplication = (): IApplication => {
           .then((points) => {
             hasFetchedPatternData.set(true);
             market.init(points);
-            trader.init(profile, market);   
+            trader.init(profile, market, statistics);   
             currentStatus.set({...currentStatus.get(), ...{isLoading: false, isDone: true}});  
             statusInformaion.set('done');                        
           });
@@ -87,6 +89,7 @@ const useApplication = (): IApplication => {
     pattern,
     market,
     trader,
+    statistics,
   };
 };
 
