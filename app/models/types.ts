@@ -91,7 +91,8 @@ type TProfile = {
 
 type TTradeState = {
     balance: number,
-    deal: TDeal,
+    volume: number,
+    amount: number,
     averageCost: number,
 };
 

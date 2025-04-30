@@ -31,11 +31,11 @@ const TradeStatisticGroup: React.FC<TradeStatisticPanelProps> = (props) => {
                     backgroundColor='gray'
                     elements={[
                         {
-                            element: <LabelBox key="position" title={props.dictionary.getWord('position')}/*'Position'*/ value={NumberToString(controller?.deal.volume)} symbol={currencySymbol}/>,
+                            element: <LabelBox key="position" title={props.dictionary.getWord('position')}/*'Position'*/ value={NumberToString(controller?.volume)} symbol={currencySymbol}/>,
                             row: 1, column: 1, rowSpan: 1, columnSpan: 2
                         },
                         {
-                            element: <LabelBox key="amount" title={'  '} value={controller?.deal.amount} symbol='lot'/>,
+                            element: <LabelBox key="amount" title={'  '} value={controller?.amount} symbol='lot'/>,
                             row: 2, column: 1, rowSpan: 1, columnSpan: 2    
                         },
                         {

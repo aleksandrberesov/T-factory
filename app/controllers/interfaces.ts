@@ -28,7 +28,7 @@ interface IAccount {
     depositCurrency: (value: number)=> void;
     withdrawCurrency: (value: number)=> void;
     getBalance: (currencyRate: number) =>number;
-    money: TMoney;
+    showMoney: () => TMoney;
 };
 
 interface IStatistics {

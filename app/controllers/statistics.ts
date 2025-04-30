@@ -17,12 +17,8 @@ const useStatistics = (): IStatistics => {
         deals.clear();
     };
 
-    function lastDeal(): TDeal {
-        return deals.get()[deals.getCount() - 1];
-    };
-
     function currentResult(): TStatValue {
-        const last = lastDeal();
+        const last = deals.get()[deals.getCount() - 1];
         return {
             value: Math.round(last.profitLoss),
             percentage: last.volume>0 ? Math.round(last.profitLoss / last.volume * 100) : 0,

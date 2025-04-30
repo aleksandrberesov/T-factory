@@ -38,7 +38,7 @@ const useAccount = (): IAccount => {
         depositCurrency,
         withdrawCurrency,
         getBalance,
-        money: getMoney(),
+        showMoney: getMoney,
     }
 };
 
