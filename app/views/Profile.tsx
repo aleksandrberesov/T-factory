@@ -1,4 +1,5 @@
 import React from 'react';
+import './styles/view.css';
 import { TProfileFrameProps} from "./types";
 import LabelBox from "../components/label";
 import IncomeCard from '../widgets/IncomeCard';
@@ -13,9 +14,7 @@ const ProfileFrame: React.FC<TProfileFrameProps> = (props) => {
     });
 
     return(
-        <div
-            className="h-full w-full bg-transparent gap-y-2 m-2"
-        >
+        <div id='profile-frame' className="view">
             <ListBox 
                 backgroundColor='gray'
                 elements={[
@@ -28,7 +27,8 @@ const ProfileFrame: React.FC<TProfileFrameProps> = (props) => {
                 backgroundColor=''
                 rows={Math.ceil(cardElemets.length / 2)} 
                 columns={2} 
-                elements={cardElemets}/> 
+                elements={cardElemets}
+            /> 
         </div>
     );
 }
