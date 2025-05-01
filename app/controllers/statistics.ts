@@ -98,7 +98,6 @@ const useStatistics = (): IStatistics => {
         }
     };
     const addView = (view: IViewController<TStatistics>) => {
-        if (view.id === undefined) { return; }
         viewsManager.add(view);
         view.update(getCurrentState());
     };
