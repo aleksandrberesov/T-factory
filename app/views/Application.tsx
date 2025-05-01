@@ -9,37 +9,41 @@ import StatisticFrame from "../views/Statistic";
 import LoadingFrame from "../views/Loading";
 import LaguageChangePanel from '../widgets/LanguageChangePanel';
 import ModalWindow from '../components/modal-window';
+import useRefValue from '../libs/data-hooks/value';
+import useViewController from '../controllers/viewController';
+import { IDictionary } from '../controllers/localization';
 
 type TApplicationViewProps = {
     controller: IApplication;
 };
 
 const ApplicationView: React.FC<TApplicationViewProps> = (props) => {
+    const dictionary = useViewController<IDictionary>(props.controller.localizer.addView);
     const [component, setComponent] = useState<React.JSX.Element>();
     const [isLanguageChangeShow, setIsLanguageChangeShow] = useState(false);
+    const currentFrameId = useRefValue<number>(startFrame);
     const ChangeLanguage = (lang: string) => {
-        setIsLanguageChangeShow(false);
-        props.controller.localizer.setLanguage(lang);
+        props.controller.localizer.set(lang);
     };
     const Views = useMemo(() => {
         if (props.controller.status.isLoading || props.controller.status.isError) return [];
         return [
             {
                 id: 0 , 
-                name: props.controller.localizer.getWord('profile'), 
+                name: dictionary?.getWord('profile'), 
                 element: 
                     <ProfileFrame 
-                        dictionary={props.controller.localizer}
+                        localizer={props.controller.localizer}
                         profile={props.controller.profile}  
                     />,
                 viewFunction: setComponent,
             },
             {
                 id: 1 , 
-                name: props.controller.localizer.getWord('trading'), 
+                name: dictionary?.getWord('trading'), 
                 element: 
                     <TradingFrame
-                        dictionary={props.controller.localizer}
+                        localizer={props.controller.localizer}
                         pattern={props.controller.pattern}
                         market={props.controller.market}
                         trader={props.controller.trader}
@@ -49,28 +53,56 @@ const ApplicationView: React.FC<TApplicationViewProps> = (props) => {
             },
             {
                 id: 2 , 
-                name: props.controller.localizer.getWord('statistic'), 
+                name: dictionary?.getWord('statistic'), 
                 element: 
                     <StatisticFrame 
-                        dictionary={props.controller.localizer}
+                        localizer={props.controller.localizer}
                         profile={props.controller.profile}   
                     />,
                 viewFunction: setComponent,
             },
             {
                 id: 3 , 
-                name: props.controller.localizer.language, 
-                element: <div></div>, 
-                viewFunction: (element: React.JSX.Element)=> { setIsLanguageChangeShow(true) },    
+                name: dictionary?.language, 
+                element: undefined, 
+                viewFunction: (element: React.JSX.Element | undefined)=> { setIsLanguageChangeShow(true) },    
             }   
         ];
-    }, [props.controller.localizer.language, props.controller.status]);
+    }, [dictionary?.language, props.controller.status]);
     const setView = (id: number | string) => {
         const view = Views[Number(id)];
         if (view){
-            view.viewFunction(view.element)
+            view.viewFunction(view.element);
+        };
+        if (view.element !== undefined){
+            currentFrameId.set(Number(id));
         };
     };
+    const AppGrid = useMemo(() => {
+        return (
+            <GridBox
+                columns={1}
+                rows={10}
+                elements={[ 
+                    {
+                        element:         
+                        <NavigationPanel
+                            elements = { Views.map((item)=>({id: item.id, name: item.name})) }
+                            onSelected = { setView } 
+                        />,
+                        column: 1, row: 1,
+                        columnSpan: 1, rowSpan: 1  
+                    },
+                    {
+                        element: component,
+                        column: 1, row: 2, 
+                        columnSpan: 1, rowSpan: 9 
+                    }
+                ]}
+            />
+        )
+    }, []);
+
     useEffect(() => {
         if (Views.length > 0 && props.controller.status.isReady){ 
             setView(startFrame);
@@ -78,9 +110,10 @@ const ApplicationView: React.FC<TApplicationViewProps> = (props) => {
     }, [props.controller.status]);
     useEffect(() => {
         if (Views.length > 0 && props.controller.status.isReady) {
-            setView(startFrame);
+            setView(currentFrameId.get());
         }
-    }, [props.controller.localizer.language]);
+        setIsLanguageChangeShow(false);
+    }, [dictionary?.language]);
     if (props.controller.status.isLoading){
         return ( 
             <LoadingFrame/>
@@ -93,25 +126,25 @@ const ApplicationView: React.FC<TApplicationViewProps> = (props) => {
         return (
             <div className='h-full w-full'>
                 <GridBox
-                    columns={1}
-                    rows={10}
-                    elements={[
-                        {
-                            element:         
-                            <NavigationPanel
-                                elements = { Views.map((item)=>({id: item.id, name: item.name})) }
-                                onSelected = { setView } 
-                            />,
-                            column: 1, row: 1,
-                            columnSpan: 1, rowSpan: 1  
-                        },
-                        {
-                            element: component,
-                            column: 1, row: 2, 
-                            columnSpan: 1, rowSpan: 9 
-                        }
-                    ]}
-                /> 
+                columns={1}
+                rows={10}
+                elements={[ 
+                    {
+                        element:         
+                        <NavigationPanel
+                            elements = { Views.map((item)=>({id: item.id, name: item.name})) }
+                            onSelected = { setView } 
+                        />,
+                        column: 1, row: 1,
+                        columnSpan: 1, rowSpan: 1  
+                    },
+                    {
+                        element: component,
+                        column: 1, row: 2, 
+                        columnSpan: 1, rowSpan: 9 
+                    }
+                ]}
+            />
                 {isLanguageChangeShow && (<ModalWindow content={<LaguageChangePanel ChangeLanguage={ChangeLanguage} Languages={props.controller.localizer.languages}/>}/>)}
             </div>
         );

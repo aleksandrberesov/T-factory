@@ -1,20 +1,16 @@
 import React from 'react';
 import { ITrade, IStatistics } from '../controllers/interfaces';
-import { IDictionary } from '../libs/useLocalization';
+import { IDictionary } from '../controllers/localization';
 import LabelBox from '../components/label';
 import GridBox from '../components/gridbox';
 import { NumberToString } from '../libs/utils';
 import { currencySymbol } from '../models/consts';
 import useViewController from '../controllers/viewController';
 import { TTradeState, TStatistics } from '../models/types';
-
-type TradeStatisticPanelProps = {
-    trader: ITrade;
-    statistics: IStatistics;
-    dictionary: IDictionary;
-};
+import { TradeStatisticPanelProps } from './types';
 
 const TradeStatisticGroup: React.FC<TradeStatisticPanelProps> = (props) => {
+    const dictionary = useViewController<IDictionary>(props.localizer.addView);
     const controller = useViewController<TTradeState>(props.trader.addView);
     const statistics = useViewController<TStatistics>(props.statistics.addView);
     return (
@@ -31,7 +27,7 @@ const TradeStatisticGroup: React.FC<TradeStatisticPanelProps> = (props) => {
                     backgroundColor='gray'
                     elements={[
                         {
-                            element: <LabelBox key="position" title={props.dictionary.getWord('position')}/*'Position'*/ value={NumberToString(controller?.volume)} symbol={currencySymbol}/>,
+                            element: <LabelBox key="position" title={dictionary?.getWord('position')}/*'Position'*/ value={NumberToString(controller?.volume)} symbol={currencySymbol}/>,
                             row: 1, column: 1, rowSpan: 1, columnSpan: 2
                         },
                         {
@@ -39,10 +35,10 @@ const TradeStatisticGroup: React.FC<TradeStatisticPanelProps> = (props) => {
                             row: 2, column: 1, rowSpan: 1, columnSpan: 2    
                         },
                         {
-                            element: <LabelBox key="average-cost" title={props.dictionary.getWord('avprice')}/*'Average cost'*/ value={controller?.averageCost}/>,
+                            element: <LabelBox key="average-cost" title={dictionary?.getWord('avprice')}/*'Average cost'*/ value={controller?.averageCost}/>,
                             row: 3, column: 1, rowSpan: 1, columnSpan: 2},
                         {
-                            element: <LabelBox key="capital" title={props.dictionary.getWord('fundings')}/*'Capital'*/ value={NumberToString(controller?.balance)} symbol={currencySymbol}/>,
+                            element: <LabelBox key="capital" title={dictionary?.getWord('fundings')}/*'Capital'*/ value={NumberToString(controller?.balance)} symbol={currencySymbol}/>,
                             row: 4, column: 1, rowSpan: 1, columnSpan: 2
                         },  
                     ]}
@@ -55,10 +51,10 @@ const TradeStatisticGroup: React.FC<TradeStatisticPanelProps> = (props) => {
                     rows={2}   
                     backgroundColor='gray' 
                     elements={[
-                        {element: <LabelBox key="current-title" title={props.dictionary.getWord('current')}/*'Current'*//>},
+                        {element: <LabelBox key="current-title" title={dictionary?.getWord('current')}/*'Current'*//>},
                         {element: <LabelBox key="current-value" value={NumberToString(statistics?.currentResult.value)} symbol={currencySymbol} textcolor='green-200'/>},
                         {element: <LabelBox key="current-percent" value={NumberToString(statistics?.currentResult.percentage)} symbol='%' textcolor='blue-500'/>},
-                        {element: <LabelBox key="all-title" title={props.dictionary.getWord('total')}/*'All'*//>},
+                        {element: <LabelBox key="all-title" title={dictionary?.getWord('total')}/*'All'*//>},
                         {element: <LabelBox key="all-value" value={NumberToString(statistics?.totalResult.value)} symbol={currencySymbol} textcolor='red-500'/>},
                         {element: <LabelBox key="all-percent" value={NumberToString(statistics?.totalResult.percentage)} symbol='%' textcolor='blue-500'/>}
                     ]}
@@ -72,7 +68,7 @@ const TradeStatisticGroup: React.FC<TradeStatisticPanelProps> = (props) => {
                     backgroundColor='gray' 
                     elements={[
                     {
-                        element: <LabelBox key="transactions-title" title={props.dictionary.getWord('deals')}/*'Transactions'*//>,
+                        element: <LabelBox key="transactions-title" title={dictionary?.getWord('deals')}/*'Transactions'*//>,
                         row: 1, column: 1, rowSpan: 1, columnSpan: 1
                     },
                     {
@@ -86,7 +82,7 @@ const TradeStatisticGroup: React.FC<TradeStatisticPanelProps> = (props) => {
                         element: <LabelBox key="transactions-count-3" value={statistics?.lossDeals.value+'('+statistics?.lossDeals.percentage+'%'+')'}/>,
                         row: 1, column: 4, rowSpan: 1, columnSpan: 1},
                     {
-                        element: <LabelBox key="all-title" title={props.dictionary.getWord('average')} /*'average'*//>,
+                        element: <LabelBox key="all-title" title={dictionary?.getWord('average')} /*'average'*//>,
                         row: 2, column: 1, rowSpan: 1, columnSpan: 1
                     }, 
                     {
@@ -102,7 +98,7 @@ const TradeStatisticGroup: React.FC<TradeStatisticPanelProps> = (props) => {
                         row: 2, column: 4, rowSpan: 1, columnSpan: 1
                     },
                     {
-                        element: <LabelBox key="combined-title" title={props.dictionary.getWord('min')+"/"+props.dictionary.getWord('max')} /*'min/max'*//>,
+                        element: <LabelBox key="combined-title" title={dictionary?.getWord('min')+"/"+dictionary?.getWord('max')} /*'min/max'*//>,
                         row: 3, column: 1, rowSpan: 1, columnSpan: 2
                     },
                     {

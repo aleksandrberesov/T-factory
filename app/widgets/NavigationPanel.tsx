@@ -3,13 +3,13 @@ import { TOnSelectedFunction } from "../libs/types";
 import SelectedTab from '../components/button';
 
 type TNavigationPanelProps = {
-    elements: {id: number | string; name: string}[];
+    elements: {id: number | string; name: string | undefined}[];
     onSelected ?: TOnSelectedFunction;
 };
 
 const NavigationPanel: React.FC<TNavigationPanelProps> = (props) => {
 
-    function CreateButton(id: number | string, name: string,  proc?: TOnSelectedFunction): React.JSX.Element{
+    function CreateButton(id: number | string, name: string |undefined,  proc?: TOnSelectedFunction): React.JSX.Element{
         return (
             <div key={String(id)} className='flex-col gap-y-2 col-span-2'>
                 <SelectedTab

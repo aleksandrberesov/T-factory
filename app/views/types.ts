@@ -1,8 +1,8 @@
 import { IPattern, IProfile, IMarket, ITrade, IStatistics } from "../controllers/interfaces";
-import { IDictionary } from "../libs/useLocalization";
+import { ILocalizator } from "../controllers/localization";
 
 type TLocalizedFrameProps = {
-    dictionary : IDictionary;
+    localizer : ILocalizator;
 };
 
 type TTradingFrameProps = TLocalizedFrameProps & {  
@@ -20,4 +20,5 @@ type TStatisticFrameProps = TLocalizedFrameProps & {
     profile: IProfile;
 };
 
-export type { TProfileFrameProps, TTradingFrameProps, TStatisticFrameProps, TLocalizedFrameProps }; ;
+export type { TProfileFrameProps, TTradingFrameProps, TStatisticFrameProps};
+//export type { TLocalizedFrameProps }; 

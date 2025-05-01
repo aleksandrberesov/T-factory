@@ -2,13 +2,12 @@ import { GetUserData } from "../telegram/dataService";
 import { FullScreen } from "../telegram/utils";
 import { GetProfile, UpdateProfile, GetPatterns, CommitPattern, GetPoints } from "../aws/dataService";
 import { useEffect } from 'react';
-import useLocalizaion, { ILocalizator } from "../libs/useLocalization";
+import useLocalizaion, { ILocalizator } from "./localization";
 import useProfile from "./profile";
 import usePattern from "./pattern";
 import useMarket from "./market";
 import useTrader from "./trader";
 import { TStatus } from "./types";
-import { TProfile } from "../models/types";
 import { IApplication, IMarket, IProfile, ITrade } from "./interfaces";  
 import useValue, { IValue } from "../libs/data-hooks/value";
 import useBaseController, { IController } from "./baseController";
@@ -57,7 +56,7 @@ const useApplication = (): IApplication => {
       fetchProfileData()
       .then((pro) => {
         profile.setData(pro); 
-        localizer.setLanguage(pro.lang || 'en');
+        localizer.set(pro.lang || 'en');
       })
       .then(() => {
         if (!hasFetchedPatternData.get()) { 

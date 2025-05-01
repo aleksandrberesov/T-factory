@@ -1,5 +1,5 @@
 import { TUpdateObjectProc } from '../libs/types';
-import { ILocalizator } from '../libs/useLocalization';
+import { ILocalizator } from './localization';
 import { TStatus } from './types';
 import { IViewController } from './viewController';
 import { TDeal, TProfile, TMoney, TPatternPoint, TPattern, TMarketPoint, TStatValue, TStatRange, TMarket, TMarketState } from '../models/types';

@@ -44,9 +44,9 @@ const TradingFrame: React.FC<TTradingFrameProps> = (props) => {
         <TradeStatisticPanel
             trader={props.trader}
             statistics={props.statistics}
-            dictionary={props.dictionary}
+            localizer={props.localizer}
         />
-    ), [props.dictionary.language]);
+    ), []);
     const marketPanel = useMemo(() => {
         return (
             <MarketControlPanel 
@@ -59,9 +59,9 @@ const TradingFrame: React.FC<TTradingFrameProps> = (props) => {
     const tradePanel = useMemo(() => (
         <TradeControlPanel
             trader={props.trader}
-            dictionary={props.dictionary} 
+            localizer={props.localizer} 
         />
-    ), [props.dictionary.language]);
+    ), []);
     const grid = useMemo(() => (
         <GridBox 
             columns={1} 
@@ -102,14 +102,14 @@ const TradingFrame: React.FC<TTradingFrameProps> = (props) => {
                 }, 
             ]}          
         />
-    ),[isStatisticShow, isSettingsShow, props.dictionary.language]);
+    ),[isStatisticShow, isSettingsShow]);
 
     return (
         <div id='trading-frame' className="h-full w-full">
             {isSettingsShow && (<ModalWindow content={<PointsSettingPanel 
                                     callBack={HideShowSettings}
                                     data={props.pattern}
-                                    dicrionary={props.dictionary}
+                                    localizer={props.localizer}
                                 />}
                                 />)
             }
