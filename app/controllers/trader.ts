@@ -8,7 +8,7 @@ import { TTradeState } from "../models/types";
 import useViewsManager from "./viewsManager"; 
 import { IViewController } from "./viewController";
 
-const useTrade = (): ITrade => {
+const useTrader = (): ITrade => {
     const viewsManager = useViewsManager<TTradeState>({});
     const uniqueId = useId(); 
     const account: IAccount = useAccount();
@@ -95,4 +95,4 @@ const useTrade = (): ITrade => {
     };
 };
 
-export default useTrade;
+export default useTrader;

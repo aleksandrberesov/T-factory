@@ -6,7 +6,7 @@ import useLocalizaion, { ILocalizator } from "../libs/useLocalization";
 import useProfile from "./profile";
 import usePattern from "./pattern";
 import useMarket from "./market";
-import useTrade from "./trade";
+import useTrader from "./trader";
 import { TStatus } from "./types";
 import { TProfile } from "../models/types";
 import { IApplication, IMarket, IProfile, ITrade } from "./interfaces";  
@@ -21,7 +21,7 @@ const useApplication = (): IApplication => {
   const pattern = usePattern(GetPoints, GetPatterns, CommitPattern);
   const profile: IProfile = useProfile(UpdateProfile);
   const market: IMarket = useMarket();
-  const trader: ITrade = useTrade();
+  const trader: ITrade = useTrader();
   const statistics = useStatistics();
   const localizer: ILocalizator = useLocalizaion();
   const hasFetchedPatternData = useValue(false); 
