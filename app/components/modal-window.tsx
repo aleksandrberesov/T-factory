@@ -1,3 +1,4 @@
+import './styles/modal.css';
 
 const ModalWindow: React.FC<{content: React.ReactNode}> = ({content}) => {
     
