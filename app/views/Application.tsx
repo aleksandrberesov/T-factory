@@ -78,6 +78,14 @@ const ApplicationView: React.FC<TApplicationViewProps> = (props) => {
             currentFrameId.set(Number(id));
         };
     };
+    const Navigation = useMemo(() => {
+        return (
+            <NavigationPanel
+                elements = { Views.map((item)=>({id: item.id, name: item.name})) }
+                onSelected = { setView } 
+            />
+        )
+    }, [dictionary?.language, Views]);
     const AppGrid = useMemo(() => {
         return (
             <GridBox
@@ -85,11 +93,7 @@ const ApplicationView: React.FC<TApplicationViewProps> = (props) => {
                 rows={10}
                 elements={[ 
                     {
-                        element:         
-                        <NavigationPanel
-                            elements = { Views.map((item)=>({id: item.id, name: item.name})) }
-                            onSelected = { setView } 
-                        />,
+                        element: Navigation, 
                         column: 1, row: 1,
                         columnSpan: 1, rowSpan: 1  
                     },
@@ -101,19 +105,17 @@ const ApplicationView: React.FC<TApplicationViewProps> = (props) => {
                 ]}
             />
         )
-    }, []);
+    }, [component]);
 
     useEffect(() => {
         if (Views.length > 0 && props.controller.status.isReady){ 
-            setView(startFrame);
+            setView(currentFrameId.get());
         }
     }, [props.controller.status]);
     useEffect(() => {
-        if (Views.length > 0 && props.controller.status.isReady) {
-            setView(currentFrameId.get());
-        }
         setIsLanguageChangeShow(false);
     }, [dictionary?.language]);
+
     if (props.controller.status.isLoading){
         return ( 
             <LoadingFrame/>
@@ -125,26 +127,7 @@ const ApplicationView: React.FC<TApplicationViewProps> = (props) => {
     }else if (props.controller.status.isReady){
         return (
             <div className='h-full w-full'>
-                <GridBox
-                columns={1}
-                rows={10}
-                elements={[ 
-                    {
-                        element:         
-                        <NavigationPanel
-                            elements = { Views.map((item)=>({id: item.id, name: item.name})) }
-                            onSelected = { setView } 
-                        />,
-                        column: 1, row: 1,
-                        columnSpan: 1, rowSpan: 1  
-                    },
-                    {
-                        element: component,
-                        column: 1, row: 2, 
-                        columnSpan: 1, rowSpan: 9 
-                    }
-                ]}
-            />
+                {AppGrid}
                 {isLanguageChangeShow && (<ModalWindow content={<LaguageChangePanel ChangeLanguage={ChangeLanguage} Languages={props.controller.localizer.languages}/>}/>)}
             </div>
         );
