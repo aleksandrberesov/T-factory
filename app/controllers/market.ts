@@ -25,7 +25,6 @@ const useMarket = (): IMarket => {
     });
     const initPattern = useRefArray<TPatternPoint>(defaultMarket.pattern);
     const pattern = useRefArray<TPatternPoint>(defaultMarket.pattern);
-    //const points = useRefArray<TMarketPoint>([]); 
     const currentTime: IValue<number> = useRefValue(0);
     const count: IValue<number> = useRefValue(0);
     const current: IValue<number> = useRefValue(0);
@@ -87,7 +86,6 @@ const useMarket = (): IMarket => {
     function step(){
         MoveTime();
         const newPoint: TMarketPoint = CreateMarketPoint(currentTime.get(), currentPatternPoint.get());
-        //points.push(newPoint); 
         dataController.updateAll(newPoint);
         if (currentPatternPoint.get().count!==0){
             if(count.get() < currentPatternPoint.get().count){
