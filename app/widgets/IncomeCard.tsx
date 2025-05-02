@@ -1,4 +1,9 @@
 import React from "react";
+import GridBox from "../components/gridbox";
+import ListBox from "../components/listbox";
+import SelectedTab from '../components/button';
+import LabelBox from "../components/label";
+
 
 type TIncomeCardProps = {
     title : string;
@@ -8,17 +13,20 @@ type TIncomeCardProps = {
 
 const IncomeCard: React.FC<TIncomeCardProps> = (props) => {
     return (
-        <div className='grid grid-rows-2 grid-flow-col gap-1 m-1'>
-            <div className="">
-                <p>{props.title}</p>
-            </div>
-            <div className="row-span-2">
-                <p>{props.description}</p>
-            </div>
-            <div>
-
-            </div>
-        </div>
+        <GridBox
+            backgroundColor='blue'
+            rows={3}
+            columns={1}
+            elements={[
+                {
+                    element: <LabelBox title={props.title}/>
+                },
+                {
+                    element: <LabelBox title={props.description ? props.description : ''}/>,
+                },
+                
+            ]}
+        />
     );
 };
 
