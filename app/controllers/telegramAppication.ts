@@ -1,6 +1,6 @@
 import { GetUserData } from "../telegram/dataService";
 import { FullScreen } from "../telegram/utils";
-import { GetProfile, UpdateProfile, GetPatterns, CommitPattern, GetPoints } from "../aws/dataService";
+import { GetProfile, UpdateProfile, GetPatterns, CommitPattern, GetPoints, GetStatistics } from "../aws/dataService";
 import { useEffect } from 'react';
 import useLocalizaion, { ILocalizator } from "./localization";
 import useProfile from "./profile";
@@ -56,6 +56,7 @@ const useApplication = (): IApplication => {
       fetchProfileData()
       .then((pro) => {
         profile.setData(pro); 
+        statistics.init(GetStatistics(pro.id)); 
         localizer.set(pro.lang || 'en');
       })
       .then(() => {

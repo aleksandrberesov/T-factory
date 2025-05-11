@@ -36,4 +36,12 @@ async function CommitPattern(pattern: Object){
     await PutItem("patterns", pattern);
 };
 
-export {GetProfile, UpdateProfile, GetPatterns, CommitPattern, GetPoints};
+async function GetStatistics(user_id: number){
+    const data = await GetItem("statistics", "id", user_id);
+    if (data){
+        return data;
+    }
+    return {};
+};
+
+export {GetProfile, UpdateProfile, GetPatterns, CommitPattern, GetPoints, GetStatistics};

@@ -6,8 +6,12 @@ import useViewsManager from "./viewsManager";
 import { IViewController } from "./viewController";
 
 const useStatistics = (): IStatistics => {
+    const data: IArray<TDeal> = useRefArray([defaultDeal]);
     const deals: IArray<TDeal> = useRefArray([defaultDeal]);
     const viewsManager = useViewsManager<TStatistics>({});
+    function init(init_data: object) {
+        data.set([]);    
+    };
     function push(deal: TDeal) {
         deals.push(deal);
         viewsManager.updateAll(getCurrentState());
@@ -103,6 +107,7 @@ const useStatistics = (): IStatistics => {
     };
 
     return {
+        init,
         push,
         clear,
         addView, 
