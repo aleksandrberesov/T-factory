@@ -14,7 +14,7 @@ const ProfileFrame: React.FC<TProfileFrameProps> = (props) => {
     });
 
     return(
-        <div id='profile-frame' className="view">
+        <div id='profile-frame' className="view bg-slate-100">
             <ListBox 
                 backgroundColor='gray'
                 elements={[
