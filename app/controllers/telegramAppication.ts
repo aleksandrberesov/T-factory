@@ -28,7 +28,10 @@ const useApplication = (): IApplication => {
   const fetchProfileData = async () => { 
       const tgProfile = await GetUserData();
       const dbProfile = await GetProfile(tgProfile.id);
-      return {...tgProfile, ...dbProfile};
+      const dbStatistics = await GetStatistics(tgProfile.id);
+      const db = {...tgProfile, ...dbProfile, ...dbStatistics};
+      console.log('db', db);
+      return {...tgProfile, ...dbProfile, ...dbStatistics};
   };
 
   const fetchPatternData = async () => { 
@@ -53,10 +56,10 @@ const useApplication = (): IApplication => {
                   controller.applyChanges();  
                 });
     }else if(currentStatus.get().isLoading) {
-      fetchProfileData()
+      fetchProfileData() 
       .then((pro) => {
         profile.setData(pro); 
-        statistics.init(GetStatistics(pro.id)); 
+        statistics.init(pro); 
         localizer.set(pro.lang || 'en');
       })
       .then(() => {

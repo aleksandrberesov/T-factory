@@ -1,4 +1,4 @@
-import { GetItem, PutItem, GetItemList } from './dynamoDB'
+import { GetItem, PutItem, GetItemList, GetItems } from './dynamoDB'
 
 async function GetPatterns(): Promise<string[]> {
     const data = await GetItemList("patterns", "name");   
@@ -37,7 +37,7 @@ async function CommitPattern(pattern: Object){
 };
 
 async function GetStatistics(user_id: number){
-    const data = await GetItem("statistics", "id", user_id);
+    const data = await GetItems("statistics", "id", user_id);
     if (data){
         return data;
     }
