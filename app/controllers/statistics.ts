@@ -5,13 +5,19 @@ import { defaultDeal } from "../models/defaults";
 import useViewsManager from "./viewsManager";
 import { IViewController } from "./viewController";
 
-const useStatistics = (): IStatistics => {
-    const data: IArray<TDeal> = useRefArray([defaultDeal]);
+const useStatistics = (commit : (user_id: number, timestamp: number, statsData: TStatistics)=>void): IStatistics => {
+    const data: IArray<TStatistics> = useRefArray();
     const deals: IArray<TDeal> = useRefArray([defaultDeal]);
     const viewsManager = useViewsManager<TStatistics>({});
-    function init(init_data: object) {
-        data.set([]);    
+    function init(init_data: TStatistics[]) {
+        data.set(init_data);    
     };
+    
+    function save(user_id: number, timestamp: number): void {
+        data.push(getCurrentState());
+        commit(user_id, timestamp, getCurrentState());
+    };
+
     function push(deal: TDeal) {
         deals.push(deal);
         viewsManager.updateAll(getCurrentState());
@@ -108,6 +114,7 @@ const useStatistics = (): IStatistics => {
 
     return {
         init,
+        save,
         push,
         clear,
         addView, 

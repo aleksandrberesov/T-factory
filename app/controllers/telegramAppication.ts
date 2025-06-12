@@ -1,6 +1,6 @@
 import { GetUserData } from "../telegram/dataService";
 import { FullScreen } from "../telegram/utils";
-import { GetProfile, UpdateProfile, GetPatterns, CommitPattern, GetPoints, GetStatistics } from "../aws/dataService";
+import { GetProfile, UpdateProfile, GetPatterns, CommitPattern, GetPoints, GetStatistics, PushStatistics } from "../aws/dataService";
 import { useEffect } from 'react';
 import useLocalizaion, { ILocalizator } from "./localization";
 import useProfile from "./profile";
@@ -12,6 +12,8 @@ import { IApplication, IMarket, IProfile, ITrade } from "./interfaces";
 import useValue, { IValue } from "../libs/data-hooks/value";
 import useBaseController, { IController } from "./baseController";
 import useStatistics from "./statistics";
+import { TProfile } from "../models/types";
+import { defaultProfile } from "../models/defaults";
 
 const useApplication = (): IApplication => {
   const controller: IController = useBaseController();
@@ -21,22 +23,33 @@ const useApplication = (): IApplication => {
   const profile: IProfile = useProfile(UpdateProfile);
   const market: IMarket = useMarket();
   const trader: ITrade = useTrader();
-  const statistics = useStatistics();
+  const statistics = useStatistics(PushStatistics);
   const localizer: ILocalizator = useLocalizaion();
   const hasFetchedPatternData = useValue(false); 
 
-  const fetchProfileData = async () => { 
+  const fetchProfileData = async (): Promise<TProfile> => { 
       const tgProfile = await GetUserData();
       const dbProfile = await GetProfile(tgProfile.id);
       const dbStatistics = await GetStatistics(tgProfile.id);
-      const db = {...tgProfile, ...dbProfile, ...dbStatistics};
-      console.log('db', db);
-      return {...tgProfile, ...dbProfile, ...dbStatistics};
+      const mergedProfile: TProfile = {
+          ...defaultProfile,
+          ...tgProfile,
+          ...dbProfile,
+          ...{statistics: dbStatistics},
+      } as TProfile; 
+      console.log('db', mergedProfile);
+      return mergedProfile;
   };
 
   const fetchPatternData = async () => { 
       return await pattern.init();
   };
+
+  const fetchStatisticsData = async (id: number) => { 
+      const dbStatistics = await GetStatistics(id);
+      console.log('dbStatistics', dbStatistics);
+      return await dbStatistics;
+  };  
 
   useEffect(() => {
     controller.applyChanges();
@@ -57,9 +70,9 @@ const useApplication = (): IApplication => {
                 });
     }else if(currentStatus.get().isLoading) {
       fetchProfileData() 
-      .then((pro) => {
+      .then((pro: TProfile) => {
         profile.setData(pro); 
-        statistics.init(pro); 
+        statistics.init(pro.statistics); 
         localizer.set(pro.lang || 'en');
       })
       .then(() => {

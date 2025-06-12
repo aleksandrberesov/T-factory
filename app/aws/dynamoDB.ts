@@ -1,4 +1,4 @@
-import { PutItemCommand, PutItemCommandInput, GetItemCommand, ScanCommand, ScanCommandInput, GetItemCommandInput, QueryCommand, QueryCommandInput } from "@aws-sdk/client-dynamodb";
+import { PutItemCommand, PutItemCommandInput, GetItemCommand, ScanCommand, ScanCommandInput, GetItemCommandInput } from "@aws-sdk/client-dynamodb";
 import dynamoDBClient from './dynamoClient';
 import { convertToAttributeValue, convertToCommonJSON} from './utils'
 import { JSONItem, DynamoItem } from "./types";
@@ -24,30 +24,26 @@ async function GetItem(name: string, id_name: string, item_id: number | string) 
     };
 };
 
-async function GetItems(name: string, id_name: string, item_id: number | string) {
-    const id = `${id_name}`;
-    const params: QueryCommandInput = {
-        TableName: name,
-        //KeyConditionExpression: "#date = :date_value",
-        FilterExpression: "#id = :id_value",
+async function GetAllItemsBySortKey(tableName: string, sortKeyName: string, sortKeyValue: number | string) {
+    const params: ScanCommandInput = {
+        TableName: tableName,
+        FilterExpression: "#sortKey = :sortKeyValue",
         ExpressionAttributeNames: {
-            "#date": "date",
-            "#id": id,
+            "#sortKey": sortKeyName,
         },
         ExpressionAttributeValues: {
-            ":date_value": { N: "0" }, // Replace "0" with the specific date value if needed
-            ":id_value": typeof item_id === "number" ? { N: item_id.toString() } : { S: item_id },
+            ":sortKeyValue": typeof sortKeyValue === "number" ? { N: sortKeyValue.toString() } : { S: sortKeyValue },
         },
     };
     try {
-        const data = await dynamoDBClient.send(new QueryCommand(params));
+        const data = await dynamoDBClient.send(new ScanCommand(params));
         if (data && data.Items) {
             return data.Items.map((item: DynamoItem) => convertToCommonJSON(item));
         } else {
             return [];
         }
     } catch (error) {
-        console.error('[GetItems ERROR]', JSON.stringify(params, null, 2), error);
+        console.error('[GetAllItemsBySortKey ERROR]', JSON.stringify(params, null, 2), error);
         return [];
     }
 };
@@ -93,4 +89,4 @@ async function GetItemList(table_name: string, key_name: string ): Promise<(stri
     };        
 };
 
-export { GetItem, GetItems, PutItem, GetItemList};
+export { GetItem, PutItem, GetItemList, GetAllItemsBySortKey };

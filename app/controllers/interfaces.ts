@@ -32,7 +32,8 @@ interface IAccount {
 };
 
 interface IStatistics {
-    init: (data: object) => void;
+    init: (data: TStatistics[]) => void;
+    save: (user_id: number, timestamp: number) => void;
     push: (deal: TDeal) => void;
     clear: () => void;
     addView: (view: IViewController<TStatistics>) => void;

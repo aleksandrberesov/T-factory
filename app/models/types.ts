@@ -4,11 +4,6 @@ type TUser = {
     last_name?: string;    
 };
 
-type TStatisticItem = {
-    title: string;
-    isDone: boolean;    
-};
-
 type TCard = {
     title : string;
     description : string;
@@ -84,7 +79,7 @@ type TProfile = {
     status: string;
     position: string;
     level: number;
-    statistics: TStatisticItem[];
+    statistics: TStatistics[];
     cards : TCard[];
     stars : TStar[]
 };
@@ -107,7 +102,7 @@ type TStatistics = {
     averageProfitLoss: TStatValue;    
 };
 
-export type { TUser, TStatisticItem, TCard, TStar };
+export type { TUser, TCard, TStar };
 export type { TMarketPoint, TMarketState, TPatternPoint };
 export type { TProfile, TMarket, TPattern };
 export type { TMoney, TDeal};

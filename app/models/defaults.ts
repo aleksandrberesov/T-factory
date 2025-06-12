@@ -1,7 +1,7 @@
 import { TProfile, TMarket, TPattern, TMarketPoint, TDeal } from './types'
 
 const defaultProfile : TProfile = {
-    id : 0,
+    id : -1,
     user : {
         first_name: "default",
         last_name: "user"
@@ -11,11 +11,7 @@ const defaultProfile : TProfile = {
     balance: 100000,
     position: "hamster",
     level: 80,
-    statistics : [
-        {title: "first stat item", isDone: true }, 
-        {title: "second stat item", isDone: true}, 
-        {title: "third stat item", isDone: false}
-    ],
+    statistics: [],
     cards : [
         {title: "first card", description: "some about first card"},
         {title: "second card", description: "some about second card"},
