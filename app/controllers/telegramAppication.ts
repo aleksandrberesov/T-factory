@@ -19,13 +19,14 @@ const useApplication = (): IApplication => {
   const controller: IController = useBaseController();
   const currentStatus: IValue<TStatus> = useValue({isInit: true} as TStatus);
   const statusInformaion: IValue<string> = useValue('initialization');
+  const hasFetchedPatternData = useValue(false); 
+
   const pattern = usePattern(GetPoints, GetPatterns, CommitPattern);
   const profile: IProfile = useProfile(UpdateProfile);
   const market: IMarket = useMarket();
   const trader: ITrade = useTrader();
   const statistics = useStatistics(PushStatistics);
   const localizer: ILocalizator = useLocalizaion();
-  const hasFetchedPatternData = useValue(false); 
 
   const fetchProfileData = async (): Promise<TProfile> => { 
       const tgProfile = await GetUserData();
@@ -43,13 +44,7 @@ const useApplication = (): IApplication => {
 
   const fetchPatternData = async () => { 
       return await pattern.init();
-  };
-
-  const fetchStatisticsData = async (id: number) => { 
-      const dbStatistics = await GetStatistics(id);
-      console.log('dbStatistics', dbStatistics);
-      return await dbStatistics;
-  };  
+  }; 
 
   useEffect(() => {
     controller.applyChanges();
