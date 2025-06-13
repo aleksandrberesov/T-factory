@@ -11,7 +11,6 @@ const defaultProfile : TProfile = {
     balance: 100000,
     position: "hamster",
     level: 80,
-    statistics: [],
     cards : [
         {title: "first card", description: "some about first card"},
         {title: "second card", description: "some about second card"},

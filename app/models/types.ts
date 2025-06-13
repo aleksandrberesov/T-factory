@@ -79,7 +79,6 @@ type TProfile = {
     status: string;
     position: string;
     level: number;
-    statistics: TStatistics[];
     cards : TCard[];
     stars : TStar[]
 };

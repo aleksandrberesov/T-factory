@@ -9,6 +9,10 @@ type TradeControlPanelProps = TLocalizedWidgetProps & {
     trader: ITrade;
 };
 
+type StatisticPanelProps = TLocalizedWidgetProps & {
+    statistics: IStatistics;
+}
+
 type TradeStatisticPanelProps = TLocalizedWidgetProps & {
     trader: ITrade;
     statistics: IStatistics;
@@ -19,4 +23,4 @@ type TSettingsWindowProps = TLocalizedWidgetProps & {
     data: IPattern;
 };
 
-export type { TradeControlPanelProps, TradeStatisticPanelProps, TSettingsWindowProps };
+export type { TradeControlPanelProps, TradeStatisticPanelProps, TSettingsWindowProps, StatisticPanelProps };

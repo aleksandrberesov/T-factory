@@ -118,6 +118,8 @@ const useStatistics = (commit : (user_id: number, timestamp: number, statsData: 
         push,
         clear,
         addView, 
+        getCurrentStat: getCurrentState,
+        getAllStat: () => data.get(),
     };
 };
 

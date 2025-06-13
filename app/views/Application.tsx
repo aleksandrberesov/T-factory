@@ -57,6 +57,7 @@ const ApplicationView: React.FC<TApplicationViewProps> = (props) => {
                 element: 
                     <StatisticFrame 
                         localizer={props.controller.localizer}
+                        statistics={props.controller.statistics}
                         profile={props.controller.profile}   
                     />,
                 viewFunction: setComponent,

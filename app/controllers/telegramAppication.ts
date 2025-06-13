@@ -12,7 +12,7 @@ import { IApplication, IMarket, IProfile, ITrade } from "./interfaces";
 import useValue, { IValue } from "../libs/data-hooks/value";
 import useBaseController, { IController } from "./baseController";
 import useStatistics from "./statistics";
-import { TProfile } from "../models/types";
+import { TProfile, TStatistics } from "../models/types";
 import { defaultProfile } from "../models/defaults";
 
 const useApplication = (): IApplication => {
@@ -28,7 +28,7 @@ const useApplication = (): IApplication => {
   const statistics = useStatistics(PushStatistics);
   const localizer: ILocalizator = useLocalizaion();
 
-  const fetchProfileData = async (): Promise<TProfile> => { 
+  const fetchProfileData = async (): Promise<{ profile: TProfile; statistics: TStatistics[] }> => { 
       const tgProfile = await GetUserData();
       const dbProfile = await GetProfile(tgProfile.id);
       const dbStatistics = await GetStatistics(tgProfile.id);
@@ -36,10 +36,9 @@ const useApplication = (): IApplication => {
           ...defaultProfile,
           ...tgProfile,
           ...dbProfile,
-          ...{statistics: dbStatistics},
       } as TProfile; 
       console.log('db', mergedProfile);
-      return mergedProfile;
+      return { profile: mergedProfile, statistics: dbStatistics as TStatistics[] };
   };
 
   const fetchPatternData = async () => { 
@@ -65,10 +64,10 @@ const useApplication = (): IApplication => {
                 });
     }else if(currentStatus.get().isLoading) {
       fetchProfileData() 
-      .then((pro: TProfile) => {
-        profile.setData(pro); 
+      .then((pro) => {
+        profile.setData(pro.profile); 
         statistics.init(pro.statistics); 
-        localizer.set(pro.lang || 'en');
+        localizer.set(pro.profile.lang || 'en');
       })
       .then(() => {
         if (!hasFetchedPatternData.get()) { 

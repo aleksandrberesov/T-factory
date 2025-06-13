@@ -37,6 +37,8 @@ interface IStatistics {
     push: (deal: TDeal) => void;
     clear: () => void;
     addView: (view: IViewController<TStatistics>) => void;
+    getCurrentStat: ()=> TStatistics;
+    getAllStat: () => TStatistics[],
 }
 
 interface IMarket {
