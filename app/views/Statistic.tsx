@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useId } from 'react';
+import React from 'react';
 import { TStatisticFrameProps } from './types';
 import './styles/view.css';
 import ListBox from '../components/listbox';
@@ -6,11 +6,11 @@ import ResultStatPanel from '../widgets/ResultStatPanel';
 
 const StatisticFrame: React.FC<TStatisticFrameProps> = (props) => {
     const Items = () => {
-        return props.statistics.getAllStat().map((item, index) => (
+        return props.statistics.getAllStat().sort().map((item, index) => (
             <ResultStatPanel 
                 key={index} 
                 localizer={props.localizer}
-                statistics={props.statistics}   
+                statistics={item}   
             />    
         ));
     };
@@ -18,9 +18,9 @@ const StatisticFrame: React.FC<TStatisticFrameProps> = (props) => {
     return(
         <div id='statistics-frame' className="view">  
             <ListBox 
-                    backgroundColor='gray'
-                    elements={Items()}
-                />
+                backgroundColor='gray'
+                elements={Items()}
+            />
         </div>
     );
 }

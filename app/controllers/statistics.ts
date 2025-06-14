@@ -1,21 +1,38 @@
 import useRefArray, { IArray }  from "../libs/data-hooks/array";
-import { TDeal, TStatValue, TStatRange, TStatistics } from '../models/types';
+import { TDeal, TStatValue, TStatRange, TStatistics, TStatisticsItem } from '../models/types';
 import { IStatistics } from './interfaces';
 import { defaultDeal } from "../models/defaults";
 import useViewsManager from "./viewsManager";
 import { IViewController } from "./viewController";
 
-const useStatistics = (commit : (user_id: number, timestamp: number, statsData: TStatistics)=>void): IStatistics => {
-    const data: IArray<TStatistics> = useRefArray();
+const useStatistics = (commit : (statsData: TStatisticsItem)=>void): IStatistics => {
+    const data: IArray<TStatisticsItem> = useRefArray();
     const deals: IArray<TDeal> = useRefArray([defaultDeal]);
     const viewsManager = useViewsManager<TStatistics>({});
-    function init(init_data: TStatistics[]) {
-        data.set(init_data);    
+    function init(init_data: TStatisticsItem[]) {
+        data.set(init_data.filter(item => 
+            item !== undefined &&
+            item.id !== undefined &&
+            item.recordedAt !== undefined &&
+            item.dealsCount !== undefined &&
+            item.currentResult !== undefined &&
+            item.totalResult !== undefined &&
+            item.profitDeals !== undefined &&
+            item.lossDeals !== undefined &&
+            item.profit !== undefined &&
+            item.loss !== undefined &&
+            item.averageProfitLoss !== undefined
+        ));    
     };
     
     function save(user_id: number, timestamp: number): void {
-        data.push(getCurrentState());
-        commit(user_id, timestamp, getCurrentState());
+        const dataForSave : TStatisticsItem = {
+            id: user_id,
+            recordedAt: timestamp,
+            ...getCurrentState(),
+        };
+        data.push(dataForSave);
+        commit(dataForSave);
     };
 
     function push(deal: TDeal) {

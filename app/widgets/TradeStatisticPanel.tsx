@@ -63,7 +63,7 @@ const TradeStatisticGroup: React.FC<TradeStatisticPanelProps> = (props) => {
             },
             {element:
                 <ResultStatPanel
-                    statistics={props.statistics}
+                    statistics={statistics}
                     localizer={props.localizer}
                 />, 
                 row: 3, column: 2, rowSpan: 3, columnSpan: 2

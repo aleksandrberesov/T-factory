@@ -101,10 +101,15 @@ type TStatistics = {
     averageProfitLoss: TStatValue;    
 };
 
+type TStatisticsItem = TStatistics & {
+    id: number;
+    recordedAt: number;
+}
+
 export type { TUser, TCard, TStar };
 export type { TMarketPoint, TMarketState, TPatternPoint };
 export type { TProfile, TMarket, TPattern };
 export type { TMoney, TDeal};
 export type { TStatRange, TStatValue };
 export type { TTradeState };
-export type { TStatistics };	
+export type { TStatistics, TStatisticsItem };	

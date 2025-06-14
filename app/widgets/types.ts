@@ -1,5 +1,6 @@
 import { ILocalizator } from "../controllers/localization";
 import { ITrade, IStatistics, IPattern } from '../controllers/interfaces';
+import { TStatistics } from "../models/types";
 
 type TLocalizedWidgetProps = {
     localizer : ILocalizator;
@@ -10,7 +11,7 @@ type TradeControlPanelProps = TLocalizedWidgetProps & {
 };
 
 type StatisticPanelProps = TLocalizedWidgetProps & {
-    statistics: IStatistics;
+    statistics: TStatistics | undefined;
 }
 
 type TradeStatisticPanelProps = TLocalizedWidgetProps & {

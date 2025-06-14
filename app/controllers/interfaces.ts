@@ -5,7 +5,7 @@ import { IViewController } from './viewController';
 import { TDeal, TProfile, TMoney, TPatternPoint, TPattern, TMarketPoint, TStatValue, TStatRange, TMarket, TMarketState } from '../models/types';
 import { TTradeState } from '../models/types';
 import { IDataManager } from './dataController';
-import { TStatistics } from '../models/types';
+import { TStatistics, TStatisticsItem } from '../models/types';
 
 
 interface IPattern {
@@ -32,13 +32,13 @@ interface IAccount {
 };
 
 interface IStatistics {
-    init: (data: TStatistics[]) => void;
+    init: (data: TStatisticsItem[]) => void;
     save: (user_id: number, timestamp: number) => void;
     push: (deal: TDeal) => void;
     clear: () => void;
     addView: (view: IViewController<TStatistics>) => void;
     getCurrentStat: ()=> TStatistics;
-    getAllStat: () => TStatistics[],
+    getAllStat: () => TStatisticsItem[],
 }
 
 interface IMarket {

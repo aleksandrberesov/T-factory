@@ -44,13 +44,8 @@ async function GetStatistics(user_id: number){
     return [{}];
 };
 
-async function PushStatistics(user_id: number, timestamp: number, statsData: Object){
-    const item = {
-        id: user_id,
-        recordedAt: timestamp,
-        ...statsData
-    };
-    await PutItem("statistics", item);
+async function PushStatistics(statsData: Object){
+    await PutItem("statistics", statsData);
 }
 
 export {GetProfile, UpdateProfile, GetPatterns, CommitPattern, GetPoints, GetStatistics, PushStatistics};

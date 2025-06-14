@@ -12,7 +12,7 @@ import { IApplication, IMarket, IProfile, ITrade } from "./interfaces";
 import useValue, { IValue } from "../libs/data-hooks/value";
 import useBaseController, { IController } from "./baseController";
 import useStatistics from "./statistics";
-import { TProfile, TStatistics } from "../models/types";
+import { TProfile, TStatisticsItem } from "../models/types";
 import { defaultProfile } from "../models/defaults";
 
 const useApplication = (): IApplication => {
@@ -28,17 +28,22 @@ const useApplication = (): IApplication => {
   const statistics = useStatistics(PushStatistics);
   const localizer: ILocalizator = useLocalizaion();
 
-  const fetchProfileData = async (): Promise<{ profile: TProfile; statistics: TStatistics[] }> => { 
+  const fetchProfileData = async (): Promise<{ profile: TProfile; statistics: TStatisticsItem[] }> => { 
       const tgProfile = await GetUserData();
       const dbProfile = await GetProfile(tgProfile.id);
       const dbStatistics = await GetStatistics(tgProfile.id);
-      const mergedProfile: TProfile = {
+      const fromdbProfile: TProfile = {
           ...defaultProfile,
           ...tgProfile,
           ...dbProfile,
       } as TProfile; 
-      console.log('db', mergedProfile);
-      return { profile: mergedProfile, statistics: dbStatistics as TStatistics[] };
+      console.log('db', fromdbProfile);
+      const mergedProfile = {
+        profile: fromdbProfile,
+        statistics: dbStatistics as TStatisticsItem[],
+      };
+      console.log('mergedProfile', mergedProfile);
+      return mergedProfile;
   };
 
   const fetchPatternData = async () => { 
