@@ -3,15 +3,20 @@ import { TStatisticFrameProps } from './types';
 import './styles/view.css';
 import ListBox from '../components/listbox';
 import ResultStatPanel from '../widgets/ResultStatPanel';
+import { TimeToFormatString } from '../libs/utils';
 
 const StatisticFrame: React.FC<TStatisticFrameProps> = (props) => {
+
+
     const Items = () => {
         return props.statistics.getAllStat().sort().map((item, index) => (
-            <ResultStatPanel 
-                key={index} 
-                localizer={props.localizer}
-                statistics={item}   
-            />    
+            <div key={index}>
+                <p>{TimeToFormatString(item.recordedAt)}</p>
+                <ResultStatPanel  
+                    localizer={props.localizer}
+                    statistics={item}   
+                />
+            </div>    
         ));
     };
 

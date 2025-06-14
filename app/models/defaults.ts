@@ -82,4 +82,15 @@ const defaultDeal: TDeal = {
     status: undefined, 
 };
 
-export { defaultProfile, defaultPattern, defaultMarket, defaultMarketPoint, defaultDeal };
+const defaultStatistics = {
+    dealsCount: 0,
+    currentResult: { value: 0, percentage: 0 },
+    totalResult: { value: 0, percentage: 0 },
+    profitDeals: { value: 0, percentage: 0 },
+    lossDeals: { value: 0, percentage: 0 },
+    profit: { min: 0, max: 0, average: 0 },
+    loss: { min: 0, max: 0, average: 0 },
+    averageProfitLoss: { value: 0, percentage: 0 },
+};
+
+export { defaultProfile, defaultPattern, defaultMarket, defaultMarketPoint, defaultDeal, defaultStatistics };

@@ -42,5 +42,11 @@ function NumberToString(num: number | undefined): string {
     return GetNumberSign(num) + NumberToFormattedString(num);
 };
 
+const TimeToFormatString = (timestamp: number): string => {
+    const date = new Date(timestamp);
+    return `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
+};
+
 export { NumberToSignedString, NumberToFormattedString, NumberToString };
 export { removeElementById };
+export { TimeToFormatString };

@@ -17,6 +17,9 @@ const useRefArray = <T>(initialArray: T[] = []): IArray<T> => {
     const remove = (index: number): void => {
         arrayRef.current = arrayRef.current.filter((element, i) => i !== index);
     };
+    const isEmpty = (): boolean => {
+        return arrayRef.current.length === 0;
+    };
     return { 
         get, 
         set, 
@@ -24,6 +27,7 @@ const useRefArray = <T>(initialArray: T[] = []): IArray<T> => {
         clear,
         getCount,
         remove,
+        isEmpty,
     }; 
 };
 

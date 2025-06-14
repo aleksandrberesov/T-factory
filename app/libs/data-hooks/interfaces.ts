@@ -9,7 +9,8 @@ interface IArray<T> {
     push: (newValue: T | IValue<T>) => void;
     clear: () => void;
     getCount: () => number;
-    remove: (index: number) => void; // Added remove function
+    remove: (index: number) => void;
+    isEmpty: () => boolean;
 };
 
 export type { IArray, IValue };

@@ -1,13 +1,13 @@
 import useRefArray, { IArray }  from "../libs/data-hooks/array";
 import { TDeal, TStatValue, TStatRange, TStatistics, TStatisticsItem } from '../models/types';
 import { IStatistics } from './interfaces';
-import { defaultDeal } from "../models/defaults";
+import { defaultStatistics } from "../models/defaults";
 import useViewsManager from "./viewsManager";
 import { IViewController } from "./viewController";
 
 const useStatistics = (commit : (statsData: TStatisticsItem)=>void): IStatistics => {
     const data: IArray<TStatisticsItem> = useRefArray();
-    const deals: IArray<TDeal> = useRefArray([defaultDeal]);
+    const deals: IArray<TDeal> = useRefArray();
     const viewsManager = useViewsManager<TStatistics>({});
     function init(init_data: TStatisticsItem[]) {
         data.set(init_data.filter(item => 
@@ -113,15 +113,19 @@ const useStatistics = (commit : (statsData: TStatisticsItem)=>void): IStatistics
     }
 
     const getCurrentState = (): TStatistics => {
-        return {
-            dealsCount: closedDealsCount(),
-            currentResult: currentResult(),
-            totalResult: totalResult(),
-            profitDeals: profitDeals(),
-            lossDeals: lossDeals(),
-            profit: profit(),
-            loss: loss(),
-            averageProfitLoss: averageProfitLoss(),
+        if (deals.isEmpty()) {
+            return defaultStatistics;
+        }else{
+            return {
+                dealsCount: closedDealsCount(),
+                currentResult: currentResult(),
+                totalResult: totalResult(),
+                profitDeals: profitDeals(),
+                lossDeals: lossDeals(),
+                profit: profit(),
+                loss: loss(),
+                averageProfitLoss: averageProfitLoss(),
+            }    
         }
     };
     const addView = (view: IViewController<TStatistics>) => {
