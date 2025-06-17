@@ -139,8 +139,8 @@ const useStatistics = (commit : (statsData: TStatisticsItem)=>void): IStatistics
         push,
         clear,
         addView, 
-        getCurrentStat: getCurrentState,
-        getAllStat: () => data.get(),
+        getCurrent: getCurrentState,
+        getAll: () => data.get(),
     };
 };
 

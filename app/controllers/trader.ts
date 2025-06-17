@@ -15,14 +15,14 @@ const useTrader = (): ITrade => {
     const account: IAccount = useAccount();
     const marketPoint: IValue<TMarketPoint> = useRefValue(defaultMarketPoint);
     const deal: IValue<TDeal> = useRefValue(defaultDeal);
-    const trader = useRef<TProfile | undefined>(undefined);
+    const traderProfile = useRef<TProfile | undefined>(undefined);
     const marketPlace = useRef<IMarket | undefined>(undefined);
     const statisticsStorage = useRef<IStatistics | undefined>(undefined);
 
     const init = (profile: IProfile, market: IMarket, statistics: IStatistics) => {
         marketPlace.current=market;
         statisticsStorage.current=statistics;
-        trader.current = profile.data;
+        traderProfile.current = profile.data;
         market.addManager({id: uniqueId, push, set});
         account.init({fiat: profile.data.balance, currency: 0});
         viewsManager.updateAll(getCurrentState());
@@ -67,8 +67,9 @@ const useTrader = (): ITrade => {
         viewsManager.updateAll(getCurrentState());
     };
     const close = () => {
-        statisticsStorage.current?.save(trader.current?.id || 0, Date.now());
+        statisticsStorage.current?.save(traderProfile.current?.id || 0, Date.now());
         statisticsStorage.current?.clear();
+        //traderProfile.current?. = undefined;
         marketPlace.current?.stop();
     };
     const getCurrentState = (): TTradeState => {

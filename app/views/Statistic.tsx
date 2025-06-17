@@ -6,10 +6,8 @@ import ResultStatPanel from '../widgets/ResultStatPanel';
 import { TimeToFormatString } from '../libs/utils';
 
 const StatisticFrame: React.FC<TStatisticFrameProps> = (props) => {
-
-
     const Items = () => {
-        return props.statistics.getAllStat().sort().map((item, index) => (
+        return props.statistics.getAll().sort().map((item, index) => (
             <div key={index}>
                 <p>{TimeToFormatString(item.recordedAt)}</p>
                 <ResultStatPanel  
