@@ -30,11 +30,14 @@ const useApplication = (): IApplication => {
 
   const fetchProfileData = async (): Promise<{ profile: TProfile; statistics: TStatisticsItem[] }> => { 
       const tgProfile = await GetUserData();
-      const dbProfile = await GetProfile(tgProfile.id);
-      const dbStatistics = await GetStatistics(tgProfile.id);
-      const fromdbProfile: TProfile = {
+      const fromTGProfile: TProfile = {
           ...defaultProfile,
           ...tgProfile,
+      } as TProfile; 
+      const dbProfile = await GetProfile(fromTGProfile.id);
+      const dbStatistics = await GetStatistics(fromTGProfile.id);
+      const fromdbProfile: TProfile = {
+          ...fromTGProfile,
           ...dbProfile,
       } as TProfile; 
       console.log('db', fromdbProfile);

@@ -14,7 +14,7 @@ export async function GetUserData(){
   } catch (error) {
     console.error('An error occurred:', error.message);
     return {
-      id: -1,
+      
     };
   } finally {
     
