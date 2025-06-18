@@ -7,15 +7,17 @@ import { TimeToFormatString } from '../libs/utils';
 
 const StatisticFrame: React.FC<TStatisticFrameProps> = (props) => {
     const Items = () => {
-        return props.statistics.getAll().sort().map((item, index) => (
-            <div key={index}>
-                <p>{TimeToFormatString(item.recordedAt)}</p>
-                <ResultStatPanel  
-                    localizer={props.localizer}
-                    statistics={item}   
-                />
-            </div>    
-        ));
+        return props.statistics.getAll()
+            .sort((a, b) => b.recordedAt - a.recordedAt) // Sort by recordedAt descending
+            .map((item, index) => (
+                <div key={index}>
+                    <p>{TimeToFormatString(item.recordedAt)}</p>
+                    <ResultStatPanel  
+                        localizer={props.localizer}
+                        statistics={item}   
+                    />
+                </div>    
+            ));
     };
 
     return(
