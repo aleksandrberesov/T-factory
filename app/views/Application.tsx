@@ -12,6 +12,8 @@ import ModalWindow from '../components/modal-window';
 import useRefValue from '../libs/data-hooks/value';
 import useViewController from '../controllers/viewController';
 import { IDictionary } from '../controllers/localization';
+import './styles/view.css';
+import BaseView from './BaseView';
 
 type TApplicationViewProps = {
     controller: IApplication;
@@ -90,6 +92,7 @@ const ApplicationView: React.FC<TApplicationViewProps> = (props) => {
     const AppGrid = useMemo(() => {
         return (
             <GridBox
+                
                 columns={1}
                 rows={10}
                 elements={[ 
@@ -127,7 +130,7 @@ const ApplicationView: React.FC<TApplicationViewProps> = (props) => {
         )
     }else if (props.controller.status.isReady){
         return (
-            <div className='h-full w-full'>
+            <div className='view'>
                 {AppGrid}
                 {isLanguageChangeShow && (<ModalWindow content={<LaguageChangePanel ChangeLanguage={ChangeLanguage} Languages={props.controller.localizer.languages}/>}/>)}
             </div>

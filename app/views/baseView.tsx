@@ -1,29 +1,16 @@
 import React, { useMemo } from "react";
+import './styles/view.css';
 
-type TFrameProps = {
-    content: React.JSX.Element;
+type TViewProps = {
+    content ?: React.JSX.Element;
 };
 
-type TFrameController = {
-
+const BaseView: React.FC<TViewProps> = (props) => {
+    return (
+        <div className="view">
+            {props.content}
+        </div>  
+    );
 };
 
-interface IFrame {
-    controller: TFrameController; 
-    content: React.JSX.Element;
-};
-
-function  Frame(frameprops: TFrameProps) : IFrame {
-    const content = useMemo(() => (
-        <div>
-            {frameprops.content}
-        </div>
-      ), [frameprops.content]);
-
-    return {
-        controller: {},
-        content : content
-    };
-};
-
-export default Frame;
+export default BaseView;

@@ -11,12 +11,16 @@ function ListBox(props: TListBoxProps) {
         </li>
     );
 
+    const containerStyle: React.CSSProperties = {
+        maxHeight: 'auto',
+        overflowY: 'auto',
+    };
+
     return (
-        <div className="listbox-container bg-gray-200">
-            <p className="w-full text-black" > {props.title} </p>
+        <div className="listbox-container bg-gray-200" style={containerStyle}>
+            <p className="w-full text-black">{props.title}</p>
             <ul>{listItems}</ul>        
         </div>
-
     );
 }
 
