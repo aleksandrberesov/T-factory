@@ -12,8 +12,8 @@ function ListBox(props: TListBoxProps) {
     );
 
     return (
-        <div>
-            <p className="text-black" > {props.title} </p>
+        <div className="listbox-container bg-gray-200">
+            <p className="w-full text-black" > {props.title} </p>
             <ul>{listItems}</ul>        
         </div>
 

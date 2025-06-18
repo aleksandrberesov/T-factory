@@ -17,6 +17,10 @@ const defaultProfile : TProfile = {
         {title: "third card", description: "some about second card"},
         {title: "fourth card", description: "some about second card"},
         {title: "fifth card", description: "some about second card"},
+        {title: "second card", description: "some about second card"},
+        {title: "third card", description: "some about second card"},
+        {title: "fourth card", description: "some about second card"},
+        {title: "fifth card", description: "some about second card"},
     ],
     stars : [
         {title: "first star"},

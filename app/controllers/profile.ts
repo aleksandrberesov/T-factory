@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import useRefValue from "../libs/data-hooks/value";
 import { TProfile  } from "../models/types"; 
 import { IProfile } from "./interfaces";
