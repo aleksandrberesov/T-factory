@@ -13,7 +13,6 @@ import useRefValue from '../libs/data-hooks/value';
 import useViewController from '../controllers/viewController';
 import { IDictionary } from '../controllers/localization';
 import './styles/view.css';
-import BaseView from './BaseView';
 
 type TApplicationViewProps = {
     controller: IApplication;
