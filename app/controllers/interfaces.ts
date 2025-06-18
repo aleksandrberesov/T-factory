@@ -50,6 +50,7 @@ interface IMarket {
     setSpeed: (speedID: number)=> void;
     addManager: (manager: IDataManager<TMarketPoint>) => void;
     addView: (view: IViewController<TMarketState>) => void;
+    getCurrentState: () => TMarketState;
 };
 
 interface ITrade {

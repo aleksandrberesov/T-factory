@@ -67,9 +67,9 @@ const useTrader = (): ITrade => {
         viewsManager.updateAll(getCurrentState());
     };
     const close = () => {
+        if (marketPlace.current?.getCurrentState().isRunning === false) { return; }
         statisticsStorage.current?.save(traderProfile.current?.id || 0, Date.now());
         statisticsStorage.current?.clear();
-        //traderProfile.current?. = undefined;
         marketPlace.current?.stop();
     };
     const getCurrentState = (): TTradeState => {

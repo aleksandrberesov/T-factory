@@ -30,6 +30,7 @@ const useMarket = (): IMarket => {
     const current: IValue<number> = useRefValue(0);
     const currentPatternPoint: IValue<TPatternPoint> = useRefValue(defaultMarket.pattern[0]);
     const speedID: IValue<number> = useRefValue(0);
+    const isRunning = useRefValue<boolean>(false);
 
     const MoveTime = ()=> {
         currentTime.set(currentTime.get() + stepTime);   
@@ -37,6 +38,7 @@ const useMarket = (): IMarket => {
 
     const getCurrentState = (): TMarketState => {
         return {
+            isRunning: isRunning.get(),
             isActive: timer.getIsActive(),
             speed: getSpeedTitle(),
         };
@@ -69,11 +71,13 @@ const useMarket = (): IMarket => {
     };
 
     function start(){
+        isRunning.set(true);
         timer.toggle(); 
         viewsManager.updateAll(getCurrentState());  
     };
     
     function stop(){
+        isRunning.set(false);   
         timer.reset(); 
         viewsManager.updateAll(getCurrentState());     
     };
@@ -84,6 +88,7 @@ const useMarket = (): IMarket => {
     };
     
     function step(){
+        isRunning.set(true);
         MoveTime();
         const newPoint: TMarketPoint = CreateMarketPoint(currentTime.get(), currentPatternPoint.get());
         dataController.updateAll(newPoint);
@@ -124,6 +129,7 @@ const useMarket = (): IMarket => {
         setSpeed,
         addManager,
         addView,
+        getCurrentState,	
     };
 };
 
