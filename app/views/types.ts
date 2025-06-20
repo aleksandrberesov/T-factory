@@ -17,7 +17,6 @@ type TProfileFrameProps = TLocalizedFrameProps & {
 };
 
 type TStatisticFrameProps = TLocalizedFrameProps & {
-    profile: IProfile;
     statistics: IStatistics;
 };
 

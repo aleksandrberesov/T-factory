@@ -58,15 +58,14 @@ const ApplicationView: React.FC<TApplicationViewProps> = (props) => {
                 element: 
                     <StatisticFrame 
                         localizer={props.controller.localizer}
-                        statistics={props.controller.statistics}
-                        profile={props.controller.profile}   
+                        statistics={props.controller.statistics}  
                     />,
                 viewFunction: setComponent,
             },
             {
                 id: 3 , 
                 name: dictionary?.language, 
-                element: undefined, 
+                element: <></>, 
                 viewFunction: (element: React.JSX.Element | undefined)=> { setIsLanguageChangeShow(true) },    
             }   
         ];
@@ -91,7 +90,6 @@ const ApplicationView: React.FC<TApplicationViewProps> = (props) => {
     const AppGrid = useMemo(() => {
         return (
             <GridBox
-                
                 columns={1}
                 rows={10}
                 elements={[ 
