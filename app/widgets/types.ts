@@ -1,6 +1,7 @@
 import { ILocalizator } from "../controllers/localization";
 import { ITrade, IStatistics, IPattern } from '../controllers/interfaces';
 import { TStatistics } from "../models/types";
+import { TOnSelectedFunction } from "../libs/types";
 
 type TLocalizedWidgetProps = {
     localizer : ILocalizator;
@@ -24,4 +25,9 @@ type TSettingsWindowProps = TLocalizedWidgetProps & {
     data: IPattern;
 };
 
-export type { TradeControlPanelProps, TradeStatisticPanelProps, TSettingsWindowProps, StatisticPanelProps };
+type TNavigationPanelProps = TLocalizedWidgetProps & {
+    elements: {id: number | string; name: string }[];
+    onSelected ?: TOnSelectedFunction;
+};
+
+export type { TradeControlPanelProps, TradeStatisticPanelProps, TSettingsWindowProps, StatisticPanelProps, TNavigationPanelProps };

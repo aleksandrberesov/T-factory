@@ -9,9 +9,6 @@ import StatisticFrame from "../views/Statistic";
 import LoadingFrame from "../views/Loading";
 import LaguageChangePanel from '../widgets/LanguageChangePanel';
 import ModalWindow from '../components/modal-window';
-import useRefValue from '../libs/data-hooks/value';
-import useViewController from '../controllers/viewController';
-import { IDictionary } from '../controllers/localization';
 import './styles/view.css';
 
 type TApplicationViewProps = {
@@ -19,19 +16,18 @@ type TApplicationViewProps = {
 };
 
 const ApplicationView: React.FC<TApplicationViewProps> = (props) => {
-    const dictionary = useViewController<IDictionary>(props.controller.localizer.addView);
     const [component, setComponent] = useState<React.JSX.Element>();
     const [isLanguageChangeShow, setIsLanguageChangeShow] = useState(false);
-    const currentFrameId = useRefValue<number>(startFrame);
     const ChangeLanguage = (lang: string) => {
         props.controller.localizer.set(lang);
+        setIsLanguageChangeShow(false);
     };
     const Views = useMemo(() => {
         if (props.controller.status.isLoading || props.controller.status.isError) return [];
         return [
             {
                 id: 0 , 
-                name: dictionary?.getWord('profile'), 
+                name: 'profile', 
                 element: 
                     <ProfileFrame 
                         localizer={props.controller.localizer}
@@ -41,7 +37,7 @@ const ApplicationView: React.FC<TApplicationViewProps> = (props) => {
             },
             {
                 id: 1 , 
-                name: dictionary?.getWord('trading'), 
+                name: 'trading', 
                 element: 
                     <TradingFrame
                         localizer={props.controller.localizer}
@@ -54,7 +50,7 @@ const ApplicationView: React.FC<TApplicationViewProps> = (props) => {
             },
             {
                 id: 2 , 
-                name: dictionary?.getWord('statistic'), 
+                name: 'statistic', 
                 element: 
                     <StatisticFrame 
                         localizer={props.controller.localizer}
@@ -64,29 +60,27 @@ const ApplicationView: React.FC<TApplicationViewProps> = (props) => {
             },
             {
                 id: 3 , 
-                name: dictionary?.language, 
+                name: '', 
                 element: <></>, 
-                viewFunction: (element: React.JSX.Element | undefined)=> { setIsLanguageChangeShow(true) },    
+                viewFunction: (element: React.JSX.Element)=> { setIsLanguageChangeShow(true) },    
             }   
         ];
-    }, [dictionary?.language, props.controller.status]);
+    }, [props.controller.status]);
     const setView = (id: number | string) => {
         const view = Views[Number(id)];
         if (view){
             view.viewFunction(view.element);
         };
-        if (view.element !== undefined){
-            currentFrameId.set(Number(id));
-        };
     };
     const Navigation = useMemo(() => {
         return (
             <NavigationPanel
+                localizer={props.controller.localizer}
                 elements = { Views.map((item)=>({id: item.id, name: item.name})) }
                 onSelected = { setView } 
             />
         )
-    }, [dictionary?.language, Views]);
+    }, []);
     const AppGrid = useMemo(() => {
         return (
             <GridBox
@@ -110,13 +104,9 @@ const ApplicationView: React.FC<TApplicationViewProps> = (props) => {
 
     useEffect(() => {
         if (Views.length > 0 && props.controller.status.isReady){ 
-            setView(currentFrameId.get());
+            setView(startFrame);
         }
     }, [props.controller.status]);
-    useEffect(() => {
-        setIsLanguageChangeShow(false);
-    }, [dictionary?.language]);
-
     if (props.controller.status.isLoading){
         return ( 
             <LoadingFrame/>

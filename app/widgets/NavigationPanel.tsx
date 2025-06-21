@@ -1,20 +1,19 @@
 import React from 'react';
-import { TOnSelectedFunction } from "../libs/types";
 import SelectedTab from '../components/button';
-
-type TNavigationPanelProps = {
-    elements: {id: number | string; name: string | undefined}[];
-    onSelected ?: TOnSelectedFunction;
-};
+import { IDictionary } from '../controllers/localization';
+import useViewController from '../controllers/viewController';
+import { TNavigationPanelProps } from './types';
+import { TOnSelectedFunction } from "../libs/types";
 
 const NavigationPanel: React.FC<TNavigationPanelProps> = (props) => {
+    const dictionary = useViewController<IDictionary>(props.localizer.addView);
 
-    function CreateButton(id: number | string, name: string |undefined,  proc?: TOnSelectedFunction): React.JSX.Element{
+    function CreateButton(id: number | string, name: string,  proc?: TOnSelectedFunction): React.JSX.Element{
         return (
             <div key={String(id)} className='flex-col gap-y-2 col-span-2'>
                 <SelectedTab
                     id={id}
-                    title={name} 
+                    title={name ? dictionary?.getWord(name) : dictionary?.language} 
                     style="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white w-full"
                     onSelected={proc}
                 />
