@@ -7,7 +7,6 @@ import { defaultDeal, defaultMarketPoint } from "../models/defaults";
 import { TTradeState } from "../models/types";
 import useViewsManager from "./viewsManager"; 
 import { IViewController } from "./viewController";
-import { TProfile } from "../models/types";
 
 const useTrader = (): ITrade => {
     const viewsManager = useViewsManager<TTradeState>({});
@@ -15,16 +14,16 @@ const useTrader = (): ITrade => {
     const account: IAccount = useAccount();
     const marketPoint: IValue<TMarketPoint> = useRefValue(defaultMarketPoint);
     const deal: IValue<TDeal> = useRefValue(defaultDeal);
-    const traderProfile = useRef<TProfile | undefined>(undefined);
+    const traderProfile = useRef<IProfile | undefined>(undefined);
     const marketPlace = useRef<IMarket | undefined>(undefined);
     const statisticsStorage = useRef<IStatistics | undefined>(undefined);
 
     const init = (profile: IProfile, market: IMarket, statistics: IStatistics) => {
         marketPlace.current=market;
         statisticsStorage.current=statistics;
-        traderProfile.current = profile.data;
+        traderProfile.current = profile;
         market.addManager({id: uniqueId, push, set});
-        account.init({fiat: profile.data.balance, currency: 0});
+        account.init({fiat: profile.getCurrent().balance, currency: 0});
         viewsManager.updateAll(getCurrentState());
     };
     const buy = () => {
@@ -68,8 +67,9 @@ const useTrader = (): ITrade => {
     };
     const close = () => {
         if (marketPlace.current?.getCurrentState().isRunning === false) { return; }
-        statisticsStorage.current?.save(traderProfile.current?.id || 0, Date.now());
+        statisticsStorage.current?.save(traderProfile.current?.getCurrent().id || 0, Date.now());
         statisticsStorage.current?.clear();
+        traderProfile.current?.save({balance: account.showMoney().fiat});
         marketPlace.current?.stop();
     };
     const getCurrentState = (): TTradeState => {

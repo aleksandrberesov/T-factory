@@ -4,14 +4,19 @@ import { IProfile } from "./interfaces";
 import { TUpdateObjectProc } from "../libs/types";
 import { defaultProfile } from "../models/defaults" 
 
-const useProfile = (updFunc: TUpdateObjectProc | undefined): IProfile => {
+const useProfile = (updFunc: TUpdateObjectProc): IProfile => {
     const data = useRefValue<TProfile>(defaultProfile); 
-    const setData = (newData: object) => {
+    const save = (newData: object) => {
         data.set({...data.get(), ...newData});
+        updFunc(data.get());
+    };
+    const init = (initData: TProfile) => {
+        data.set({...data.get(), ...initData});
     };
     return {
-        data: data.get(),
-        setData
+        init,
+        getCurrent: () => data.get(),
+        save
     };
 };
 

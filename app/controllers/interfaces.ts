@@ -17,8 +17,9 @@ interface IPattern {
 };
 
 interface IProfile {
-    data: TProfile;
-    setData: TUpdateObjectProc;
+    init: (data: TProfile) => void;
+    getCurrent: () => TProfile;
+    save: (data: Object) => void;
 };
 
 interface IAccount {

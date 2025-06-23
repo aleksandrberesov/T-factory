@@ -42,6 +42,7 @@ const useStatistics = (commit : (statsData: TStatisticsItem)=>void): IStatistics
 
     function clear() {
         deals.clear();
+        viewsManager.updateAll(getCurrentState());
     };
 
     function currentResult(): TStatValue {

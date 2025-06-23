@@ -1,6 +1,6 @@
 {
   "name": "tfactory_app",
-  "version": "1.1.137",
+  "version": "1.1.140",
   "private": true,
   "scripts": {
     "prebuild": "node ./scripts/updateVersion.js",

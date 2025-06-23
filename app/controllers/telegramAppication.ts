@@ -73,7 +73,7 @@ const useApplication = (): IApplication => {
     }else if(currentStatus.get().isLoading) {
       fetchProfileData() 
       .then((pro) => {
-        profile.setData(pro.profile); 
+        profile.init(pro.profile); 
         statistics.init(pro.statistics); 
         localizer.set(pro.profile.lang || 'en');
       })
