@@ -17,9 +17,9 @@ function ListBox(props: TListBoxProps) {
     };
 
     return (
-        <div className="listbox-container bg-gray-200" style={containerStyle}>
+        <div className="listbox-container h-full w-full bg-gray-200" style={containerStyle}>
             <p className="w-full text-black">{props.title}</p>
-            <ul>{listItems}</ul>        
+            <ul className="">{listItems}</ul>        
         </div>
     );
 }

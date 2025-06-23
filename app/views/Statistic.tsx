@@ -22,18 +22,10 @@ const StatisticFrame: React.FC<TStatisticFrameProps> = (props) => {
     };
 
     return(
-        <div id='statistics-frame' className="w-9/12 h-5/6 bg-slate-100">  
-            <GridBox
-                rows={1}
-                columns={1}
-                elements={[{
-                    element: (
-                        <ListBox 
-                            backgroundColor='gray'
-                            elements={Items()}
-                        />
-                    )
-                }]}    
+        <div id='statistics-frame' className="view overflow-y-hidden bg-slate-200">  
+            <ListBox 
+                backgroundColor='gray'
+                elements={Items()}
             />
         </div>
     );
