@@ -4,9 +4,9 @@ import ChartView from "../tradingview/chartView";
 import PointsSettingPanel from '../widgets/PointsSettingPanel';
 import useChart from '../tradingview/chartController';
 import IChartController from '../tradingview/types';
-import SelectedTab from '../components/button';
-import ModalWindow from '../components/modal-window';
-import GridBox from '../components/gridbox';
+import Button from '../ui/button';
+import ModalWindow from '../ui/modal';
+import Grid from '../ui/grid';
 import TradeStatisticPanel from '../widgets/TradeStatisticPanel';
 import TradeControlPanel from '../widgets/TradeControlPanel';
 import MarketControlPanel from '../widgets/MarketControlPanel';
@@ -62,7 +62,7 @@ const TradingFrame: React.FC<TTradingFrameProps> = (props) => {
         />
     ), []);
     const grid = useMemo(() => (
-        <GridBox 
+        <Grid 
             columns={1} 
             rows={height} 
             showBorders={false}
@@ -76,11 +76,11 @@ const TradingFrame: React.FC<TTradingFrameProps> = (props) => {
                 {
                     element:   
                         <div className='bg-slate-300 w-full'>
-                            <SelectedTab
+                            <Button
                                 //icon_image={(isStatisticShow ? "/icons/down_left_arrow.svg" : "/icons/up_right_arrow.svg")}
                                 title={(isStatisticShow ? 'Hide Statistics' : 'Show Statistics')}    
-                                textcolor='white'
-                                backgroundcolor='grey'
+                                textColor='white'
+                                backgroundColor='grey'
                                 onClick={HideShowStatistics}
                             />
                         </div>

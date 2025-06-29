@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import SelectedTab from "../components/button";
+import Button from "../ui/button";
 import PointInputGroup from './PointInputGroup';
-import ListBox from '../components/listbox';
+import List from '../ui/list';
 import { TPatternPoint } from '../models/types';
 import './styles/PointsSettingPanel.css';
 import { TSettingsWindowProps } from './types';
@@ -45,7 +45,7 @@ function PointsSettingPanel(props: TSettingsWindowProps) {
                 point={item}
                 onChange={onChange}
             />
-            <SelectedTab title='Delete' backgroundcolor='red' onClick={() => deletePoint('points', index)} />
+            <Button title='Delete' backgroundColor='red' onClick={() => deletePoint('points', index)} />
         </div>
     ));
 
@@ -57,7 +57,7 @@ function PointsSettingPanel(props: TSettingsWindowProps) {
                 onChange={onChangePrePoints}
                 prefix="pre-"
             />
-            <SelectedTab title='Delete' backgroundcolor='red' onClick={() => deletePoint('pre_points', index)} />
+            <Button title='Delete' backgroundColor='red' onClick={() => deletePoint('pre_points', index)} />
         </div>
     ));
 
@@ -72,20 +72,20 @@ function PointsSettingPanel(props: TSettingsWindowProps) {
         <div className="container">
             <div className='items-container'>
                 <h3 className="heading">Pre-Points</h3>
-                <ListBox elements={PrePoints} />
-                <SelectedTab title='Add Pre-Point' backgroundcolor='green' onClick={() => addNewPoint('pre_points')} />
+                <List elements={PrePoints} />
+                <Button title='Add Pre-Point' backgroundColor='green' onClick={() => addNewPoint('pre_points')} />
             </div>
             <div className='items-container'>
                 <h3 className="heading">Points</h3>
-                <ListBox elements={Points} />
-                <SelectedTab title='Add Point' backgroundcolor='green' onClick={() => addNewPoint('points')} />
+                <List elements={Points} />
+                <Button title='Add Point' backgroundColor='green' onClick={() => addNewPoint('points')} />
             </div>
             <div className='buttons-continer'>
-                <SelectedTab
+                <Button
                     title={unsavedChanges ? 'Save' : 'Saved'}
                     onClick={unsavedChanges ? HandlePointsChange : () => {}}
                 />
-                <SelectedTab title={props.localizer.dictionary.getWord('back')} onClick={props.callBack} />
+                <Button title={props.localizer.dictionary.getWord('back')} onClick={props.callBack} />
                 {showMessage && <div className="save-message">Changes saved successfully!</div>}
             </div>
         </div>

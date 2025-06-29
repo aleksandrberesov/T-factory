@@ -1,7 +1,7 @@
 import React from 'react';
-import Listbox from '../components/listbox';
+import List from '../ui/list';
 import { defaultSpeeds } from '../models/consts';
-import SelectedTab from '../components/button';
+import Button from '../ui/button';
 
 type TSpeedChangePanelProps = {
     ChangeSpeed(speedID: number): void;
@@ -10,9 +10,9 @@ type TSpeedChangePanelProps = {
 const SpeedChangePanel: React.FC<TSpeedChangePanelProps> = (props) => {
     const SelectedTabs = () => {
         return defaultSpeeds.map((item, index) => (
-            <SelectedTab 
+            <Button 
                 key={index} 
-                textcolor="black"
+                textColor="black"
                 title={item.element} 
                 onClick={() => {
                     props.ChangeSpeed(index); 
@@ -23,7 +23,7 @@ const SpeedChangePanel: React.FC<TSpeedChangePanelProps> = (props) => {
 
     return (
         <div className="speed-change-panel">    
-            <Listbox
+            <List
                 elements={SelectedTabs()} 
             />                
         </div>

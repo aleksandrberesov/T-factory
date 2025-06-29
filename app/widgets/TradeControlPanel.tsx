@@ -16,16 +16,16 @@ const TradeControlPanel: React.FC<TradeControlPanelProps> = (props) => {
             rows={1} 
             elements={[
                 {
-                    element: <Button title={dictionary?.getWord('buy')} backgroundColor="green" textcolor='white' onClick={props.trader.buy}/>,
+                    element: <Button title={dictionary?.getWord('buy')} backgroundColor="green" textColor='white' onClick={props.trader.buy}/>,
                 },
                 {
-                    element: <Button title={NumberToString(controller?.balance)} backgroundColor='white' textcolor='black'/>,
+                    element: <Button title={NumberToString(controller?.balance)} backgroundColor='white' textColor='black'/>,
                 },
                 {
-                    element: <Button title={dictionary?.getWord('sell')} backgroundColor="red" textcolor='white' onClick={props.trader.sell}/>,
+                    element: <Button title={dictionary?.getWord('sell')} backgroundColor="red" textColor='white' onClick={props.trader.sell}/>,
                 },
                 {
-                    element: <Button title={dictionary?.getWord('close')} backgroundColor="blue" textcolor='white' onClick={props.trader.close}/>,
+                    element: <Button title={dictionary?.getWord('close')} backgroundColor="blue" textColor='white' onClick={props.trader.close}/>,
                 }
             ]}
         />

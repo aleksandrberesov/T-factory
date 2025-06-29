@@ -9,10 +9,10 @@ type TStyleProps = {
 
 type TLayoutProps = TStyleProps & {
 
-};
+};  
 
 type TTextProps = {
-    textcolor ?: string;
+    textColor ?: string;
 };
 
 type TButtonProps = TStyleProps & TTextProps & {
@@ -26,9 +26,9 @@ type TButtonProps = TStyleProps & TTextProps & {
     content ?: React.JSX.Element;
 };
 
-type TIconTabProps = TButtonProps & {
-
-};
+type TModalProps = TLayoutProps & {
+    content ?: React.JSX.Element;
+};  
 
 type TLabelProps = TStyleProps & TTextProps &{
     title ?: string;
@@ -37,11 +37,12 @@ type TLabelProps = TStyleProps & TTextProps &{
     symbol ?: string;    
 };
 
-type TCheckBoxProps = {
-   title : string;
-   description ?: string;
-   is_checked ?: boolean;
-};
+type TInputProps = TLabelProps & {
+    id ?: string;
+    type ?: string; 
+    placeholder?: string;
+    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
 
 type TListProps = TStyleProps & {
     title ?: string;
@@ -49,7 +50,7 @@ type TListProps = TStyleProps & {
     elements : React.JSX.Element[];
 };
 
-type TGridBoxElement = TStyleProps & {
+type TGridElement = TStyleProps & {
     element: React.ReactNode;
     column?: number;
     row?: number;
@@ -59,21 +60,12 @@ type TGridBoxElement = TStyleProps & {
 
 type TGridProps = TStyleProps & {
     title?: string;
-    elements?: TGridBoxElement[];
+    elements?: TGridElement[];
     columns?: number;
     rows?: number;
     showBorders?: boolean;
 }
 
-type TTableBoxProps ={
-    elements: (React.JSX.Element | null)[][];
-};
-
-type TDropMenuProps = TButtonProps & {
-    elements : string[]
-    selected : string;
-    dropDirection ?: "down" | "up" | undefined; 
-};
 
 type TCircleProps = {
     cx: number;
@@ -94,4 +86,4 @@ type TRectangleProps = {
     iconURL: string;
 };
 
-export type { TButtonProps, TGridProps, TListProps, TLayoutProps, TLabelProps };
+export type { TButtonProps, TGridProps, TListProps, TLayoutProps, TLabelProps, TModalProps, TInputProps };

@@ -1,11 +1,10 @@
 import React, { useMemo } from 'react';
-import './styles/view.css';
 import { TProfileFrameProps} from "./types";
 import { TProfile } from "../models/types";
-import LabelBox from "../components/label";
+import Label from "../ui/label";
+import Grid from '../ui/grid';
+import List from '../ui/list';
 import IncomeCard from '../widgets/IncomeCard';
-import GridBox from '../components/gridbox';
-import ListBox from '../components/listbox';
 
 const ProfileFrame: React.FC<TProfileFrameProps> = (props) => {
     const profile: TProfile = props.profile.getCurrent();
@@ -16,28 +15,28 @@ const ProfileFrame: React.FC<TProfileFrameProps> = (props) => {
     });
 
     const grid = useMemo(() => (
-        <GridBox 
+        <Grid 
             columns={1} 
             rows={10} 
             showBorders={false}
             elements={[
                 {
                     element:
-                        <ListBox 
+                        <List 
                             backgroundColor='gray'
                             elements={[
-                                <LabelBox key='0' title='tgID' value={profile.id} textcolor='white'/>,
-                                <LabelBox key='1' title='name' value={profile.user.first_name} textcolor='white'/>,
-                                <LabelBox key='2' title='second name' value={profile.user.last_name} textcolor='white'/>,
-                                <LabelBox key='3' title='balance' value={profile.balance} textcolor='white'/>,
-                                <LabelBox key='4' title='level' value={profile.level} textcolor='white'/>,
+                                <Label key='0' title='tgID' value={profile.id} textColor='white'/>,
+                                <Label key='1' title='name' value={profile.user.first_name} textColor='white'/>,
+                                <Label key='2' title='second name' value={profile.user.last_name} textColor='white'/>,
+                                <Label key='3' title='balance' value={profile.balance} textColor='white'/>,
+                                <Label key='4' title='level' value={profile.level} textColor='white'/>,
                             ]}
                         />,
                     column: 1, row: 1, rowSpan: 1,
                 },
                 {
                     element:
-                        <GridBox 
+                        <Grid 
                             backgroundColor=''
                             rows={Math.ceil(cardElemets.length / 2)} 
                             columns={2} 

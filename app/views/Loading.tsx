@@ -1,4 +1,4 @@
-import SelectedTab from '../components/button';
+import Label from '../ui/label';
 
 function LoadingFrame(){
 
@@ -9,7 +9,7 @@ function LoadingFrame(){
             <div
                 className='grid-flow-row gap-2 m-2 bg-gray-500'    
             >
-                <SelectedTab title="LOADING"/>
+                <Label title="LOADING"/>
             </div>
         </div>
     );

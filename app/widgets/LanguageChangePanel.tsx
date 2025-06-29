@@ -1,6 +1,6 @@
 import React from 'react';
-import Listbox from '../components/listbox';
-import SelectedTab from '../components/button';
+import List from '../ui/list';
+import Button from '../ui/button';
 
 type TLanguageChangePanelProps = {
     Languages: string[];
@@ -10,9 +10,9 @@ type TLanguageChangePanelProps = {
 const LanguageChangePanel: React.FC<TLanguageChangePanelProps> = (props) => {
     const SelectedTabs = () => {
         return props.Languages.map((item, index) => (
-            <SelectedTab 
+            <Button 
                 key={index} 
-                textcolor="black"
+                textColor="black"
                 title={item} 
                 onClick={() => {
                     props.ChangeLanguage(item); 
@@ -23,7 +23,7 @@ const LanguageChangePanel: React.FC<TLanguageChangePanelProps> = (props) => {
 
     return (
         <div className="language-change-panel">    
-            <Listbox
+            <List
                 elements={SelectedTabs()} 
             />                
         </div>

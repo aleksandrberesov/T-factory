@@ -8,7 +8,7 @@ import ProfileFrame from "../views/Profile";
 import StatisticFrame from "../views/Statistic";
 import LoadingFrame from "../views/Loading";
 import LaguageChangePanel from '../widgets/LanguageChangePanel';
-import ModalWindow from '../components/modal-window';
+import ModalWindow from '../ui/modal';
 
 type TApplicationViewProps = {
     controller: IApplication;

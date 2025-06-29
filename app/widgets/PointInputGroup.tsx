@@ -1,9 +1,9 @@
 import React from 'react';
-import GridBox from '../components/gridbox';
-import LabeledInput from '../components/input';
+import Grid from '../ui/grid';
+import Label from '../ui/label';
+import Input from '../ui/input';
 import { TPatternPoint } from '../models/types';
 import './styles/PointInputGroup.css';
-import LabelBox from '../components/label';
 
 type TPatternPointChangeFunction = (id: number, field: keyof TPatternPoint, value: number) => void;
 
@@ -28,18 +28,18 @@ const PointInputGroup: React.FC<PointInputGroupProps> = ( props ) => {
 
     return (
         <div key={props.id} className="input-group">
-            <GridBox
+            <Grid
                 elements={[
                     {
                         element: 
-                            <LabelBox 
+                            <Label 
                                 title='P.'
                                 value={props.id}
                             />, 
                     },
                     {
                         element: 
-                            <LabeledInput
+                            <Input
                                 id={countId}
                                 type="number"
                                 title="Count"
@@ -52,7 +52,7 @@ const PointInputGroup: React.FC<PointInputGroupProps> = ( props ) => {
                     },
                     {
                         element: 
-                            <LabeledInput
+                            <Input
                                 id={expectationId}
                                 type="number"
                                 title="Expectation"
@@ -65,7 +65,7 @@ const PointInputGroup: React.FC<PointInputGroupProps> = ( props ) => {
                     },
                     {
                         element: 
-                            <LabeledInput
+                            <Input
                                 id={volatilityId}
                                 type="number"
                                 title="Volatility"
