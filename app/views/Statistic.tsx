@@ -1,8 +1,7 @@
 import React from 'react';
 import { TStatisticFrameProps } from './types';
-import './styles/view.css';
-import ListBox from '../components/listbox';
-import GridBox from '../components/gridbox';
+import List, { ScrollableStack } from '../ui/list';
+import Container from '../ui/container';
 import ResultStatPanel from '../widgets/ResultStatPanel';
 import { TimeToFormatString } from '../libs/utils';
 
@@ -11,23 +10,31 @@ const StatisticFrame: React.FC<TStatisticFrameProps> = (props) => {
         return props.statistics.getAll()
             .sort((a, b) => b.recordedAt - a.recordedAt) // Sort by recordedAt descending
             .map((item, index) => (
-                <div key={index}>
-                    <p>{TimeToFormatString(item.recordedAt)}</p>
+                //<div key={index}>
+                //    <p>{TimeToFormatString(item.recordedAt)}</p>
                     <ResultStatPanel  
+                        key={index}
                         localizer={props.localizer}
                         statistics={item}   
                     />
-                </div>    
+                //</div>    
             ));
     };
 
     return(
-        <div id='statistics-frame' className="view overflow-y-hidden bg-slate-200">  
-            <ListBox 
-                backgroundColor='gray'
-                elements={Items()}
-            />
-        </div>
+//        <Container 
+//            backgroundColor='gray'
+//        />
+        //<div id='statistics-frame' className="view overflow-y-hidden bg-slate-200">  
+//            <List 
+//               backgroundColor='gray'
+//               elements={Items()}
+//            />
+        //</div>
+       <ScrollableStack      
+            backgroundColor='gray'
+            elements={Items()}
+       />
     );
 }
 

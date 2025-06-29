@@ -1,7 +1,7 @@
 import React, { useMemo, useState, useEffect } from 'react';
 import { IApplication } from '../controllers/interfaces';
 import { startFrame } from '../models/consts';
-import GridBox from "../components/gridbox";
+import Grid from "../ui/grid";
 import NavigationPanel from "../widgets/NavigationPanel";
 import TradingFrame from "../views/Trading";
 import ProfileFrame from "../views/Profile";
@@ -9,7 +9,6 @@ import StatisticFrame from "../views/Statistic";
 import LoadingFrame from "../views/Loading";
 import LaguageChangePanel from '../widgets/LanguageChangePanel';
 import ModalWindow from '../components/modal-window';
-import './styles/view.css';
 
 type TApplicationViewProps = {
     controller: IApplication;
@@ -83,7 +82,7 @@ const ApplicationView: React.FC<TApplicationViewProps> = (props) => {
     }, []);
     const AppGrid = useMemo(() => {
         return (
-            <GridBox
+            <Grid
                 columns={1}
                 rows={10}
                 elements={[ 
