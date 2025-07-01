@@ -9,7 +9,8 @@ const CustomGrid: React.FC<TGridProps> = ( props ) => {
         templateRows: `repeat(${props.rows || 1}, 1fr)`,
         gap: "4",
     };
-    return <Grid {...baseProps}> 
+    return (
+        <Grid {...baseProps}> 
             {props.elements?.map((element, index) => (
                 <GridItem
                     key={index}
@@ -19,8 +20,10 @@ const CustomGrid: React.FC<TGridProps> = ( props ) => {
                     colSpan={element.columnSpan || 1}
                 >
                     {element.element}
-                </GridItem>))}
-           </Grid>;
+                </GridItem>)
+            )}
+        </Grid>
+    );
 };
 
 export default CustomGrid;

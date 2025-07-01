@@ -7,6 +7,7 @@ import IChartController from '../tradingview/types';
 import Button from '../ui/button';
 import ModalWindow from '../ui/modal';
 import Grid from '../ui/grid';
+import Layout from '../ui/container';
 import TradeStatisticPanel from '../widgets/TradeStatisticPanel';
 import TradeControlPanel from '../widgets/TradeControlPanel';
 import MarketControlPanel from '../widgets/MarketControlPanel';
@@ -104,7 +105,7 @@ const TradingFrame: React.FC<TTradingFrameProps> = (props) => {
     ),[isStatisticShow, isSettingsShow]);
 
     return (
-        <div id='trading-frame' className="h-full w-full">
+        <Layout>
             {isSettingsShow && (<ModalWindow content={<PointsSettingPanel 
                                     callBack={HideShowSettings}
                                     data={props.pattern}
@@ -114,7 +115,7 @@ const TradingFrame: React.FC<TTradingFrameProps> = (props) => {
             }
             {isSpeedChangeShow && (<ModalWindow content={<SpeedChangePanel ChangeSpeed={ChangeSpeed}/>}/>)}
             {grid}
-        </div>
+        </Layout>
     );
 }
 

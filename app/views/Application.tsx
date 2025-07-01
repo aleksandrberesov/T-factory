@@ -1,6 +1,7 @@
 import React, { useMemo, useState, useEffect } from 'react';
 import { IApplication } from '../controllers/interfaces';
 import { startFrame } from '../models/consts';
+import Layout from '../ui/container';
 import Grid from "../ui/grid";
 import NavigationPanel from "../widgets/NavigationPanel";
 import TradingFrame from "../views/Trading";
@@ -116,10 +117,10 @@ const ApplicationView: React.FC<TApplicationViewProps> = (props) => {
         )
     }else if (props.controller.status.isReady){
         return (
-            <div className='view'>
+            <Layout>
                 {AppGrid}
                 {isLanguageChangeShow && (<ModalWindow content={<LaguageChangePanel ChangeLanguage={ChangeLanguage} Languages={props.controller.localizer.languages}/>}/>)}
-            </div>
+            </Layout>
         );
     }
 };

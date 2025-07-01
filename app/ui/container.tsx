@@ -7,9 +7,11 @@ const CustomBox: React.FC<TLayoutProps> = ( props ) => {
         height: "100%",
         bg: props.backgroundColor || "transparent",
     };
-    return <Box {...baseProps}> 
-            
-           </Box>;
+    return (
+        <Box {...baseProps}>
+            {props.children}
+        </Box>
+    );
 };
 
 export default CustomBox;

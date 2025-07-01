@@ -8,7 +8,7 @@ type TStyleProps = {
 };
 
 type TLayoutProps = TStyleProps & {
-
+    children ?: React.ReactNode;
 };  
 
 type TTextProps = {

@@ -1,5 +1,7 @@
 import React from 'react';
 import Button from '../ui/button';
+import Layout from '../ui/container';
+import Grid from '../ui/grid';
 import { IDictionary } from '../controllers/localization';
 import useViewController from '../controllers/viewController';
 import { TNavigationPanelProps } from './types';
@@ -10,22 +12,31 @@ const NavigationPanel: React.FC<TNavigationPanelProps> = (props) => {
 
     function CreateButton(id: number | string, name: string,  proc?: TOnSelectedFunction): React.JSX.Element{
         return (
-            <div key={String(id)} className='flex-col gap-y-2 col-span-2'>
-                <Button
-                    id={id}
-                    title={name ? dictionary?.getWord(name) : dictionary?.language} 
-                    onSelected={proc}
-                />
-            </div>    
+            <Button
+                key={String(id)}
+                id={id}
+                title={name ? dictionary?.getWord(name) : dictionary?.language} 
+                onSelected={proc}
+                backgroundColor='red.200'
+                textColor='white'
+            />    
         );
     };
 
     return(
-        <div className="w-full bg-gray-800">
-            <div className="grid grid-cols-8 gap-2 m-2">
-                {props.elements.map((item) => CreateButton(item.id, item.name, props.onSelected))}   
-            </div>    
-        </div>
+        <Layout backgroundColor='gray.100'>
+            <Grid
+                columns={4}
+                rows={1}
+                elements={
+                    props.elements.map((item) => {
+                       return{
+                            element: CreateButton(item.id, item.name, props.onSelected)
+                       } 
+                    })  
+                }                  
+            />    
+        </Layout>
     );
 }
 
