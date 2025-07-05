@@ -8,7 +8,7 @@ const CustomBox: React.FC<TLayoutProps> = ( props ) => {
         bg: props.backgroundColor || "transparent",
     };
     return (
-        <Box {...baseProps}>
+        <Box id={props.id} {...baseProps}>
             {props.children}
         </Box>
     );

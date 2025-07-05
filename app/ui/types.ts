@@ -8,6 +8,7 @@ type TStyleProps = {
 };
 
 type TLayoutProps = TStyleProps & {
+    id ?: string;
     children ?: React.ReactNode;
 };  
 

@@ -3,7 +3,6 @@ import Grid from '../ui/grid';
 import Label from '../ui/label';
 import Input from '../ui/input';
 import { TPatternPoint } from '../models/types';
-import './styles/PointInputGroup.css';
 
 type TPatternPointChangeFunction = (id: number, field: keyof TPatternPoint, value: number) => void;
 

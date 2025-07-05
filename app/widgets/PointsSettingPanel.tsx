@@ -3,7 +3,6 @@ import Button from "../ui/button";
 import PointInputGroup from './PointInputGroup';
 import List from '../ui/list';
 import { TPatternPoint } from '../models/types';
-import './styles/PointsSettingPanel.css';
 import { TSettingsWindowProps } from './types';
 
 function PointsSettingPanel(props: TSettingsWindowProps) {

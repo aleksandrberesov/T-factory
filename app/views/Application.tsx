@@ -118,7 +118,22 @@ const ApplicationView: React.FC<TApplicationViewProps> = (props) => {
     }else if (props.controller.status.isReady){
         return (
             <Layout>
-                {AppGrid}
+                <Grid
+                columns={1}
+                rows={10}
+                elements={[ 
+                    {
+                        element: Navigation, 
+                        column: 1, row: 1,
+                        columnSpan: 1, rowSpan: 1  
+                    },
+                    {
+                        element: component,
+                        column: 1, row: 2, 
+                        columnSpan: 1, rowSpan: 9 
+                    }
+                ]}
+            />
                 {isLanguageChangeShow && (<ModalWindow content={<LaguageChangePanel ChangeLanguage={ChangeLanguage} Languages={props.controller.localizer.languages}/>}/>)}
             </Layout>
         );

@@ -21,12 +21,10 @@ const SpeedChangePanel: React.FC<TSpeedChangePanelProps> = (props) => {
         ));
     };
 
-    return (
-        <div className="speed-change-panel">    
+    return (  
             <List
                 elements={SelectedTabs()} 
             />                
-        </div>
     );
 };
 

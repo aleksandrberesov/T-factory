@@ -14,7 +14,6 @@ const TradeStatisticGroup: React.FC<TradeStatisticPanelProps> = (props) => {
     const controller = useViewController<TTradeState>(props.trader.addView);
     const statistics = useViewController<TStatistics>(props.statistics.addView);
     return (
-        <div className='w-full'>
             <Grid
                 columns={3}
                 rows={5}
@@ -70,7 +69,6 @@ const TradeStatisticGroup: React.FC<TradeStatisticPanelProps> = (props) => {
                     },
                 ]}
             />
-        </div>
     );
 }
 

@@ -21,12 +21,10 @@ const LanguageChangePanel: React.FC<TLanguageChangePanelProps> = (props) => {
         ));
     };
 
-    return (
-        <div className="language-change-panel">    
+    return (  
             <List
                 elements={SelectedTabs()} 
             />                
-        </div>
     );
 };
 

@@ -36,9 +36,7 @@ const TradingFrame: React.FC<TTradingFrameProps> = (props) => {
     const [isSpeedChangeShow, SetIsSpeedChangeShow] = useState(false);
     const chartManager: IChartController = useChart(props.market.addManager);
     const chart = useMemo(() => (
-        <ChartView
-            controller={chartManager} 
-        />
+        <Layout id={chartManager.id}></Layout>
     ), []);
     const statPanel = useMemo(() => (
         <TradeStatisticPanel
@@ -76,7 +74,6 @@ const TradingFrame: React.FC<TTradingFrameProps> = (props) => {
                 },
                 {
                     element:   
-                        <div className='bg-slate-300 w-full'>
                             <Button
                                 //icon_image={(isStatisticShow ? "/icons/down_left_arrow.svg" : "/icons/up_right_arrow.svg")}
                                 title={(isStatisticShow ? 'Hide Statistics' : 'Show Statistics')}    
@@ -84,8 +81,7 @@ const TradingFrame: React.FC<TTradingFrameProps> = (props) => {
                                 backgroundColor='grey'
                                 onClick={HideShowStatistics}
                             />
-                        </div>
-                     ,   
+                    ,   
                 },
                 {
                     element: isStatisticShow ? (statPanel) : null,
@@ -106,14 +102,6 @@ const TradingFrame: React.FC<TTradingFrameProps> = (props) => {
 
     return (
         <Layout>
-            {isSettingsShow && (<ModalWindow content={<PointsSettingPanel 
-                                    callBack={HideShowSettings}
-                                    data={props.pattern}
-                                    localizer={props.localizer}
-                                />}
-                                />)
-            }
-            {isSpeedChangeShow && (<ModalWindow content={<SpeedChangePanel ChangeSpeed={ChangeSpeed}/>}/>)}
             {grid}
         </Layout>
     );
