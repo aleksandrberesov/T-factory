@@ -1,36 +1,45 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# T-factory
+
+A Next.js-based trading/statistics web application.
+
+![App Screenshot](./public/screenshot.jpg)
+
+## Features
+
+- Multi-language support (English/Russian) via [`public/words.json`](T-factory/public/words.json)
+- Trading frame with buy/sell/close actions
+- Statistics and profile panels
+- Responsive UI with Tailwind CSS
+- AWS DynamoDB integration
+- Telegram Apps SDK integration
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Node.js (v18+ recommended)
+- npm
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Installation
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Run the following command in the project root:
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+./install.bat
 
-## Learn More
+### Environment Variables
 
-To learn more about Next.js, take a look at the following resources:
+Create a `.env` file in the project root to store sensitive configuration values. Example variables:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+NEXT_PUBLIC_AWS_REGION=region
+NEXT_PUBLIC_AWS_ACCESS_KEY_ID=your_aws_access_key
+NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY=your_aws_secret_key
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### Project Structure
 
-## Deploy on Vercel
+- `app/` - Main application source code and components
+- `public/` - Static assets and translation files
+- `_static/` - Build and cache files
+- `scripts/` - Utility and setup scripts
+- `.env` - Environment variable configuration
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Refer to each folder for more details on its contents.
